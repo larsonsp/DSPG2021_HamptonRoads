@@ -21,7 +21,7 @@ va_cov <- get_acs(geography = "state",
   mutate(pct_tot_uninsured = 100 * (estimate / summary_est)) %>% 
   select(NAME, variable, pct_tot_uninsured)
 
-#pulls total uninsured Hampton poulation and calculates percentage
+#pulls total uninsured Hampton population and calculates percentage
 hampton_tot_cov <- get_acs(geography = "county",
                            state = "VA",
                            county = county_fips,
@@ -43,8 +43,7 @@ hampton_black_cov <- get_acs(geography = "county",
   mutate(pct_b_uninsured = 100 * (estimate / summary_est)) %>%
   select(NAME, variable, pct_b_uninsured)
 
-
-# Plots Data for Comparison -----------------------------------------------
+# Plots Data -----------------------------------------------
 #plots Hampton uninsured data for black population
 hmp_black_bar <- hampton_black_cov %>% 
   mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
