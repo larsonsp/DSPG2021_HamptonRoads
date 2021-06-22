@@ -1,4 +1,5 @@
 # Installs & Loads Required Packages --------------------------------------
+install.packages("tidycensus", "tidyverse", "dplyr", "tigris", "ggplot2", "sf")
 library(tidycensus)
 library(tidyverse)
 library(dplyr)
@@ -39,12 +40,29 @@ hampton_black_cov <- get_acs(geography = "county",
                              variables = "S2701_C04_017",
                              summary_var = "S2701_C04_001",
                              geometry = TRUE) %>% 
-  mutate(pct_b_uninsured = 100 * (estimate / summary_est)) %>% 
+  mutate(pct_b_uninsured = 100 * (estimate / summary_est)) %>%
   select(NAME, variable, pct_b_uninsured)
 
+hmp_black_bar <- ggplot(hampton_black_cov, aes(x = NAME, y = pct_b_uninsured)) + geom_col()
+
+hmp_black_bar <- hampton_black_cov %>% 
+  mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+  mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+  ggplot(aes(x = NAME, y = pct_b_uninsured)) + geom_col()
+
+hmp_black_bar <- hmp_black_bar +
+  theme_minimal() +
+  labs(title = "Percentage of Uninsured Black Population",
+       y = "Percent (%)",
+       x = "Counties of Hampton Roads",
+       caption = "Source: ACS 5 Year Estimate")
+
+hmp_black_bar
+
+
+
+
 ggplot(data = hampton_black_cov) + geom_bar(mapping = aes(y = pct_b_uninsured))
-
-
 
 
 uninsured <- function(data_frame) {
