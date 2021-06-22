@@ -43,35 +43,82 @@ hampton_black_cov <- get_acs(geography = "county",
   mutate(pct_b_uninsured = 100 * (estimate / summary_est)) %>%
   select(NAME, variable, pct_b_uninsured)
 
-hmp_black_bar <- ggplot(hampton_black_cov, aes(x = NAME, y = pct_b_uninsured)) + geom_col()
 
+# Plots Data for Comparison -----------------------------------------------
+#plots Hampton uninsured data for black population
 hmp_black_bar <- hampton_black_cov %>% 
   mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
   mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-  ggplot(aes(x = NAME, y = pct_b_uninsured)) + geom_col()
-
-hmp_black_bar <- hmp_black_bar +
+  ggplot(aes(x = NAME, y = pct_b_uninsured)) + geom_col() +
   theme_minimal() +
-  labs(title = "Percentage of Uninsured Black Population",
+  labs(title = "Hampton Roads: Black Uninsured Population",
        y = "Percent (%)",
        x = "Counties of Hampton Roads",
        caption = "Source: ACS 5 Year Estimate")
 
 hmp_black_bar
 
+#plots Hampton uninsured data for total population
+hmp_tot_bar <- hampton_tot_cov %>% 
+  mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+  mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+  ggplot(aes(x = NAME, y = hampt_pct_tot)) + geom_col() +
+  theme_minimal() +
+  labs(title = "Hampton Roads: Total Uninsured Population",
+       y = "Percent (%)",
+       x = "Counties of Hampton Roads",
+       caption = "Source: ACS 5 Year Estimate")
 
+hmp_tot_bar
 
+#plots Virginia uninsured data for total population
+va_tot_bar <- va_cov %>% 
+  ggplot(aes(x = NAME, y = pct_tot_uninsured)) + geom_col() +
+  theme_minimal() +
+  labs(title = "Virginia: Total Uninsured Population",
+       y = "Percent (%)",
+       x = "Virginia",
+       caption = "Source: ACS 5 Year Estimate")
 
-ggplot(data = hampton_black_cov) + geom_bar(mapping = aes(y = pct_b_uninsured))
+va_tot_bar
 
+# Plots Comparison Stacked Barchart ---------------------------------------
+#resets column labels to allow for rbind
+hampton_tot_cov <- get_acs(geography = "county",
+                           state = "VA",
+                           county = county_fips,
+                           year = 2019,
+                           variables = "S2701_C04_001",
+                           summary_var = "S2701_C01_001",
+                           geometry = TRUE) %>% 
+  mutate(estimate = 100 * (estimate / summary_est)) %>% 
+  select(NAME, variable, estimate)
 
-uninsured <- function(data_frame) {
-  get_acs(geography = "county",
-          state = "VA",
-          county = county_fips,
-          variables = varcode,
-          year = 2019,
-          geometry = TRUE) %>%
-    ggplot() + geom_sf(aes(fill = estimate))
-  
-}
+hampton_black_cov <- get_acs(geography = "county",
+                             state = "VA",
+                             county = county_fips,
+                             year = 2019,
+                             variables = "S2701_C04_017",
+                             summary_var = "S2701_C04_001",
+                             geometry = TRUE) %>% 
+  mutate(estimate = 100 * (estimate / summary_est)) %>%
+  select(NAME, variable, estimate)
+
+#rbinds data frames
+b_tothamp_totva <- rbind(hampton_black_cov, hampton_tot_cov)
+
+#creates stacked barchart to compare total uninsured population to black uninsured population
+stack_bar <- b_tothamp_totva %>% 
+  mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+  mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+  ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+    geom_bar(position = "stack", stat = "identity") +
+    theme_minimal() +
+     labs(title = "Hampton Roads Uninsured Population Comparison",
+       y = "Percent (%)",
+       x = "Counties of Hampton Roads",
+       caption = "Source: ACS 5 Year Estimate") +
+       theme(axis.text.x = element_text(angle = 40))
+
+stack_bar
+
