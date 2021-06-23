@@ -38,7 +38,7 @@ hampton_black_cov <- get_acs(geography = "county",
                              county = county_fips,
                              year = 2019,
                              variables = "S2701_C04_017",
-                             summary_var = "S2701_C04_001",
+                             summary_var = "S2701_C01_017",
                              geometry = TRUE) %>% 
   mutate(pct_b_uninsured = 100 * (estimate / summary_est)) %>%
   select(NAME, variable, pct_b_uninsured)
@@ -98,7 +98,7 @@ hampton_black_cov <- get_acs(geography = "county",
                              county = county_fips,
                              year = 2019,
                              variables = "S2701_C04_017",
-                             summary_var = "S2701_C04_001",
+                             summary_var = "S2701_C01_017",
                              geometry = TRUE) %>% 
   mutate(estimate = 100 * (estimate / summary_est)) %>%
   select(NAME, variable, estimate)
@@ -111,12 +111,12 @@ stack_bar <- b_tothamp_totva %>%
   mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
   mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
   ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-    geom_bar(position = "stack", stat = "identity") +
+    geom_bar(position = "dodge", stat = "identity") +
     theme_minimal() +
      labs(title = "Hampton Roads Uninsured Population Comparison",
        y = "Percent (%)",
        x = "Counties of Hampton Roads",
-       caption = "Source: ACS 5 Year Estimate") +
+       caption = "Source: ACS 5 Year Estimate Table S2701") +
        theme(axis.text.x = element_text(angle = 40))
 
 stack_bar
