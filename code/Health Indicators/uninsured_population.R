@@ -111,7 +111,7 @@ stack_bar <- b_tothamp_totva %>%
   mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
   mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
   ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-    geom_bar(position = "dodge", stat = "identity") +
+    geom_bar(position = "stack", stat = "identity") +
     theme_minimal() +
      labs(title = "Hampton Roads Uninsured Population Comparison",
        y = "Percent (%)",
@@ -119,5 +119,5 @@ stack_bar <- b_tothamp_totva %>%
        caption = "Source: ACS 5 Year Estimate Table S2701") +
        theme(axis.text.x = element_text(angle = 40))
 
-stack_bar
+stack_bar + scale_fill_manual(values = c("cornsilk4", "navy"))
 
