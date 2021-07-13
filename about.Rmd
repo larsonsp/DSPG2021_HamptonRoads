@@ -1,5 +1,5 @@
 ---
-title: <font size="6"> About Project</font> 
+title: <font size="6"> About Us </font> 
 author: 
 output:
   html_document:
@@ -19,30 +19,28 @@ knitr::opts_chunk$set(warning=FALSE)
 ```
 
 
-Young people of Singapore have these two questions before they choose the university to study:
+Systematic issues are societal privileges given to certain groups of inidividuals. They have impeded minorities from being able to progress to share the same level of stature, accomplishment, and acceptance fellow peers with their similar backgrounds have achieved. The Black and African American (AA) community have been no exception to this injustice, resulting in several disadvantages across all facets of life.  This includes, but is certainly not limited to, various sectors of society like: public health/healthcare, employment, education, government, and criminal justice. 
 
-* Which university has better graduate employment rate? 
-* Which university graduate earns more?
+More particularly, places like Hampton Roads, an area that comprises of sixteen total cities and counties with a much higher Black/AA percentage, have a per capita income and employment rate below the national and metropolitan statistical area (MSA) average. Additionally, the graduation rate is lower than state average.  As a result, our team wants to investigate the nature of these disadvantages through  indicators for Hampton Roads, Virginia, from 2010 to 2020 according to four key domains: Education, Economic Conditions, Housing, and Healthcare. 
 
-Our motivation is that the dashboard will help young people of **Singapore** and those seeking study opportunities in Singapore to analyze which university & degree has better outcome with regards to **employment and income**. 
+We will be analyzing questions like:
+* How do the black unemployment rates in Hampton compare to the Hampton and Virginia mean? 
+* How do the black poverty rates in Hampton contrast with Hampton and Virginia rates?
 
-This project is a course-work in "Advanced R" created by Zimin Luo and Lasha Gochiashvili. Instructors - Piotr Wójcik PhD and Piotr Ćwiakowski Mgr. 
+Our motivation is that the dashboard will help us see **potential** ways sysematic issues are (or are not) affecting the Black/AA community in **Hampton Roads** and what/how we can overcome those challenges. This project is under the much broader program of Virginia Tech Data Science for Public Good program, at the very gracious request of stakeholder  Mallory Tuttle. Additionally, we would like to give our immense credit and appreciation to the creators of R-Shiny-App-Graduate-Employment-Singapore, as their dashboard and code provided a great template and blueprint for forming our own Hampon-Roads-Shiny-App.
 
 <img src="www/wnelogo.png" width="500"/>
 
-## The Graduate Employment Survey (GES)
+## The American Community Survey (ACS)
+
+We retrieved majority of our data from the ACS five year estimates. Additional sources we incorporated are: kids count data center.
 
 The **main components** of the analysis are:
 
-* Employment Rate
-* Monthly Gross Income
-
-The Graduate Employment Survey (GES) is jointly conducted by NTU, NUS, SMU, SIT (from 2014), SUTD (from 2015) and SUSS (from 2018) annually to survey the employment conditions of graduates about **six months** after their final examinations. 
-
-Graduates from NTU, NUS, SMU and SUSS are surveyed in Nov. Due to their different academic calendars, graduates from SUTD and SIT are surveyed in Feb and Mar.
-
-The Ministry of Education of Singapore (MOE) publishes the results of key employment indicators of the survey and the **dataset** can be found here: [data.gov.sg](https://data.gov.sg/dataset/graduate-employment-survey-ntu-nus-sit-smu-suss-sutd)
-
+* Education
+* Employment
+* Government
+* Criminal Justice
 
 ## The Code of Project 
 
@@ -50,4 +48,4 @@ The code is written in R using Shiny. The documentation of web application and
 the website that you visited just now is published with R Markdown for better flexibility. 
 
 **Full code** is freely available at: 
-[Github](https://github.com/LashaGoch/R-Shiny-App-Graduate-Employment-Singapore)
+[Github](https://github.com/aviseth/DSPG2021_HamptonRoads)
