@@ -1,0 +1,54 @@
+---
+title: <font size="6"> About Us </font> 
+author: 
+output:
+  html_document:
+    theme: flatly
+    highlight: pygments
+    number_sections: false
+    self_contained: true
+    lib_dir: libs
+    fig_caption: true
+    toc: false
+    toc_float: false
+
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE)
+```
+
+
+Systematic issues are societal privileges given to certain groups of individuals. They have impeded minorities from being able to progress to share the same level of stature, accomplishment, and acceptance fellow peers with their similar backgrounds have achieved. The Black and African American (AA) community have been no exception to this injustice, resulting in several disadvantages across all facets of life.  This includes, but is certainly not limited to, various sectors of society like: public health/healthcare, employment, education, government, and criminal justice. 
+
+More particularly, places like Hampton Roads, an area that comprises of sixteen total cities and counties with a much higher Black/AA percentage, have a per capita income and employment rate below the national and metropolitan statistical area (MSA) average. Additionally, the graduation rate is lower than state average.  As a result, our team wants to investigate the nature of these disadvantages through  indicators for Hampton Roads, Virginia, from 2010 to 2020 according to four key domains: Education, Economic Conditions, Housing, and Healthcare. 
+
+We will be analyzing questions like:
+* How do the black unemployment rates in Hampton compare to the Hampton and Virginia mean? 
+* How do the black poverty rates in Hampton contrast with Hampton and Virginia rates?
+
+Our motivation is that the dashboard will help us see **potential** ways systematic issues are (or are not) affecting the Black/AA community in **Hampton Roads** and what/how we can overcome those challenges. This project is under the much broader program of Virginia Tech Data Science for Public Good program, at the very gracious request of stakeholder  Mallory Tuttle. Additionally, we would like to give our immense credit and appreciation to the creators of R-Shiny-App-Graduate-Employment-Singapore, as their dashboard and code provided a great template and blueprint for forming our own Hampon-Roads-Shiny-App.
+
+<img src="data/wnelogo.png" width="500"/>
+
+## The American Community Survey (ACS)
+
+We retrieved majority of our data from the ACS five year estimates. Additional sources we incorporated are: 
+
+* Kids Count Data Center
+* Data USA
+
+The **main components** of the analysis are:
+
+* Education
+* Employment
+* Government
+* Criminal Justice
+
+## The Code of Project 
+
+The code is written in R using Shiny. The documentation of web application and
+the website that you visited just now is published with R Markdown for better flexibility. 
+
+**Full code** is freely available at: 
+[Github](https://github.com/aviseth/DSPG2021_HamptonRoads)
