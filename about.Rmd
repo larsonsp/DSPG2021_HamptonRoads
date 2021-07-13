@@ -35,7 +35,8 @@ Our motivation is that the dashboard will help us see **potential** ways systema
 
 We retrieved majority of our data from the ACS five year estimates. Additional sources we incorporated are: 
 
-kids count data center.
+* Kids Count Data Center
+* Data USA
 
 The **main components** of the analysis are:
 
