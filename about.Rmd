@@ -29,7 +29,7 @@ We will be analyzing questions like:
 
 Our motivation is that the dashboard will help us see **potential** ways systematic issues are (or are not) affecting the Black/AA community in **Hampton Roads** and what/how we can overcome those challenges. This project is under the much broader program of Virginia Tech Data Science for Public Good program, at the very gracious request of stakeholder  Mallory Tuttle. Additionally, we would like to give our immense credit and appreciation to the creators of R-Shiny-App-Graduate-Employment-Singapore, as their dashboard and code provided a great template and blueprint for forming our own Hampon-Roads-Shiny-App.
 
-<img src="www/wnelogo.png" width="500"/>
+<img src="data/wnelogo.png" width="500"/>
 
 ## The American Community Survey (ACS)
 
