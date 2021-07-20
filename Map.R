@@ -177,7 +177,15 @@ va_tot_education_bar <- va_total2  %>%
 
 #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
 
-va_tot_education_bar
+write_csv(va_total2, file = "generalEducationalAttainment(2019).csv")
+va_total2CSV <- read.csv("generalEducationalAttainment(2019).csv")
+
+
+
+
+
+
+
 
 
 
