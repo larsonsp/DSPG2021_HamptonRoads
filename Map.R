@@ -164,8 +164,8 @@ va_total2 = county_stats("S1501_C01_015", "S1501_C01_006", 2019)
 
 #this extracts one value for general virginia education; putting it as a function in case I want to do it over years
 general_va_cutoff_education <- va_stats("S1501_C01_015", "S1501_C01_006", 2019)
-write_csv(va_total2, file = "C:\Users\victo\OneDrive\Documents\GitPractice\DSPG2021_HamptonRoads\shinyapp\data\TableS1501FiveYearEstimates\generalEducationalAttainment(2019).csv")
-va_total2CSV <- read.csv("generalEducationalAttainment(2019).csv")
+write_csv(va_total2, file = "C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment(2019).csv")
+va_total2CSV <- read.csv("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment(2019).csv")
 
 #plots general Black data for total population
 va_tot_education_bar <- va_total2CSV  %>% 
@@ -180,7 +180,7 @@ va_tot_education_bar <- va_total2CSV  %>%
 #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
 
 
-
+va_tot_education_bar
 
 
 
