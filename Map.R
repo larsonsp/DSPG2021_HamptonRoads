@@ -250,11 +250,10 @@ general_HS <- county_stats("S1501_C01_009", "S1501_C01_006", 2019)
 general_HS <- general_HS  %>% 
   mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
   mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-  ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() + geom_hline(yintercept=general_va_cutoff_HS_education$pct_tot, linetype="dashed", color = "black") 
-  + geom_hline(yintercept=mean(general_HS$pct_tot), linetype="dashed", color = "white") +
+  ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
   theme_minimal() + labs(title = "Hampton Roads: Percentage of HS Graduates",
                          y = "Percent (%)",
-                         x = "Counties of Hampton Roads",
+                         x = "Hampton Roads",
                          caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40))  
 
 #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
