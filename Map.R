@@ -164,9 +164,11 @@ va_total2 = county_stats("S1501_C01_015", "S1501_C01_006", 2019)
 
 #this extracts one value for general virginia education; putting it as a function in case I want to do it over years
 general_va_cutoff_education <- va_stats("S1501_C01_015", "S1501_C01_006", 2019)
+write_csv(va_total2, file = "C:\Users\victo\OneDrive\Documents\GitPractice\DSPG2021_HamptonRoads\shinyapp\data\TableS1501FiveYearEstimates\generalEducationalAttainment(2019).csv")
+va_total2CSV <- read.csv("generalEducationalAttainment(2019).csv")
 
 #plots general Black data for total population
-va_tot_education_bar <- va_total2  %>% 
+va_tot_education_bar <- va_total2CSV  %>% 
   mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
   mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
   ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
@@ -177,8 +179,6 @@ va_tot_education_bar <- va_total2  %>%
 
 #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
 
-write_csv(va_total2, file = "generalEducationalAttainment(2019).csv")
-va_total2CSV <- read.csv("generalEducationalAttainment(2019).csv")
 
 
 
