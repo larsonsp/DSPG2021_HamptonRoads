@@ -160,12 +160,34 @@ va_tot_employment_bar
 
 
 #plots general data for education
-va_total2 = county_stats("S1501_C01_015", "S1501_C01_006", 2019)
+years <- c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019) 
+for (i in 1:length(years)) { 
+  #plots general data for education
+  va_total2 = county_stats("S1501_C01_015", "S1501_C01_006", years[i])
+  write_csv(va_total2, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
+  va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
+  
+  #plots general Black data for total population
+  va_tot_education_bar <- va_total2CSV  %>% 
+    mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+    mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+    ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+    theme_minimal() + labs(title = "Virginia: Population 25 years and older with Bachelor's degree or higher",
+                           y = "Percent (%)",
+                           x = "Counties of Hampton Roads",
+                           caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40))
+  
+  #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
+  
+  va_tot_education_bar
+}
+  
 
 #this extracts one value for general virginia education; putting it as a function in case I want to do it over years
-general_va_cutoff_education <- va_stats("S1501_C01_015", "S1501_C01_006", 2019)
-write_csv(va_total2, file = "C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment(2019).csv")
-va_total2CSV <- read.csv("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment(2019).csv")
+#general_va_cutoff_education <- va_stats("S1501_C01_015", "S1501_C01_006", 2019)
+
+write_csv(va_total2, file = "C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment" + toString(2019) + ".csv")
+va_total2CSV <- read.csv("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment" + toString(2019) + ".csv")
 
 #plots general Black data for total population
 va_tot_education_bar <- va_total2CSV  %>% 

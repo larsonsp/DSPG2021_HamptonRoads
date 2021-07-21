@@ -616,12 +616,14 @@ server <- function(input, output, session) {
     var_genEducationalAttainment <- reactive({
         input$genEdAttainmentYearDrop
     })
+    
     var_blackEducationalAttainment <- reactive({
         input$blackEdAttainmentYearDrop
     })
+    
     output$genEdAttainmentPlots <- renderPlot({
         if(var_genEducationalAttainment() == "2019") {
-            generalEducationalAttainement2019 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment(2019).csv")
+            generalEducationalAttainement2019 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2019.csv")
             va_tot_education_bar <- generalEducationalAttainement2019  %>% 
                 mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
                 mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
@@ -633,25 +635,152 @@ server <- function(input, output, session) {
             
             #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
             va_tot_education_bar
-            
-            
-    }})
-    
-    
-    
-    
-    
-    
-    
-    
-    
-  
-    
+        }
+      
+      else if(var_genEducationalAttainment() == "2018") {
+        generalEducationalAttainement2019 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2018.csv")
+        va_tot_education_bar <- generalEducationalAttainement2019  %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+          theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+                                 y = "Percent (%)",
+                                 x = "Counties of Hampton Roads",
+                                 caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40))
+        
+        #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
+        va_tot_education_bar
+      }
+      
+      else if(var_genEducationalAttainment() == "2017") {
+        generalEducationalAttainement2019 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2017.csv")
+        va_tot_education_bar <- generalEducationalAttainement2019  %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+          theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+                                 y = "Percent (%)",
+                                 x = "Counties of Hampton Roads",
+                                 caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40))
+        
+        #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
+        va_tot_education_bar
+      }
+      
+      else if(var_genEducationalAttainment() == "2016") {
+        generalEducationalAttainement2019 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2016.csv")
+        va_tot_education_bar <- generalEducationalAttainement2019  %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+          theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+                                 y = "Percent (%)",
+                                 x = "Counties of Hampton Roads",
+                                 caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40))
+        
+        #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
+        va_tot_education_bar
+      }
+      
+      else if(var_genEducationalAttainment() == "2015") {
+        generalEducationalAttainement2019 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2015.csv")
+        va_tot_education_bar <- generalEducationalAttainement2019  %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+          theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+                                 y = "Percent (%)",
+                                 x = "Counties of Hampton Roads",
+                                 caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40))
+        
+        #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
+        va_tot_education_bar
+      }
+      
+      else if(var_genEducationalAttainment() == "2014") {
+        generalEducationalAttainement2019 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2014.csv")
+        va_tot_education_bar <- generalEducationalAttainement2019  %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+          theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+                                 y = "Percent (%)",
+                                 x = "Counties of Hampton Roads",
+                                 caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40))
+        
+        #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
+        va_tot_education_bar
+      }
+      
+      else if(var_genEducationalAttainment() == "2013") {
+        generalEducationalAttainement2019 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2013.csv")
+        va_tot_education_bar <- generalEducationalAttainement2019  %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+          theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+                                 y = "Percent (%)",
+                                 x = "Counties of Hampton Roads",
+                                 caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40))
+        
+        #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
+        va_tot_education_bar
+      }
+      
+      else if(var_genEducationalAttainment() == "2012") {
+        generalEducationalAttainement2019 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2012.csv")
+        va_tot_education_bar <- generalEducationalAttainement2019  %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+          theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+                                 y = "Percent (%)",
+                                 x = "Counties of Hampton Roads",
+                                 caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40))
+        
+        #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
+        va_tot_education_bar
+      }
+      
+      else if(var_genEducationalAttainment() == "2011") {
+        generalEducationalAttainement2019 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2011.csv")
+        va_tot_education_bar <- generalEducationalAttainement2019  %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+          theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+                                 y = "Percent (%)",
+                                 x = "Counties of Hampton Roads",
+                                 caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40))
+        
+        #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
+        va_tot_education_bar
+      }
+      
+      
+      else if(var_genEducationalAttainment() == "2010") {
+        generalEducationalAttainement2019 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2010.csv")
+        va_tot_education_bar <- generalEducationalAttainement2019  %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+          theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+                                 y = "Percent (%)",
+                                 x = "Counties of Hampton Roads",
+                                 caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40))
+        
+        #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
+        va_tot_education_bar
+      }
+      
+      
+    })
     
     #Median Income plots: Working on it --------------------------------
     var_medianIncome <- reactive({
       input$MedianIncomeYearDrop
     })
+    
     output$MedianIncomePlots <- renderPlot({
       if(var_medianIncome() == "2019") {
         #virginia black and total data
@@ -663,8 +792,7 @@ server <- function(input, output, session) {
         #Hampton Roads black and Total Data
         hamp_2019 <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2019.csv")
         hamp_income2 <- hamp_2019[,3:5]
-        hamp_income3 <- hamp_income2 %>%
-          group_by(NAME) %>%
+        hamp_income3 <- hamp_income2 %>% group_by(NAME) %>%
           slice(c(81,83))
         variable <- sample(c("S1903_C03_001","S1903_C03_003"),32, replace = TRUE)
         hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
@@ -699,7 +827,6 @@ server <- function(input, output, session) {
         income_plot
       }
     })
-    
     
     
     # socio plots: done -----------------------------------------------------
