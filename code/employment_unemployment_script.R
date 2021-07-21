@@ -9,35 +9,17 @@ library(sf)
 library(plotly)
 
 # Retrieves ACS Tables ----------------------------------------------------
+
 #identifies county fips
 county_fips <- c(550, 620, 650, 700, 710, 735, 740, 800, 810,
                  830, 073, 093, 095, 115, 175, 199)
-
-#pulls Virginia total population unemployment rate
-va_unemp_rate <- get_acs(geography = "state",
-                         state = "VA",
-                         year = 2019,
-                         variables = c(Virginia_General_Unemployment_Rate = "S2301_C04_001"))
-
-va_black_unemp <- get_acs(geography = "state",
-                          state = "VA",
-                          year = 2019,
-                          variables = c(Virginia_Black_Unemployment_Rate = "S2301_C04_013"))
-
-
-#pulls Hampton Roads total population unemployment rate
-hampton_unemp_rate <- get_acs(geography = "county",
-                              state = "VA",
-                              county = county_fips,
-                              year = 2019,
-                              variables = c("Total Population"= "S2301_C04_001"),
-                              geometry = TRUE)
+##hampton sum 
 hamp_sum_unemp <- get_acs(geography = "county",
-                  state = "VA",
-                  county = county_fips,
-                  year = 2019,
-                  variables = c(Hampton_Roads_General_Unemployment_Rate = "S2301_C04_001"),
-                  geometry = TRUE) %>% 
+                          state = "VA",
+                          county = county_fips,
+                          year = 2019,
+                          variables = c(Hampton_Roads_General_Unemployment_Rate = "S2301_C04_001"),
+                          geometry = TRUE) %>% 
   mutate(estimate = (sum(estimate)) / (16)) %>%
   filter(NAME == "Gloucester County, Virginia") %>% 
   mutate(NAME = "Hampton Roads")
@@ -54,43 +36,289 @@ hamp_sum_black_unemp <- get_acs(geography = "county",
   mutate(NAME = "Hampton Roads")
 
 sums <- data.frame(va_unemp_rate, va_black_unemp, hamp_sum_unemp, hamp_sum_black_unemp)
-  
-#pulls Hampton Roads black population unemployment rate
-hampton_b_unemp_rate <- get_acs(geography = "county",
+
+
+# pulls Virginia total population unemployment rate -----------------------
+#2019
+va_unemp_rate <- get_acs(geography = "state",
+                         state = "VA",
+                         year = 2019,
+                         survey = "acs5",
+                         variables = c("Virginia Unemployment Rate" = "S2301_C04_001"))
+
+#2018
+va_unemp_rate <- get_acs(geography = "state",
+                         state = "VA",
+                         year = 2018,
+                         survey = "acs5",
+                         variables = c("Virginia Unemployment Rate" = "S2301_C04_001"))
+
+#2017
+va_unemp_rate <- get_acs(geography = "state",
+                         state = "VA",
+                         year = 2017,
+                         survey = "acs5",
+                         variables = c("Virginia Unemployment Rate" = "S2301_C04_001"))
+
+#2016
+va_unemp_rate <- get_acs(geography = "state",
+                         state = "VA",
+                         year = 2016,
+                         survey = "acs5",
+                         variables = c("Virginia Unemployment Rate" = "S2301_C04_001"))
+
+#2015
+va_unemp_rate <- get_acs(geography = "state",
+                         state = "VA",
+                         year = 2015,
+                         survey = "acs5",
+                         variables = c("Virginia Unemployment Rate" = "S2301_C04_001"))
+
+# pulls Hampton Counties total population unemployment rate ---------------
+
+#2019
+h_unemp_19 <- get_acs(geography = "county",
+                              state = "VA",
+                              county = county_fips,
+                              year = 2019,
+                              survey = "acs5",
+                              variables = c("Total Population"= "S2301_C04_001"),
+                              geometry = TRUE)
+
+#2018
+h_unemp_18 <- get_acs(geography = "county",
+                              state = "VA",
+                              county = county_fips,
+                              year = 2018,
+                              survey = "acs5",
+                              variables = c("Total Population"= "S2301_C04_001"),
+                              geometry = TRUE)
+
+#2017
+h_unemp_17 <- get_acs(geography = "county",
+                              state = "VA",
+                              county = county_fips,
+                              year = 2017,
+                              survey = "acs5",
+                              variables = c("Total Population"= "S2301_C04_001"),
+                              geometry = TRUE)
+
+#2016
+h_unemp_16 <- get_acs(geography = "county",
+                              state = "VA",
+                              county = county_fips,
+                              year = 2016,
+                              survey = "acs5",
+                              variables = c("Total Population"= "S2301_C04_001"),
+                              geometry = TRUE)
+
+#2015
+h_unemp_15 <- get_acs(geography = "county",
+                              state = "VA",
+                              county = county_fips,
+                              year = 2015,
+                              survey = "acs5",
+                              variables = c("Total Population"= "S2301_C04_001"),
+                              geometry = TRUE)
+#2014
+h_unemp_14 <- get_acs(geography = "county",
+                      state = "VA",
+                      county = county_fips,
+                      year = 2014,
+                      survey = "acs5",
+                      variables = c("Total Population"= "S2301_C04_001"),
+                      geometry = TRUE)
+
+#2013
+h_unemp_13 <- get_acs(geography = "county",
+                      state = "VA",
+                      county = county_fips,
+                      year = 2013,
+                      survey = "acs5",
+                      variables = c("Total Population"= "S2301_C04_001"),
+                      geometry = TRUE)
+
+#2012
+h_unemp_12 <- get_acs(geography = "county",
+                      state = "VA",
+                      county = county_fips,
+                      year = 2012,
+                      survey = "acs5",
+                      variables = c("Total Population"= "S2301_C04_001"),
+                      geometry = TRUE)
+#2011
+h_unemp_11 <- get_acs(geography = "county",
+                      state = "VA",
+                      county = county_fips,
+                      year = 2011,
+                      survey = "acs5",
+                      variables = c("Total Population"= "S2301_C04_001"),
+                      geometry = TRUE)
+
+#2010
+h_unemp_10 <- get_acs(geography = "county",
+                      state = "VA",
+                      county = county_fips,
+                      year = 2010,
+                      survey = "acs5",
+                      variables = c("Total Population"= "S2301_C04_001"),
+                      geometry = TRUE)
+
+# pulls Hampton Counties black population unemployment rate ---------------
+
+#2019
+b_unemp_19 <- get_acs(geography = "county",
                                 state = "VA",
                                 county = county_fips,
                                 year = 2019,
+                                survey = "acs5",
                                 variables = c("Black Population" = "S2301_C04_013"),
                                 geometry = TRUE)
 
+#2018
+b_unemp_18 <- get_acs(geography = "county",
+                                state = "VA",
+                                county = county_fips,
+                                year = 2018,
+                                survey = "acs5",
+                                variables = c("Black Population" = "S2301_C04_013"),
+                                geometry = TRUE)
+
+#2017
+b_unemp_17 <- get_acs(geography = "county",
+                                state = "VA",
+                                county = county_fips,
+                                year = 2017,
+                                survey = "acs5",
+                                variables = c("Black Population" = "S2301_C04_013"),
+                                geometry = TRUE)
+
+#2016
+b_unemp_16 <- get_acs(geography = "county",
+                                state = "VA",
+                                county = county_fips,
+                                year = 2016,
+                                survey = "acs5",
+                                variables = c("Black Population" = "S2301_C04_013"),
+                                geometry = TRUE)
+
+#2015
+b_unemp_15 <- get_acs(geography = "county",
+                                state = "VA",
+                                county = county_fips,
+                                year = 2015,
+                                survey = "acs5",
+                                variables = c("Black Population" = "S2301_C04_013"),
+                                geometry = TRUE)
+
+#2014
+b_unemp_14 <- get_acs(geography = "county",
+                                state = "VA",
+                                county = county_fips,
+                                year = 2014,
+                                survey = "acs5",
+                                variables = c("Black Population" = "S2301_C04_011"),
+                                geometry = TRUE)
+
+#2013
+b_unemp_13 <- get_acs(geography = "county",
+                      state = "VA",
+                      county = county_fips,
+                      year = 2013,
+                      survey = "acs5",
+                      variables = c("Black Population" = "S2301_C04_011"),
+                      geometry = TRUE)
+
+#2012
+b_unemp_12 <- get_acs(geography = "county",
+                      state = "VA",
+                      county = county_fips,
+                      year = 2012,
+                      survey = "acs5",
+                      variables = c("Black Population" = "S2301_C04_011"),
+                      geometry = TRUE)
+
+#2011
+b_unemp_11 <- get_acs(geography = "county",
+                      state = "VA",
+                      county = county_fips,
+                      year = 2011,
+                      survey = "acs5",
+                      variables = c("Black Population" = "S2301_C04_011"),
+                      geometry = TRUE)
+
+#2010
+b_unemp_10 <- get_acs(geography = "county",
+                      state = "VA",
+                      county = county_fips,
+                      year = 2010,
+                      survey = "acs5",
+                      variables = c("Black Population" = "S2301_C04_011"),
+                      geometry = TRUE)
+
 # Plots Proportional Black Unemployment & Population Unemployment ---------
 
-#binds rows for graph
-compare_unemp <- rbind(hampton_unemp_rate, hampton_b_unemp_rate)
+
+# combines black and gen population by row --------------------------------
+
+#2019
+unemp_19 <- rbind(b_unemp_19, h_unemp_19)                    
+write_csv(unemp_19, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2031/unemployment2019.csv")
+
+va_total2 = county_stats("S1501_C01_015", "S1501_C01_006", years[i])
+write_csv(va_total2, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment", toString((years[i])), ".csv", sep = ""))
+va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment", toString((years[i])), ".csv", sep = ""))
+
+#2018
+unemp_18 <- rbind(b_unemp_18, h_unemp_18)
+
+#2017
+unemp_17 <- rbind(b_unemp_17, h_unemp_17)
+
+#2016
+unemp_16 <- rbind(b_unemp_16, h_unemp_16)
+
+#2015
+unemp_15 <- rbind(b_unemp_15, h_unemp_15)
+
+#2014
+unemp_14 <- rbind(b_unemp_14, h_unemp_14)
+
+#2013
+unemp_13 <- rbind(b_unemp_13, h_unemp_13)
+
+#2012
+unemp_12 <- rbind(b_unemp_12, h_unemp_12)
+
+#2011
+unemp_11 <- rbind(b_unemp_11, h_unemp_11)
+
+#2010
+unemp_10 <- rbind(b_unemp_10, h_unemp_10)
+
 
 #graphs side by side bar chart
-#"#D55E00","#0072B2" 
-sums_stack <- sums %>% ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-  geom_bar(position = "dodge", stat = "identity") +
-  theme_minimal() +
-  labs(title = "Unemployment Rate",
-       y = "Unemployment Rate (%)",
-       x = "Geography",
-       caption = "Source: ACS 5 Year Estimate Table S2301")
-
-sums_stack
-                                
+# #"#D55E00","#0072B2" 
+# sums_stack <- sums %>% ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+#   geom_bar(position = "dodge", stat = "identity") +
+#   theme_minimal() +
+#   labs(title = "Unemployment Rate",
+#        y = "Unemployment Rate (%)",
+#        x = "Geography",
+#        caption = "Source: ACS 5 Year Estimate Table S2301")
+# 
+# sums_stack
+            
+unemp_19 <- rbind(b_unemp_19, h_unemp_19)                    
   
-stack_unemp <- compare_unemp %>% 
+stack_unemp_19 <- unemp_19 %>% 
   mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
   mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
   arrange(desc(NAME)) %>% 
   ggplot(aes(fill = variable, y = estimate, x = NAME)) +
   geom_bar(position = "dodge", stat = "identity") +
-  geom_hline(yintercept = va_unemp_rate$estimate, linetype="dashed", color = "red") +
-  geom_hline(yintercept = hamp_sum_unemp$estimate, linetype = "dashed", color = "black") +
-  geom_text(aes(label = paste(round(estimate, digits = 2), "%")), vjust = -0.2, size = 3, colour = "black",
-            position = position_dodge(0.9))+
+  geom_hline(yintercept = va_unemp_rate$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
+  geom_hline(yintercept = hamp_sum_unemp$estimate, linetype = "dashed", color = "black", show.legend = TRUE) +
   theme_minimal() +
   theme(legend.title = element_blank()) +
   labs(title = "",
@@ -100,7 +328,7 @@ stack_unemp <- compare_unemp %>%
   theme(axis.text.x = element_text(angle = 40)) +
   scale_fill_manual(values = c("#D55E00", "#0072B2"))
 
-stack_unemp
+plotly_19 <- ggplotly(stack_unemp_19)
 
 
 
