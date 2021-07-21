@@ -1,0 +1,207 @@
+# Installs and Loads  Required Packages-----------------------------------------------------
+install.packages("tidycensus", "tidyverse", "dplyr", "tigris", "ggplot2", "sf")
+library(tidycensus)
+library(tidyverse)
+library(dplyr)
+library(tigris)
+library(ggplot2)
+library(sf)
+library(leaflet)
+library(leaflet.extras)
+library(leaflet.providers)
+library(fontawesome)
+library(rgdal)
+
+
+#saves shapefiles for future use
+tigris_use_cache = TRUE
+
+#identifies counties by fip code
+county_fips <- c(550, 620, 650, 700, 710, 735, 740, 800, 810,
+                 830, 073, 093, 095, 115, 175, 199)
+
+
+# Pulls Virginia Table ----------------------------------------------------
+va_gen_vet_status <- get_acs(geography = "state",
+                             state = "VA",
+                             variables = c(va_vet_status = "S2101_C03_001"),
+                             summary_var = "S2101_C01_001",
+                             geometry = TRUE) %>% 
+  mutate(estimate = 100 * (estimate / summary_est))
+
+va_gen_vet_status
+
+
+gen_vet_status_plot <- get_acs(geography = "county",
+                          state = "VA",
+                          county = county_fips,
+                          variables = c(gen_vet_proportion = "S2101_C03_001"),
+                          summary_var = "S2101_C01_001",
+                          geometry = TRUE) %>% 
+  mutate(estimate = 100 * (sum(estimate) / sum(summary_est)))
+  
+
+gen_vet_status_plot
+
+black_vet_status_plot <- get_acs(geography = "county",
+                               state = "VA",
+                               county = county_fips,
+                               variables = c(black_vet_proportion = "S2101_C03_015"),
+                               summary_var = "S2101_C01_015",
+                               geometry = TRUE) %>% 
+  mutate(estimate = 100 * (sum(estimate) / sum(summary_est)))
+
+black_vet_status_plot
+
+# Pulls and maps Static Veteran Status Tables ------------------------------------
+##general veteran status static map
+gen_vet_status <- get_acs(geography = "county",
+                          state = "VA",
+                          county = county_fips,
+                          variables = c(gen_vet_proportion = "S2101_C03_001"),
+                          summary_var = "S2101_C01_001",
+                          geometry = TRUE) %>% 
+  mutate(Percent = 100 * (estimate / summary_est)) %>% 
+  mutate(NAME = c("Gloucester", "IW", "JC", "Southampton", "York", "Portsmouth", "Hampton", "Norfolk", "NN", "Ches", "Mathews", "F", "W", "Suffolk", "VB", "P")) %>% 
+  ggplot() + geom_sf(aes(fill = Percent)) +
+  geom_sf_label(aes(label = NAME), label.padding = unit(.5,"mm"), size = 2) +
+  labs(title = "",
+       x = "",
+       y = "",
+       caption = "ACS 2019 5 Year Estimates Table S2101")
+
+gen_vet_status
+
+##black veteran status static map
+black_vet_status <- get_acs(geography = "county",
+                            state = "VA",
+                            county = county_fips,
+                            variables = c(black_vet_proportion = "S2101_C03_015"),
+                            summary_var = "S2101_C01_015",
+                            geometry = TRUE) %>% 
+  mutate(Percent = 100 * (estimate / summary_est)) %>% 
+  mutate(Percent = round(Percent, 2)) %>% 
+  mutate(NAME = c("Gloucester", "IW", "JC", "Southampton", "York", "Portsmouth", "Hampton", "Norfolk", "NN", "Ches", "Mathews", "F", "W", "Suffolk", "VB", "P")) %>% 
+  ggplot() + geom_sf(aes(fill = Percent)) +
+  geom_sf_label(aes(label = NAME), label.padding = unit(.5,"mm"), size = 2) +
+  labs(title = "",
+       x = "",
+       y = "",
+       caption = "ACS 2019 5 Year Estimates Table S2101")
+
+black_vet_status
+
+# Plots Leaflet Map -------------------------------------------------------
+
+
+
+##Pulls 2019 ACS Data and Geometry
+  black_vet_status_19 <- get_acs(geography = "county",
+                              state = "VA",
+                              county = county_fips,
+                              variables = c(black_vet_proportion = "S2101_C03_015"),
+                              summary_var = "S2101_C01_015",
+                              survey = "acs5",
+                              year = 2019,
+                              geometry = TRUE) %>% 
+    mutate(Percent = 100 * (estimate / summary_est)) %>% 
+    mutate(Percent = round(Percent, 2))
+ 
+write_csv(black_vet_status_19, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/data/blackvetstatus2019.csv")
+
+vet19 <- read.csv("blackvetstatus2019.csv")
+
+vet19 <- readOGR("blackvetstatus2019.csv")
+
+##pulls 2018 ACS Data and Geometry
+  black_vet_status_18 <- get_acs(geography = "county",
+                                 state = "VA",
+                                 county = county_fips,
+                                 variables = c(black_vet_proportion = "S2101_C03_015"),
+                                 summary_var = "S2101_C01_015",
+                                 survey = "acs5",
+                                 year = 2018,
+                                 geometry = TRUE) %>% 
+    mutate(Percent = 100 * (estimate / summary_est)) %>% 
+    mutate(Percent = round(Percent, 2))
+  
+write_csv(black_vet_status_18, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/data/blackvetstatus2018.csv")
+  
+##pulls 2017 ACS Data and Geometry
+  black_vet_status_17 <- get_acs(geography = "county",
+                                 state = "VA",
+                                 county = county_fips,
+                                 variables = c(black_vet_proportion = "S2101_C03_015"),
+                                 summary_var = "S2101_C01_015",
+                                 survey = "acs5",
+                                 year = 2017,
+                                 geometry = TRUE) %>% 
+    mutate(Percent = 100 * (estimate / summary_est)) %>% 
+    mutate(Percent = round(Percent, 2))
+  
+  write_csv(black_vet_status_17, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/data/blackvetstatus2017.csv")
+  
+##pulls 2016 ACS Data and Geometry
+  black_vet_status_16 <- get_acs(geography = "county",
+                                 state = "VA",
+                                 county = county_fips,
+                                 variables = c(black_vet_proportion = "S2101_C03_015"),
+                                 summary_var = "S2101_C01_015",
+                                 survey = "acs5",
+                                 year = 2016,
+                                 geometry = TRUE) %>% 
+    mutate(Percent = 100 * (estimate / summary_est)) %>% 
+    mutate(Percent = round(Percent, 2))
+  
+  write_csv(black_vet_status_16, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/data/blackvetstatus2016.csv")
+
+##pulls 2015 ACS Data and Geometry
+  black_vet_status_15 <- get_acs(geography = "county",
+                                 state = "VA",
+                                 county = county_fips,
+                                 variables = c(black_vet_proportion = "S2101_C03_015"),
+                                 summary_var = "S2101_C01_015",
+                                 survey = "acs5",
+                                 year = 2015,
+                                 geometry = TRUE) %>% 
+    mutate(Percent = 100 * (estimate / summary_est)) %>% 
+    mutate(Percent = round(Percent, 2))
+  
+  write_csv(black_vet_status_15, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/data/blackvetstatus2015.csv")
+
+###Creates data table containing military base names/branches and lat/lng
+base_name <- c("Training Center Yorktown", "Naval Weapons Station Yorktown", "Fort Eustis", "Langley Air Force Base", "Fort Monroe", 
+               "Naval Station Norfolk", "Naval Support Activity Norfolk", "Naval Amphibious Base Little Creek", "Joint Expiditionary Base", 
+               "Naval Air Station Oceana", "Medical Center Portsmouth", "Norfolk Naval Shipyard", "Sector Hampton Roads", "Finance Center", "Naval Support Activity Northwest Annex")
+branch <- c("Coast Guard", "Navy", "Army", "Air Force", "Army", "Navy", "Norfolk", "Navy", "Navy", "Navy", "Navy", "Navy", "Coast Guard", "Coast Guard", "Navy")
+latitude <- c(37.239, 37.2136, 37.16049, 37.084616, 37.005051, 36.947398, 36.923381, 36.916897, 36.918057, 36.825638, 36.848233, 36.820086, 
+              36.835, 36.8187, 36.643075)
+longitude <- c(-76.5142, -76.4873, -76.58025, -76.360552, -76.309991, -76.31692, -76.303271, -76.190078, -76.009556, -76.033459, -76.306209, -76.300926, 
+               -76.298, -76.2753, -76.278472)
+
+military_bases <- data.frame(base_name, branch, latitude, longitude)
+
+pal <- colorNumeric(palette = "viridis", domain = vet19$Percent)
+
+#####leaflet map
+b_vet_status_leaf <- black_vet_status_17 %>% 
+  st_transform() %>% 
+  leaflet(options = leafletOptions(minZoom = 8)) %>% 
+  addProviderTiles("CartoDB.PositronNoLabels") %>% 
+  addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+              highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), label = ~paste0(NAME,  " Black Veterans: ",
+                                                                                                                   Percent, "%")) %>% 
+#  addAwesomeMarkers(data = military_bases, icon = icons, popup = ~paste0("Base: ", base_name, " Branch: ", branch)) %>% 
+  addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch)) %>% 
+  addLegend("topleft",
+          pal = pal,
+          values = ~ Percent,
+          title = "Black Veterans",
+          labFormat = labelFormat(suffix = "%"),
+          opacity = 1)
+
+
+  
+
+
+  

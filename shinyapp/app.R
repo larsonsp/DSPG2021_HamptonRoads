@@ -253,6 +253,25 @@ ui <- navbarPage(title = "Hampton Roads",
                                    )
                           ),
                                    
+                 #median Income and Poverty rates
+                 tabPanel("Economics", value = "econ",
+                          fluidRow(style = "margin: 6px;",
+                                   h1(strong("Black and General Population Unemployment Rates"), align = "center"),
+                                   p("", style = "padding-top:10px;"),
+                                   column(5,
+                                          h4(strong("Unemployment in the Black Population"))
+                                   ),
+                                   column(7, 
+                                          #sliderInput("MedianIncomeYearSlider", "", value = 2019, min =2010, max=2020),
+                                          selectInput("MedianIncomeYearDrop", "Select Year:", width = "100%", choices = c(
+                                            "2019","2018", "2017", "2016", "2015","2014",
+                                            "2013","2012", "2011", "2010")),
+                                          p(strong("Median Household Income")),
+                                          #withSpinner(plotOutput("income_plot")),
+                                          p(tags$small("Data Source: ACS 5 Year Estimate Table S2301"))
+                                   )
+                          )
+                 ),
                  
                  
                  
