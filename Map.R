@@ -167,6 +167,8 @@ for (i in 1:length(years)) {
   write_csv(va_total2, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
   va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
   
+  
+  
   #plots general Black data for total population
   va_tot_education_bar <- va_total2CSV  %>% 
     mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
@@ -180,6 +182,8 @@ for (i in 1:length(years)) {
   #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
   
   va_tot_education_bar
+  
+  
 }
   
 
@@ -198,6 +202,7 @@ va_tot_education_bar <- va_total2CSV  %>%
                          y = "Percent (%)",
                          x = "Counties of Hampton Roads",
                          caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40))
+  
 
 #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
 
