@@ -232,6 +232,28 @@ ui <- navbarPage(title = "Hampton Roads",
                           )
                  ),
                  
+                 #median Income and Poverty rates
+                 tabPanel("Sociodemographics", value = "socio",
+                          fluidRow(style = "margin: 6px;",
+                                   h1(strong("Median Household Income in Virginia an Hampton Roads for the Total Population and Black Population"), align = "center"),
+                                   p("", style = "padding-top:10px;"),
+                                   column(5,
+                                          h4(strong("Why Median Income?"))
+                                   ),
+                                   column(7, 
+                                          sliderInput("MedianIncomeYearSlider", "", value = 2019, min =2010, max=2020),
+                                          p(strong("Median Household Income")),
+                                          #withSpinner(plotOutput("income_plot")),
+                                          p(tags$small("Data Source: ACS 5 Year Estimate Table S1903"))
+                                          )
+                                   )
+                          ),
+                                   
+                 
+                 
+                 
+                 
+                 
                  # socio -----------------------------------------------------------
                  tabPanel("Sociodemographics", value = "socio",
                           fluidRow(style = "margin: 6px;",
@@ -610,6 +632,69 @@ server <- function(input, output, session) {
             
             
     }})
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    #Median Income plots: Working on it ----------------------------------
+    var_medianIncome <- reactive({
+      input$MedianIncomeYearDrop
+    })
+    output$MedianIncomePlots <- renderPlot({
+      if(var_medianIncome() == "2019") {
+        #virginia black and total data
+        va_2019 <- read.csv("data/TableS1903FiveYearEstimates/va_income2019.csv")
+        race_names <- c("Total", "Black")
+        va_race_income_median <- data.frame(va_2019[c(81,83), 5])
+        va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+        colnames(va_race_income) <- c("Race", "Median Income")
+        #Hampton Roads black and Total Data
+        hamp_2019 <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2019.csv")
+        hamp_income2 <- hamp_2019[,3:5]
+        hamp_income3 <- hamp_income2 %>%
+          group_by(NAME) %>%
+          slice(c(81,83))
+        variable <- sample(c("S1903_C03_001","S1903_C03_003"),32, replace = TRUE)
+        hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+        #Putting them in the same datatset
+        median_income <- cbind(va_race_income, hamp_race_income_median)
+        median_income <- median_income[, c(4,6)]
+        median_income2 <- data.frame(median = c(median_income[,1], median_income[,2]))
+        #labeling and organizing
+        median_income2 <- mutate(median_income2, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+        median_income2 <- mutate(median_income2, demo = c(rep("Total Population", "Black Population", 2)))
+        colnames(median_income2) <- c("Median Income (US Dollars)", "Location", "Demographic")
+        median_income2 <- transform(median_income2, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+        colnames(median_income2) <- c("Median Income (US Dollars)", "Location", "Demographic")
+        median_income2$Location <- factor(median_income2$Location, levels= c("Hampton Roads","Virginia"))
+        #plotting
+        income_plot <- ggplot(median_income2, aes(x=Location, y=`Median Income (US Dollars)`, fill=Demographic)) +
+          geom_bar(stat="identity", position=position_dodge())+
+          geom_text(aes(label=paste0(round(`Median Income (US Dollars)`))), vjust=1.5, color="white",
+                    position = position_dodge(0.9), size=5)+
+          theme_minimal() + ggtitle("Median Household Income") +
+          theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'),
+                legend.title = element_blank(),
+                legend.key.height = unit(1, 'cm'), 
+                legend.key.width = unit(1, 'cm'),
+                legend.text = element_text(size=14),
+                axis.text=element_text(size=15),
+                axis.title=element_text(size=17),
+                axis.title.x=element_blank(),
+                axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
+        #plot
+        income_plot
+      }
+    })
+    
     
     
     # socio plots: done -----------------------------------------------------
