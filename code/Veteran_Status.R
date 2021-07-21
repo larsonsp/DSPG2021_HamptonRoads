@@ -10,6 +10,7 @@ library(leaflet)
 library(leaflet.extras)
 library(leaflet.providers)
 library(fontawesome)
+library(rgdal)
 
 
 #saves shapefiles for future use
@@ -92,7 +93,7 @@ black_vet_status
 
 # Plots Leaflet Map -------------------------------------------------------
 
-years <- lst(2015:2019)
+
 
 ##Pulls 2019 ACS Data and Geometry
   black_vet_status_19 <- get_acs(geography = "county",
@@ -109,6 +110,8 @@ years <- lst(2015:2019)
 write_csv(black_vet_status_19, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/data/blackvetstatus2019.csv")
 
 vet19 <- read.csv("blackvetstatus2019.csv")
+
+vet19 <- readOGR("blackvetstatus2019.csv")
 
 ##pulls 2018 ACS Data and Geometry
   black_vet_status_18 <- get_acs(geography = "county",
@@ -178,32 +181,10 @@ longitude <- c(-76.5142, -76.4873, -76.58025, -76.360552, -76.309991, -76.31692,
 
 military_bases <- data.frame(base_name, branch, latitude, longitude)
 
-####sets icons for awesomemarkers
-get_icons <- function(military_bases) {
-  sapply(military_bases$branch, function(branch) {
-    if(branch == "Navy") {
-      fa("anchor")
-    }
-    else if(branch == "Air Force") {
-      fa("plane-departure")
-    }
-    else if(branch == "Coast Guard") {
-      fa("star-of-life")
-    }
-    else {
-      fa("compass")
-    } } )
-}
-
-icons <- awesomeIcons(
-  icon = get_icons,
-  iconColor = "black"
-)
-
-pal <- colorNumeric(palette = "viridis", domain = black_vet_status$Percent)
+pal <- colorNumeric(palette = "viridis", domain = vet19$Percent)
 
 #####leaflet map
-b_vet_status_leaf <- black_vet_status %>% 
+b_vet_status_leaf <- black_vet_status_17 %>% 
   st_transform() %>% 
   leaflet(options = leafletOptions(minZoom = 8)) %>% 
   addProviderTiles("CartoDB.PositronNoLabels") %>% 
@@ -218,7 +199,6 @@ b_vet_status_leaf <- black_vet_status %>%
           title = "Black Veterans",
           labFormat = labelFormat(suffix = "%"),
           opacity = 1)
-
 
 
   
