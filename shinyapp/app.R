@@ -254,7 +254,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                    )
                           ),
                                    
-                 #median Income and Poverty rates
+                 #unemployment rates
                  tabPanel("Economics", value = "econ",
                           fluidRow(style = "margin: 6px;",
                                    h1(strong("Black and General Population Unemployment Rates"), align = "center"),
@@ -264,11 +264,11 @@ ui <- navbarPage(title = "Hampton Roads",
                                    ),
                                    column(7, 
                                           #sliderInput("MedianIncomeYearSlider", "", value = 2019, min =2010, max=2020),
-                                          selectInput("MedianIncomeYearDrop", "Select Year:", width = "100%", choices = c(
+                                          selectInput("UnemploymentRateYearDrop", "Select Year:", width = "100%", choices = c(
                                             "2019","2018", "2017", "2016", "2015","2014",
                                             "2013","2012", "2011", "2010")),
-                                          p(strong("Median Household Income")),
-                                          #withSpinner(plotOutput("income_plot")),
+                                          p(strong("Unemployment Rate")),
+                                          withSpinner(plotlyOutput("unemployment_plot")),
                                           p(tags$small("Data Source: ACS 5 Year Estimate Table S2301"))
                                    )
                           )
@@ -840,6 +840,39 @@ server <- function(input, output, session) {
         income_plot
       }
     })
+    
+    #unemployment rate
+    var_unemploymentRate <- reactive({
+      input$UnemploymentRateYearDrop
+    })
+    
+    output$unemployment_plot <- renderPlotly({
+      if(var_unemploymentRate() == "2019") {
+        unemp_19 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2019.csv") 
+          unemployment_2019 <- unemp_19 %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
+          arrange(desc(NAME)) %>% 
+          ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+          geom_bar(position = "dodge", stat = "identity") +
+          # geom_hline(yintercept = va_unemp_rate$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
+          # geom_hline(yintercept = hamp_sum_unemp$estimate, linetype = "dashed", color = "black", show.legend = TRUE) +
+          theme_minimal() +
+          theme(legend.title = element_blank()) +
+          labs(title = "",
+               y = "Unemployment Rate (%)",
+               x = "",
+               caption = "Source: ACS 5 Year Estimate Table S2301") +
+          theme(axis.text.x = element_text(angle = 40)) +
+          scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        
+       ggplotly(unemployment_2019)
+        
+   
+        
+        }
+      })
+    
     
     
     # socio plots: done -----------------------------------------------------
