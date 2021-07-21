@@ -602,7 +602,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                    p("We would like to thank Healthy Patrick County, an association of concerned Patrick County residents, and Brandon Kramer for their input to this project.")
                           )
                  ),
-                 inverse = T))
+                 inverse = T)
 
 
 
@@ -648,7 +648,7 @@ server <- function(input, output, session) {
   
     
     
-    #Median Income plots: Working on it ----------------------------------
+    #Median Income plots: Working on it --------------------------------
     var_medianIncome <- reactive({
       input$MedianIncomeYearDrop
     })
