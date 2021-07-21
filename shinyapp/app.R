@@ -230,6 +230,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                               )
                                    )
                           )
+                      )
                  ),
                  
                  #median Income and Poverty rates
@@ -241,7 +242,10 @@ ui <- navbarPage(title = "Hampton Roads",
                                           h4(strong("Why Median Income?"))
                                    ),
                                    column(7, 
-                                          sliderInput("MedianIncomeYearSlider", "", value = 2019, min =2010, max=2020),
+                                          #sliderInput("MedianIncomeYearSlider", "", value = 2019, min =2010, max=2020),
+                                          selectInput("MedianIncomeYearDrop", "Select Year:", width = "100%", choices = c(
+                                            "2019","2018", "2017", "2016", "2015","2014",
+                                            "2013","2012", "2011", "2010")),
                                           p(strong("Median Household Income")),
                                           #withSpinner(plotOutput("income_plot")),
                                           p(tags$small("Data Source: ACS 5 Year Estimate Table S1903"))
@@ -666,11 +670,11 @@ server <- function(input, output, session) {
         hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
         #Putting them in the same datatset
         median_income <- cbind(va_race_income, hamp_race_income_median)
-        median_income <- median_income[, c(4,6)]
+        median_income <- median_income[, c(2,4)]
         median_income2 <- data.frame(median = c(median_income[,1], median_income[,2]))
         #labeling and organizing
         median_income2 <- mutate(median_income2, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
-        median_income2 <- mutate(median_income2, demo = c(rep("Total Population", "Black Population", 2)))
+        median_income2 <- mutate(median_income2, demo = rep(c("Total Population", "Black Population"),2))
         colnames(median_income2) <- c("Median Income (US Dollars)", "Location", "Demographic")
         median_income2 <- transform(median_income2, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
         colnames(median_income2) <- c("Median Income (US Dollars)", "Location", "Demographic")
@@ -689,7 +693,8 @@ server <- function(input, output, session) {
                 axis.text=element_text(size=15),
                 axis.title=element_text(size=17),
                 axis.title.x=element_blank(),
-                axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
+                axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0))) +
+                scale_fill_viridis_d()
         #plot
         income_plot
       }
