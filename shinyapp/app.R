@@ -255,28 +255,24 @@ ui <- navbarPage(title = "Hampton Roads",
                           ),
                                    
                  #unemployment rates
-                 tabPanel("Economics", value = "econ",
-                          fluidRow(style = "margin: 6px;",
-                                   h1(strong("Black and General Population Unemployment Rates"), align = "center"),
-                                   p("", style = "padding-top:10px;"),
-                                   column(5,
-                                          h4(strong("Unemployment in the Black Population"))
-                                   ),
-                                   column(7, 
-                                          #sliderInput("MedianIncomeYearSlider", "", value = 2019, min =2010, max=2020),
-                                          selectInput("UnemploymentRateYearDrop", "Select Year:", width = "100%", choices = c(
-                                            "2019","2018", "2017", "2016", "2015","2014",
-                                            "2013","2012", "2011", "2010")),
-                                          p(strong("Unemployment Rate")),
-                                          withSpinner(plotlyOutput("unemployment_plot")),
-                                          p(tags$small("Data Source: ACS 5 Year Estimate Table S2301"))
-                                   )
-                          )
-                 ),
-                 
-                 
-                 
-                 
+                 # tabPanel("Economics", value = "econ",
+                 #          fluidRow(style = "margin: 6px;",
+                 #                   h1(strong("Black and General Population Unemployment Rates"), align = "center"),
+                 #                   p("", style = "padding-top:10px;"),
+                 #                   column(5,
+                 #                          h4(strong("Unemployment in the Black Population"))
+                 #                   ),
+                 #                   column(7,
+                 #                          #sliderInput("MedianIncomeYearSlider", "", value = 2019, min =2010, max=2020),
+                 #                          selectInput("UnemploymentRateYearDrop", "Select Year:", width = "100%", choices = c(
+                 #                            "2019","2018", "2017", "2016", "2015","2014",
+                 #                            "2013","2012", "2011", "2010")),
+                 #                          p(strong("Unemployment Rate")),
+                 #                          withSpinner(plotlyOutput("unemployment_plot")),
+                 #                          p(tags$small("Data Source: ACS 5 Year Estimate Table S2301"))
+                 #                   )
+                 #          )
+                 # ),
                  
                  # socio -----------------------------------------------------------
                  tabPanel("Sociodemographics", value = "socio",
@@ -373,6 +369,70 @@ ui <- navbarPage(title = "Hampton Roads",
                           )
                  ),
                  
+
+# Potential code for sidebar ----------------------------------------------
+
+
+tabPanel("Economics", value = "economics",
+         dashboardPage(
+           skin = 'black',
+           dashboardHeader(
+             title = 'Indicators'
+           ),
+
+
+           dashboardSidebar(
+             sidebarMenu(
+               menuItem(
+                 "Unemployment",
+                 tabName = 'unemp'
+               ),
+               menuItem(
+                 "Median Income",
+                 tabName = 'median'
+               )
+             )
+           ),
+
+           dashboardBody(tabItems(
+                              ## First Sidebar ----------------------------
+                              tabItem(
+                                tabName = "unemp",
+                                # Everything has to be put in a row or column
+                                fluidPage(
+                                    title = "Unemployment Rate in Hampton Roads",
+                                    tabPanel("Economics", value = "econ",
+                                             fluidRow(style = "margin: 6px;",
+                                                      h1(strong("Black and General Population Unemployment Rates"), align = "center"),
+                                                      p("", style = "padding-top:10px;"),
+                                                      column(5,
+                                                             h4(strong("Unemployment in the Black Population"))
+                                                      ),
+                                                      column(7,
+                                                             #sliderInput("MedianIncomeYearSlider", "", value = 2019, min =2010, max=2020),
+                                                             selectInput("UnemploymentRateYearDrop", "Select Year:", width = "100%", choices = c(
+                                                               "2019","2018", "2017", "2016", "2015","2014",
+                                                               "2013","2012", "2011", "2010")),
+                                                             p(strong("Unemployment Rate")),
+                                                             withSpinner(plotlyOutput("unemployment_plot")),
+                                                             p(tags$small("Data Source: ACS 5 Year Estimate Table S2301"))
+
+                                  ),
+
+                                  )))),
+                              tabItem(
+                                tabName = "median",
+                                fluidPage(
+                                    title = "Median Income",
+                                    tabPanel("")
+                                  )
+
+                                  )
+
+                                )
+                              )
+                            )),
+
                  # wifi-----------------------------------------------------------
                  tabPanel("Connectivity", value = "connectivity",
                           fluidRow(style = "margin: 6px;",
@@ -849,14 +909,14 @@ server <- function(input, output, session) {
     output$unemployment_plot <- renderPlotly({
       if(var_unemploymentRate() == "2019") {
         unemp_19 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2019.csv") 
+        va_unemp_19 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2019.csv")
           unemployment_2019 <- unemp_19 %>% 
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
           arrange(desc(NAME)) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
           geom_bar(position = "dodge", stat = "identity") +
-          # geom_hline(yintercept = va_unemp_rate$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
-          # geom_hline(yintercept = hamp_sum_unemp$estimate, linetype = "dashed", color = "black", show.legend = TRUE) +
+          geom_hline(yintercept = va_unemp_19$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
@@ -873,14 +933,14 @@ server <- function(input, output, session) {
       
       else if(var_unemploymentRate() == "2018") {
         unemp_18 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2018.csv") 
+        va_unemp_18 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2018.csv")
         unemployment_2018 <- unemp_18 %>% 
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
           arrange(desc(NAME)) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
           geom_bar(position = "dodge", stat = "identity") +
-          # geom_hline(yintercept = va_unemp_rate$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
-          # geom_hline(yintercept = hamp_sum_unemp$estimate, linetype = "dashed", color = "black", show.legend = TRUE) +
+          geom_hline(yintercept = va_unemp_18$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
@@ -897,14 +957,14 @@ server <- function(input, output, session) {
       
       else if(var_unemploymentRate() == "2017") {
         unemp_17 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2017.csv") 
+        va_unemp_17 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2017.csv")
         unemployment_2017 <- unemp_17 %>% 
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
           arrange(desc(NAME)) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
           geom_bar(position = "dodge", stat = "identity") +
-          # geom_hline(yintercept = va_unemp_rate$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
-          # geom_hline(yintercept = hamp_sum_unemp$estimate, linetype = "dashed", color = "black", show.legend = TRUE) +
+          geom_hline(yintercept = va_unemp_17$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
@@ -921,14 +981,14 @@ server <- function(input, output, session) {
       
       else if(var_unemploymentRate() == "2016") {
         unemp_16 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2016.csv") 
+        va_unemp_16 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2016.csv")
         unemployment_2016 <- unemp_16 %>% 
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
           arrange(desc(NAME)) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
           geom_bar(position = "dodge", stat = "identity") +
-          # geom_hline(yintercept = va_unemp_rate$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
-          # geom_hline(yintercept = hamp_sum_unemp$estimate, linetype = "dashed", color = "black", show.legend = TRUE) +
+          geom_hline(yintercept = va_unemp_16$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
@@ -945,14 +1005,14 @@ server <- function(input, output, session) {
       
       else if(var_unemploymentRate() == "2015") {
         unemp_15 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2015.csv") 
+        va_unemp_15 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2015.csv")
         unemployment_2015 <- unemp_15 %>% 
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
           arrange(desc(NAME)) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
           geom_bar(position = "dodge", stat = "identity") +
-          # geom_hline(yintercept = va_unemp_rate$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
-          # geom_hline(yintercept = hamp_sum_unemp$estimate, linetype = "dashed", color = "black", show.legend = TRUE) +
+          geom_hline(yintercept = va_unemp_15$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
@@ -969,15 +1029,14 @@ server <- function(input, output, session) {
       
       else if(var_unemploymentRate() == "2014") {
         unemp_14 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2014.csv") 
+        va_unemp_14 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2014.csv")
         unemployment_2014 <- unemp_14 %>% 
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
           arrange(desc(NAME)) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
           geom_bar(position = "dodge", stat = "identity") +
-          # geom_hline(yintercept = va_unemp_rate$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
-          # geom_hline(yintercept = hamp_sum_unemp$estimate, linetype = "dashed", color = "black", show.legend = TRUE) +
-          theme_minimal() +
+          geom_hline(yintercept = va_unemp_14$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
           theme(legend.title = element_blank()) +
           labs(title = "",
                y = "Unemployment Rate (%)",
@@ -993,14 +1052,14 @@ server <- function(input, output, session) {
       
       else if(var_unemploymentRate() == "2013") {
         unemp_13 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2013.csv") 
+        va_unemp_13 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2013.csv")
         unemployment_2013 <- unemp_13 %>% 
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
           arrange(desc(NAME)) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
           geom_bar(position = "dodge", stat = "identity") +
-          # geom_hline(yintercept = va_unemp_rate$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
-          # geom_hline(yintercept = hamp_sum_unemp$estimate, linetype = "dashed", color = "black", show.legend = TRUE) +
+          geom_hline(yintercept = va_unemp_13$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
@@ -1017,15 +1076,14 @@ server <- function(input, output, session) {
       
       else if(var_unemploymentRate() == "2012") {
         unemp_12 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2012.csv") 
+        va_unemp_12 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2012.csv")
         unemployment_2012 <- unemp_12 %>% 
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
           arrange(desc(NAME)) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
           geom_bar(position = "dodge", stat = "identity") +
-          # geom_hline(yintercept = va_unemp_rate$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
-          # geom_hline(yintercept = hamp_sum_unemp$estimate, linetype = "dashed", color = "black", show.legend = TRUE) +
-          theme_minimal() +
+          geom_hline(yintercept = va_unemp_12$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
           theme(legend.title = element_blank()) +
           labs(title = "",
                y = "Unemployment Rate (%)",
@@ -1041,15 +1099,14 @@ server <- function(input, output, session) {
       
       else if(var_unemploymentRate() == "2011") {
         unemp_11 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2011.csv") 
+        va_unemp_11 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2011.csv")
         unemployment_2011 <- unemp_11 %>% 
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
           arrange(desc(NAME)) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
           geom_bar(position = "dodge", stat = "identity") +
-          # geom_hline(yintercept = va_unemp_rate$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
-          # geom_hline(yintercept = hamp_sum_unemp$estimate, linetype = "dashed", color = "black", show.legend = TRUE) +
-          theme_minimal() +
+          geom_hline(yintercept = va_unemp_11$estimate, linetype="dashed", color = "red", show.legend = TRUE) 
           theme(legend.title = element_blank()) +
           labs(title = "",
                y = "Unemployment Rate (%)",
@@ -1065,14 +1122,14 @@ server <- function(input, output, session) {
       
       else if(var_unemploymentRate() == "2010") {
         unemp_10 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2010.csv") 
+        va_unemp_10 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2010.csv")
         unemployment_2010 <- unemp_10 %>% 
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
           arrange(desc(NAME)) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
           geom_bar(position = "dodge", stat = "identity") +
-          # geom_hline(yintercept = va_unemp_rate$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
-          # geom_hline(yintercept = hamp_sum_unemp$estimate, linetype = "dashed", color = "black", show.legend = TRUE) +
+          geom_hline(yintercept = va_unemp_10$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
