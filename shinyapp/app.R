@@ -377,7 +377,7 @@ tabPanel("Economics", value = "economics",
          dashboardPage(
            skin = 'black',
            dashboardHeader(
-             title = 'Indicators'
+             title = 'Economics Indicators'
            ),
 
 
@@ -386,6 +386,10 @@ tabPanel("Economics", value = "economics",
                menuItem(
                  "Unemployment",
                  tabName = 'unemp'
+               ),
+               menuItem(
+                 "Health Insurance",
+                 tabName = "unins"
                ),
                menuItem(
                  "Median Income",
@@ -398,40 +402,40 @@ tabPanel("Economics", value = "economics",
                               ## First Sidebar ----------------------------
                               tabItem(
                                 tabName = "unemp",
-                                # Everything has to be put in a row or column
-                                fluidPage(
-                                    title = "Unemployment Rate in Hampton Roads",
-                                    tabPanel("Economics", value = "econ",
-                                             fluidRow(style = "margin: 6px;",
-                                                      h1(strong("Black and General Population Unemployment Rates"), align = "center"),
-                                                      p("", style = "padding-top:10px;"),
-                                                      column(5,
-                                                             h4(strong("Unemployment in the Black Population"))
-                                                      ),
-                                                      column(7,
-                                                             #sliderInput("MedianIncomeYearSlider", "", value = 2019, min =2010, max=2020),
-                                                             selectInput("UnemploymentRateYearDrop", "Select Year:", width = "100%", choices = c(
-                                                               "2019","2018", "2017", "2016", "2015","2014",
-                                                               "2013","2012", "2011", "2010")),
-                                                             p(strong("Unemployment Rate")),
-                                                             withSpinner(plotlyOutput("unemployment_plot")),
-                                                             p(tags$small("Data Source: ACS 5 Year Estimate Table S2301"))
+                                      fluidRow(style = "margin: 6px;",
+                                           h1(strong("Unemployment in Hampton Roads"), align = "center"),
+                                           #sliderInput("MedianIncomeYearSlider", "", value = 2019, min =2010, max=2020),
+                                           selectInput("UnemploymentRateYearDrop", "Select Year:", width = "100%", choices = c(
+                                           "2019","2018", "2017", "2016", "2015","2014",
+                                           "2013","2012", "2011", "2010")),
+                                           p(strong("Unemployment Rate")),
+                                           withSpinner(plotlyOutput("unemployment_plot")),
+                                           p(tags$small("Data Source: ACS 5 Year Estimates Table S2301"))
+                                           
 
-                                  ),
+                                  )),
+                                  
+                                tabItem(tabName = "unins",
+                                  fluidRow(
+                                    h1(strong("Health Insurance in Hampton Roads"), align = "center"),
+                                    withSpinner(plotlyOutput("uninsured_plot")),
+                                    p(tags$small("Data Source: ACS 5 Year Estimates Table S2701")),
+                                      box(title = "Select Year:", width = 12,
+                                        sliderInput("UninsuredPctSlider", "", value = 2019, min = 2010, max = 2019))
+                              
+                                    
+                                  )
+                                ),
 
-                                  )))),
-                              tabItem(
+                                tabItem(
                                 tabName = "median",
                                 fluidPage(
                                     title = "Median Income",
                                     tabPanel("")
                                   )
 
-                                  )
+                                  ))))),
 
-                                )
-                              )
-                            )),
 
                  # wifi-----------------------------------------------------------
                  tabPanel("Connectivity", value = "connectivity",
@@ -901,7 +905,10 @@ server <- function(input, output, session) {
       }
     })
     
-    #unemployment rate
+
+# Unemployment Rate -------------------------------------------------------
+
+
     var_unemploymentRate <- reactive({
       input$UnemploymentRateYearDrop
     })
@@ -1147,6 +1154,206 @@ server <- function(input, output, session) {
     
     
     
+    
+
+# Uninsured Population ----------------------------------------------------
+
+    var_uninsuredpct <- reactive({
+      input$UninsuredPctSlider
+    })
+    
+    output$uninsured_plot <- renderPlotly({
+      if(var_uninsuredpct() == "2019") {
+        unins_19 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2019.csv")
+        uninsured_2019 <- unins_19 %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+          geom_bar(position = "stack", stat = "identity") +
+          theme_minimal() +
+          theme(legend.title = element_blank()) +
+          labs(title = "",
+               y = "Percent Uninsured (%)",
+               x = "",
+               caption = "Source: ACS 5 Year Estimate Table S2701") +
+          theme(axis.text.x = element_text(angle = 40)) + 
+          scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        
+        ggplotly(uninsured_2019)
+      }
+      
+      else if(var_uninsuredpct() == "2018") {
+        unins_18 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2018.csv")
+        uninsured_2018 <- unins_18 %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+          geom_bar(position = "stack", stat = "identity") +
+          theme_minimal() +
+          theme(legend.title = element_blank()) +
+          labs(title = "",
+               y = "Percent Uninsured (%)",
+               x = "",
+               caption = "Source: ACS 5 Year Estimate Table S2701") +
+          theme(axis.text.x = element_text(angle = 40)) + 
+          scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        
+        ggplotly(uninsured_2018)
+      }
+      
+      else if(var_uninsuredpct() == "2017") {
+        unins_17 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2017.csv")
+        uninsured_2017 <- unins_17 %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+          geom_bar(position = "stack", stat = "identity") +
+          theme_minimal() +
+          theme(legend.title = element_blank()) +
+          labs(title = "",
+               y = "Percent Uninsured (%)",
+               x = "",
+               caption = "Source: ACS 5 Year Estimate Table S2701") +
+          theme(axis.text.x = element_text(angle = 40)) + 
+          scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        
+        ggplotly(uninsured_2017)
+      }
+      
+      else if(var_uninsuredpct() == "2016") {
+        unins_16 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2016.csv")
+        uninsured_2016 <- unins_16 %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+          geom_bar(position = "stack", stat = "identity") +
+          theme_minimal() +
+          theme(legend.title = element_blank()) +
+          labs(title = "",
+               y = "Percent Uninsured (%)",
+               x = "",
+               caption = "Source: ACS 5 Year Estimate Table S2701") +
+          theme(axis.text.x = element_text(angle = 40)) + 
+          scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        
+        ggplotly(uninsured_2016)
+      }
+      
+      else if(var_uninsuredpct() == "2015") {
+        unins_15 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2015.csv")
+        uninsured_2015 <- unins_15 %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+          geom_bar(position = "stack", stat = "identity") +
+          theme_minimal() +
+          theme(legend.title = element_blank()) +
+          labs(title = "",
+               y = "Percent Uninsured (%)",
+               x = "",
+               caption = "Source: ACS 5 Year Estimate Table S2701") +
+          theme(axis.text.x = element_text(angle = 40)) + 
+          scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        
+        ggplotly(uninsured_2015)
+      }
+      
+      else if(var_uninsuredpct() == "2014") {
+        unins_14 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2014.csv")
+        uninsured_2014 <- unins_14 %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+          geom_bar(position = "stack", stat = "identity") +
+          theme_minimal() +
+          theme(legend.title = element_blank()) +
+          labs(title = "",
+               y = "Percent Uninsured (%)",
+               x = "",
+               caption = "Source: ACS 5 Year Estimate Table S2701") +
+          theme(axis.text.x = element_text(angle = 40)) + 
+          scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        
+        ggplotly(uninsured_2014)
+      }
+      
+      else if(var_uninsuredpct() == "2013") {
+        unins_13 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2013.csv")
+        uninsured_2013 <- unins_13 %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+          geom_bar(position = "stack", stat = "identity") +
+          theme_minimal() +
+          theme(legend.title = element_blank()) +
+          labs(title = "",
+               y = "Percent Uninsured (%)",
+               x = "",
+               caption = "Source: ACS 5 Year Estimate Table S2701") +
+          theme(axis.text.x = element_text(angle = 40)) + 
+          scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        
+        ggplotly(uninsured_2013)
+      }
+      
+      else if(var_uninsuredpct() == "2012") {
+        unins_12 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2012.csv")
+        uninsured_2012 <- unins_12 %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+          geom_bar(position = "stack", stat = "identity") +
+          theme_minimal() +
+          theme(legend.title = element_blank()) +
+          labs(title = "",
+               y = "Percent Uninsured (%)",
+               x = "",
+               caption = "Source: ACS 5 Year Estimate Table S2701") +
+          theme(axis.text.x = element_text(angle = 40)) + 
+          scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        
+        ggplotly(uninsured_2012)
+      }
+      
+      else if(var_uninsuredpct() == "2011") {
+        unins_11 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2011.csv")
+        uninsured_2011 <- unins_11 %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+          geom_bar(position = "stack", stat = "identity") +
+          theme_minimal() +
+          theme(legend.title = element_blank()) +
+          labs(title = "",
+               y = "Percent Uninsured (%)",
+               x = "",
+               caption = "Source: ACS 5 Year Estimate Table S2701") +
+          theme(axis.text.x = element_text(angle = 40)) + 
+          scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        
+        ggplotly(uninsured_2011)
+      }
+      
+      else if(var_uninsuredpct() == "2010") {
+        unins_10 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2010.csv")
+        uninsured_2010 <- unins_10 %>% 
+          mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+          mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+          ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+          geom_bar(position = "stack", stat = "identity") +
+          theme_minimal() +
+          theme(legend.title = element_blank()) +
+          labs(title = "",
+               y = "Percent Uninsured (%)",
+               x = "",
+               caption = "Source: ACS 5 Year Estimate Table S2701") +
+          theme(axis.text.x = element_text(angle = 40)) + 
+          scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        
+        ggplotly(uninsured_2010)
+      }
+    })
+
     # socio plots: done -----------------------------------------------------
     
     var <- reactive({
