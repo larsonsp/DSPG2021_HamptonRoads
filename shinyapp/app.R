@@ -23,6 +23,7 @@ library(readr)
 library(stringr)
 library(shinyjs)
 library(plotly)
+library(shinydashboard)
 
 prettyblue <- "#232D4B"
 navBarBlue <- '#427EDC'
@@ -392,6 +393,10 @@ tabPanel("Economics", value = "economics",
                  tabName = "unins"
                ),
                menuItem(
+                 "Veteran Status",
+                 tabName = "vet"
+               ),
+               menuItem(
                  "Median Income",
                  tabName = 'median'
                )
@@ -426,6 +431,18 @@ tabPanel("Economics", value = "economics",
                                     
                                   )
                                 ),
+                              
+                                tabItem(tabName = "vet",
+                                        fluidRow(
+                                          h1(strong("Veteran Status in Hampton Roads"), align = "center"),
+                                          withSpinner(leafletOutput("veteran_map")),
+                                          p(tags$small("Data Source: ACS 5 Year Estimates Table S2101")),
+                                            box(title = "Select Year:", width = 12,
+                                                sliderInput("VeteranSlider", "", value = 2019, min = 2010, max = 2019))
+                                        )
+                                ),
+                                                
+                                        
 
                                 tabItem(
                                 tabName = "median",
@@ -1351,6 +1368,99 @@ server <- function(input, output, session) {
           scale_fill_manual(values = c("#D55E00", "#0072B2"))
         
         ggplotly(uninsured_2010)
+      }
+    })
+
+
+# Veteran Status ----------------------------------------------------------
+    var_veteran <- reactive({
+      input$VeteranSlider
+    })
+    
+    output$veteran_map <- renderLeaflet({
+      if(var_veteran() == "2019") {
+        vet_19 <- read_rds("data/TableS2101FiveYearEstimates/bveteran2019.rds")
+        veteran_19 <- vet_19 %>% 
+          leaflet(options = leafletOptions(minZoom = 8)) %>% 
+          addProviderTiles("CartoDB.PositronNoLabels") %>% 
+          addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                      highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                      label = ~paste0(NAME,  " Black Veterans: ", Percent, "%")) %>% 
+          # addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch)) %>% 
+          addLegend("topleft",
+                    pal = pal,
+                    values = ~ Percent,
+                    title = "Black Veterans",
+                    labFormat = labelFormat(suffix = "%"),
+                    opacity = 1)
+      }
+      
+      else if(var_veteran() == "2018") {
+        vet_18 <- read_rds("data/TableS2101FiveYearEstimates/bveteran2018.rds")
+        veteran_18 <- vet_18 %>% 
+          leaflet(options = leafletOptions(minZoom = 8)) %>% 
+          addProviderTiles("CartoDB.PositronNoLabels") %>% 
+          addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                      highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                      label = ~paste0(NAME,  " Black Veterans: ", Percent, "%")) %>% 
+          # addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch)) %>% 
+          addLegend("topleft",
+                    pal = pal,
+                    values = ~ Percent,
+                    title = "Black Veterans",
+                    labFormat = labelFormat(suffix = "%"),
+                    opacity = 1)
+      }
+      
+      else if(var_veteran() == "2017") {
+        vet_17 <- read_rds("data/TableS2101FiveYearEstimates/bveteran2017.rds")
+        veteran_17 <- vet_17 %>% 
+          leaflet(options = leafletOptions(minZoom = 8)) %>% 
+          addProviderTiles("CartoDB.PositronNoLabels") %>% 
+          addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                      highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                      label = ~paste0(NAME,  " Black Veterans: ", Percent, "%")) %>% 
+          # addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch)) %>% 
+          addLegend("topleft",
+                    pal = pal,
+                    values = ~ Percent,
+                    title = "Black Veterans",
+                    labFormat = labelFormat(suffix = "%"),
+                    opacity = 1)
+      }
+      
+      else if(var_veteran() == "2016") {
+        vet_16 <- read_rds("data/TableS2101FiveYearEstimates/bveteran2016.rds")
+        veteran_16 <- vet_16 %>% 
+          leaflet(options = leafletOptions(minZoom = 8)) %>% 
+          addProviderTiles("CartoDB.PositronNoLabels") %>% 
+          addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                      highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                      label = ~paste0(NAME,  " Black Veterans: ", Percent, "%")) %>% 
+          # addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch)) %>% 
+          addLegend("topleft",
+                    pal = pal,
+                    values = ~ Percent,
+                    title = "Black Veterans",
+                    labFormat = labelFormat(suffix = "%"),
+                    opacity = 1)
+      }
+      
+      else if(var_veteran() == "2015") {
+        vet_15 <- read_rds("data/TableS2101FiveYearEstimates/bveteran2015.rds")
+        veteran_15 <- vet_15 %>% 
+          leaflet(options = leafletOptions(minZoom = 8)) %>% 
+          addProviderTiles("CartoDB.PositronNoLabels") %>% 
+          addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                      highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                      label = ~paste0(NAME,  " Black Veterans: ", Percent, "%")) %>% 
+          # addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch)) %>% 
+          addLegend("topleft",
+                    pal = pal,
+                    values = ~ Percent,
+                    title = "Black Veterans",
+                    labFormat = labelFormat(suffix = "%"),
+                    opacity = 1)
       }
     })
 
