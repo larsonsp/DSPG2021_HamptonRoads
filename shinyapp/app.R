@@ -191,6 +191,62 @@ ui <- navbarPage(title = "Hampton Roads",
                                    p(tags$small(em('Last updated: August 2020'))))
                  ),
                  
+                 #Hampton Overview
+                 
+                 tabPanel("Hampton Roads", value = "makeup",
+                          dashboardPage(
+                            skin = 'black',
+                            dashboardHeader(
+                              title = 'Hampton Roads Composition'
+                            ),
+                            
+                            
+                            dashboardSidebar(
+                              sidebarMenu(
+                                menuItem(
+                                  "Counties and Cities",
+                                  tabName = 'makeup'
+                                ),
+                                menuItem(
+                                  "Race",
+                                  tabName = "race"
+                                ),
+                                menuItem(
+                                  "Age",
+                                  tabName = "age"
+                                )
+                              )
+                            ),
+                            
+                            dashboardBody(tabItems(
+                              ## First Sidebar ----------------------------
+                              tabItem(
+                                tabName = "makeup",
+                                fluidRow(style = "margin: 6px;",
+                                         h1(strong("Counties and Cities of Hampton Roads"), align = "center")
+                                         
+                                         
+                                         
+                                         )
+                                ),
+                              
+                              tabItem(tabName = "race",
+                                      fluidRow(
+                                        h1(strong("Race Composition of Hampton Roads"), align = "center")
+                                        
+                                        
+                                      )
+                              ),
+                              
+                              tabItem(tabName = "age",
+                                      fluidRow(
+                                        h1(strong("Age Composition of Hampton Roads"), align = "center")
+                                      
+                                      )
+                              )
+                              
+                              )))),
+                 
                  # Education-----------------------------------------------------------
                  tabPanel("Education", value =  "education",
                           fluidRow(style = "margin: 6px;",
