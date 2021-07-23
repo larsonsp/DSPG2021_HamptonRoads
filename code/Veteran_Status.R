@@ -175,6 +175,17 @@ write_rds(b_vet_15, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021
 b_vet_15 <- readRDS("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2015.rds")
 b_vet_15 <- st_transform(b_vet_15)
 
+#2014
+
+
+#2013
+
+#2012
+
+#2011
+
+#2010
+
 ###Creates data table containing military base names/branches and lat/lng
 base_name <- c("Training Center Yorktown", "Naval Weapons Station Yorktown", "Fort Eustis", "Langley Air Force Base", "Fort Monroe", 
                "Naval Station Norfolk", "Naval Support Activity Norfolk", "Naval Amphibious Base Little Creek", "Joint Expiditionary Base", 
@@ -186,6 +197,10 @@ longitude <- c(-76.5142, -76.4873, -76.58025, -76.360552, -76.309991, -76.31692,
                -76.298, -76.2753, -76.278472)
 
 military_bases <- data.frame(base_name, branch, latitude, longitude)
+
+write_rds(military_bases, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/militarybases.rds")
+military_bases <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/militarybases.rds")
+military_bases <- st_transform(military_bases)
 
 pal <- colorNumeric(palette = "viridis", domain = b_vet_19$Percent, reverse = TRUE)
 

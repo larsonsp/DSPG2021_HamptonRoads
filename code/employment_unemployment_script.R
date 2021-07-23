@@ -13,6 +13,8 @@ library(plotly)
 #identifies county fips
 county_fips <- c(550, 620, 650, 700, 710, 735, 740, 800, 810,
                  830, 073, 093, 095, 115, 175, 199)
+
+tigris_use_cache = TRUE
 ##hampton sum 
 hamp_sum_unemp <- get_acs(geography = "county",
                           state = "VA",
@@ -40,37 +42,72 @@ sums <- data.frame(va_unemp_rate, va_black_unemp, hamp_sum_unemp, hamp_sum_black
 
 # pulls Virginia total population unemployment rate -----------------------
 #2019
-va_unemp_rate <- get_acs(geography = "state",
+va_unemp_19 <- get_acs(geography = "state",
                          state = "VA",
                          year = 2019,
                          survey = "acs5",
                          variables = c("Virginia Unemployment Rate" = "S2301_C04_001"))
 
 #2018
-va_unemp_rate <- get_acs(geography = "state",
+va_unemp_18 <- get_acs(geography = "state",
                          state = "VA",
                          year = 2018,
                          survey = "acs5",
                          variables = c("Virginia Unemployment Rate" = "S2301_C04_001"))
 
 #2017
-va_unemp_rate <- get_acs(geography = "state",
+va_unemp_17 <- get_acs(geography = "state",
                          state = "VA",
                          year = 2017,
                          survey = "acs5",
                          variables = c("Virginia Unemployment Rate" = "S2301_C04_001"))
 
 #2016
-va_unemp_rate <- get_acs(geography = "state",
+va_unemp_16 <- get_acs(geography = "state",
                          state = "VA",
                          year = 2016,
                          survey = "acs5",
                          variables = c("Virginia Unemployment Rate" = "S2301_C04_001"))
 
 #2015
-va_unemp_rate <- get_acs(geography = "state",
+va_unemp_15 <- get_acs(geography = "state",
                          state = "VA",
                          year = 2015,
+                         survey = "acs5",
+                         variables = c("Virginia Unemployment Rate" = "S2301_C04_001"))
+
+#2014
+va_unemp_14 <- get_acs(geography = "state",
+                         state = "VA",
+                         year = 2014,
+                         survey = "acs5",
+                         variables = c("Virginia Unemployment Rate" = "S2301_C04_001"))
+
+#2013
+va_unemp_13 <- get_acs(geography = "state",
+                         state = "VA",
+                         year = 2013,
+                         survey = "acs5",
+                         variables = c("Virginia Unemployment Rate" = "S2301_C04_001"))
+
+#2012
+va_unemp_12 <- get_acs(geography = "state",
+                         state = "VA",
+                         year = 2012,
+                         survey = "acs5",
+                         variables = c("Virginia Unemployment Rate" = "S2301_C04_001"))
+
+#2011
+va_unemp_11 <- get_acs(geography = "state",
+                         state = "VA",
+                         year = 2011,
+                         survey = "acs5",
+                         variables = c("Virginia Unemployment Rate" = "S2301_C04_001"))
+
+#2010
+va_unemp_10 <- get_acs(geography = "state",
+                         state = "VA",
+                         year = 2010,
                          survey = "acs5",
                          variables = c("Virginia Unemployment Rate" = "S2301_C04_001"))
 
@@ -259,47 +296,58 @@ b_unemp_10 <- get_acs(geography = "county",
 # Plots Proportional Black Unemployment & Population Unemployment ---------
 
 
-# combines black and gen population by row --------------------------------
+# writes csv files for shiny app --------------------------------
 
 #2019
 unemp_19 <- rbind(b_unemp_19, h_unemp_19)                    
 write_csv(unemp_19, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/unemployment2019.csv")
+write_csv(va_unemp_19, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/vaunemployment2019.csv")
 
 #2018
 unemp_18 <- rbind(b_unemp_18, h_unemp_18)
 write_csv(unemp_18, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/unemployment2018.csv")
+write_csv(va_unemp_18, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/vaunemployment2018.csv")
 
 #2017
 unemp_17 <- rbind(b_unemp_17, h_unemp_17)
 write_csv(unemp_17, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/unemployment2017.csv")
+write_csv(va_unemp_17, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/vaunemployment2017.csv")
 
 #2016
 unemp_16 <- rbind(b_unemp_16, h_unemp_16)
 write_csv(unemp_16, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/unemployment2016.csv")
+write_csv(va_unemp_16, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/vaunemployment2016.csv")
 
 #2015
 unemp_15 <- rbind(b_unemp_15, h_unemp_15)
 write_csv(unemp_15, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/unemployment2015.csv")
+write_csv(va_unemp_15, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/vaunemployment2015.csv")
 
 #2014
 unemp_14 <- rbind(b_unemp_14, h_unemp_14)
 write_csv(unemp_14, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/unemployment2014.csv")
+write_csv(va_unemp_14, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/vaunemployment2014.csv")
 
 #2013
 unemp_13 <- rbind(b_unemp_13, h_unemp_13)
 write_csv(unemp_13, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/unemployment2013.csv")
+write_csv(va_unemp_13, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/vaunemployment2013.csv")
 
 #2012
 unemp_12 <- rbind(b_unemp_12, h_unemp_12)
 write_csv(unemp_12, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/unemployment2012.csv")
+write_csv(va_unemp_12, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/vaunemployment2012.csv")
 
 #2011
 unemp_11 <- rbind(b_unemp_11, h_unemp_11)
 write_csv(unemp_11, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/unemployment2011.csv")
+write_csv(va_unemp_11, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/vaunemployment2011.csv")
 
 #2010
 unemp_10 <- rbind(b_unemp_10, h_unemp_10)
 write_csv(unemp_10, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/unemployment2010.csv")
+write_csv(va_unemp_10, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2301FiveYearEstimates/vaunemployment2010.csv")
+
 
 #graphs side by side bar chart
 # #"#D55E00","#0072B2" 

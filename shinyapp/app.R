@@ -397,6 +397,10 @@ tabPanel("Economics", value = "economics",
                  tabName = "vet"
                ),
                menuItem(
+                 "Homeownership",
+                 tabName = "hmown"
+               ),
+               menuItem(
                  "Median Income",
                  tabName = 'median'
                )
@@ -438,11 +442,18 @@ tabPanel("Economics", value = "economics",
                                           withSpinner(leafletOutput("veteran_map")),
                                           p(tags$small("Data Source: ACS 5 Year Estimates Table S2101")),
                                             box(title = "Select Year:", width = 12,
-                                                sliderInput("VeteranSlider", "", value = 2019, min = 2010, max = 2019))
+                                                sliderInput("VeteranSlider", "", value = 2019, min = 2015, max = 2019))
                                         )
                                 ),
                                                 
-                                        
+                                tabItem(tabName = "hmown",
+                                        fluidRow(
+                                          h1(strong("Homeownership in Hampton Roads"), align = "center"),
+                                          withSpinner(leafletOutput("homeownership_map")),
+                                          p(tags$small("Data Source: ACS 5 Year Estimates Table S2505")),
+                                            box(title = "Select Year:", width = 12,
+                                                sliderInput("HomeOwnSlider", "", value = 2019, min = 2017, max = 2019))
+                                        )),
 
                                 tabItem(
                                 tabName = "median",
@@ -1186,7 +1197,7 @@ server <- function(input, output, session) {
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-          geom_bar(position = "stack", stat = "identity") +
+          geom_bar(position = "dodge", stat = "identity") +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
@@ -1195,8 +1206,9 @@ server <- function(input, output, session) {
                caption = "Source: ACS 5 Year Estimate Table S2701") +
           theme(axis.text.x = element_text(angle = 40)) + 
           scale_fill_manual(values = c("#D55E00", "#0072B2"))
-        
+
         ggplotly(uninsured_2019)
+    
       }
       
       else if(var_uninsuredpct() == "2018") {
@@ -1205,7 +1217,7 @@ server <- function(input, output, session) {
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-          geom_bar(position = "stack", stat = "identity") +
+          geom_bar(position = "dodge", stat = "identity") +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
@@ -1224,7 +1236,7 @@ server <- function(input, output, session) {
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-          geom_bar(position = "stack", stat = "identity") +
+          geom_bar(position = "dodge", stat = "identity") +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
@@ -1243,7 +1255,7 @@ server <- function(input, output, session) {
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-          geom_bar(position = "stack", stat = "identity") +
+          geom_bar(position = "dodge", stat = "identity") +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
@@ -1262,7 +1274,7 @@ server <- function(input, output, session) {
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-          geom_bar(position = "stack", stat = "identity") +
+          geom_bar(position = "dodge", stat = "identity") +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
@@ -1281,7 +1293,7 @@ server <- function(input, output, session) {
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-          geom_bar(position = "stack", stat = "identity") +
+          geom_bar(position = "dodge", stat = "identity") +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
@@ -1300,7 +1312,7 @@ server <- function(input, output, session) {
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-          geom_bar(position = "stack", stat = "identity") +
+          geom_bar(position = "dodge", stat = "identity") +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
@@ -1319,7 +1331,7 @@ server <- function(input, output, session) {
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-          geom_bar(position = "stack", stat = "identity") +
+          geom_bar(position = "dodge", stat = "identity") +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
@@ -1338,7 +1350,7 @@ server <- function(input, output, session) {
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-          geom_bar(position = "stack", stat = "identity") +
+          geom_bar(position = "dodge", stat = "identity") +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
@@ -1357,7 +1369,7 @@ server <- function(input, output, session) {
           mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
           mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
           ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-          geom_bar(position = "stack", stat = "identity") +
+          geom_bar(position = "dodge", stat = "identity") +
           theme_minimal() +
           theme(legend.title = element_blank()) +
           labs(title = "",
@@ -1380,13 +1392,20 @@ server <- function(input, output, session) {
     output$veteran_map <- renderLeaflet({
       if(var_veteran() == "2019") {
         vet_19 <- read_rds("data/TableS2101FiveYearEstimates/bveteran2019.rds")
+        military_bases <- read_rds("data/TableS2101FiveYearEstimates/militarybases.rds")
+        pal <- colorNumeric(palette = "viridis", domain = vet_19$Percent, reverse = TRUE)
         veteran_19 <- vet_19 %>% 
           leaflet(options = leafletOptions(minZoom = 8)) %>% 
           addProviderTiles("CartoDB.PositronNoLabels") %>% 
           addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                       highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
-                      label = ~paste0(NAME,  " Black Veterans: ", Percent, "%")) %>% 
-          # addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch)) %>% 
+                      label = ~paste0(NAME,  " Black Veterans: ", Percent, "%"), group = "Veteran Status") %>% 
+          addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch), group = "Military Bases") %>% 
+          addLayersControl(
+            baseGroups = c("Veteran Status"),
+            overlayGroups = c("Military Bases"),
+            options = layersControlOptions(collapsed = FALSE)) %>% 
+          hideGroup("Military Bases") %>% 
           addLegend("topleft",
                     pal = pal,
                     values = ~ Percent,
@@ -1397,13 +1416,19 @@ server <- function(input, output, session) {
       
       else if(var_veteran() == "2018") {
         vet_18 <- read_rds("data/TableS2101FiveYearEstimates/bveteran2018.rds")
+        pal <- colorNumeric(palette = "viridis", domain = vet_18$Percent, reverse = TRUE)
         veteran_18 <- vet_18 %>% 
           leaflet(options = leafletOptions(minZoom = 8)) %>% 
           addProviderTiles("CartoDB.PositronNoLabels") %>% 
           addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                       highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
-                      label = ~paste0(NAME,  " Black Veterans: ", Percent, "%")) %>% 
-          # addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch)) %>% 
+                      label = ~paste0(NAME,  " Black Veterans: ", Percent, "%"), group = "Veteran Status") %>% 
+          addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch), group = "Military Bases") %>% 
+          addLayersControl(
+            baseGroups = c("Veteran Status"),
+            overlayGroups = c("Military Bases"),
+            options = layersControlOptions(collapsed = FALSE)) %>% 
+          hideGroup("Military Bases") %>% 
           addLegend("topleft",
                     pal = pal,
                     values = ~ Percent,
@@ -1414,13 +1439,19 @@ server <- function(input, output, session) {
       
       else if(var_veteran() == "2017") {
         vet_17 <- read_rds("data/TableS2101FiveYearEstimates/bveteran2017.rds")
+        pal <- colorNumeric(palette = "viridis", domain = vet_17$Percent, reverse = TRUE)
         veteran_17 <- vet_17 %>% 
           leaflet(options = leafletOptions(minZoom = 8)) %>% 
           addProviderTiles("CartoDB.PositronNoLabels") %>% 
           addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                       highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
-                      label = ~paste0(NAME,  " Black Veterans: ", Percent, "%")) %>% 
-          # addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch)) %>% 
+                      label = ~paste0(NAME,  " Black Veterans: ", Percent, "%"), group = "Veteran Status") %>% 
+          addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch), group = "Military Bases") %>% 
+          addLayersControl(
+            baseGroups = c("Veteran Status"),
+            overlayGroups = c("Military Bases"),
+            options = layersControlOptions(collapsed = FALSE)) %>% 
+          hideGroup("Military Bases") %>% 
           addLegend("topleft",
                     pal = pal,
                     values = ~ Percent,
@@ -1431,13 +1462,19 @@ server <- function(input, output, session) {
       
       else if(var_veteran() == "2016") {
         vet_16 <- read_rds("data/TableS2101FiveYearEstimates/bveteran2016.rds")
+        pal <- colorNumeric(palette = "viridis",domain = vet_16$Percent, reverse = TRUE)
         veteran_16 <- vet_16 %>% 
           leaflet(options = leafletOptions(minZoom = 8)) %>% 
           addProviderTiles("CartoDB.PositronNoLabels") %>% 
           addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                       highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
-                      label = ~paste0(NAME,  " Black Veterans: ", Percent, "%")) %>% 
-          # addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch)) %>% 
+                      label = ~paste0(NAME,  " Black Veterans: ", Percent, "%"), group = "Veteran Status") %>% 
+          addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch), group = "Military Bases") %>% 
+          addLayersControl(
+            baseGroups = c("Veteran Status"),
+            overlayGroups = c("Military Bases"),
+            options = layersControlOptions(collapsed = FALSE)) %>% 
+          hideGroup("Military Bases") %>% 
           addLegend("topleft",
                     pal = pal,
                     values = ~ Percent,
@@ -1448,17 +1485,110 @@ server <- function(input, output, session) {
       
       else if(var_veteran() == "2015") {
         vet_15 <- read_rds("data/TableS2101FiveYearEstimates/bveteran2015.rds")
+        pal <- colorNumeric(palette = "viridis", domain = vet_15$Percent, reverse = TRUE)
         veteran_15 <- vet_15 %>% 
           leaflet(options = leafletOptions(minZoom = 8)) %>% 
           addProviderTiles("CartoDB.PositronNoLabels") %>% 
           addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                       highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
-                      label = ~paste0(NAME,  " Black Veterans: ", Percent, "%")) %>% 
-          # addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch)) %>% 
+                      label = ~paste0(NAME,  " Black Veterans: ", Percent, "%"), group = "Veteran Status") %>% 
+          addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch), group = "Military Bases") %>% 
+          addLayersControl(
+            baseGroups = c("Veteran Status"),
+            overlayGroups = c("Military Bases"),
+            options = layersControlOptions(collapsed = FALSE)) %>%
+          hideGroup("Military Bases") %>% 
           addLegend("topleft",
                     pal = pal,
                     values = ~ Percent,
                     title = "Black Veterans",
+                    labFormat = labelFormat(suffix = "%"),
+                    opacity = 1)
+      }
+    })
+    
+
+# Homeownership Map -------------------------------------------------------
+    var_hmown <- reactive({
+      input$HomeOwnSlider
+    })
+    
+    
+    output$homeownership_map <- renderLeaflet({
+      if(var_hmown() == "2019") {
+        b_hm_19 <- read_rds("data/TableS2502FiveYearEstimates/bhmown2019.rds")
+        tot_hm_19 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2019.rds")
+        pal <- colorNumeric(palette = "viridis", domain = b_hm_19$Percent, reverse = TRUE)
+        b_hmown_leaf_19 <- b_hm_19 %>%
+          leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+          addProviderTiles("CartoDB.PositronNoLabels") %>% 
+          addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                      highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                      label = ~paste0(NAME,  " Black Homeowners: ", Percent, "%"), group = "Black Home Owners") %>% 
+          addPolygons(data = tot_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                        highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                        label = ~paste0(NAME,  " Total Homeowners: ", Percent, "%"), group = "Total Home Owners") %>% 
+            addLayersControl(
+              baseGroups = c("Total Home Owners"),
+              overlayGroups = c("Black Home Owners"),
+              options = layersControlOptions(collapsed = FALSE)) %>% 
+          hideGroup("Black Home Owners") %>% 
+          addLegend("topleft",
+                    pal = pal,
+                    values = ~ Percent,
+                    title = "Home Owners",
+                    labFormat = labelFormat(suffix = "%"),
+                    opacity = 1)
+      }
+      
+      else if(var_hmown() == "2018") {
+        b_hm_18 <- read_rds("data/TableS2502FiveYearEstimates/bhmown2018.rds")
+        tot_hm_18 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2018.rds")
+        pal <- colorNumeric(palette = "viridis", domain = b_hm_18$Percent, reverse = TRUE)
+        b_hmown_leaf_18 <- b_hm_18 %>%
+          leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+          addProviderTiles("CartoDB.PositronNoLabels") %>% 
+          addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                      highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                      label = ~paste0(NAME,  " Black Homeowners: ", Percent, "%"), group = "Black Home Owners") %>% 
+          addPolygons(data = tot_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                      highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                      label = ~paste0(NAME,  " Total Homeowners: ", Percent, "%"), group = "Total Home Owners") %>% 
+          addLayersControl(
+            baseGroups = c("Total Home Owners"),
+            overlayGroups = c("Black Home Owners"),
+            options = layersControlOptions(collapsed = FALSE)) %>% 
+          hideGroup("Black Home Owners") %>% 
+          addLegend("topleft",
+                    pal = pal,
+                    values = ~ Percent,
+                    title = "Home Owners",
+                    labFormat = labelFormat(suffix = "%"),
+                    opacity = 1)
+      }
+      
+      else if(var_hmown() == "2017") {
+        b_hm_17 <- read_rds("data/TableS2502FiveYearEstimates/bhmown2017.rds")
+        tot_hm_17 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2017.rds")
+        pal <- colorNumeric(palette = "viridis", domain = b_hm_17$Percent, reverse = TRUE)
+        b_hmown_leaf_17 <- b_hm_17 %>%
+          leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+          addProviderTiles("CartoDB.PositronNoLabels") %>% 
+          addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                      highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                      label = ~paste0(NAME,  " Black Homeowners: ", Percent, "%"), group = "Black Home Owners") %>% 
+          addPolygons(data = tot_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                      highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                      label = ~paste0(NAME,  " Total Homeowners: ", Percent, "%"), group = "Total Home Owners") %>% 
+          addLayersControl(
+            baseGroups = c("Total Home Owners"),
+            overlayGroups = c("Black Home Owners"),
+            options = layersControlOptions(collapsed = FALSE)) %>% 
+          hideGroup("Black Home Owners") %>% 
+          addLegend("topleft",
+                    pal = pal,
+                    values = ~ Percent,
+                    title = "Home Owners",
                     labFormat = labelFormat(suffix = "%"),
                     opacity = 1)
       }
