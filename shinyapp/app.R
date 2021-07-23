@@ -731,9 +731,19 @@ ui <- navbarPage(title = "Hampton Roads",
                                    p("We would like to thank Healthy Patrick County, an association of concerned Patrick County residents, and Brandon Kramer for their input to this project.")
                           )
                  ),
+                 
+                 tabPanel("Dropout Rate", value = "dropout",
+                          fluidRow(
+                            h1(strong("Dropout Rates in Hampton Roads"), align = "center"),
+                            withSpinner(leafletOutput("dropout_map")),
+                            p(tags$small("Data Source: Virginia Department of Education")),
+                            box(title = "Select Year", width = 12,
+                                selectInput("DropoutDropdown", "Select Year:", width = "100%", choices = c("2020", "2019", "2018", "2017", "2016", "2015", 
+                                                                                                           "2014", "2013", "2012", "2011", "2010"))
+                            
+                        
+                          ))),
                  inverse = T)
-
-
 
 # server -----------------------------------------------------------
 server <- function(input, output, session) {
@@ -3698,6 +3708,30 @@ server <- function(input, output, session) {
                 opacity = 0.9)
   })
   
+
+# Dropout Rates -----------------------------------------------------------
+
+  var_dropoutrate <- reactive({
+    input$DropoutDropdown
+  })
+  
+  output$dropout_map <- renderLeaflet({
+    if(var_dropoutrate() == "2020") {
+      dropout_20 <- read.csv("data/dropout2020.csv")
+      mapping <- read.csv("data/dropoutmapdata.csv")
+      colors <- c("#0072B2", "#D55E00")
+      dropout_20_map <- leaflet() %>% 
+        addProviderTiles("CartoDB.Voyager") %>% 
+        addMinicharts(
+          mapping$lon, mapping$lat,
+          chartdata = dropout_20,
+          colorPalette = colors,
+          width = 45, height = 45
+        )
+    }
+  })
+  
+
   output$allgrctable <- renderTable({
     table <- read.csv("data/isochrones/tables/grc_iso_table.csv")
     table$Coverage <- paste0(round(table$Coverage, 2), " %")
