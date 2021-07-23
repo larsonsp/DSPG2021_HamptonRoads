@@ -561,7 +561,10 @@ teacherByRace$HispanicProportions <- teacherByRace$Asian/teacherByRace$`Total Co
 teacherByRace$WhiteProportions <- teacherByRace$White/teacherByRace$`Total Counts`
 teacherByRace$AmericanIndianProportions<- teacherByRace$`American Indian`/teacherByRace$`Total Counts`
 teacherByRace$TwoOrMoreRacesProportions <- teacherByRace$`Two or More Races`/teacherByRace$`Total Counts`
+teacherByRace <- teacherByRace %>% mutate(`Division Name` = str_remove(`Division Name`, "County Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City"))
 write_csv(teacherByRace, file = ("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/teacherByRacesBreakdown.csv"))
+teacherByRace <- read.csv("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/teacherByRacesBreakdown.csv")
+teacherByRace
 
 #teacherByRace$BlackProportions <- teacherByRace$Black/teacherByRace$`Total Counts`
 #changing col names so it I can convert division name column without getting mutate character error 

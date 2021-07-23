@@ -50,8 +50,8 @@ colors <- c("#232d4b","#2c4f6b","#0e879c","#60999a","#d1e0bf","#d9e12b","#e6ce3a
 
 #teacherByRace <- read_excel("teacherByRace.xlsx")
 #teacherByRace <- as.data.frame(teacherByRace) 
-#teacherByRace$`Division Name`
-#teacherByRace <- teacherByRace[which(teacherByRace$`Division Name` %in% countyAndCities), ]
+#teacherByRace$Division.Name
+#teacherByRace <- teacherByRace[which(teacherByRace$Division.Name %in% countyAndCities), ]
 #teacherByRace
 
 
@@ -231,9 +231,26 @@ ui <- navbarPage(title = "Hampton Roads",
                                                      p(tags$small("Data Source: ACS 5 Year Estimate Table C15002B"))
                                             )
                                           )
-                                   )
+                                   ), 
+                                   
+                                   column(5,
+                                          h4(strong("Teacher Race Breakdown")),
+                                   ),
+                                   column(7,
+                                          tabsetPanel(
+                                            tabPanel("Teacher Race Breakdown",
+                                                     p(""),
+                                                     selectInput("teacherRaceBreakdown", "Select Race:", width = "100%", choices = c(
+                                                       "Black", "Asian", "American Indian", "Hispanic", "Two or More Races", "White"
+                                                     )),
+                                                     p(strong("Virginia: Teacher Breakdown By Race in Hampton Roads")),
+                                                     withSpinner(plotlyOutput("teacherRacePlots")),
+                                                     p(tags$small("Data Source: Virginia 2020-2021 Teacher Race Report"))
+                                            )
+                                   ), 
                           )
-                 ),
+                 )
+              ),
                  
                  #median Income and Poverty rates
                  tabPanel("Sociodemographics", value = "socio",
@@ -1007,6 +1024,70 @@ server <- function(input, output, session) {
     
   })
   
+  
+  #teacher Race plots working on it....................
+  var_teacherRaces <- reactive({
+    input$teacherRaceBreakdown
+  })
+  
+  
+  output$teacherRacePlots <- renderPlotly({
+    if(var_teacherRaces() == "Black") {
+      teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      teacherByRace <- teacherByRace  %>% 
+        ggplot(aes(x = Division.Name, y = BlackProportions, fill = Division.Name)) + geom_col() +
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
+        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(teacherByRace)
+    }
+    
+    else if (var_teacherRaces() == "Asian") {
+      teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      teacherByRace <- teacherByRace  %>% 
+        ggplot(aes(x = Division.Name, y = AsianProportions, fill = Division.Name)) + geom_col() +
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
+        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(teacherByRace)
+    }
+    
+    else if (var_teacherRaces() == "White") {
+      teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      teacherByRace <- teacherByRace  %>% 
+        ggplot(aes(x = Division.Name, y = WhiteProportions, fill = Division.Name)) + geom_col() +
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
+        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(teacherByRace)
+    }
+    
+    else if (var_teacherRaces() == "Hispanic") {
+      teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      teacherByRace <- teacherByRace  %>% 
+        ggplot(aes(x = Division.Name, y = HispanicProportions, fill = Division.Name)) + geom_col() +
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
+        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(teacherByRace)
+    }
+    
+    else if (var_teacherRaces() == "American Indian") {
+      teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      teacherByRace <- teacherByRace  %>% 
+        ggplot(aes(x = Division.Name, y = AmericanIndianProportions, fill = Division.Name)) + geom_col() +
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
+        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(teacherByRace)
+    }
+    
+    else if (var_teacherRaces() == "TwoOrMoreRaces") {
+      teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      teacherByRace <- teacherByRace  %>% 
+        ggplot(aes(x = Division.Name, y = TwoOrMoreRacesProportions, fill = Division.Name)) + geom_col() +
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
+        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(teacherByRace)
+    }
+    
+  }
+)
   
   #Median Income plots: Working on it --------------------------------
   var_medianIncome <- reactive({
