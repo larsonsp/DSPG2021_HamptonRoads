@@ -557,7 +557,7 @@ View(teacherByRace)
 #teacherByRace <- teacherByRace[, names(teacherByRace) %in% keep.cols]
 teacherByRace$BlackProportions <- teacherByRace$Black/teacherByRace$`Total Counts`
 teacherByRace$AsianProportions <- teacherByRace$Asian/teacherByRace$`Total Counts`
-teacherByRace$HispanicProportions <- teacherByRace$Asian/teacherByRace$`Total Counts`
+teacherByRace$HispanicProportions <- teacherByRace$Hispanic/teacherByRace$`Total Counts`
 teacherByRace$WhiteProportions <- teacherByRace$White/teacherByRace$`Total Counts`
 teacherByRace$AmericanIndianProportions<- teacherByRace$`American Indian`/teacherByRace$`Total Counts`
 teacherByRace$TwoOrMoreRacesProportions <- teacherByRace$`Two or More Races`/teacherByRace$`Total Counts`
