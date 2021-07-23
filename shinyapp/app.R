@@ -324,6 +324,58 @@ ui <- navbarPage(title = "Hampton Roads",
                               
                               )))),
                  
+                 #testing out tabs for education (I don't want to mess with victors code until I know the tabs code works)
+                 tabPanel("Education", value = "edu",
+                          dashboardPage(
+                            skin = 'black',
+                            dashboardHeader(
+                              title = ''
+                            ),
+                            
+                            
+                            dashboardSidebar(
+                              sidebarMenu(
+                                menuItem(
+                                  "Suspension",
+                                  tabName = 'suspension'
+                                )
+                              )
+                            ),
+                            
+                            dashboardBody(tabItems(
+                              ## First Sidebar ----------------------------
+                              tabItem(tabName = "suspension",
+                                      fluidRow(
+                                        h1(strong("Short Term Suspension"), align = "center"),
+                                        column(5,
+                                               h4(strong("Academic Punishments"))
+                                        ),
+                                        column(7,
+                                               tabsetPanel(
+                                                 tabPanel("Virgina Suspensions",
+                                                          p(""),
+                                                          selectInput("suspensionYearDrop", "Select Year:", width = "100%", choices = c(
+                                                            "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
+                                                          p(strong("Virgina Suspensions")),
+                                                          withSpinner(plotOutput("graph_va")),
+                                                          p(tags$small("Data Source: Kids Count Data Center"))
+                                                 )
+                                               ), 
+                                        )
+                                        
+               
+                                        
+                                      )
+                              )
+                              
+                            )))),
+                 
+                 
+                 
+                 
+                 
+                 
+                 
                  # Education-----------------------------------------------------------
                  tabPanel("Education", value =  "education",
                           fluidRow(style = "margin: 6px;",
@@ -605,7 +657,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                 tabName = "poverty",
                                 fluidRow(style = "margin: 6px;",
                                          h1(strong("Poverty Rates in Virginia and Hampton Roads"), align = "center"),
-                                         column(7,
+                                         column(7, 
                                                 h4(strong("Poverty Rates in Virginia and Hampton Roads")),
                                                 withSpinner(plotOutput("pov_plot")),
                                                 p(tags$small("Data Source: ACS 5 Year Estimates Table S1701")),
@@ -613,7 +665,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                   "2019","2018", "2017", "2016", "2015","2014",
                                                   "2013","2012"))
                                                 ),
-                                         column(7,
+                                         column(7, width = 12,
                                                 h4(strong("Poverty Rates in Hampton Roads Counties and Cities")),
                                                 withSpinner(plotOutput("counties_pov")),
                                                 p(tags$small("Data Source: ACS 5 Year Estimates Table S1701")),
@@ -1719,6 +1771,55 @@ server <- function(input, output, session) {
   }
 )
   
+  
+  # VA suspension--------------------------------------------------------------
+  var_suspension <- reactive({
+    input$suspensionYearDrop
+  })
+  
+  output$graph_va <- renderPlot({
+    if(var_suspension() == "2018-2019"){
+      year <- "2018-2019"
+    }
+    else if (var_suspension() == "AY 2017-2018") {
+      year <- "AY 2017-2018"
+    }
+    else if (var_suspension() == "AY 2016-2017") {
+      year <- "AY 2016-2017"
+    }
+    else if (var_suspension() == "AY 2015-2016") {
+      year <- "AY 2015-2016"
+    }
+    else if (var_suspension() == "AY 2014-2015") {
+      year <- "AY 2014-2015"
+    }
+    suspension_data <- read_excel("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/suspension/shortTermSuspension.xlsx")
+    #using only  VA data for 2018-2019
+    suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
+    #VA percentage estimate for 2018-2019 (Black)
+    va_blck <- suspension_va %>% filter(Race == "Black") %>% filter(DataFormat == "Percent")
+    #VA percentage estimate for 2018-2019 (Hispanic)
+    va_hisp <- suspension_va %>% filter(Race == "Hispanic") %>% filter(DataFormat == "Percent")
+    #VA percentage estimate for 2018-2019 (white)
+    va_white <- suspension_va %>% filter(Race == "White") %>% filter(DataFormat == "Percent")
+    #combining the three percentages(b;ack, hispanic, white)
+    va_suspension_race <- rbind(va_blck[,6], va_hisp[,6], va_white[,6])
+    va_suspension_race$Data <- as.numeric(va_suspension_race$Data)
+    va_suspension_race <- mutate(va_suspension_race, Data = Data*100)
+    va_suspension_race <- mutate(va_suspension_race, race = c("Black", "Hispanic", "White"))
+    #Graph
+    graph_va <- ggplot(data=va_suspension_race, aes(x=race, y=Data)) +
+      geom_bar(stat="identity", fill ="#0072B2")+
+      geom_text(aes(label=paste0(round(Data, digits = 2), "%")), vjust=1.6, color="white", size=10)+
+      theme_minimal()+
+      theme(axis.title.x = element_blank(),
+            axis.title.y = element_blank(),
+            axis.text.y = element_blank(),
+            axis.text.x = element_text(size=20)) 
+    #plot
+    graph_va
+    
+  })
   
   
   # Unemployment Rate -------------------------------------------------------
