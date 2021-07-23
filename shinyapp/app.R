@@ -1077,7 +1077,7 @@ server <- function(input, output, session) {
       ggplotly(teacherByRace)
     }
     
-    else if (var_teacherRaces() == "TwoOrMoreRaces") {
+    else if (var_teacherRaces() == "Two or More Races") {
       teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Division.Name, y = TwoOrMoreRacesProportions, fill = Division.Name)) + geom_col() +
