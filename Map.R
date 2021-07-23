@@ -231,8 +231,7 @@ for (i in 1:length(years)) {
     ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
     theme_minimal() + labs(title = "",
                            y = "Percent (%)",
-                           x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))
-  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+                           x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
   ggplotly(va_tot_education_bar)
   
   #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
@@ -326,7 +325,7 @@ black_total %>% mutate(NAME = str_remove(NAME, "County, Virginia")) %>%
   mutate(NAME = str_remove(NAME, "city, Virginia"))  %>% 
   ggplot() + geom_hline(yintercept=general_va_cutoff$pct_tot, linetype="dashed", color = "red") + geom_col(aes(x=NAME, y=pct_tot, group=gender, fill=gender)) 
   + labs(title = "Virginia: Black Employment Rate", y = "Percent (%)",
-       x = "Counties of Hampton Roads",caption = "Source: ACS 5 Year Estimate") + theme(axis.text.x = element_text(angle = 40)) 
+       x = "Counties of Hampton Roads", caption = "Source: ACS 5 Year Estimate") + theme(axis.text.x = element_text(angle = 40)) 
 
 
 #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
@@ -545,21 +544,35 @@ countyAndCities <- c("Chesapeake City Public Schools",
               "Southampton County Public Schools",
               "York County Public Schools")
 
-teacherByRace <- read_excel("teacherByRace.xlsx")
+teacherByRace <- read_excel("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/teacherByRace.xlsx")
 teacherByRace <- as.data.frame(teacherByRace) 
+teacherByRace
 teacherByRace$`Division Name`
 teacherByRace <- teacherByRace[which(teacherByRace$`Division Name` %in% countyAndCities), ]
+View(teacherByRace)
+
+
+
+#keep.cols <- c("Division Name",'Total Counts','Black')
+#teacherByRace <- teacherByRace[, names(teacherByRace) %in% keep.cols]
+teacherByRace$BlackProportions <- teacherByRace$Black/teacherByRace$`Total Counts`
+teacherByRace$AsianProportions <- teacherByRace$Asian/teacherByRace$`Total Counts`
+teacherByRace$HispanicProportions <- teacherByRace$Asian/teacherByRace$`Total Counts`
+teacherByRace$WhiteProportions <- teacherByRace$White/teacherByRace$`Total Counts`
+teacherByRace$AmericanIndianProportions<- teacherByRace$`American Indian`/teacherByRace$`Total Counts`
+teacherByRace$TwoOrMoreRacesProportions <- teacherByRace$`Two or More Races`/teacherByRace$`Total Counts`
+teacherByRace <- teacherByRace %>% mutate(`Division Name` = str_remove(`Division Name`, "County Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City"))
+write_csv(teacherByRace, file = ("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/teacherByRacesBreakdown.csv"))
+teacherByRace <- read.csv("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/teacherByRacesBreakdown.csv")
 teacherByRace
 
-keep.cols <- c("Division Name",'Total Counts','Black')
-teacherByRace <- teacherByRace[, names(teacherByRace) %in% keep.cols]
-teacherByRace$Proportions <- teacherByRace$Black/teacherByRace$`Total Counts`
+#teacherByRace$BlackProportions <- teacherByRace$Black/teacherByRace$`Total Counts`
 #changing col names so it I can convert division name column without getting mutate character error 
-colnames(teacherByRace) <- c("DivisionName",'TotalCounts','Black', 'Proportions')
-teacherByRace <- teacherByRace %>% mutate(DivisionName = str_remove(DivisionName, "County Public Schools")) %>% mutate(DivisionName = str_remove(DivisionName, "City Public Schools")) %>% mutate(DivisionName = str_remove(DivisionName, "City"))
+#colnames(teacherByRace) <- c("DivisionName",'TotalCounts','Black', 'Proportions')
+teacherByRace <- teacherByRace %>% mutate(`Division Name` = str_remove(`Division Name`, "County Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City"))
 
 teacherByRace <- teacherByRace  %>% 
-  ggplot(aes(x = DivisionName, y = Proportions, fill = DivisionName)) + geom_col() +
+  ggplot(aes(x = `Division Name`, y = BlackProportions, fill = `Division Name`)) + geom_col() +
   labs(title = "Virginia: Percentage of Black Teachers in Hampton Roads", y = "Percentage (%)", x = "Hampton Roads", caption = "Source: Virginia 2020-2021 Teacher Race Report") + 
   theme(axis.text.x = element_text(angle = 40))
 teacherByRace 

@@ -50,8 +50,8 @@ colors <- c("#232d4b","#2c4f6b","#0e879c","#60999a","#d1e0bf","#d9e12b","#e6ce3a
 
 #teacherByRace <- read_excel("teacherByRace.xlsx")
 #teacherByRace <- as.data.frame(teacherByRace) 
-#teacherByRace$`Division Name`
-#teacherByRace <- teacherByRace[which(teacherByRace$`Division Name` %in% countyAndCities), ]
+#teacherByRace$Division.Name
+#teacherByRace <- teacherByRace[which(teacherByRace$Division.Name %in% countyAndCities), ]
 #teacherByRace
 
 
@@ -227,13 +227,30 @@ ui <- navbarPage(title = "Hampton Roads",
                                                        "2019","2018", "2017", "2016", "2015","2014",
                                                        "2013","2012", "2011", "2010")),
                                                      p(strong("Black Educational Attainment")),
-                                                     withSpinner(plotOutput("blackEdAttainmentPlots")),
+                                                     withSpinner(plotlyOutput("blackEdAttainmentPlots")),
                                                      p(tags$small("Data Source: ACS 5 Year Estimate Table C15002B"))
                                             )
                                           )
-                                   )
+                                   ), 
+                                   
+                                   column(5,
+                                          h4(strong("Teacher Race Breakdown")),
+                                   ),
+                                   column(7,
+                                          tabsetPanel(
+                                            tabPanel("Teacher Race Breakdown",
+                                                     p(""),
+                                                     selectInput("teacherRaceBreakdown", "Select Race:", width = "100%", choices = c(
+                                                       "Black", "Asian", "American Indian", "Hispanic", "Two or More Races", "White"
+                                                     )),
+                                                     p(strong("Virginia: Teacher Breakdown By Race in Hampton Roads")),
+                                                     withSpinner(plotlyOutput("teacherRacePlots")),
+                                                     p(tags$small("Data Source: Virginia 2020-2021 Teacher Race Report"))
+                                            )
+                                   ), 
                           )
-                 ),
+                 )
+              ),
                  
                  #median Income and Poverty rates
                  tabPanel("Sociodemographics", value = "socio",
@@ -739,10 +756,6 @@ server <- function(input, output, session) {
     input$genEdAttainmentYearDrop
   })
   
-  var_blackEducationalAttainment <- reactive({
-    input$blackEdAttainmentYearDrop
-  })
-  
   output$genEdAttainmentPlots <- renderPlotly({
     if(var_genEducationalAttainment() == "2019") {
       generalEducationalAttainement2019 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2019.csv")
@@ -890,6 +903,201 @@ server <- function(input, output, session) {
     }
     
   })
+  
+  
+  var_blackEducationalAttainment <- reactive({
+    input$blackEdAttainmentYearDrop
+  })
+  
+  
+  output$blackEdAttainmentPlots  <- renderPlotly({
+    
+    if(var_blackEducationalAttainment() == "2019") {
+      blackEducationalAttainment2019 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2019.csv")
+      va_tot_education_bar2019 <- blackEducationalAttainment2019  %>% 
+        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+        theme_minimal() + labs(title = "",
+                               y = "Percent (%)",
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(va_tot_education_bar2019)
+    }
+    
+    else if(var_blackEducationalAttainment() == "2018") {
+      blackEducationalAttainment2018 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2018.csv")
+      va_tot_education_bar2018 <- blackEducationalAttainment2018  %>% 
+        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+        theme_minimal() + labs(title = "",
+                               y = "Percent (%)",
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(va_tot_education_bar2018)
+    }
+    
+    else if(var_blackEducationalAttainment() == "2017") {
+      blackEducationalAttainment2017 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2017.csv")
+      va_tot_education_bar2017 <- blackEducationalAttainment2017 %>% 
+        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+        theme_minimal() + labs(title = "",
+                               y = "Percent (%)",
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(va_tot_education_bar2017)
+    }
+    
+    else if(var_blackEducationalAttainment() == "2016") {
+      blackEducationalAttainment2016 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2016.csv")
+      va_tot_education_bar2016 <- blackEducationalAttainment2016  %>% 
+        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+        theme_minimal() + labs(title = "",
+                               y = "Percent (%)",
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(va_tot_education_bar2016)
+    }
+    
+    else if(var_blackEducationalAttainment() == "2015") {
+      blackEducationalAttainment2015 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2015.csv")
+      va_tot_education_bar2015 <- blackEducationalAttainment2015  %>% 
+        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+        theme_minimal() + labs(title = "",
+                               y = "Percent (%)",
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(va_tot_education_bar2015)
+    }
+    
+    else if(var_blackEducationalAttainment() == "2014") {
+      blackEducationalAttainment2014 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2014.csv")
+      va_tot_education_bar2014 <- blackEducationalAttainment2014 %>% 
+        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+        theme_minimal() + labs(title = "",
+                               y = "Percent (%)",
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(va_tot_education_bar2014)
+    }
+    
+    else if(var_blackEducationalAttainment() == "2013") {
+      blackEducationalAttainment2013 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2013.csv")
+      va_tot_education_bar2013 <- blackEducationalAttainment2013 %>% 
+        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+        theme_minimal() + labs(title = "",
+                               y = "Percent (%)",
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(va_tot_education_bar2013)
+    }
+    
+    else if(var_blackEducationalAttainment() == "2012") {
+      blackEducationalAttainment2012 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2012.csv")
+      va_tot_education_bar2012 <- blackEducationalAttainment2012 %>% 
+        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+        theme_minimal() + labs(title = "",
+                               y = "Percent (%)",
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(va_tot_education_bar2012)
+    }
+    
+    else if(var_blackEducationalAttainment() == "2011") {
+      blackEducationalAttainment2012 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2011.csv")
+      va_tot_education_bar2011 <- blackEducationalAttainment2011 %>% 
+        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+        theme_minimal() + labs(title = "",
+                               y = "Percent (%)",
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(va_tot_education_bar2011)
+    }
+    
+    else if(var_blackEducationalAttainment() == "2010") {
+      blackEducationalAttainment2010 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2010.csv")
+      va_tot_education_bar2010 <- blackEducationalAttainment2010 %>% 
+        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+        theme_minimal() + labs(title = "",
+                               y = "Percent (%)",
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(va_tot_education_bar2010)
+    }
+    
+  })
+  
+  
+  #teacher Race plots working on it....................
+  var_teacherRaces <- reactive({
+    input$teacherRaceBreakdown
+  })
+  
+  
+  output$teacherRacePlots <- renderPlotly({
+    if(var_teacherRaces() == "Black") {
+      teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      teacherByRace <- teacherByRace  %>% 
+        ggplot(aes(x = Division.Name, y = BlackProportions, fill = Division.Name)) + geom_col() +
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
+        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(teacherByRace)
+    }
+    
+    else if (var_teacherRaces() == "Asian") {
+      teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      teacherByRace <- teacherByRace  %>% 
+        ggplot(aes(x = Division.Name, y = AsianProportions, fill = Division.Name)) + geom_col() +
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
+        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(teacherByRace)
+    }
+    
+    else if (var_teacherRaces() == "White") {
+      teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      teacherByRace <- teacherByRace  %>% 
+        ggplot(aes(x = Division.Name, y = WhiteProportions, fill = Division.Name)) + geom_col() +
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
+        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(teacherByRace)
+    }
+    
+    else if (var_teacherRaces() == "Hispanic") {
+      teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      teacherByRace <- teacherByRace  %>% 
+        ggplot(aes(x = Division.Name, y = HispanicProportions, fill = Division.Name)) + geom_col() +
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
+        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(teacherByRace)
+    }
+    
+    else if (var_teacherRaces() == "American Indian") {
+      teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      teacherByRace <- teacherByRace  %>% 
+        ggplot(aes(x = Division.Name, y = AmericanIndianProportions, fill = Division.Name)) + geom_col() +
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
+        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(teacherByRace)
+    }
+    
+    else if (var_teacherRaces() == "Two or More Races") {
+      teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      teacherByRace <- teacherByRace  %>% 
+        ggplot(aes(x = Division.Name, y = TwoOrMoreRacesProportions, fill = Division.Name)) + geom_col() +
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
+        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      ggplotly(teacherByRace)
+    }
+    
+  }
+)
   
   #Median Income plots: Working on it --------------------------------
   var_medianIncome <- reactive({
