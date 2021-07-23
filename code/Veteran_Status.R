@@ -96,10 +96,10 @@ black_vet_status
 
 
 ##Pulls 2019 ACS Data and Geometry
-  black_vet_status_19 <- get_acs(geography = "county",
+  b_vet_19 <- get_acs(geography = "county",
                               state = "VA",
                               county = county_fips,
-                              variables = c(black_vet_proportion = "S2101_C03_015"),
+                              variables = c("Black Veterans" = "S2101_C03_015"),
                               summary_var = "S2101_C01_015",
                               survey = "acs5",
                               year = 2019,
@@ -107,17 +107,15 @@ black_vet_status
     mutate(Percent = 100 * (estimate / summary_est)) %>% 
     mutate(Percent = round(Percent, 2))
  
-write_csv(black_vet_status_19, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/data/blackvetstatus2019.csv")
-
-vet19 <- read.csv("blackvetstatus2019.csv")
-
-vet19 <- readOGR("blackvetstatus2019.csv")
+write_rds(b_vet_19, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2019.rds")
+b_vet_19 <- readRDS("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2019.rds")
+b_vet_19 <- st_transform(b_vet_19)
 
 ##pulls 2018 ACS Data and Geometry
-  black_vet_status_18 <- get_acs(geography = "county",
+  b_vet_18 <- get_acs(geography = "county",
                                  state = "VA",
                                  county = county_fips,
-                                 variables = c(black_vet_proportion = "S2101_C03_015"),
+                                 variables = c("Black Veterans" = "S2101_C03_015"),
                                  summary_var = "S2101_C01_015",
                                  survey = "acs5",
                                  year = 2018,
@@ -125,13 +123,15 @@ vet19 <- readOGR("blackvetstatus2019.csv")
     mutate(Percent = 100 * (estimate / summary_est)) %>% 
     mutate(Percent = round(Percent, 2))
   
-write_csv(black_vet_status_18, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/data/blackvetstatus2018.csv")
+write_rds(b_vet_18, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2018.rds")
+b_vet_18 <- readRDS("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2018.rds")
+b_vet_18 <- st_transform(b_vet_18)
   
 ##pulls 2017 ACS Data and Geometry
-  black_vet_status_17 <- get_acs(geography = "county",
+  b_vet_17 <- get_acs(geography = "county",
                                  state = "VA",
                                  county = county_fips,
-                                 variables = c(black_vet_proportion = "S2101_C03_015"),
+                                 variables = c("Black Veterans" = "S2101_C03_015"),
                                  summary_var = "S2101_C01_015",
                                  survey = "acs5",
                                  year = 2017,
@@ -139,27 +139,31 @@ write_csv(black_vet_status_18, file = "/Users/mattb24/Documents/DSPG_Hampton_Roa
     mutate(Percent = 100 * (estimate / summary_est)) %>% 
     mutate(Percent = round(Percent, 2))
   
-  write_csv(black_vet_status_17, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/data/blackvetstatus2017.csv")
+write_rds(b_vet_17, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2017.rds")
+b_vet_17 <- readRDS("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2017.rds")
+b_vet_17 <- st_transform(b_vet_17)
   
 ##pulls 2016 ACS Data and Geometry
-  black_vet_status_16 <- get_acs(geography = "county",
+  b_vet_16 <- get_acs(geography = "county",
                                  state = "VA",
                                  county = county_fips,
-                                 variables = c(black_vet_proportion = "S2101_C03_015"),
+                                 variables = c("Black Veterans" = "S2101_C03_015"),
                                  summary_var = "S2101_C01_015",
                                  survey = "acs5",
                                  year = 2016,
                                  geometry = TRUE) %>% 
     mutate(Percent = 100 * (estimate / summary_est)) %>% 
     mutate(Percent = round(Percent, 2))
-  
-  write_csv(black_vet_status_16, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/data/blackvetstatus2016.csv")
+
+write_rds(b_vet_16, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2016.rds")
+b_vet_16 <- readRDS("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2016.rds")
+b_vet_16 <- st_transform(b_vet_16)
 
 ##pulls 2015 ACS Data and Geometry
-  black_vet_status_15 <- get_acs(geography = "county",
+  b_vet_15 <- get_acs(geography = "county",
                                  state = "VA",
                                  county = county_fips,
-                                 variables = c(black_vet_proportion = "S2101_C03_015"),
+                                 variables = c("Black Veterans" = "S2101_C03_015"),
                                  summary_var = "S2101_C01_015",
                                  survey = "acs5",
                                  year = 2015,
@@ -167,7 +171,20 @@ write_csv(black_vet_status_18, file = "/Users/mattb24/Documents/DSPG_Hampton_Roa
     mutate(Percent = 100 * (estimate / summary_est)) %>% 
     mutate(Percent = round(Percent, 2))
   
-  write_csv(black_vet_status_15, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/data/blackvetstatus2015.csv")
+write_rds(b_vet_15, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2015.rds")
+b_vet_15 <- readRDS("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2015.rds")
+b_vet_15 <- st_transform(b_vet_15)
+
+#2014
+
+
+#2013
+
+#2012
+
+#2011
+
+#2010
 
 ###Creates data table containing military base names/branches and lat/lng
 base_name <- c("Training Center Yorktown", "Naval Weapons Station Yorktown", "Fort Eustis", "Langley Air Force Base", "Fort Monroe", 
@@ -181,24 +198,31 @@ longitude <- c(-76.5142, -76.4873, -76.58025, -76.360552, -76.309991, -76.31692,
 
 military_bases <- data.frame(base_name, branch, latitude, longitude)
 
-pal <- colorNumeric(palette = "viridis", domain = vet19$Percent)
+write_rds(military_bases, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/militarybases.rds")
+military_bases <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/militarybases.rds")
+military_bases <- st_transform(military_bases)
+
+pal <- colorNumeric(palette = "viridis", domain = b_vet_19$Percent, reverse = TRUE)
+
 
 #####leaflet map
-b_vet_status_leaf <- black_vet_status_17 %>% 
-  st_transform() %>% 
+  b_vet_19 %>% 
+  # st_transform() %>% 
   leaflet(options = leafletOptions(minZoom = 8)) %>% 
   addProviderTiles("CartoDB.PositronNoLabels") %>% 
   addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
               highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), label = ~paste0(NAME,  " Black Veterans: ",
                                                                                                                    Percent, "%")) %>% 
-#  addAwesomeMarkers(data = military_bases, icon = icons, popup = ~paste0("Base: ", base_name, " Branch: ", branch)) %>% 
-  addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch)) %>% 
+  # addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch)) %>% 
   addLegend("topleft",
           pal = pal,
           values = ~ Percent,
           title = "Black Veterans",
           labFormat = labelFormat(suffix = "%"),
           opacity = 1)
+  
+
+
 
 
   
