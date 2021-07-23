@@ -213,7 +213,62 @@ va_tot_education_bar
 
 
 
+#plots general data for black education
+years <- c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019) 
+for (i in 1:length(years)) { 
+  #plots general data for education
+ 
+  va_total2 = county_stats(c("C15002B_006", "C15002B_011"), "C15002B_001", years[i])
+  write_csv(va_total2, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
+  va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
+  
+  
+  
+  #plots general Black data for total population
+  va_tot_education_bar <- va_total2CSV  %>% 
+    mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+    mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+    ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+    theme_minimal() + labs(title = "",
+                           y = "Percent (%)",
+                           x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))
+  
+  #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
+  
+  va_tot_education_bar
+  
+  
+}
 
+
+
+
+#plots general data for professional degrees
+years <- c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019) 
+for (i in 1:length(years)) { 
+  #plots general data for education
+  
+  va_total2 = county_stats("S1501_C01_012", "S1501_C01_006", years[i])
+  write_csv(va_total2, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
+  va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
+  
+  
+  
+  #plots general data for population
+  va_tot_education_bar <- va_total2CSV  %>% 
+    mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+    mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+    ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+    theme_minimal() + labs(title = "",
+                           y = "Percent (%)",
+                           x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))
+  
+  #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
+  
+  #va_tot_education_bar
+  
+  
+}
 
 
 
