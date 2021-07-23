@@ -534,6 +534,10 @@ ui <- navbarPage(title = "Hampton Roads",
                                 menuItem(
                                   "Median Income",
                                   tabName = 'median'
+                                ),
+                                menuItem(
+                                  "Poverty Rate",
+                                  tabName = 'poverty'
                                 )
                               )
                             ),
@@ -596,8 +600,34 @@ ui <- navbarPage(title = "Hampton Roads",
                                            "2019","2018", "2017", "2016", "2015","2014",
                                            "2013","2012", "2011", "2010"))
                                 )
-                                
-                              ))))),
+                              ),
+                              tabItem(
+                                tabName = "poverty",
+                                fluidRow(style = "margin: 6px;",
+                                         h1(strong("Poverty Rates in Virginia and Hampton Roads"), align = "center"),
+                                         column(7,
+                                                h4(strong("Poverty Rates in Virginia and Hampton Roads")),
+                                                withSpinner(plotOutput("pov_plot")),
+                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S1701")),
+                                                selectInput("PovertyYearDrop", "Select Year:", width = "100%", choices = c(
+                                                  "2019","2018", "2017", "2016", "2015","2014",
+                                                  "2013","2012"))
+                                                ),
+                                         column(7,
+                                                h4(strong("Poverty Rates in Hampton Roads Counties and Cities")),
+                                                withSpinner(plotOutput("counties_pov")),
+                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S1701")),
+                                                selectInput("PovertyCountYearDrop", "Select Year:", width = "100%", choices = c(
+                                                  "2019","2018", "2017", "2016", "2015","2014",
+                                                  "2013","2012"))
+                                         )
+                                         
+                              
+                                )
+                              )
+                              
+                              
+                              )))),
                  
                  
                  # wifi-----------------------------------------------------------
@@ -1339,12 +1369,6 @@ server <- function(input, output, session) {
     age_map
  
   })
-  
-  
-  
-  
-  
-  
   
   
   #educational attainment plots working on it....................
@@ -2419,7 +2443,7 @@ server <- function(input, output, session) {
               axis.title=element_text(size=17),
               axis.title.x=element_blank(),
               axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0))) +
-        scale_fill_viridis_d()
+        scale_fill_manual(values = c("#D55E00", "#0072B2"))
       #plot
       income_plot
     }
@@ -2497,7 +2521,7 @@ server <- function(input, output, session) {
               axis.title=element_text(size=17),
               axis.title.x=element_blank(),
               axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0))) +
-        scale_fill_viridis_d()
+        scale_fill_manual(values = c("#D55E00", "#0072B2"))
       #plot
       income_plot
     }
@@ -2505,13 +2529,283 @@ server <- function(input, output, session) {
     
   })
   
+  #poverty Rates in VA and Hampton Roads-------------------------------------
+  var_poverty <- reactive ({
+    input$PovertyYearDrop
+  })
+  
+  output$pov_plot <- renderPlot({
+  if(var_poverty() %in% c("2019", "2018", "2017", "2016", "2015")){
+    if(var_poverty() == "2019") { 
+      va_pov <- read.csv("data/TableS1701FiveYearEstimates/va_poverty2019.csv")
+      hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2019.csv")
+    }
+    else if(var_poverty() == "2018") { 
+      va_pov <- read.csv("data/TableS1701FiveYearEstimates/va_poverty2018.csv")
+      hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2018.csv")
+    }
+    else if(var_poverty() == "2017") { 
+      va_pov <- read.csv("data/TableS1701FiveYearEstimates/va_poverty2017.csv")
+      hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2017.csv")
+    }
+    else if(var_poverty() == "2016") { 
+      va_pov <- read.csv("data/TableS1701FiveYearEstimates/va_poverty2016.csv")
+      hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2016.csv")
+    }
+    else if(var_poverty() == "2015") { 
+      va_pov <- read.csv("data/TableS1701FiveYearEstimates/va_poverty2015.csv")
+      hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2015.csv")
+    }
+    va_pov <- va_pov[,2:6]
+    va_pct_pov <- va_pov[123,4]
+    va_pct_pov_blck <- va_pov[136,4]
+    va_pov_vector <- rbind(va_pct_pov, va_pct_pov_blck)
+    hamp_pov <- hamp_pov[,2:6]
+    #General
+    hamp_total <- hamp_pov %>%
+      group_by(NAME) %>%
+      slice(c(1))
+    hamp_total2 <- colSums(hamp_total[,4])
+    hamp_pov2 <- hamp_pov %>%
+      group_by(NAME) %>%
+      slice(c(62))
+    hamp_pov3 <- colSums(hamp_pov2[,4])
+    hamp_overall_pov <- hamp_pov3/hamp_total2 *100
+    #Black
+    hamp_total_blck <- hamp_pov %>%
+      group_by(NAME) %>%
+      slice(14)
+    hamp_total_blck2 <- colSums(hamp_total_blck[,4]) 
+    hamp_pov_blck <- hamp_pov %>%
+      group_by(NAME) %>%
+      slice(75)
+    hamp_pov_blck2 <- colSums(hamp_pov_blck[,4])
+    hamp_blck_overall_pov <- hamp_pov_blck2/hamp_total_blck2*100
+    hamp_pov_vector <- rbind(hamp_overall_pov, hamp_blck_overall_pov)
+    #combing hampton and VA
+    pov_pct <- data.frame(va_pov_vector, hamp_pov_vector)
+    pov_pct2 <- data.frame(Ratio = unlist(pov_pct, use.names=FALSE))
+    pov_pct2 <- mutate(pov_pct2, Location = c("Virginia", "Virginia", "Hampton Roads", "Hampton Roads"))
+    pov_pct2 <- mutate(pov_pct2, Demographic = c("Total Population", "Black Population", "Total Population",
+                                                 "Black Population"))
+    colnames(pov_pct2) <- c("Percentage (%)", "Location", "Demographic")
+    pov_pct2$Location <- factor(pov_pct2$Location, levels = c("Hampton Roads", "Virginia"))
+    #Graph for just hampton roads and VA
+    pov_plot <- ggplot(pov_pct2, aes(x=Location, y=`Percentage (%)`, fill=Demographic)) +
+      geom_bar(stat="identity", position=position_dodge())+
+      geom_text(aes(label=paste0(round(`Percentage (%)`, digits=2), "%")), vjust=1.5, color="white",
+                position = position_dodge(0.9), size=5)+
+      theme_minimal() +
+      theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'),
+            legend.title = element_blank(),
+            legend.key.height = unit(1, 'cm'), 
+            legend.key.width = unit(1, 'cm'),
+            legend.text = element_text(size=14),
+            axis.text=element_text(size=15),
+            axis.title=element_text(size=17),
+            axis.title.x=element_blank(),
+            axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0))) +
+      scale_fill_manual(values=c("#D55E00","#0072B2")) 
+    #plot
+    pov_plot
+  }
+  #when table changes
+  else if (var_poverty() %in% c("2014", "2013", "2012")){
+    if(var_poverty() == "2014") { 
+      va_pov <- read.csv("data/TableS1701FiveYearEstimates/va_poverty2014.csv")
+      hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2014.csv")
+    }
+    else if(var_poverty() == "2013") { 
+      va_pov <- read.csv("data/TableS1701FiveYearEstimates/va_poverty2013.csv")
+      hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2013.csv")
+    }
+    else if(var_poverty() == "2012") { 
+      va_pov <- read.csv("data/TableS1701FiveYearEstimates/va_poverty2012.csv")
+      hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2012.csv")
+    }
+    va_pov <- va_pov[,2:6]
+    #General
+    va_pct_pov <- va_pov[93,4]
+    #Black
+    va_pct_pov_blck <- va_pov[102,4]
+    va_pov_vector <- rbind(va_pct_pov, va_pct_pov_blck)
+    #Hampton Roads
+    hamp_pov <- hamp_pov[,2:6]
+    #General
+    hamp_total <- hamp_pov %>%
+      group_by(NAME) %>%
+      slice(c(1))
+    hamp_total2 <- colSums(hamp_total[,4])
+    hamp_pov2 <- hamp_pov %>%
+      group_by(NAME) %>%
+      slice(c(47))
+    hamp_pov3 <- colSums(hamp_pov2[,4])
+    hamp_overall_pov <- hamp_pov3/hamp_total2 *100
+    #Black
+    hamp_total_blck <- hamp_pov %>%
+      group_by(NAME) %>%
+      slice(10)
+    hamp_total_blck2 <- colSums(hamp_total_blck[,4]) 
+    hamp_pov_blck <- hamp_pov %>%
+      group_by(NAME) %>%
+      slice(56)
+    hamp_pov_blck2 <- colSums(hamp_pov_blck[,4])
+    hamp_blck_overall_pov <- hamp_pov_blck2/hamp_total_blck2*100
+    hamp_pov_vector <- rbind(hamp_overall_pov, hamp_blck_overall_pov)
+    #combing hampton and VA
+    pov_pct <- data.frame(va_pov_vector, hamp_pov_vector)
+    pov_pct2 <- data.frame(Ratio = unlist(pov_pct, use.names=FALSE))
+    pov_pct2 <- mutate(pov_pct2, Location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    pov_pct2 <- mutate(pov_pct2, Demographic = rep(c("Total Population", "Black Population"),2))
+    colnames(pov_pct2) <- c("Percentage (%)", "Location", "Demographic")
+    pov_pct2$Location <- factor(pov_pct2$Location, levels = c("Hampton Roads", "Virginia"))
+    #Graph for just hampton roads and VA
+    pov_plot <- ggplot(pov_pct2, aes(x=Location, y=`Percentage (%)`, fill=Demographic)) +
+      geom_bar(stat="identity", position=position_dodge())+
+      geom_text(aes(label=paste0(round(`Percentage (%)`, digits=2), "%")), vjust=1.5, color="white",
+                position = position_dodge(0.9), size=5)+
+      theme_minimal() +
+      theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'),
+            legend.title = element_blank(),
+            legend.key.height = unit(1, 'cm'), 
+            legend.key.width = unit(1, 'cm'),
+            legend.text = element_text(size=14),
+            axis.text=element_text(size=15),
+            axis.title=element_text(size=17),
+            axis.title.x=element_blank(),
+            axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0))) +
+      scale_fill_manual(values=c("#D55E00","#0072B2"))
+    #plot
+    pov_plot
+  }
   
   
+  })
   
+  #hampton counties poverty -------------------------------------------------------------
+  var_povertyCount <- reactive ({
+    input$PovertyCountYearDrop
+  })
   
-  
-  
-  
+  output$counties_pov <- renderPlot({
+    if( var_povertyCount() %in% c("2019", "2018", "2017", "2016", "2015")){
+      if( var_povertyCount() == "2019") { 
+        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2019.csv")
+      }
+      else if( var_povertyCount() == "2018") { 
+        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2018.csv")
+      }
+      else if( var_povertyCount() == "2017") { 
+        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2017.csv")
+      }
+      else if( var_povertyCount() == "2016") { 
+        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2016.csv")
+      }
+      else if( var_povertyCount() == "2015") { 
+        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2015.csv")
+      }
+      hamp_pov <- hamp_pov[,2:6]
+      hamp_pov_tbl <- hamp_pov %>%
+        group_by(NAME) %>%
+        slice(123)
+      hamp_pov_blck_tbl <- hamp_pov %>%
+        group_by(NAME) %>%
+        slice(136)
+      hamp_pov_tbl %>% ungroup()
+      hamp_pov_blck_tbl %>% ungroup()
+      hamp_pctG <- hamp_pov_tbl[,4]
+      hamp_pctB <- hamp_pov_blck_tbl[,4] 
+      hamp_comb <- rbind(hamp_pctG, hamp_pctB)
+      colnames(hamp_comb) <- "Ratio"
+      pov_pct3 <- data.frame(pov_pct2[,1]) 
+      colnames(pov_pct3) <- "Ratio"
+      hamp_pct2 <- rbind(pov_pct3, hamp_comb)
+      hamp_pct2 <- mutate(hamp_pct2, Location = c(rep("Virginia", 2), rep("Hampton Roads", 2), rep(c("Chesapeake", "Franklin", "Gloucester", "Hampton", "Isle of Wight", "James City",
+                                                                                                     "Mathews", "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton",
+                                                                                                     "Suffolk", "Virginia Beach", "Williamsburg", "York"),2)))
+      hamp_pct2 <- mutate(hamp_pct2, Demographic = c(rep(c("Total Population", "Black Population"),2), rep("Total Population", 16),
+                                                     rep("Black Population",16)))
+      colnames(hamp_pct2) <- c("Ratio (%)", "Location", "Demographic")
+      #Graph for just the Hampton Counties
+      hamp_pct3 <- hamp_pct2[5:36,]
+      colnames(hamp_pct3) <- c("Percentage (%)", "Location", "Demographic")
+      counties_pov <-  ggplot(hamp_pct3, aes(Location, y=`Percentage (%)`, fill=Demographic)) +
+        geom_bar(stat="identity", position=position_dodge())+
+        geom_text(aes(label=paste0(round(`Percentage (%)`, digits=2), "%")), vjust=1.5, color="white",
+                  position = position_dodge(0.9), size=3)+
+        theme_minimal() +
+        scale_fill_manual(values=c("#D55E00","#0072B2")) +
+        theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'), 
+              legend.key.height = unit(1, 'cm'), 
+              legend.key.width = unit(1, 'cm'), 
+              legend.title = element_blank(),
+              legend.text = element_text(size=14),
+              axis.text=element_text(size=15),
+              axis.text.x = element_text(size=10, face="bold"),
+              axis.title=element_text(size=17),
+              axis.title.x=element_blank()) 
+      #plot
+      counties_pov 
+    }
+    #when table changes
+    else if (var_povertyCount() %in% c("2014", "2013", "2012")){
+      if( var_povertyCount() == "2014") { 
+        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2014.csv")
+      }
+      else if( var_povertyCount() == "2013") { 
+        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2013.csv")
+      }
+      else if( var_povertyCount() == "2012") { 
+        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2012.csv")
+      }
+      hamp_pov <- hamp_pov[,2:6]
+      hamp_pov_tbl <- hamp_pov %>%
+        group_by(NAME) %>%
+        slice(93)
+      hamp_pov_blck_tbl <- hamp_pov %>%
+        group_by(NAME) %>%
+        slice(102)
+      hamp_pov_tbl %>% ungroup()
+      hamp_pov_blck_tbl %>% ungroup()
+      hamp_pctG <- hamp_pov_tbl[,4]
+      hamp_pctB <- hamp_pov_blck_tbl[,4] 
+      hamp_comb <- rbind(hamp_pctG, hamp_pctB)
+      colnames(hamp_comb) <- "Ratio"
+      pov_pct3 <- data.frame(pov_pct2[,1]) 
+      colnames(pov_pct3) <- "Ratio"
+      hamp_pct2 <- rbind(pov_pct3, hamp_comb)
+      hamp_pct2 <- mutate(hamp_pct2, Location = c(rep("Virginia", 2), rep("Hampton Roads", 2), rep(c("Chesapeake", "Franklin", "Gloucester", "Hampton", "Isle of Wight", "James City",
+                                                                                                     "Mathews", "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton",
+                                                                                                     "Suffolk", "Virginia Beach", "Williamsburg", "York"),2)))
+      hamp_pct2 <- mutate(hamp_pct2, Demographic = c(rep(c("Total Population", "Black Population"),2), rep("Total Population", 16),
+                                                     rep("Black Population",16)))
+      colnames(hamp_pct2) <- c("Ratio (%)", "Location", "Demographic")
+      #Graph for just the Hampton Counties
+      hamp_pct3 <- hamp_pct2[5:36,]
+      colnames(hamp_pct3) <- c("Percentage (%)", "Location", "Demographic")
+      
+      counties_pov <-  ggplot(hamp_pct3, aes(Location, y=`Percentage (%)`, fill=Demographic)) +
+        geom_bar(stat="identity", position=position_dodge())+
+        geom_text(aes(label=paste0(round(`Percentage (%)`, digits=2), "%")), vjust=1.5, color="white",
+                  position = position_dodge(0.9), size=3)+
+        theme_minimal() +
+        scale_fill_manual(values=c("#D55E00","#0072B2")) +
+        theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'), 
+              legend.key.height = unit(1, 'cm'), 
+              legend.key.width = unit(1, 'cm'), 
+              legend.title = element_blank(),
+              legend.text = element_text(size=14),
+              axis.text=element_text(size=15),
+              axis.text.x = element_text(size=10, face="bold"),
+              axis.title=element_text(size=17),
+              axis.title.x=element_blank()) 
+      #plot
+      counties_pov
+    }
+    
+    
+  })
+
   
   
   
