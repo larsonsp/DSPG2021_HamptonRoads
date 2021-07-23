@@ -455,9 +455,13 @@ ui <- navbarPage(title = "Hampton Roads",
                               
                               tabItem(
                                 tabName = "median",
-                                fluidPage(
-                                  title = "Median Income",
-                                  tabPanel("")
+                                fluidRow(style = "margin: 6px;",
+                                         h1(strong("Median Income in Virginia and Hampton Roads"), align = "center"),
+                                         withSpinner(plotOutput("income_plot")),
+                                         p(tags$small("Data Source: ACS 5 Year Estimates Table S1903")),
+                                         selectInput("MedianIncomeYearDrop", "Select Year:", width = "100%", choices = c(
+                                           "2019","2018", "2017", "2016", "2015","2014",
+                                           "2013","2012", "2011", "2010"))
                                 )
                                 
                               ))))),
@@ -1085,38 +1089,54 @@ server <- function(input, output, session) {
     input$MedianIncomeYearDrop
   })
   
-  output$MedianIncomePlots <- renderPlot({
-    if(var_medianIncome() == "2019") {
-      #virginia black and total data
-      va_2019 <- read.csv("data/TableS1903FiveYearEstimates/va_income2019.csv")
+  output$income_plot <- renderPlot({
+    if(var_medianIncome() %in% c("2019", "2018", "2017")){
+      if(var_medianIncome() == "2019") { 
+        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2019.csv")
+        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2019.csv")
+      }
+      else if(var_medianIncome() == "2018") { 
+        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2018.csv")
+        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2018.csv")
+      }
+      else if(var_medianIncome() == "2017") { 
+        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2017.csv")
+        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2017.csv")
+      }
+      va_yr <- va_yr[2:6]
       race_names <- c("Total", "Black")
-      va_race_income_median <- data.frame(va_2019[c(81,83), 5])
+      #VA income
+      va_race_income_median <- data.frame(va_yr[c(81,83), 4])
       va_race_income <- data.frame(cbind(race_names, va_race_income_median))
       colnames(va_race_income) <- c("Race", "Median Income")
-      #Hampton Roads black and Total Data
-      hamp_2019 <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2019.csv")
-      hamp_income2 <- hamp_2019[,3:5]
-      hamp_income3 <- hamp_income2 %>% group_by(NAME) %>%
+      #Hampton Income
+      hamp_yr <- hamp_yr[2:6]
+      #getting the name, variable and estimate
+      hamp_income2 <- hamp_yr[,2:4]
+      hamp_income3 <- hamp_income2 %>%
+        group_by(NAME) %>%
         slice(c(81,83))
       variable <- sample(c("S1903_C03_001","S1903_C03_003"),32, replace = TRUE)
       hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
-      #Putting them in the same datatset
+      #Putting them together
       median_income <- cbind(va_race_income, hamp_race_income_median)
       median_income <- median_income[, c(2,4)]
+      #having all the estimates in the same column
       median_income2 <- data.frame(median = c(median_income[,1], median_income[,2]))
-      #labeling and organizing
+      #labeling
       median_income2 <- mutate(median_income2, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
       median_income2 <- mutate(median_income2, demo = rep(c("Total Population", "Black Population"),2))
       colnames(median_income2) <- c("Median Income (US Dollars)", "Location", "Demographic")
+      #making them all numeric
       median_income2 <- transform(median_income2, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
       colnames(median_income2) <- c("Median Income (US Dollars)", "Location", "Demographic")
       median_income2$Location <- factor(median_income2$Location, levels= c("Hampton Roads","Virginia"))
-      #plotting
+      #Graph
       income_plot <- ggplot(median_income2, aes(x=Location, y=`Median Income (US Dollars)`, fill=Demographic)) +
         geom_bar(stat="identity", position=position_dodge())+
         geom_text(aes(label=paste0(round(`Median Income (US Dollars)`))), vjust=1.5, color="white",
                   position = position_dodge(0.9), size=5)+
-        theme_minimal() + ggtitle("Median Household Income") +
+        theme_minimal() +
         theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'),
               legend.title = element_blank(),
               legend.key.height = unit(1, 'cm'), 
@@ -1130,6 +1150,86 @@ server <- function(input, output, session) {
       #plot
       income_plot
     }
+    else if (var_medianIncome() %in% c("2016", "2015", "2014", "2013", "2012", "2011", "2010")){
+      
+      if(var_medianIncome() == "2016") { 
+        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2016.csv")
+        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2016.csv")
+      }
+      else if(var_medianIncome() == "2015") { 
+        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2015.csv")
+        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2015.csv")
+      }
+      else if(var_medianIncome() == "2014") { 
+        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2014.csv")
+        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2014.csv")
+      }
+      else if(var_medianIncome() == "2013") { 
+        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2013.csv")
+        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2013.csv")
+      }
+      else if(var_medianIncome() == "2012") { 
+        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2012.csv")
+        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2012.csv")
+      }
+      else if(var_medianIncome() == "2011") { 
+        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2011.csv")
+        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2011.csv")
+      }
+      else if(var_medianIncome() == "2010") { 
+        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2010.csv")
+        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2010.csv")
+      }
+      
+      va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2016.csv")
+      va_yr <- va_yr[,2:6]
+      #income by Race
+      race_names <- c("Total", "Black")
+      #median income
+      va_race_income_median <- data.frame(va_yr[c(31,33), 4])
+      va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+      colnames(va_race_income) <- c("Race", "Median Income")
+      #Hampton Income
+      #getting the name, variable and estimate
+      hamp_income2 <- hamp_yr[,2:6]
+      hamp_income3 <- hamp_income2 %>%
+        group_by(NAME) %>%
+        slice(c(31,33))
+      variable <- sample(c("S1903_C02_001","S1903_C02_003"),32, replace = TRUE)
+      hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+      #Putting them in the same dataset
+      median_income <- cbind(va_race_income, hamp_race_income_median)
+      median_income <- median_income[, c(2,4)]
+      #having all the estimates in the same column
+      median_income2 <- data.frame(median = c(median_income[,1], median_income[,2]))
+      median_income2 <- mutate(median_income2, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+      median_income2 <- mutate(median_income2, demo = rep(c("Total Population", "Black Population"),2))
+      colnames(median_income2) <- c("Median Income (US Dollars)", "Location", "Demographic")
+      #making them all numeric
+      median_income2 <- transform(median_income2, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+      colnames(median_income2) <- c("Median Income (US Dollars)", "Location", "Demographic")
+      median_income2$Location <- factor(median_income2$Location, levels= c("Hampton Roads","Virginia"))
+      #Hampton and VA graph
+      income_plot <- ggplot(median_income2, aes(x=Location, y=`Median Income (US Dollars)`, fill=Demographic)) +
+        geom_bar(stat="identity", position=position_dodge())+
+        geom_text(aes(label=paste0(round(`Median Income (US Dollars)`))), vjust=1.5, color="white",
+                  position = position_dodge(0.9), size=5)+
+        theme_minimal()+ 
+        theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'),
+              legend.title = element_blank(),
+              legend.key.height = unit(1, 'cm'), 
+              legend.key.width = unit(1, 'cm'),
+              legend.text = element_text(size=14),
+              axis.text=element_text(size=15),
+              axis.title=element_text(size=17),
+              axis.title.x=element_blank(),
+              axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0))) +
+        scale_fill_viridis_d()
+      #plot
+      income_plot
+    }
+ 
+    
   })
   
   
