@@ -250,8 +250,8 @@ for (i in 1:length(years)) {
   #plots general data for education
   
   va_total2 = county_stats("S1501_C01_012", "S1501_C01_006", years[i])
-  write_csv(va_total2, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
-  va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
+  write_csv(va_total2, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalProfessionalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
+  va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalProfessionalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
   
   
   
