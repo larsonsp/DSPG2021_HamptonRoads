@@ -219,8 +219,8 @@ for (i in 1:length(years)) {
   #plots general data for education
  
   va_total2 = county_stats(c("C15002B_006", "C15002B_011"), "C15002B_001", years[i])
-  write_csv(va_total2, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
-  va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
+  write_csv(va_total2, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableC15002BFiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
+  va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableC15002BFiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
   
   
   
@@ -232,6 +232,8 @@ for (i in 1:length(years)) {
     theme_minimal() + labs(title = "",
                            y = "Percent (%)",
                            x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))
+  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+  ggplotly(va_tot_education_bar)
   
   #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
   
