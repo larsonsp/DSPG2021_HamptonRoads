@@ -25,6 +25,9 @@ library(shinyjs)
 library(plotly)
 library(ggrepel)
 library(shinydashboard)
+library(mapdata)
+library(plotrix)
+library(scatterpie)
 
 prettyblue <- "#232D4B"
 navBarBlue <- '#427EDC'
@@ -247,7 +250,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                              selectInput("hampRaceYearDrop", "Select Year:", width = "100%", choices = c(
                                                                "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
                                                              )),
-                                                             p(strong("Race in Hampton Roads")),
+                                                             p(strong("Hampton Roads")),
                                                              withSpinner(plotOutput("hamp_pie")),
                                                              p(tags$small("Data Source: ACS 5 Year Estimate Table B02001"))
                                                     )
@@ -260,7 +263,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                           selectInput("VaRaceYearDrop", "Select Year:", width = "100%", choices = c(
                                                             "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
                                                           )),
-                                                          p(strong("Race in Virginia")),
+                                                          p(strong("Virginia")),
                                                           withSpinner(plotOutput("va_pie")),
                                                           p(tags$small("Data Source: ACS 5 Year Estimate Table B02001"))
                                                  )
@@ -275,7 +278,46 @@ ui <- navbarPage(title = "Hampton Roads",
                               
                               tabItem(tabName = "age",
                                       fluidRow(
-                                        h1(strong("Age Composition of Hampton Roads"), align = "center")
+                                        h1(strong("Age Composition of Hampton Roads"), align = "center"),
+                                        column(5,
+                                               tabsetPanel(
+                                                 tabPanel("Hampton Roads Age Breakdown",
+                                                          p(""),
+                                                          selectInput("HampAgeYearDrop", "Select Year:", width = "100%", choices = c(
+                                                            "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
+                                                          )),
+                                                          p(strong("Hampton Roads")),
+                                                          withSpinner(plotOutput("hamp_graph")),
+                                                          p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
+                                                )
+                                               )
+                                               ),
+                                        column(7,
+                                               tabsetPanel(
+                                                 tabPanel("Virginia Age Breakdown",
+                                                          p(""),
+                                                          selectInput("VaAgeYearDrop", "Select Year:", width = "100%", choices = c(
+                                                            "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
+                                                          )),
+                                                          p(strong("Virginia")),
+                                                          withSpinner(plotOutput("va_graph")),
+                                                          p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
+                                                 )
+                                               )
+                                        ),
+                                        column(6,
+                                               tabsetPanel(
+                                                 tabPanel("",
+                                                          p(""),
+                                                          selectInput("HampCountAgeYearDrop", "Select Year:", width = "100%", choices = c(
+                                                            "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
+                                                          )),
+                                                          p(strong("Hampton Roads Counties and Cities' Age Breakdown")),
+                                                          withSpinner(plotOutput("age_map")),
+                                                          p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
+                                                 )
+                                               )
+                                        ),
                                       
                                       )
                               )
@@ -968,7 +1010,341 @@ server <- function(input, output, session) {
     
   })
   
-  #hampton age plot-------------------------------------------------
+  #Hampton age plot-------------------------------------------------
+  var_hampAge <- reactive({
+    input$HampAgeYearDrop
+  })
+  
+  output$hamp_graph <- renderPlot({
+    if(var_hampAge() == 2019){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2019.csv")
+    }
+    if(var_hampAge() == 2018){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2018.csv")
+    }
+    if(var_hampAge() == 2017){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2017.csv")
+    }
+    if(var_hampAge() == 2016){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2016.csv")
+    }
+    if(var_hampAge() == 2015){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2015.csv")
+    }
+    if(var_hampAge() == 2014){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2014.csv")
+    }
+    if(var_hampAge() == 2013){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2013.csv")
+    }
+    if(var_hampAge() == 2012){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2012.csv")
+    }
+    if(var_hampAge() == 2011){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2011.csv")
+    }
+    if(var_hampAge() == 2010){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2010.csv")
+    }
+    hamp_ages <- hamp_ages[,2:6]
+    #total population in hampton Roads (1713267)
+    hamp_pop_tbl <- hamp_ages %>%
+      group_by(NAME) %>%
+      slice(1)
+    hamp_pop <- colSums(hamp_pop_tbl[,4])
+    #Getting male estimates for each age group (summing every county for that specific male age group)
+    hamp_male <- hamp_ages %>%
+      group_by(NAME) %>%
+      slice(3:25)
+    hamp_male2 <- hamp_male %>% group_by(variable) %>% summarize(sum(estimate, na.rm = TRUE))
+    #Getting female estimates for each age group (summing every county for that specific female age group)
+    hamp_female <- hamp_ages %>%
+      group_by(NAME) %>%
+      slice(27:49)
+    hamp_female2 <- hamp_female %>% group_by(variable) %>% summarize(sum(estimate, na.rm = TRUE))
+    hamp_gender <- cbind(hamp_male2, hamp_female2)
+    hamp_gender <- hamp_gender[,c(2,4)]
+    #hamp_gender2 <- data.frame(estimate = c(hamp_gender[,1], hamp_gender[,2]))
+    colnames(hamp_gender) <- c("male", "female")
+    hamp_gender <- mutate(hamp_gender, total = male+female)
+    #transposing just the estimates
+    hamp_ages2 <- data.frame(t(hamp_gender[,3]))
+    #sorting into the age groups
+    hamp_ages2 <- mutate(hamp_ages2, Under18 = X1 + X2 + X3 + X4)
+    hamp_ages2 <- mutate(hamp_ages2, YoungAdult = X5 + X6 + X7 + X8 + X9)
+    hamp_ages2 <- mutate(hamp_ages2, Adult = X10 + X11 + X12)
+    hamp_ages2 <- mutate(hamp_ages2, MiddleAge = X13 + X14 + X15 + X16 + X17)
+    hamp_ages2 <- mutate(hamp_ages2, Senior = X18 + X19 + X20 + X21 + X22 + X23)
+    #using just the 5 age group data that was just sorted
+    hamp_ages3 <- hamp_ages2[,24:28]
+    row.names(hamp_ages3) <- "General Estimate"
+    hamp_ages3 <- data.frame(t(hamp_ages3))
+    #Getting the percentage
+    hamp_ages3 <- mutate(hamp_ages3,TotalPopulation = hamp_pop)
+    hamp_ages3 <- mutate(hamp_ages3, PctPop = General.Estimate/TotalPopulation*100)
+    hamp_ages3 <- mutate(hamp_ages3, Labels =c("Under 18: 17 and Younger", "Young Adult: 18 to 29", "Adult: 30 to 44",                                       "Middle Age: 45 to 64","Senior: 65 and Older"))
+    #ordering the age grpups
+    hamp_ages3$Labels <- factor(hamp_ages3$Labels, levels=c("Under 18: 17 and Younger", "Young Adult: 18 to 29", "Adult: 30 to 44",
+                                                            "Middle Age: 45 to 64","Senior: 65 and Older"))
+    #Graph
+    hamp_graph <- ggplot(hamp_ages3 , aes(x="", y=PctPop, fill=Labels)) +
+      geom_bar(stat="identity", width=1, color="white") +
+      coord_polar("y", start=0) + 
+      theme(
+            axis.title.x=element_blank(),
+            axis.text.x=element_blank(),
+            axis.ticks.x=element_blank(),
+            axis.title.y=element_blank(),
+            axis.text.y=element_blank(),
+            axis.ticks.y=element_blank(),
+            legend.title = element_blank(),
+            legend.text = element_text(size = 13)) +
+      geom_text(aes(label = paste0(round(PctPop), "%")), position = position_stack(vjust=0.5), size=5, color = "white") +
+      theme_void() +
+      scale_fill_viridis_d()
+    #plot
+    hamp_graph
+    
+  })
+  
+  #Va age plot----------------------------------------------------
+  var_VaAge <- reactive({
+    input$VaAgeYearDrop
+  })
+  
+  output$va_graph <- renderPlot({
+    if(var_VaAge() == 2019){
+      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2019.csv")
+    }
+    if(var_VaAge() == 2018){
+      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2018.csv")
+    }
+    if(var_VaAge() == 2017){
+      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2017.csv")
+    }
+    if(var_VaAge() == 2016){
+      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2016.csv")
+    }
+    if(var_VaAge() == 2015){
+      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2015.csv")
+    }
+    if(var_VaAge() == 2014){
+      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2014.csv")
+    }
+    if(var_VaAge() == 2013){
+      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2013.csv")
+    }
+    if(var_VaAge() == 2012){
+      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2012.csv")
+    }
+    if(var_VaAge() == 2011){
+      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2011.csv")
+    }
+    if(var_VaAge() == 2010){
+      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2010.csv")
+    }
+    age1 <- age1[,2:6]
+    va_total_pop<- age1[1,4]
+    #Adds the female and male data together to get the population for each age group
+    va_male_age <- age1[3:25,]
+    va_female_age <- age1[27:49,]
+    va_male_age <- tibble::rowid_to_column(va_male_age, "ID")
+    va_female_age <- tibble::rowid_to_column(va_female_age, "ID")
+    #adding the male and female estimates to get the total
+    ages <- merge(va_female_age, va_male_age, by = "ID")
+    ages <- mutate(ages, total = estimate.x + estimate.y)
+    #Getting just the estimates for each age group and transposing it to combining rows easily
+    va_ages1 <- data.frame(t(ages[,12]))
+    #Groups: Under 18, 18-30, 30-45, 45-65, 65+
+    va_ages1 <- mutate(va_ages1, Under18 = X1 + X2 + X3 + X4)
+    va_ages1 <- mutate(va_ages1, YoungAdult = X5 + X6 + X7 + X8 + X9)
+    va_ages1 <- mutate(va_ages1, Adult = X10 + X11 + X12)
+    va_ages1 <- mutate(va_ages1, MiddleAge = X13 + X14 + X15 + X16 + X17)
+    va_ages1 <- mutate(va_ages1, Senior = X18 + X19 + X20 + X21 + X22 + X23)
+    #using the 5 age group data
+    va_ages2 <- va_ages1[,24:28]
+    row.names(va_ages2) <- "Estimate"
+    va_ages2 <- data.frame(t(va_ages2))
+    va_ages2 <- mutate(va_ages2,TotalPopulation = va_total_pop)
+    #Make Percentage
+    va_ages2 <- mutate(va_ages2, PctPop = Estimate/TotalPopulation*100)
+    #labeling
+    va_ages2 <- mutate(va_ages2, labels = c("Under 18: 17 and Younger", "Young Adult: 18 to 29", "Adult: 30 to 44",
+                                            "Middle Age: 45 to 64","Senior: 65 and Older"))
+    colnames(va_ages2) <- c("Estimate", "Total Population", "Percent of Population", "Labels")
+    va_ages2[,4] <- factor(va_ages2[,4], levels = c("Under 18: 17 and Younger", "Young Adult: 18 to 29", "Adult: 30 to 44",
+                                                    "Middle Age: 45 to 64","Senior: 65 and Older"))
+    #Graph
+    va_graph <- ggplot(va_ages2 , aes(x="", y=`Percent of Population`, fill=Labels)) +
+      geom_bar(stat="identity", width=1, color="white") +
+      coord_polar("y", start=0) + 
+      theme(
+            axis.title.x=element_blank(),
+            axis.text.x=element_blank(),
+            axis.ticks.x=element_blank(),
+            axis.title.y=element_blank(),
+            axis.text.y=element_blank(),
+            axis.ticks.y=element_blank(),
+            legend.title = element_blank(),
+            legend.text = element_text(size = 13)) +
+      geom_text(aes(label = paste0(round(`Percent of Population`), "%")), position = position_stack(vjust=0.5), size=5, color = "white") +
+      theme_void() +
+      scale_fill_viridis_d()  
+    #plot
+    va_graph
+    
+  })
+  
+  
+  #hampton counties map ------------------------------------------
+  var_hampCountiesAge <- reactive({
+    input$HampCountAgeYearDrop
+  })
+  
+  output$age_map <- renderPlot({
+      if(var_hampCountiesAge() == 2019){
+        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2019.csv")
+      }
+      if(var_hampCountiesAge() == 2018){
+        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2018.csv")
+      }
+      if(var_hampCountiesAge() == 2017){
+        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2017.csv")
+      }
+      if(var_hampCountiesAge() == 2016){
+        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2016.csv")
+      }
+      if(var_hampCountiesAge() == 2015){
+        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2015.csv")
+      }
+      if(var_hampCountiesAge() == 2014){
+        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2014.csv")
+      }
+      if(var_hampCountiesAge() == 2013){
+        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2013.csv")
+      }
+      if(var_hampCountiesAge() == 2012){
+        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2012.csv")
+      }
+      if(var_hampCountiesAge() == 2011){
+        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2011.csv")
+      }
+      if(var_hampCountiesAge() == 2010){
+        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2010.csv")
+      }
+    hamp_ages <- hamp_ages[,2:6]
+    county_pop <- hamp_ages %>% group_by(NAME) %>%
+      slice(1)
+    county_pop <- county_pop[,4]
+    #Getting male estimates for each age group 
+    county_male <- hamp_ages %>%
+      group_by(NAME) %>%
+      slice(3:25)
+    #Getting female estimates for each age group (summing every county for that specific female age group)
+    county_female <- hamp_ages %>%
+      group_by(NAME) %>%
+      slice(27:49)
+    #assigning ID to merge female and male estimates to get overall estimates
+    county_male <- tibble::rowid_to_column(county_male, "ID")
+    county_female <- tibble::rowid_to_column(county_female, "ID")
+    county_ages <- merge(county_female, county_male, by = "ID")
+    county_ages <- mutate(county_ages, total = estimate.x + estimate.y)
+    #get the estimates put in the age groups(map data)
+    #under 18
+    county_under <- county_ages %>%
+      group_by(NAME.y) %>%
+      slice(1:4)
+    county_under2 <- county_under %>%
+      group_by(NAME.y) %>%
+      summarise(x=sum(total))
+    county_under2<- county_under2[,2]
+    #young adult
+    county_ya <- county_ages %>%
+      group_by(NAME.y) %>%
+      slice(5:9)
+    county_ya2 <- county_ya %>%
+      group_by(NAME.y) %>%
+      summarise(x=sum(total))
+    county_ya2 <- county_ya2[,2]
+    #adult
+    county_adult <- county_ages %>%
+      group_by(NAME.y) %>%
+      slice(10:12)
+    county_adult2 <- county_adult %>%
+      group_by(NAME.y) %>%
+      summarise(x=sum(total))
+    county_adult2 <- county_adult2[,2]
+    #middle age
+    county_ma <- county_ages %>%
+      group_by(NAME.y) %>%
+      slice(13:17)
+    county_ma2 <- county_ma %>%
+      group_by(NAME.y) %>%
+      summarise(x=sum(total))
+    county_ma2 <- county_ma2[,2]
+    #senior
+    county_senior <- county_ages %>%
+      group_by(NAME.y) %>%
+      slice(18:23)
+    county_senior2 <- county_senior %>%
+      group_by(NAME.y) %>%
+      summarise(x=sum(total))
+    county_senior2 <- county_senior2[,2]
+    counties_label <- c("Chesapeake", "Franklin", "Hampton", "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Suffolk", "Virginia Beach", "Williamsburg", "Gloucester", "Isle of Wight", "James City", "Mathews", "Southampton", "York")
+    #getting coordinates
+    lat <- c(36.690473, 36.683540, 37.046933, 37.123232, 36.903378, 37.130348, 36.878493, 36.714941, 36.792042,      
+             37.267284, 37.405450, 36.901637, 37.311197, 37.470724, 36.720152, 37.242246)
+    lon <- c(-76.297654, -76.940148, -76.390236, -76.523771, -76.248186, -76.357799, -76.380289, -76.626346,
+             -76.053855, -76.708205, -76.519133, -76.708161, -76.804677, -76.375820, -77.114512, -76.566393)
+    #format
+    general_county_alt <-cbind(county_under2, county_ya2, county_adult2, county_ma2, county_senior2, county_pop)
+    colnames(general_county_alt) <- c("a", "b", "c", "d", "e", "total")
+    general_county_alt <-  mutate(general_county_alt, under = a/total*100)
+    general_county_alt <-  mutate(general_county_alt, ya = b/total*100)
+    general_county_alt <-  mutate(general_county_alt, adult = c/total*100)
+    general_county_alt <-  mutate(general_county_alt, ma = d/total*100)
+    general_county_alt <-  mutate(general_county_alt, senior = e/total*100)
+    general_county_alt2 <- general_county_alt[,7:11]
+    general_county_alt2 <-  mutate(general_county_alt2, county = counties_label)
+    general_county_alt2 <- cbind(general_county_alt2, lon, lat)
+    colnames(general_county_alt2) <- c("A", "B","C","D", "E", "county", "lon", "lat")
+    #Getting map data for counties in Hampton roads
+    counties <- c("chesapeake", "hampton", "newport news", "norfolk",
+                  "poquoson", "portsmouth", "suffolk", "virginia beach", "williamsburg",
+                  "gloucester", "isle of wight", "james city", "mathews", "southampton",
+                  "york")
+    #Getting map data for counties in Hampton roads
+    county_map <- map_data('county', 'virginia') 
+    county_map <- filter(county_map, subregion %in% counties)
+    #Graph
+    age_map <- ggplot(county_map, aes(long, lat)) +
+      geom_map(map=county_map, aes(map_id=region), fill=NA, color="black") +
+      coord_quickmap() +
+      geom_scatterpie(aes(x=lon, y=lat, group=county, r =0.05), data=general_county_alt2,
+                      cols=LETTERS[1:5]) + coord_equal() +
+      labs(caption = "Source: 2019 ACS 5 year Estimate Table B01001") +
+      #ggtitle("Counties and Cities") +
+      theme(plot.title = element_text(hjust = 0.5),
+            axis.title.x=element_blank(),
+            axis.text.x=element_blank(),
+            axis.ticks.x=element_blank(),
+            axis.title.y=element_blank(),
+            axis.text.y=element_blank(),
+            axis.ticks.y=element_blank(),
+            legend.title = element_blank(),
+            legend.text = element_text(size = 13)) +
+      scale_fill_viridis_d(labels = c("Under 18", "Young Adult: 18 to 29", "Adult: 30 to 44",
+                                      "Middle Age: 45 to 64","Senior: 65 and Older")) 
+    #plot
+    age_map
+ 
+  })
+  
+  
+  
+  
+  
+  
   
   
   #educational attainment plots working on it....................
