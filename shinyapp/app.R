@@ -629,7 +629,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                         withSpinner(leafletOutput("veteran_map")),
                                         p(tags$small("Data Source: ACS 5 Year Estimates Table S2101")),
                                         box(title = "Select Year:", width = 12,
-                                            sliderInput("VeteranSlider", "", value = 2019, min = 2015, max = 2019))
+                                            sliderInput("VeteranSlider", "", value = 2019, min = 2010, max = 2019))
                                       )
                               ),
                               
@@ -639,7 +639,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                         withSpinner(leafletOutput("homeownership_map")),
                                         p(tags$small("Data Source: ACS 5 Year Estimates Table S2505")),
                                         box(title = "Select Year:", width = 12,
-                                            sliderInput("HomeOwnSlider", "", value = 2019, min = 2017, max = 2019))
+                                            sliderInput("HomeOwnSlider", "", value = 2019, min = 2010, max = 2019))
                                       )),
                               
                               tabItem(
@@ -2393,6 +2393,122 @@ server <- function(input, output, session) {
                   labFormat = labelFormat(suffix = "%"),
                   opacity = 1)
     }
+    
+    else if(var_veteran() == "2014") {
+      vet_14 <- read_rds("data/TableS2101FiveYearEstimates/bveteran2014.rds")
+      pal <- colorNumeric(palette = "viridis", domain = vet_14$Percent, reverse = TRUE)
+      veteran_14 <- vet_14 %>% 
+        leaflet(options = leafletOptions(minZoom = 8)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Black Veterans: ", Percent, "%"), group = "Veteran Status") %>% 
+        addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch), group = "Military Bases") %>% 
+        addLayersControl(
+          baseGroups = c("Veteran Status"),
+          overlayGroups = c("Military Bases"),
+          options = layersControlOptions(collapsed = FALSE)) %>%
+        hideGroup("Military Bases") %>% 
+        addLegend("topleft",
+                  pal = pal,
+                  values = ~ Percent,
+                  title = "Black Veterans",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
+    else if(var_veteran() == "2013") {
+      vet_13 <- read_rds("data/TableS2101FiveYearEstimates/bveteran2013.rds")
+      pal <- colorNumeric(palette = "viridis", domain = vet_13$Percent, reverse = TRUE)
+      veteran_13 <- vet_13 %>% 
+        leaflet(options = leafletOptions(minZoom = 8)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Black Veterans: ", Percent, "%"), group = "Veteran Status") %>% 
+        addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch), group = "Military Bases") %>% 
+        addLayersControl(
+          baseGroups = c("Veteran Status"),
+          overlayGroups = c("Military Bases"),
+          options = layersControlOptions(collapsed = FALSE)) %>%
+        hideGroup("Military Bases") %>% 
+        addLegend("topleft",
+                  pal = pal,
+                  values = ~ Percent,
+                  title = "Black Veterans",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
+    else if(var_veteran() == "2012") {
+      vet_12 <- read_rds("data/TableS2101FiveYearEstimates/bveteran2012.rds")
+      pal <- colorNumeric(palette = "viridis", domain = vet_12$Percent, reverse = TRUE)
+      veteran_12 <- vet_12 %>% 
+        leaflet(options = leafletOptions(minZoom = 8)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Black Veterans: ", Percent, "%"), group = "Veteran Status") %>% 
+        addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch), group = "Military Bases") %>% 
+        addLayersControl(
+          baseGroups = c("Veteran Status"),
+          overlayGroups = c("Military Bases"),
+          options = layersControlOptions(collapsed = FALSE)) %>%
+        hideGroup("Military Bases") %>% 
+        addLegend("topleft",
+                  pal = pal,
+                  values = ~ Percent,
+                  title = "Black Veterans",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
+    else if(var_veteran() == "2011") {
+      vet_11 <- read_rds("data/TableS2101FiveYearEstimates/bveteran2011.rds")
+      pal <- colorNumeric(palette = "viridis", domain = vet_11$Percent, reverse = TRUE)
+      veteran_11 <- vet_11 %>% 
+        leaflet(options = leafletOptions(minZoom = 8)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Black Veterans: ", Percent, "%"), group = "Veteran Status") %>% 
+        addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch), group = "Military Bases") %>% 
+        addLayersControl(
+          baseGroups = c("Veteran Status"),
+          overlayGroups = c("Military Bases"),
+          options = layersControlOptions(collapsed = FALSE)) %>%
+        hideGroup("Military Bases") %>% 
+        addLegend("topleft",
+                  pal = pal,
+                  values = ~ Percent,
+                  title = "Black Veterans",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
+    else if(var_veteran() == "2010") {
+      vet_10 <- read_rds("data/TableS2101FiveYearEstimates/bveteran2010.rds")
+      pal <- colorNumeric(palette = "viridis", domain = vet_10$Percent, reverse = TRUE)
+      veteran_10 <- vet_10 %>% 
+        leaflet(options = leafletOptions(minZoom = 8)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Black Veterans: ", Percent, "%"), group = "Veteran Status") %>% 
+        addMarkers(data = military_bases, popup = ~paste0("Base: ", base_name, " Branch: ", branch), group = "Military Bases") %>% 
+        addLayersControl(
+          baseGroups = c("Veteran Status"),
+          overlayGroups = c("Military Bases"),
+          options = layersControlOptions(collapsed = FALSE)) %>%
+        hideGroup("Military Bases") %>% 
+        addLegend("topleft",
+                  pal = pal,
+                  values = ~ Percent,
+                  title = "Black Veterans",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
   })
   
   
@@ -2480,7 +2596,190 @@ server <- function(input, output, session) {
                   labFormat = labelFormat(suffix = "%"),
                   opacity = 1)
     }
+    
+    else if(var_hmown() == "2016") {
+      b_hm_16 <- read_rds("data/TableS2502FiveYearEstimates/bhmown2016.rds")
+      tot_hm_16 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2016.rds")
+      pal <- colorNumeric(palette = "viridis", domain = b_hm_16$Percent, reverse = TRUE)
+      b_hmown_leaf_16 <- b_hm_16 %>%
+        leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Black Homeowners: ", Percent, "%"), group = "Black Home Owners") %>% 
+        addPolygons(data = tot_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Total Homeowners: ", Percent, "%"), group = "Total Home Owners") %>% 
+        addLayersControl(
+          baseGroups = c("Total Home Owners"),
+          overlayGroups = c("Black Home Owners"),
+          options = layersControlOptions(collapsed = FALSE)) %>% 
+        hideGroup("Black Home Owners") %>% 
+        addLegend("topleft",
+                  pal = pal,
+                  values = ~ Percent,
+                  title = "Home Owners",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
+    else if(var_hmown() == "2015") {
+      b_hm_15 <- read_rds("data/TableS2502FiveYearEstimates/bhmown2015.rds")
+      tot_hm_15 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2015.rds")
+      pal <- colorNumeric(palette = "viridis", domain = b_hm_15$Percent, reverse = TRUE)
+      b_hmown_leaf_15 <- b_hm_15 %>%
+        leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Black Homeowners: ", Percent, "%"), group = "Black Home Owners") %>% 
+        addPolygons(data = tot_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Total Homeowners: ", Percent, "%"), group = "Total Home Owners") %>% 
+        addLayersControl(
+          baseGroups = c("Total Home Owners"),
+          overlayGroups = c("Black Home Owners"),
+          options = layersControlOptions(collapsed = FALSE)) %>% 
+        hideGroup("Black Home Owners") %>% 
+        addLegend("topleft",
+                  pal = pal,
+                  values = ~ Percent,
+                  title = "Home Owners",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
+    else if(var_hmown() == "2014") {
+      b_hm_14 <- read_rds("data/TableS2502FiveYearEstimates/bhmown2014.rds")
+      tot_hm_14 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2014.rds")
+      pal <- colorNumeric(palette = "viridis", domain = b_hm_14$Percent, reverse = TRUE)
+      b_hmown_leaf_14 <- b_hm_14 %>%
+        leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Black Homeowners: ", Percent, "%"), group = "Black Home Owners") %>% 
+        addPolygons(data = tot_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Total Homeowners: ", Percent, "%"), group = "Total Home Owners") %>% 
+        addLayersControl(
+          baseGroups = c("Total Home Owners"),
+          overlayGroups = c("Black Home Owners"),
+          options = layersControlOptions(collapsed = FALSE)) %>% 
+        hideGroup("Black Home Owners") %>% 
+        addLegend("topleft",
+                  pal = pal,
+                  values = ~ Percent,
+                  title = "Home Owners",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
+    else if(var_hmown() == "2013") {
+      b_hm_13 <- read_rds("data/TableS2502FiveYearEstimates/bhmown2013.rds")
+      tot_hm_13 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2013.rds")
+      pal <- colorNumeric(palette = "viridis", domain = b_hm_13$Percent, reverse = TRUE)
+      b_hmown_leaf_13 <- b_hm_13 %>%
+        leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Black Homeowners: ", Percent, "%"), group = "Black Home Owners") %>% 
+        addPolygons(data = tot_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Total Homeowners: ", Percent, "%"), group = "Total Home Owners") %>% 
+        addLayersControl(
+          baseGroups = c("Total Home Owners"),
+          overlayGroups = c("Black Home Owners"),
+          options = layersControlOptions(collapsed = FALSE)) %>% 
+        hideGroup("Black Home Owners") %>% 
+        addLegend("topleft",
+                  pal = pal,
+                  values = ~ Percent,
+                  title = "Home Owners",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
+    else if(var_hmown() == "2012") {
+      b_hm_12 <- read_rds("data/TableS2502FiveYearEstimates/bhmown2012.rds")
+      tot_hm_12 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2012.rds")
+      pal <- colorNumeric(palette = "viridis", domain = b_hm_12$Percent, reverse = TRUE)
+      b_hmown_leaf_12 <- b_hm_12 %>%
+        leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Black Homeowners: ", Percent, "%"), group = "Black Home Owners") %>% 
+        addPolygons(data = tot_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Total Homeowners: ", Percent, "%"), group = "Total Home Owners") %>% 
+        addLayersControl(
+          baseGroups = c("Total Home Owners"),
+          overlayGroups = c("Black Home Owners"),
+          options = layersControlOptions(collapsed = FALSE)) %>% 
+        hideGroup("Black Home Owners") %>% 
+        addLegend("topleft",
+                  pal = pal,
+                  values = ~ Percent,
+                  title = "Home Owners",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
+    else if(var_hmown() == "2011") {
+      b_hm_11 <- read_rds("data/TableS2502FiveYearEstimates/bhmown2011.rds")
+      tot_hm_11 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2011.rds")
+      pal <- colorNumeric(palette = "viridis", domain = b_hm_11$Percent, reverse = TRUE)
+      b_hmown_leaf_11 <- b_hm_11 %>%
+        leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Black Homeowners: ", Percent, "%"), group = "Black Home Owners") %>% 
+        addPolygons(data = tot_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Total Homeowners: ", Percent, "%"), group = "Total Home Owners") %>% 
+        addLayersControl(
+          baseGroups = c("Total Home Owners"),
+          overlayGroups = c("Black Home Owners"),
+          options = layersControlOptions(collapsed = FALSE)) %>% 
+        hideGroup("Black Home Owners") %>% 
+        addLegend("topleft",
+                  pal = pal,
+                  values = ~ Percent,
+                  title = "Home Owners",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
+    else if(var_hmown() == "2010") {
+      b_hm_10 <- read_rds("data/TableS2502FiveYearEstimates/bhmown2010.rds")
+      tot_hm_10 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2010.rds")
+      pal <- colorNumeric(palette = "viridis", domain = b_hm_10$Percent, reverse = TRUE)
+      b_hmown_leaf_10 <- b_hm_10 %>%
+        leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Black Homeowners: ", Percent, "%"), group = "Black Home Owners") %>% 
+        addPolygons(data = tot_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                    label = ~paste0(NAME,  " Total Homeowners: ", Percent, "%"), group = "Total Home Owners") %>% 
+        addLayersControl(
+          baseGroups = c("Total Home Owners"),
+          overlayGroups = c("Black Home Owners"),
+          options = layersControlOptions(collapsed = FALSE)) %>% 
+        hideGroup("Black Home Owners") %>% 
+        addLegend("topleft",
+                  pal = pal,
+                  values = ~ Percent,
+                  title = "Home Owners",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
   })
+  
   
   #Median Income plots: Working on it --------------------------------
   var_medianIncome <- reactive({
