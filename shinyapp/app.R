@@ -238,38 +238,35 @@ ui <- navbarPage(title = "Hampton Roads",
                               tabItem(tabName = "race",
                                       fluidRow(
                                         h1(strong("Race Composition of Hampton Roads"), align = "center"),
-                                        column(5,
+                                        column(5, width = 12,
                                                h4(strong("Race Demographic"))
                                                ),
                                         column(6,
-                                               h4(strong("Race Demographic cont"))
-                                        ),
-                                        column(5,
-                                                  tabsetPanel(
-                                                    tabPanel("Hampton Roads Race Breakdown",
-                                                             p(""),
+                                                 
+                                                    h4("Hampton Roads Breakdown"),
+                                                           
                                                              selectInput("hampRaceYearDrop", "Select Year:", width = "100%", choices = c(
                                                                "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
                                                              )),
                                                              p(strong("Hampton Roads")),
                                                              withSpinner(plotOutput("hamp_pie")),
                                                              p(tags$small("Data Source: ACS 5 Year Estimate Table B02001"))
-                                                    )
-                                                  ), 
-                                        ),
+                                                    ),
+                                                   
+                                        
                                         column(6,
-                                               tabsetPanel(
-                                                 tabPanel("Virginia Race Breakdown",
-                                                          p(""),
+                                            
+                                                 h4("Virginia Breakdown"),
+                                                        
                                                           selectInput("VaRaceYearDrop", "Select Year:", width = "100%", choices = c(
                                                             "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
                                                           )),
                                                           p(strong("Virginia")),
                                                           withSpinner(plotOutput("va_pie")),
                                                           p(tags$small("Data Source: ACS 5 Year Estimate Table B02001"))
-                                                 )
-                                               ), 
-                                        )
+                                                
+                                                
+                                                )
                                         
                                         
                                         
@@ -280,22 +277,21 @@ ui <- navbarPage(title = "Hampton Roads",
                               tabItem(tabName = "age",
                                       fluidRow(
                                         h1(strong("Age Composition of Hampton Roads"), align = "center"),
-                                        column(5,
-                                               tabsetPanel(
-                                                 tabPanel("Hampton Roads Age Breakdown",
-                                                          p(""),
+                                        column(6,
+                                            
+                                                 h4("Hampton Roads Age Breakdown"),
+                                                        
                                                           selectInput("HampAgeYearDrop", "Select Year:", width = "100%", choices = c(
                                                             "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
                                                           )),
                                                           p(strong("Hampton Roads")),
                                                           withSpinner(plotOutput("hamp_graph")),
                                                           p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
-                                                )
-                                               )
-                                               ),
-                                        column(7,
-                                               tabsetPanel(
-                                                 tabPanel("Virginia Age Breakdown",
+                                                ),
+                                               
+                                        column(6,
+                                               
+                                                 h4("Virginia Age Breakdown"),
                                                           p(""),
                                                           selectInput("VaAgeYearDrop", "Select Year:", width = "100%", choices = c(
                                                             "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
@@ -303,22 +299,20 @@ ui <- navbarPage(title = "Hampton Roads",
                                                           p(strong("Virginia")),
                                                           withSpinner(plotOutput("va_graph")),
                                                           p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
-                                                 )
-                                               )
-                                        ),
-                                        column(6,
-                                               tabsetPanel(
-                                                 tabPanel("",
-                                                          p(""),
+                                                 ),
+                                               
+                                        column(6, width=12,
+                                           
+                                                 h4("Hampton Roads' County and City Breakdown"),
                                                           selectInput("HampCountAgeYearDrop", "Select Year:", width = "100%", choices = c(
                                                             "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
                                                           )),
                                                           p(strong("Hampton Roads Counties and Cities' Age Breakdown")),
                                                           withSpinner(plotOutput("age_map")),
                                                           p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
-                                                 )
-                                               )
-                                        ),
+                                                 ),
+                                               
+                                        
                                       
                                       )
                               )
@@ -349,20 +343,35 @@ ui <- navbarPage(title = "Hampton Roads",
                                       fluidRow(
                                         h1(strong("Short Term Suspension"), align = "center"),
                                         column(5,
-                                               h4(strong("Academic Punishments"))
-                                        ),
-                                        column(7,
-                                               tabsetPanel(
-                                                 tabPanel("Virgina Suspensions",
-                                                          p(""),
+                                                 h4("Virgina Suspensions"),
+                                                          
                                                           selectInput("suspensionYearDrop", "Select Year:", width = "100%", choices = c(
                                                             "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
                                                           p(strong("Virgina Suspensions")),
                                                           withSpinner(plotOutput("graph_va")),
                                                           p(tags$small("Data Source: Kids Count Data Center"))
-                                                 )
-                                               ), 
-                                        )
+                                                 ),
+                                        column(5,
+                                               h4("Academic Punishments")
+                                               ),
+                                        column(7, width = 12,
+                                               h4("Percent of Black Students Suspended"),
+                                               selectInput("BsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
+                                                 "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
+                                               withSpinner(plotOutput("black_map")),
+                                               p(tags$small("Data Source: Kids Count Data Center"))
+                                               ),
+                                        column(7, width = 12,
+                                               h4("Percent of Black and White Students Suspended in Hampton Roads"),
+                                               selectInput("BWsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
+                                                 "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
+                                               withSpinner(plotOutput("BW_map")),
+                                               p(tags$small("Data Source: Kids Count Data Center"))
+                                        ),
+                                        
+                                        
+                                                
+                                        
                                         
                
                                         
@@ -647,11 +656,19 @@ ui <- navbarPage(title = "Hampton Roads",
                                 tabName = "median",
                                 fluidRow(style = "margin: 6px;",
                                          h1(strong("Median Income in Virginia and Hampton Roads"), align = "center"),
-                                         withSpinner(plotOutput("income_plot")),
-                                         p(tags$small("Data Source: ACS 5 Year Estimates Table S1903")),
+                                         column(9,
                                          selectInput("MedianIncomeYearDrop", "Select Year:", width = "100%", choices = c(
                                            "2019","2018", "2017", "2016", "2015","2014",
-                                           "2013","2012", "2011", "2010"))
+                                           "2013","2012", "2011", "2010")),
+                                         withSpinner(plotOutput("income_plot")),
+                                         p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
+                                         ),
+                                         column(12,
+                                                h4("Median Income from 2010 to 2019"),
+                                                withSpinner(plotOutput("medianTimeGraph")),
+                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
+                                                )
+                                         
                                 )
                               ),
                               tabItem(
@@ -1005,6 +1022,8 @@ server <- function(input, output, session) {
     hamp_races4 <- mutate(hamp_races4, pct = estimate/total*100)
     hamp_races4 <- mutate(hamp_races4, race = c("White", "Black", "Asian", "Two or more", "Other"))
     colnames(hamp_races4) <- c("estimate", "Total", "Percent of Population", "race")
+    #pal
+    vir_pal <- c("#404788FF", "#2D708EFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
     
     hamp_races5 <- hamp_races4 %>% 
       mutate(
@@ -1018,7 +1037,7 @@ server <- function(input, output, session) {
       geom_label_repel(aes(y = pos, label = paste0(round(`Percent of Population`, digits=2), "%")),
                        data = hamp_races5, size=4, show.legend = F, nudge_x = 1) +
       guides(fill = guide_legend(title = "Key")) +
-      scale_fill_viridis_d()+
+      scale_fill_manual(values =vir_pal)+
       theme_void() +
       theme(legend.title = element_blank())
     #plot
@@ -1072,6 +1091,8 @@ server <- function(input, output, session) {
     va_races2 <- mutate(va_races2, totl = total)
     va_races2 <- mutate(va_races2, pct = estimate/totl*100)
     va_races2 <- mutate(va_races2, race = c("White", "Black", "Asian", "Two or more", "Other"))
+    #pal
+    vir_pal <- c("#404788FF", "#2D708EFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
     
     va_races3 <- va_races2 %>% 
       mutate(
@@ -1085,7 +1106,7 @@ server <- function(input, output, session) {
       geom_label_repel(aes(y = pos, label = paste0(round(pct, digits=2), "%")),
                        data = va_races3, size=4, show.legend = F, nudge_x = 1) +
       guides(fill = guide_legend(title = "Key")) +
-      scale_fill_viridis_d()+
+      scale_fill_manual(values =vir_pal)+
       theme_void()  +
       theme(legend.title = element_blank()) 
     #plot 
@@ -1392,21 +1413,18 @@ server <- function(input, output, session) {
     general_county_alt2 <- cbind(general_county_alt2, lon, lat)
     colnames(general_county_alt2) <- c("A", "B","C","D", "E", "county", "lon", "lat")
     #Getting map data for counties in Hampton roads
-    counties <- c("chesapeake", "hampton", "newport news", "norfolk",
-                  "poquoson", "portsmouth", "suffolk", "virginia beach", "williamsburg",
-                  "gloucester", "isle of wight", "james city", "mathews", "southampton",
-                  "york")
-    #Getting map data for counties in Hampton roads
-    county_map <- map_data('county', 'virginia') 
-    county_map <- filter(county_map, subregion %in% counties)
+    coord_data <- read_rds("data/TableB01001FiveYearEstimates/coordinates.rds")
+    coord_data <- st_transform(coord_data)
+    coordinates1 <- coord_data %>% group_by(NAME) %>% slice(1)
+    coordinates2 <- coordinates1[,6]
+    city <- c("Chesapeake", "Franklin", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
+              "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
+              "Williamsburg", "York")
+    coordinates2 <- mutate(coordinates2, Loc = city)
     #Graph
-    age_map <- ggplot(county_map, aes(long, lat)) +
-      geom_map(map=county_map, aes(map_id=region), fill=NA, color="black") +
-      coord_quickmap() +
-      geom_scatterpie(aes(x=lon, y=lat, group=county, r =0.05), data=general_county_alt2,
-                      cols=LETTERS[1:5]) + coord_equal() +
-      labs(caption = "Source: 2019 ACS 5 year Estimate Table B01001") +
-      #ggtitle("Counties and Cities") +
+    age_map <- ggplot(coordinates2) +
+      geom_sf() +
+      geom_sf_label(aes(label=Loc,geometry = geometry), label.padding = unit(.5, "mm"), size =4, nudge_x=0.05, nudge_y = 0.1) +
       theme(plot.title = element_text(hjust = 0.5),
             axis.title.x=element_blank(),
             axis.text.x=element_blank(),
@@ -1415,7 +1433,9 @@ server <- function(input, output, session) {
             axis.text.y=element_blank(),
             axis.ticks.y=element_blank(),
             legend.title = element_blank(),
-            legend.text = element_text(size = 13)) +
+            legend.text = element_text(size=13)) +
+      geom_scatterpie(aes(x=lon, y=lat, group=county, r =0.05), data=general_county_alt2,
+                      cols=LETTERS[1:5]) + 
       scale_fill_viridis_d(labels = c("Under 18", "Young Adult: 18 to 29", "Adult: 30 to 44",
                                       "Middle Age: 45 to 64","Senior: 65 and Older")) 
     #plot
@@ -1794,7 +1814,7 @@ server <- function(input, output, session) {
     else if (var_suspension() == "AY 2014-2015") {
       year <- "AY 2014-2015"
     }
-    suspension_data <- read_excel("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/suspension/shortTermSuspension.xlsx")
+    suspension_data <- read_excel("data/suspension/shortTermSuspension.xlsx")
     #using only  VA data for 2018-2019
     suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
     #VA percentage estimate for 2018-2019 (Black)
@@ -1821,6 +1841,179 @@ server <- function(input, output, session) {
     graph_va
     
   })
+  
+  # Black suspension map -----------------------------------------------------
+  
+  var_Bsuspension <- reactive({
+    input$BsuspensionYearDrop
+  })
+  
+  output$black_map <- renderPlot({
+    if(var_Bsuspension() == "2018-2019"){
+      year <- "2018-2019"
+    }
+    else if (var_Bsuspension() == "AY 2017-2018") {
+      year <- "AY 2017-2018"
+    }
+    else if (var_Bsuspension() == "AY 2016-2017") {
+      year <- "AY 2016-2017"
+    }
+    else if (var_Bsuspension() == "AY 2015-2016") {
+      year <- "AY 2015-2016"
+    }
+    else if (var_Bsuspension() == "AY 2014-2015") {
+      year <- "AY 2014-2015"
+    }
+    coord_data <- read_rds("data/suspension/coordinates.rds")
+    coord_data <- st_transform(coord_data)
+    coordinates1 <- coord_data %>% group_by(NAME) %>% slice(1)
+    coordinates2 <- coordinates1[,6]
+    city <- c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
+              "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
+              "Williamsburg", "York")
+    coordinates2 <- mutate(coordinates2, Location = city)
+    suspension_counties <-filter(suspension_data, Location %in% city)
+    #using percentages instead of number estimates (black)
+    suspension_pct<- suspension_counties %>% filter(Race=="Black") %>%
+      filter(DataFormat=="Percent")
+    suspension_pct2 <- suspension_pct %>% filter(TimeFrame==year)
+    #make a table w/ NA a S
+    display_tbl <- suspension_pct2 %>% filter(Data %in% c("NA", "S"))
+    display_tbl <- display_tbl[,c(2,6)]
+    suspension_pct2$Data[suspension_pct2$Data=="NA"] <- 0
+    suspension_pct2$Data[suspension_pct2$Data=="S"] <- 0
+    #convert data column to numeric so we can multiply by 100
+    suspension_pct2$Data <- sapply(suspension_pct2$Data, as.numeric)
+    suspension_pct2 <- mutate(suspension_pct2, pct = Data *100)
+    #adding geometry column(coordinates)
+    suspension_pct3 <- merge(suspension_pct2, coordinates2, by = "Location")
+    suspension_pct4 <- suspension_pct3[,c(1,7,8)]
+    #add back the NA (S will be NA. We have a table to clarify)
+    suspension_pct4$pct <- na_if(suspension_pct4$pct,0.00000)
+    as.numeric(suspension_pct4$pct, na.rm = TRUE)
+    #Graph
+    graph_blck <-
+      suspension_pct4 %>%
+      ggplot() +
+      geom_sf(aes(fill = pct, geometry = geometry))+
+      geom_sf_label(aes(label=Location,geometry = geometry), label.padding = unit(.5, "mm"), size =4) +
+      theme(plot.title = element_text(hjust = 0.5),
+            axis.title.x=element_blank(),
+            axis.text.x=element_blank(),
+            axis.ticks.x=element_blank(),
+            axis.title.y=element_blank(),
+            axis.text.y=element_blank(),
+            axis.ticks.y=element_blank(),
+            legend.title = element_blank(),
+            legend.text = element_text(size=13)) +
+      scale_fill_gradient(high = "#132B43",
+                          low = "#56B1F7",
+                          space = "Lab",
+                          na.value = "grey50",
+                          guide = "colourbar",
+                          aesthetics = "fill") +
+    guides(colour=guide_legend("No data", override.aes=list(colour="grey50")))
+    #display table
+    na_rows <- display_tbl %>% filter(Data == "NA")
+    supr_rows <- display_tbl %>% filter(Data == "S")
+    supr_rows <- mutate(supr_rows, Data = "Suppressed")
+    display_tbl_final <- rbind(na_rows, supr_rows)
+    table_plot <- tableGrob(display_tbl_final)
+    #plot together
+    black_map <- grid.arrange(graph_blck, table_plot, nrow=2, heights=c(3,1))
+    black_map
+    })
+  
+  # suspension for black and white (counties) ---------------------------------
+  var_BWsuspension <- reactive({
+    input$BWsuspensionYearDrop
+  })
+  
+  output$BW_map <- renderPlot({
+    if(var_Bsuspension() == "2018-2019"){
+      year <- "2018-2019"
+    }
+    else if (var_BWsuspension() == "AY 2017-2018") {
+      year <- "AY 2017-2018"
+    }
+    else if (var_BWsuspension() == "AY 2016-2017") {
+      year <- "AY 2016-2017"
+    }
+    else if (var_BWsuspension() == "AY 2015-2016") {
+      year <- "AY 2015-2016"
+    }
+    else if (var_BWsuspension() == "AY 2014-2015") {
+      year <- "AY 2014-2015"
+    }
+    suspension_data <- read_excel("data/suspension/shortTermSuspension.xlsx")
+    city <- c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
+              "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
+              "Williamsburg", "York")
+    suspension_counties <-filter(suspension_data, Location %in% city)
+    pct_white<- suspension_counties %>% filter(Race=="White") %>%
+      filter(DataFormat=="Percent")
+    pct_white2 <- pct_white %>% filter(TimeFrame==year)
+    #putting NAs and Ss in a table
+    display_tbl_white <- suspension_pct2 %>% filter(Data %in% c("NA", "S"))
+    display_tbl_white2<- display_tbl_white[,c(2,6)]
+    pct_white2$Data[pct_white2$Data=="NA"] <- 0
+    pct_white2$Data[pct_white2$Data=="S"] <- 0
+    #adding estimates by 100 (need to convert to numeric first)
+    pct_white2$Data <- sapply(pct_white2$Data, as.numeric)
+    pct_white2 <- mutate(pct_white2, pct = Data *100)
+    pct_white2$pct <- na_if(pct_white2$pct,0.00000)
+    as.numeric(pct_white2$pct, na.rm = TRUE)
+    #labeling
+    pct_white3 <- pct_white2[,c(2,7)]
+    colnames(pct_white3) <- c("Location", "Percentage of Students (%)")
+    #black data
+    suspension_pct<- suspension_counties %>% filter(Race=="Black") %>%
+      filter(DataFormat=="Percent")
+    suspension_pct2 <- suspension_pct %>% filter(TimeFrame==year)
+    #make a table w/ NA a S
+    display_tbl_black <- suspension_pct2 %>% filter(Data %in% c("NA", "S"))
+    display_tbl_black2 <- display_tbl_black[,c(2,6)]
+    suspension_pct2$Data[suspension_pct2$Data=="NA"] <- 0
+    suspension_pct2$Data[suspension_pct2$Data=="S"] <- 0
+    #convert data column to numeric so we can multiply by 100
+    suspension_pct2$Data <- sapply(suspension_pct2$Data, as.numeric)
+    suspension_pct2 <- mutate(suspension_pct2, pct = Data *100)
+    suspension_pct2$pct <- na_if(suspension_pct2$pct,0.00000)
+    as.numeric(suspension_pct2$pct, na.rm = TRUE)
+    pct_blck <-suspension_pct2[,c(2,7)]
+    colnames(pct_blck) <- c("Location", "Percentage of Students (%)")
+    sus <- rbind(pct_blck,pct_white3)
+    sus <- mutate(sus, race = c(rep("Black Students",16), rep("White Students", 16)))
+    #bar graph
+    suspension_counties_plot <-
+      ggplot(sus , aes(Location, y=`Percentage of Students (%)`, fill=race)) +
+      geom_bar(stat="identity", position=position_dodge())+
+      geom_text(aes(label=paste0(round(`Percentage of Students (%)`, digits=2), "%")), vjust=1.5, color="white",
+                position = position_dodge(0.9), size=2)+
+      theme_minimal() + 
+      theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'), 
+            legend.key.height = unit(0.3, 'cm'), 
+            legend.key.width = unit(0.3, 'cm'), 
+            legend.title = element_blank(),
+            legend.text = element_text(size=14),
+            axis.text=element_text(size=15),
+            axis.text.x = element_text(size=8, face="bold"),
+            axis.title=element_text(size=17),
+            axis.title.x=element_blank()) +
+      scale_fill_manual(values=c("#D55E00","#0072B2")) +
+      labs(x = "Location") 
+    #combining the tables
+    display_table <- rbind(display_tbl_white2, display_tbl_black2)
+    na_rows <- display_table %>% filter(Data == "NA")
+    supr_rows <- display_table %>% filter(Data == "S")
+    supr_rows <- mutate(supr_rows, Data = "Suppressed")
+    display_table_final <- rbind(na_rows, supr_rows)
+    table_plot <- tableGrob(display_table_final)
+    #plot together
+    BW_map <- grid.arrange(suspension_counties_plot, table_plot, nrow=2, heights=c(3,1))
+    BW_map
+  })
+  
   
   
   # Unemployment Rate -------------------------------------------------------
@@ -2930,6 +3123,349 @@ server <- function(input, output, session) {
     
   })
   
+  #median income line plots -------------------------------------------------
+  
+  output$medianTimeGraph <- renderPlot ({
+    va_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/va_income2019.csv")
+    va_yr <- va_yr[2:6]
+    race_names <- c("Total", "Black")
+    #median income
+    va_race_income_median <- data.frame(va_yr[c(81,83), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/hampton_income2019.csv")
+    hamp_yr <- hamp_yr[2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(81,83))
+    #This give us overall hampton overall and black median income
+    variable <- sample(c("S1903_C03_001","S1903_C03_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income19 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income19 <- mutate(median_income19, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income19 <- mutate(median_income19, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income19) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income19 <- transform(median_income19, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income19) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income19 <- mutate(median_income19, Year = "2019")
+    ############################################################################2018
+    va_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/va_income2018.csv")
+    va_yr <- va_yr[2:6]
+    race_names <- c("Total", "Black")
+    #median income
+    va_race_income_median <- data.frame(va_yr[c(81,83), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/hampton_income2018.csv")
+    hamp_yr <- hamp_yr[2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(81,83))
+    #This give us overall hampton overall and black median income
+    variable <- sample(c("S1903_C03_001","S1903_C03_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income18 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income18 <- mutate(median_income18, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income18 <- mutate(median_income18, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income18) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income18 <- transform(median_income18, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income18) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income18 <- mutate(median_income18, Year = "2018")
+    ############################################################################2017
+    va_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/va_income2017.csv")
+    va_yr <- va_yr[2:6]
+    race_names <- c("Total", "Black")
+    #median income
+    va_race_income_median <- data.frame(va_yr[c(81,83), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/hampton_income2017.csv")
+    hamp_yr <- hamp_yr[2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(81,83))
+    #This give us overall hampton overall and black median income
+    variable <- sample(c("S1903_C03_001","S1903_C03_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income17 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income17 <- mutate(median_income17, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income17 <- mutate(median_income17, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income17) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income17 <- transform(median_income17, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income17) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income17 <- mutate(median_income17, Year = "2017")
+    ###########################################################################2016
+    va_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/va_income2016.csv")
+    va_yr <- va_yr[,2:6]
+    race_names <- c("Total", "Black")
+    va_race_income_median <- data.frame(va_yr[c(31,33), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/hampton_income2016.csv")
+    hamp_yr <- hamp_yr[,2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(31,33))
+    variable <- sample(c("S1903_C02_001","S1903_C02_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income16 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income16 <- mutate(median_income16, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income16 <- mutate(median_income16, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income16) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income16 <- transform(median_income16, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income16) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income16 <- mutate(median_income16, Year = "2016")
+    ###########################################################################2016
+    va_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/va_income2015.csv")
+    va_yr <- va_yr[,2:6]
+    race_names <- c("Total", "Black")
+    va_race_income_median <- data.frame(va_yr[c(31,33), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/hampton_income2015.csv")
+    hamp_yr <- hamp_yr[,2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(31,33))
+    variable <- sample(c("S1903_C02_001","S1903_C02_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income15 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income15 <- mutate(median_income15, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income15 <- mutate(median_income15, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income15) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income15 <- transform(median_income15, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income15) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income15 <- mutate(median_income15, Year = "2015")
+    ###########################################################################2014
+    va_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/va_income2014.csv")
+    va_yr <- va_yr[,2:6]
+    race_names <- c("Total", "Black")
+    va_race_income_median <- data.frame(va_yr[c(31,33), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/hampton_income2014.csv")
+    hamp_yr <- hamp_yr[,2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(31,33))
+    variable <- sample(c("S1903_C02_001","S1903_C02_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income14 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income14 <- mutate(median_income14, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income14 <- mutate(median_income14, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income14) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income14 <- transform(median_income14, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income14) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income14 <- mutate(median_income14, Year = "2014")
+    ###########################################################################2013
+    va_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/va_income2013.csv")
+    va_yr <- va_yr[,2:6]
+    race_names <- c("Total", "Black")
+    va_race_income_median <- data.frame(va_yr[c(31,33), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/hampton_income2013.csv")
+    hamp_yr <- hamp_yr[,2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(31,33))
+    variable <- sample(c("S1903_C02_001","S1903_C02_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income13 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income13 <- mutate(median_income13, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income13 <- mutate(median_income13, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income13) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income13 <- transform(median_income13, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income13) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income13 <- mutate(median_income13, Year = "2013")
+    ############################################################################2012
+    va_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/va_income2012.csv")
+    va_yr <- va_yr[,2:6]
+    race_names <- c("Total", "Black")
+    va_race_income_median <- data.frame(va_yr[c(31,33), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/hampton_income2012.csv")
+    hamp_yr <- hamp_yr[,2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(31,33))
+    variable <- sample(c("S1903_C02_001","S1903_C02_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income12 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income12 <- mutate(median_income12, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income12 <- mutate(median_income12, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income12) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income12 <- transform(median_income12, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income12) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income12 <- mutate(median_income12, Year = "2012")
+    ###########################################################################2011
+    va_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/va_income2011.csv")
+    va_yr <- va_yr[,2:6]
+    race_names <- c("Total", "Black")
+    va_race_income_median <- data.frame(va_yr[c(31,33), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/hampton_income2011.csv")
+    hamp_yr <- hamp_yr[,2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(31,33))
+    variable <- sample(c("S1903_C02_001","S1903_C02_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income11 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income11 <- mutate(median_income11, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income11 <- mutate(median_income11, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income11) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income11 <- transform(median_income11, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income11) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income11 <- mutate(median_income11, Year = "2011")
+    ###########################################################################2010
+    va_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/va_income2010.csv")
+    va_yr <- va_yr[,2:6]
+    race_names <- c("Total", "Black")
+    va_race_income_median <- data.frame(va_yr[c(31,33), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS1903FiveYearEstimates/hampton_income2010.csv")
+    hamp_yr <- hamp_yr[,2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(31,33))
+    variable <- sample(c("S1903_C02_001","S1903_C02_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income10 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income10 <- mutate(median_income10, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income10 <- mutate(median_income10, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income10) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income10 <- transform(median_income10, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income10) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income10 <- mutate(median_income10, Year = "2010")
+    ###############################################################################Combined
+    income_years <- rbind(median_income19, median_income18, median_income17, median_income16,
+                          median_income15, median_income14, median_income13, median_income12,
+                          median_income11, median_income10)
+    #VA line graph
+    va_years <- income_years %>% filter(Location=="Virginia")
+    #graph
+    va_line <- ggplot(va_years, aes(x=Year, y=`Median Income (US Dollars)`, group = Demographic, color = Demographic)) + 
+      geom_line(position = "identity", size =1.3) +
+      ggtitle("Virginia") +
+      theme(plot.title = element_text(hjust = 0.5),
+            axis.title.x = element_blank()) +
+      theme(legend.title = element_blank()) +
+      labs(y ="Median Income (US Dollars") +
+      theme_minimal() +
+      scale_color_manual(values = c("#D55E00", "#0072B2"))
+    
+    #hamp line graph
+    hamp_years <- income_years %>% filter(Location == "Hampton Roads")
+    #graph
+    hamp_line <- ggplot(hamp_years, aes(x=Year, y=`Median Income (US Dollars)`, group = Demographic, color = Demographic)) + 
+      geom_line(position = "identity", size =1.3 ) +
+      scale_color_manual(values = c("#D55E00", "#0072B2")) +
+      ggtitle("Hampton Roads")+
+      theme(plot.title = element_text(hjust = 0.5),
+            axis.title.x=element_blank(),
+            legend.title = element_blank(),
+            legend.position = "none") +
+      labs(y ="Median Income (US Dollars)") +
+      theme_minimal() 
+    
+    medianTimeGraph  <- grid.arrange(hamp_line, va_line, ncol=2)
+    medianTimeGraph 
+  })
+  
   #poverty Rates in VA and Hampton Roads-------------------------------------
   var_poverty <- reactive ({
     input$PovertyYearDrop
@@ -3137,12 +3673,12 @@ server <- function(input, output, session) {
         theme_minimal() +
         scale_fill_manual(values=c("#D55E00","#0072B2")) +
         theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'), 
-              legend.key.height = unit(1, 'cm'), 
-              legend.key.width = unit(1, 'cm'), 
+              legend.key.height = unit(0., 'cm'), 
+              legend.key.width = unit(0.5, 'cm'), 
               legend.title = element_blank(),
               legend.text = element_text(size=14),
               axis.text=element_text(size=15),
-              axis.text.x = element_text(size=10, face="bold"),
+              axis.text.x = element_text(size=8, face="bold"),
               axis.title=element_text(size=17),
               axis.title.x=element_blank()) 
       #plot
