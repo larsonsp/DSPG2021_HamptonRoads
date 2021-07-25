@@ -373,6 +373,9 @@ black_rates
 
 
 general_professional_degrees <- county_stats("S1501_C01_012", "S1501_C01_006", 2019)
+
+
+
 general_va_cutoff_professional_education <- va_stats("S1501_C01_012", "S1501_C01_006", 2019)
 general_professional_degrees <- general_professional_degrees  %>% 
   mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
@@ -385,11 +388,24 @@ general_professional_degrees <- general_professional_degrees  %>%
 general_professional_degrees$labels
 
 
+
+
+general_va_cutoff_professional_education <- va_stats("S1501_C01_012", "S1501_C01_006", 2019)
+general_professional_degrees <- general_professional_degrees  %>% 
+  mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+  mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+  ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() + geom_hline(yintercept=general_va_cutoff_professional_education$pct_tot, linetype="dashed", color = "red") +
+  geom_hline(yintercept=mean(general_professional_degrees$pct_tot), linetype="dashed", color = "gray") + theme_minimal() + labs(title = "Virginia: Percentage of Graduate or Professional Degrees",
+                                                                                                                                y = "Percent (%)", x = "Hampton Roads", caption = "Source: ACS 5 Year Estimate") + theme(axis.text.x = element_text(angle = 40))
+
+
+general_professional_degrees$labels
+
+
 employment_types  = county_stats1(c("DP03_0033", "DP03_0034", "DP03_0035", "DP03_0036", "DP03_0037", "DP03_0038", "DP03_0039", "DP03_0040", "DP03_0041", "DP03_0042", "DP03_0043", "DP03_0044", "DP03_0045"), 2019)
 View(employment_types)
 sectors <- rep(c("Agriculture, forestry, fishing and hunting, and mining", "Construction", "Manufacturing", "Wholesale trade", "Retail trade", "Transportation and warehousing, and utilities", "Information", "Finance and insurance, and real estate and rental and leasing", "Professional, scientific, and management, and administrative and waste management services", "Educational services, and health care and social assistance", "Arts, entertainment, and recreation, and accommodation and food services", "Other services, except public administration", "Public administration"), 16)
 employment_types  <- cbind(employment_types, sectors)
-
 employment_types
 
 #for (sector in sectors) {
@@ -397,9 +413,40 @@ employment_types
 #  hist(chosenSelector)
 #}
 
-chosenSelector1 <- employment_types[which(employment_types$sectors == "Manufacturing" | employment_types$sectors == "Construction"), ]
-chosenSelector1 <- chosenSelector1[, !duplicated(colnames(chosenSelector1))]
-employment_types <- employment_types[, !duplicated(colnames(employment_types))]
+
+#plots general data for professional degrees
+years <- c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019) 
+for (i in 1:length(years)) { 
+  #plots general data for education
+  
+  
+  employment_types  = county_stats1(c("DP03_0033", "DP03_0034", "DP03_0035", "DP03_0036", "DP03_0037", "DP03_0038", "DP03_0039", "DP03_0040", "DP03_0041", "DP03_0042", "DP03_0043", "DP03_0044", "DP03_0045"), 2019)
+  View(employment_types)
+  sectors <- rep(c("Agriculture, forestry, fishing and hunting, and mining", "Construction", "Manufacturing", "Wholesale trade", "Retail trade", "Transportation and warehousing, and utilities", "Information", "Finance and insurance, and real estate and rental and leasing", "Professional, scientific, and management, and administrative and waste management services", "Educational services, and health care and social assistance", "Arts, entertainment, and recreation, and accommodation and food services", "Other services, except public administration", "Public administration"), 16)
+  employment_types  <- cbind(employment_types, sectors)
+  write_csv(employment_types, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalProfessionalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
+  va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalProfessionalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
+  
+  
+  
+  #plots general data for population
+  va_tot_education_bar <- va_total2CSV  %>% 
+    mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+    mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
+    ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
+    theme_minimal() + labs(title = "",
+                           y = "Percent (%)",
+                           x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))
+  
+  #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
+  
+  #va_tot_education_bar
+  
+  
+}
+
+
+
 
 
 
@@ -561,6 +608,7 @@ teacherByRace$HispanicProportions <- teacherByRace$Hispanic/teacherByRace$`Total
 teacherByRace$WhiteProportions <- teacherByRace$White/teacherByRace$`Total Counts`
 teacherByRace$AmericanIndianProportions<- teacherByRace$`American Indian`/teacherByRace$`Total Counts`
 teacherByRace$TwoOrMoreRacesProportions <- teacherByRace$`Two or More Races`/teacherByRace$`Total Counts`
+teacherByRace$HawaiianProportions <- teacherByRace$Hawaiian/teacherByRace$`Total Counts`
 teacherByRace <- teacherByRace %>% mutate(`Division Name` = str_remove(`Division Name`, "County Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City"))
 write_csv(teacherByRace, file = ("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/teacherByRacesBreakdown.csv"))
 teacherByRace <- read.csv("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/teacherByRacesBreakdown.csv")
