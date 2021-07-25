@@ -237,38 +237,35 @@ ui <- navbarPage(title = "Hampton Roads",
                               tabItem(tabName = "race",
                                       fluidRow(
                                         h1(strong("Race Composition of Hampton Roads"), align = "center"),
-                                        column(5,
+                                        column(5, width = 12,
                                                h4(strong("Race Demographic"))
                                                ),
                                         column(6,
-                                               h4(strong("Race Demographic cont"))
-                                        ),
-                                        column(5,
-                                                  tabsetPanel(
-                                                    tabPanel("Hampton Roads Race Breakdown",
-                                                             p(""),
+                                                 
+                                                    h4("Hampton Roads Breakdown"),
+                                                           
                                                              selectInput("hampRaceYearDrop", "Select Year:", width = "100%", choices = c(
                                                                "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
                                                              )),
                                                              p(strong("Hampton Roads")),
                                                              withSpinner(plotOutput("hamp_pie")),
                                                              p(tags$small("Data Source: ACS 5 Year Estimate Table B02001"))
-                                                    )
-                                                  ), 
-                                        ),
+                                                    ),
+                                                   
+                                        
                                         column(6,
-                                               tabsetPanel(
-                                                 tabPanel("Virginia Race Breakdown",
-                                                          p(""),
+                                            
+                                                 h4("Virginia Breakdown"),
+                                                        
                                                           selectInput("VaRaceYearDrop", "Select Year:", width = "100%", choices = c(
                                                             "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
                                                           )),
                                                           p(strong("Virginia")),
                                                           withSpinner(plotOutput("va_pie")),
                                                           p(tags$small("Data Source: ACS 5 Year Estimate Table B02001"))
-                                                 )
-                                               ), 
-                                        )
+                                                
+                                                
+                                                )
                                         
                                         
                                         
@@ -279,22 +276,21 @@ ui <- navbarPage(title = "Hampton Roads",
                               tabItem(tabName = "age",
                                       fluidRow(
                                         h1(strong("Age Composition of Hampton Roads"), align = "center"),
-                                        column(5,
-                                               tabsetPanel(
-                                                 tabPanel("Hampton Roads Age Breakdown",
-                                                          p(""),
+                                        column(6,
+                                            
+                                                 h4("Hampton Roads Age Breakdown"),
+                                                        
                                                           selectInput("HampAgeYearDrop", "Select Year:", width = "100%", choices = c(
                                                             "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
                                                           )),
                                                           p(strong("Hampton Roads")),
                                                           withSpinner(plotOutput("hamp_graph")),
                                                           p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
-                                                )
-                                               )
-                                               ),
-                                        column(7,
-                                               tabsetPanel(
-                                                 tabPanel("Virginia Age Breakdown",
+                                                ),
+                                               
+                                        column(6,
+                                               
+                                                 h4("Virginia Age Breakdown"),
                                                           p(""),
                                                           selectInput("VaAgeYearDrop", "Select Year:", width = "100%", choices = c(
                                                             "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
@@ -302,22 +298,20 @@ ui <- navbarPage(title = "Hampton Roads",
                                                           p(strong("Virginia")),
                                                           withSpinner(plotOutput("va_graph")),
                                                           p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
-                                                 )
-                                               )
-                                        ),
-                                        column(6,
-                                               tabsetPanel(
-                                                 tabPanel("",
-                                                          p(""),
+                                                 ),
+                                               
+                                        column(6, width=12,
+                                           
+                                                 h4("Hampton Roads' County and City Breakdown"),
                                                           selectInput("HampCountAgeYearDrop", "Select Year:", width = "100%", choices = c(
                                                             "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
                                                           )),
                                                           p(strong("Hampton Roads Counties and Cities' Age Breakdown")),
                                                           withSpinner(plotOutput("age_map")),
                                                           p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
-                                                 )
-                                               )
-                                        ),
+                                                 ),
+                                               
+                                        
                                       
                                       )
                               )
@@ -348,20 +342,24 @@ ui <- navbarPage(title = "Hampton Roads",
                                       fluidRow(
                                         h1(strong("Short Term Suspension"), align = "center"),
                                         column(5,
-                                               h4(strong("Academic Punishments"))
-                                        ),
-                                        column(7,
-                                               tabsetPanel(
-                                                 tabPanel("Virgina Suspensions",
-                                                          p(""),
+                                                 h4("Virgina Suspensions"),
+                                                          
                                                           selectInput("suspensionYearDrop", "Select Year:", width = "100%", choices = c(
                                                             "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
                                                           p(strong("Virgina Suspensions")),
                                                           withSpinner(plotOutput("graph_va")),
                                                           p(tags$small("Data Source: Kids Count Data Center"))
-                                                 )
-                                               ), 
-                                        )
+                                                 ),
+                                        column(7, width = 12,
+                                               h4("Percent of Black Students Suspended"),
+                                               selectInput("BsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
+                                                 "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
+                                               withSpinner(plotOutput("black_map")),
+                                               p(tags$small("Data Source: Kids Count Data Center"))
+                                               ),
+                                        
+                                                
+                                        
                                         
                
                                         
@@ -662,11 +660,14 @@ ui <- navbarPage(title = "Hampton Roads",
                                 tabName = "median",
                                 fluidRow(style = "margin: 6px;",
                                          h1(strong("Median Income in Virginia and Hampton Roads"), align = "center"),
-                                         withSpinner(plotOutput("income_plot")),
-                                         p(tags$small("Data Source: ACS 5 Year Estimates Table S1903")),
+                                         column(9,
                                          selectInput("MedianIncomeYearDrop", "Select Year:", width = "100%", choices = c(
                                            "2019","2018", "2017", "2016", "2015","2014",
-                                           "2013","2012", "2011", "2010"))
+                                           "2013","2012", "2011", "2010")),
+                                         withSpinner(plotOutput("income_plot")),
+                                         p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
+                                         )
+                                         
                                 )
                               ),
                               tabItem(
@@ -1020,6 +1021,8 @@ server <- function(input, output, session) {
     hamp_races4 <- mutate(hamp_races4, pct = estimate/total*100)
     hamp_races4 <- mutate(hamp_races4, race = c("White", "Black", "Asian", "Two or more", "Other"))
     colnames(hamp_races4) <- c("estimate", "Total", "Percent of Population", "race")
+    #pal
+    vir_pal <- c("#404788FF", "#2D708EFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
     
     hamp_races5 <- hamp_races4 %>% 
       mutate(
@@ -1033,7 +1036,7 @@ server <- function(input, output, session) {
       geom_label_repel(aes(y = pos, label = paste0(round(`Percent of Population`, digits=2), "%")),
                        data = hamp_races5, size=4, show.legend = F, nudge_x = 1) +
       guides(fill = guide_legend(title = "Key")) +
-      scale_fill_viridis_d()+
+      scale_fill_manual(values =vir_pal)+
       theme_void() +
       theme(legend.title = element_blank())
     #plot
@@ -1087,6 +1090,8 @@ server <- function(input, output, session) {
     va_races2 <- mutate(va_races2, totl = total)
     va_races2 <- mutate(va_races2, pct = estimate/totl*100)
     va_races2 <- mutate(va_races2, race = c("White", "Black", "Asian", "Two or more", "Other"))
+    #pal
+    vir_pal <- c("#404788FF", "#2D708EFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
     
     va_races3 <- va_races2 %>% 
       mutate(
@@ -1100,7 +1105,7 @@ server <- function(input, output, session) {
       geom_label_repel(aes(y = pos, label = paste0(round(pct, digits=2), "%")),
                        data = va_races3, size=4, show.legend = F, nudge_x = 1) +
       guides(fill = guide_legend(title = "Key")) +
-      scale_fill_viridis_d()+
+      scale_fill_manual(values =vir_pal)+
       theme_void()  +
       theme(legend.title = element_blank()) 
     #plot 
@@ -1407,21 +1412,18 @@ server <- function(input, output, session) {
     general_county_alt2 <- cbind(general_county_alt2, lon, lat)
     colnames(general_county_alt2) <- c("A", "B","C","D", "E", "county", "lon", "lat")
     #Getting map data for counties in Hampton roads
-    counties <- c("chesapeake", "hampton", "newport news", "norfolk",
-                  "poquoson", "portsmouth", "suffolk", "virginia beach", "williamsburg",
-                  "gloucester", "isle of wight", "james city", "mathews", "southampton",
-                  "york")
-    #Getting map data for counties in Hampton roads
-    county_map <- map_data('county', 'virginia') 
-    county_map <- filter(county_map, subregion %in% counties)
+    coord_data <- read_rds("data/TableB01001FiveYearEstimates/coordinates.rds")
+    coord_data <- st_transform(coord_data)
+    coordinates1 <- coord_data %>% group_by(NAME) %>% slice(1)
+    coordinates2 <- coordinates1[,6]
+    city <- c("Chesapeake", "Franklin", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
+              "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
+              "Williamsburg", "York")
+    coordinates2 <- mutate(coordinates2, Loc = city)
     #Graph
-    age_map <- ggplot(county_map, aes(long, lat)) +
-      geom_map(map=county_map, aes(map_id=region), fill=NA, color="black") +
-      coord_quickmap() +
-      geom_scatterpie(aes(x=lon, y=lat, group=county, r =0.05), data=general_county_alt2,
-                      cols=LETTERS[1:5]) + coord_equal() +
-      labs(caption = "Source: 2019 ACS 5 year Estimate Table B01001") +
-      #ggtitle("Counties and Cities") +
+    age_map <- ggplot(coordinates2) +
+      geom_sf() +
+      geom_sf_label(aes(label=Loc,geometry = geometry), label.padding = unit(.5, "mm"), size =4, nudge_x=0.05, nudge_y = 0.1) +
       theme(plot.title = element_text(hjust = 0.5),
             axis.title.x=element_blank(),
             axis.text.x=element_blank(),
@@ -1430,7 +1432,9 @@ server <- function(input, output, session) {
             axis.text.y=element_blank(),
             axis.ticks.y=element_blank(),
             legend.title = element_blank(),
-            legend.text = element_text(size = 13)) +
+            legend.text = element_text(size=13)) +
+      geom_scatterpie(aes(x=lon, y=lat, group=county, r =0.05), data=general_county_alt2,
+                      cols=LETTERS[1:5]) + 
       scale_fill_viridis_d(labels = c("Under 18", "Young Adult: 18 to 29", "Adult: 30 to 44",
                                       "Middle Age: 45 to 64","Senior: 65 and Older")) 
     #plot
@@ -1809,7 +1813,7 @@ server <- function(input, output, session) {
     else if (var_suspension() == "AY 2014-2015") {
       year <- "AY 2014-2015"
     }
-    suspension_data <- read_excel("C:/Users/Christina Prisbe/Documents/R/Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/suspension/shortTermSuspension.xlsx")
+    suspension_data <- read_excel("data/suspension/shortTermSuspension.xlsx")
     #using only  VA data for 2018-2019
     suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
     #VA percentage estimate for 2018-2019 (Black)
@@ -1836,6 +1840,88 @@ server <- function(input, output, session) {
     graph_va
     
   })
+  
+  # Black suspension map -----------------------------------------------------
+  
+  var_Bsuspension <- reactive({
+    input$BsuspensionYearDrop
+  })
+  
+  output$black_map <- renderPlot({
+    if(var_Bsuspension() == "2018-2019"){
+      year <- "2018-2019"
+    }
+    else if (var_Bsuspension() == "AY 2017-2018") {
+      year <- "AY 2017-2018"
+    }
+    else if (var_Bsuspension() == "AY 2016-2017") {
+      year <- "AY 2016-2017"
+    }
+    else if (var_Bsuspension() == "AY 2015-2016") {
+      year <- "AY 2015-2016"
+    }
+    else if (var_Bsuspension() == "AY 2014-2015") {
+      year <- "AY 2014-2015"
+    }
+    coord_data <- read_rds("data/suspension/coordinates.rds")
+    coord_data <- st_transform(coord_data)
+    coordinates1 <- coord_data %>% group_by(NAME) %>% slice(1)
+    coordinates2 <- coordinates1[,6]
+    city <- c("Chesapeake", "Franklin", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
+              "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
+              "Williamsburg", "York")
+    coordinates2 <- mutate(coordinates2, Location = city)
+    suspension_counties <-filter(suspension_data, Location %in% city)
+    #using percentages instead of number estimates (black)
+    suspension_pct<- suspension_counties %>% filter(Race=="Black") %>%
+      filter(DataFormat=="Percent")
+    suspension_pct2 <- suspension_pct %>% filter(TimeFrame==year)
+    #make a table w/ NA a S
+    display_tbl <- suspension_pct2 %>% filter(Data %in% c("NA", "S"))
+    display_tbl <- display_tbl[,c(2,6)]
+    suspension_pct2$Data[suspension_pct2$Data=="NA"] <- 0
+    suspension_pct2$Data[suspension_pct2$Data=="S"] <- 0
+    #convert data column to numeric so we can multiply by 100
+    suspension_pct2$Data <- sapply(suspension_pct2$Data, as.numeric)
+    suspension_pct2 <- mutate(suspension_pct2, pct = Data *100)
+    #adding geometry column(coordinates)
+    suspension_pct3 <- merge(suspension_pct2, coordinates2, by = "Location")
+    suspension_pct4 <- suspension_pct3[,c(1,7,8)]
+    #add back the NA (S will be NA. We have a table to clarify)
+    suspension_pct4$pct <- na_if(suspension_pct4$pct,0.00000)
+    as.numeric(suspension_pct4$pct, na.rm = TRUE)
+    #Graph
+    graph_blck <-
+      suspension_pct4 %>%
+      ggplot() +
+      geom_sf(aes(fill = pct, geometry = geometry))+
+      geom_sf_label(aes(label=Location,geometry = geometry), label.padding = unit(.5, "mm"), size =4) +
+      theme(plot.title = element_text(hjust = 0.5),
+            axis.title.x=element_blank(),
+            axis.text.x=element_blank(),
+            axis.ticks.x=element_blank(),
+            axis.title.y=element_blank(),
+            axis.text.y=element_blank(),
+            axis.ticks.y=element_blank(),
+            legend.title = element_blank(),
+            legend.text = element_text(size=13)) +
+      scale_fill_gradient(high = "#132B43",
+                          low = "#56B1F7",
+                          space = "Lab",
+                          na.value = "grey50",
+                          guide = "colourbar",
+                          aesthetics = "fill") +
+    guides(colour=guide_legend("No data", override.aes=list(colour="grey50")))
+    #display table
+    na_rows <- display_tbl %>% filter(Data == "NA")
+    supr_rows <- display_tbl %>% filter(Data == "S")
+    supr_rows <- mutate(supr_rows, Data = "Suppressed")
+    display_tbl_final <- rbind(na_rows, supr_rows)
+    table_plot <- tableGrob(display_tbl_final)
+    #plot together
+    black_map <- grid.arrange(graph_blck, table_plot, nrow=2, heights=c(3,1))
+    black_map
+    })
   
   
   # Unemployment Rate -------------------------------------------------------
