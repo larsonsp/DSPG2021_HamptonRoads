@@ -1867,7 +1867,7 @@ server <- function(input, output, session) {
     coord_data <- st_transform(coord_data)
     coordinates1 <- coord_data %>% group_by(NAME) %>% slice(1)
     coordinates2 <- coordinates1[,6]
-    city <- c("Chesapeake", "Franklin", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
+    city <- c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
               "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
               "Williamsburg", "York")
     coordinates2 <- mutate(coordinates2, Location = city)
