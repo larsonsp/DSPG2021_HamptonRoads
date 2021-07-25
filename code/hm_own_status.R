@@ -2,17 +2,6 @@
 # Sets Working Directory --------------------------------------------------
 setwd("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/code/hampton_roads_home_ownership")
 
-# Installs and Loads  Required Packages-----------------------------------------------------
-install.packages("tidycensus", "tidyverse", "dplyr", "tigris", "ggplot2", "sf", "leaflet", "RColorBrewer", "htmlwidgets")
-library(tidycensus)
-library(tidyverse)
-library(dplyr)
-library(tigris)
-library(ggplot2)
-library(sf)
-library(leaflet)
-library(RColorBrewer)
-library(htmlwidgets)
 
 #saves shapefiles for future use
 tigris_use_cache = TRUE
@@ -105,13 +94,13 @@ b_hm_rent <- get_acs(geography = "county",
        caption = "ACS 2019 5 Year Estimates Table S2502")
 
 
-# Adds interactivity and time elements to black population variable------------------------------------
+# Pulls ACS Black Home Owner Data-----------------------------------
 
-#sets palette for leaflet maps
+#spalette for leaflet maps
 pal <- colorNumeric(palette = "viridis", domain = b_hm_own$Percent, reverse = TRUE)
 
-#pulls 2019 black homeownership data w/o mapping ggplot
-b_hmown_19 <- get_acs(geography = "county",
+#pulls 2019 black home owner data
+b_hm_19 <- get_acs(geography = "county",
                     state = "VA",
                     county = county_fips,
                     survey = "acs5",
@@ -121,186 +110,7 @@ b_hmown_19 <- get_acs(geography = "county",
   mutate(Percent = 100 * (estimate / summary_est)) %>% 
   mutate(Percent = round(Percent, 2))
 
-##2019 black homeownership leaflet map
-b_hm_own_leaf_19 <- b_hm_own_19 %>% 
-  st_transform() %>% 
-  leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
-  addProviderTiles("CartoDB.PositronNoLabels") %>% 
-  addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
-              highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), label = ~paste0(NAME,  " Black Homeowners: ",
-                                                                                                                   Percent, "%")) %>% 
-  addLegend("topleft",
-            pal = pal,
-            values = ~ Percent,
-            title = "Black Homeowners",
-            labFormat = labelFormat(suffix = "%"),
-            opacity = 1)
-###saves map as an html
-saveWidget(b_hm_own_leaf_19, file = "b_hm_own_leaf_19.html")
-
-#pulls 2018 data w/o mapping ggplot
-b_hm_own_18 <- get_acs(geography = "county",
-                       state = "VA",
-                       county = county_fips,
-                       variables = c(black_owned_housing = "S2502_C03_003"),
-                       summary_var = "S2502_C01_003",
-                       year = 2018,
-                       geometry = TRUE) %>% 
-  mutate(Percent = 100 * (estimate / summary_est)) %>% 
-  mutate(Percent = round(Percent, 2))
-
-b_hm_own_18
-
-##2018 black homeownership leaflet map
-b_hm_own_leaf_18 <- b_hm_own_18 %>% 
-  st_transform() %>% 
-  leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
-  addProviderTiles("CartoDB.PositronNoLabels") %>% 
-  addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
-              highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), label = ~paste0(NAME,  " Black Homeowners: ",
-                                                                                                                   Percent, "%")) %>% 
-  addLegend("topleft",
-            pal = pal,
-            values = ~ Percent,
-            title = "Black Homeowners",
-            labFormat = labelFormat(suffix = "%"),
-            opacity = 1)
-
-#pulls 2017 data w/o mapping ggplot
-b_hm_own_17 <- get_acs(geography = "county",
-                       state = "VA",
-                       county = county_fips,
-                       variables = c(black_owned_housing = "S2502_C03_003"),
-                       summary_var = "S2502_C01_003",
-                       year = 2017,
-                       geometry = TRUE) %>% 
-  mutate(Percent = 100 * (estimate / summary_est)) %>% 
-  mutate(Percent = round(Percent, 2))
-
-b_hm_own_17
-
-##2017 black homeownership leaflet map
-b_hm_own_leaf_17 <- b_hm_own_17 %>% 
-  st_transform() %>% 
-  leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
-  addProviderTiles("CartoDB.PositronNoLabels") %>% 
-  addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
-              highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), label = ~paste0(NAME,  " Black Homeowners: ",
-                                                                                                                   Percent, "%")) %>% 
-  addLegend("topleft",
-            pal = pal,
-            values = ~ Percent,
-            title = "Black Homeowners",
-            labFormat = labelFormat(suffix = "%"),
-            opacity = 1)
-
-###saves map as html
-saveWidget(b_hm_own_leaf_17, file = "b_hm_own_leaf_17.html")
-
-# Adds interactivity and time elements to total population variable -------
-
-#pulls 2019 total population data w/0 ggplot
-tot_hm_own_19 <- get_acs(geography = "county",
-                      state = "VA",
-                      county = county_fips,
-                      survey = "acs5",
-                      year = 2019,
-                      variables = c(overall_owned_housing = "S2502_C03_001"),
-                      summary_var = "S2502_C01_001",
-                      geometry = TRUE) %>% 
-  mutate(Percent = 100 * (estimate / summary_est)) %>% 
-  mutate(Percent = round(Percent, 2))
-
-##2019 total population homeownership leaflet map
-tot_hm_own_leaf_19 <- tot_hm_own_19 %>% 
-  st_transform() %>% 
-  leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
-  addProviderTiles("CartoDB.PositronNoLabels") %>% 
-  addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
-              label = ~paste0(NAME , " General Population Homeowners: ", Percent, "%"),
-              highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3)) %>% 
-  addLegend("topleft",
-            pal = pal,
-            values = ~ Percent,
-            title = "General Population Homeowners",
-            labFormat = labelFormat(suffix = "%"),
-            opacity = 1)
-
-###saves map as an html
-saveWidget(tot_hm_own_leaf_19, file = "tot_hm_own_leaf_19.html")
-
-#pulls 2018 data w/o mapping ggplot
-tot_hm_own_18 <- get_acs(geography = "county",
-                      state = "VA",
-                      county = county_fips,
-                      variables = c(overall_owned_housing = "S2502_C03_001"),
-                      summary_var = "S2502_C01_001",
-                      year = 2018,
-                      geometry = TRUE) %>% 
-  mutate(Percent = 100 * (estimate / summary_est)) %>% 
-  mutate(Percent = round(Percent, 2))
-
-##2018 total population homeownership leaflet map
-tot_hm_own_leaf_18 <- tot_hm_own_18 %>% 
-  st_transform() %>% 
-  leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
-  addProviderTiles("CartoDB.PositronNoLabels") %>% 
-  addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
-              label = ~paste0(NAME , " General Population Homeowners: ", Percent, "%"),
-              highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3)) %>% 
-  addLegend("topleft",
-            pal = pal,
-            values = ~ Percent,
-            title = "General Population Homeowners",
-            labFormat = labelFormat(suffix = "%"),
-            opacity = 1)
-
-###saves map as html
-saveWidget(tot_hm_own_leaf_18, file = "tot_hm_own_leaf_18.html")
-
-#pulls 2017 data w/o mapping ggplot
-tot_hm_own_17 <- get_acs(geography = "county",
-                         state = "VA",
-                         county = county_fips,
-                         variables = c(overall_owned_housing = "S2502_C03_001"),
-                         summary_var = "S2502_C01_001",
-                         year = 2017,
-                         geometry = TRUE) %>% 
-  mutate(Percent = 100 * (estimate / summary_est)) %>% 
-  mutate(Percent = round(Percent, 2))
-
-##2017 total population homeownership leaflet map
-tot_hm_own_leaf_17 <- tot_hm_own_17 %>% 
-  st_transform() %>% 
-  leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
-  addProviderTiles("CartoDB.PositronNoLabels") %>% 
-  addPolygons(color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
-              label = ~paste0(NAME , " General Population Homeowners: ", Percent, "%"),
-              highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3)) %>% 
-  addLegend("topleft",
-            pal = pal,
-            values = ~ Percent,
-            title = "General Population Homeowners",
-            labFormat = labelFormat(suffix = "%"),
-            opacity = 1)
-
-###saves map as html
-saveWidget(tot_hm_own_leaf_17, file = "tot_hm_own_leaf_17.html")
-  
-
-
-# Black Homeownership ACS -------------------------------------------------
-
-b_hm_19 <- get_acs(geography = "county",
-                      state = "VA",
-                      county = county_fips,
-                      survey = "acs5",
-                      variables = c(black_owned_housing = "S2502_C03_003"),
-                      summary_var = "S2502_C01_003",
-                      geometry = TRUE) %>% 
-  mutate(Percent = 100 * (estimate / summary_est)) %>% 
-  mutate(Percent = round(Percent, 2))
-
+#pulls 2018 black home owner data
 b_hm_18 <- get_acs(geography = "county",
                        state = "VA",
                        county = county_fips,
@@ -311,58 +121,244 @@ b_hm_18 <- get_acs(geography = "county",
   mutate(Percent = 100 * (estimate / summary_est)) %>% 
   mutate(Percent = round(Percent, 2))
 
+#pulls 2017 black home owner data
 b_hm_17 <- get_acs(geography = "county",
-                   state = "VA",
-                   county = county_fips,
-                   variables = c(black_owned_housing = "S2502_C03_003"),
-                   summary_var = "S2502_C01_003",
-                   year = 2017,
-                   geometry = TRUE) %>% 
+                       state = "VA",
+                       county = county_fips,
+                       variables = c(black_owned_housing = "S2502_C03_003"),
+                       summary_var = "S2502_C01_003",
+                       year = 2017,
+                       geometry = TRUE) %>% 
   mutate(Percent = 100 * (estimate / summary_est)) %>% 
   mutate(Percent = round(Percent, 2))
 
+#pulls 2016 black home owner data
+b_hm_16 <- get_acs(geography = "county",
+                       state = "VA",
+                       county = county_fips,
+                       variables = c("S2502_C02_003", "S2502_C02_001","S2502_C01_003", "S2502_C01_001"),
+                       output = "wide",
+                       year = 2016,
+                       geometry = TRUE) %>% 
+  mutate(S2502_C02_003E = (S2502_C02_003E / 100)) %>% 
+  mutate(Number = (S2502_C02_003E * S2502_C02_001E)) %>% 
+  mutate(S2502_C01_003E = (S2502_C01_003E / 100)) %>% 
+  mutate(SumNumber = (S2502_C01_003E * S2502_C01_001E)) %>% 
+  mutate(Percent = 100 * (Number / SumNumber)) %>% 
+  mutate(Percent = round(Percent, 2))
 
-# Total Homeownership ACS -------------------------------------------------
+#pulls 2015 black home owner data
+b_hm_15 <- get_acs(geography = "county",
+                       state = "VA",
+                       county = county_fips,
+                       variables = c("S2502_C02_003", "S2502_C02_001","S2502_C01_003", "S2502_C01_001"),
+                       output = "wide",
+                       year = 2015,
+                       geometry = TRUE) %>% 
+  mutate(S2502_C02_003E = (S2502_C02_003E / 100)) %>% 
+  mutate(Number = (S2502_C02_003E * S2502_C02_001E)) %>% 
+  mutate(S2502_C01_003E = (S2502_C01_003E / 100)) %>% 
+  mutate(SumNumber = (S2502_C01_003E * S2502_C01_001E)) %>% 
+  mutate(Percent = 100 * (Number / SumNumber)) %>% 
+  mutate(Percent = round(Percent, 2))
 
-#2019
+#pulls 2014 black home owner data
+b_hm_14 <- get_acs(geography = "county",
+                       state = "VA",
+                       county = county_fips,
+                       variables = c("S2502_C02_003", "S2502_C02_001","S2502_C01_003", "S2502_C01_001"),
+                       output = "wide",
+                       year = 2014,
+                       geometry = TRUE) %>% 
+  mutate(S2502_C02_003E = (S2502_C02_003E / 100)) %>% 
+  mutate(Number = (S2502_C02_003E * S2502_C02_001E)) %>% 
+  mutate(S2502_C01_003E = (S2502_C01_003E / 100)) %>% 
+  mutate(SumNumber = (S2502_C01_003E * S2502_C01_001E)) %>% 
+  mutate(Percent = 100 * (Number / SumNumber)) %>% 
+  mutate(Percent = round(Percent, 2))
+
+#pulls 2013 black home owner data
+b_hm_13 <- get_acs(geography = "county",
+                       state = "VA",
+                       county = county_fips,
+                       variables = c("S2502_C02_003", "S2502_C02_001","S2502_C01_003", "S2502_C01_001"),
+                       output = "wide",
+                       year = 2013,
+                       geometry = TRUE) %>% 
+  mutate(S2502_C02_003E = (S2502_C02_003E / 100)) %>% 
+  mutate(Number = (S2502_C02_003E * S2502_C02_001E)) %>% 
+  mutate(S2502_C01_003E = (S2502_C01_003E / 100)) %>% 
+  mutate(SumNumber = (S2502_C01_003E * S2502_C01_001E)) %>% 
+  mutate(Percent = 100 * (Number / SumNumber)) %>% 
+  mutate(Percent = round(Percent, 2))
+
+#pulls 2012 black home owner data
+b_hm_12 <- get_acs(geography = "county",
+                       state = "VA",
+                       county = county_fips,
+                       variables = c("S2502_C02_003", "S2502_C02_001","S2502_C01_003", "S2502_C01_001"),
+                       output = "wide",
+                       year = 2012,
+                       geometry = TRUE) %>% 
+  mutate(S2502_C02_003E = (S2502_C02_003E / 100)) %>% 
+  mutate(Number = (S2502_C02_003E * S2502_C02_001E)) %>% 
+  mutate(S2502_C01_003E = (S2502_C01_003E / 100)) %>% 
+  mutate(SumNumber = (S2502_C01_003E * S2502_C01_001E)) %>% 
+  mutate(Percent = 100 * (Number / SumNumber)) %>% 
+  mutate(Percent = round(Percent, 2))
+
+#pulls 2011 black home owner data
+b_hm_11 <- get_acs(geography = "county",
+                       state = "VA",
+                       county = county_fips,
+                       variables = c("S2502_C02_003", "S2502_C02_001","S2502_C01_003", "S2502_C01_001"),
+                       output = "wide",
+                       year = 2011,
+                       geometry = TRUE) %>% 
+  mutate(S2502_C02_003E = (S2502_C02_003E / 100)) %>% 
+  mutate(Number = (S2502_C02_003E * S2502_C02_001E)) %>% 
+  mutate(S2502_C01_003E = (S2502_C01_003E / 100)) %>% 
+  mutate(SumNumber = (S2502_C01_003E * S2502_C01_001E)) %>% 
+  mutate(Percent = 100 * (Number / SumNumber)) %>% 
+  mutate(Percent = round(Percent, 2))
+
+#pulls 2010 black home owner data
+b_hm_10 <- get_acs(geography = "county",
+                       state = "VA",
+                       county = county_fips,
+                       variables = c("S2502_C02_003", "S2502_C02_001","S2502_C01_003", "S2502_C01_001"),
+                       output = "wide",
+                       year = 2010,
+                       geometry = TRUE) %>% 
+  mutate(S2502_C02_003E = (S2502_C02_003E / 100)) %>% 
+  mutate(Number = (S2502_C02_003E * S2502_C02_001E)) %>% 
+  mutate(S2502_C01_003E = (S2502_C01_003E / 100)) %>% 
+  mutate(SumNumber = (S2502_C01_003E * S2502_C01_001E)) %>% 
+  mutate(Percent = 100 * (Number / SumNumber)) %>% 
+  mutate(Percent = round(Percent, 2))
+
+# Pulls ACS Total Home Owner Data -------
+
+#pulls 2019 total population home owner data
+
 tot_hm_19 <- get_acs(geography = "county",
+                      state = "VA",
+                      county = county_fips,
+                      survey = "acs5",
+                      year = 2019,
+                      variables = c(overall_owned_housing = "S2502_C03_001"),
+                      summary_var = "S2502_C01_001",
+                      geometry = TRUE) %>% 
+  mutate(Percent = 100 * (estimate / summary_est)) %>% 
+  mutate(Percent = round(Percent, 2))
+
+#pulls 2018 total population home owner data
+
+tot_hm_18 <- get_acs(geography = "county",
+                      state = "VA",
+                      county = county_fips,
+                      variables = c(overall_owned_housing = "S2502_C03_001"),
+                      summary_var = "S2502_C01_001",
+                      year = 2018,
+                      geometry = TRUE) %>% 
+  mutate(Percent = 100 * (estimate / summary_est)) %>% 
+  mutate(Percent = round(Percent, 2))
+
+#pulls 2017 total population home owner data
+
+tot_hm_17 <- get_acs(geography = "county",
                          state = "VA",
                          county = county_fips,
-                         survey = "acs5",
-                         year = 2019,
-                         variables = c(overall_owned_housing = "S2502_C03_001"),
+                         variables = c(overall_owned_housing = "S2502_C02_001"),
                          summary_var = "S2502_C01_001",
+                         year = 2017,
                          geometry = TRUE) %>% 
   mutate(Percent = 100 * (estimate / summary_est)) %>% 
   mutate(Percent = round(Percent, 2))
 
-#2018
-tot_hm_18 <- get_acs(geography = "county",
-                        state = "VA",
-                        county = county_fips,
-                        survey = "acs5",
-                        year = 2018,
-                        variables = c(overall_owned_housing = "S2502_C03_001"),
-                        summary_var = "S2502_C01_001",
-                        geometry = TRUE) %>% 
+#pulls 2016 total population home owner data
+tot_hm_16 <- get_acs(geography = "county",
+                         state = "VA",
+                         county = county_fips,
+                         variables = c(overall_owned_housing = "S2502_C02_001"),
+                         summary_var = "S2502_C01_001",
+                         year = 2016,
+                         geometry = TRUE) %>% 
   mutate(Percent = 100 * (estimate / summary_est)) %>% 
   mutate(Percent = round(Percent, 2))
 
-#2017
-tot_hm_17 <- get_acs(geography = "county",
-                        state = "VA",
-                        county = county_fips,
-                        survey = "acs5",
-                        year = 2017,
-                        variables = c(overall_owned_housing = "S2502_C03_001"),
-                        summary_var = "S2502_C01_001",
-                        geometry = TRUE) %>% 
+#pulls 2015 total population home owner data
+tot_hm_15 <- get_acs(geography = "county",
+                         state = "VA",
+                         county = county_fips,
+                         variables = c(overall_owned_housing = "S2502_C02_001"),
+                         summary_var = "S2502_C01_001",
+                         year = 2015,
+                         geometry = TRUE) %>% 
+  mutate(Percent = 100 * (estimate / summary_est)) %>% 
+  mutate(Percent = round(Percent, 2))
+
+#pulls 2014 total population home owner data
+tot_hm_14 <- get_acs(geography = "county",
+                         state = "VA",
+                         county = county_fips,
+                         variables = c(overall_owned_housing = "S2502_C02_001"),
+                         summary_var = "S2502_C01_001",
+                         year = 2014,
+                         geometry = TRUE) %>% 
+  mutate(Percent = 100 * (estimate / summary_est)) %>% 
+  mutate(Percent = round(Percent, 2))
+
+#pulls 2013 total population home owner data
+tot_hm_13 <- get_acs(geography = "county",
+                         state = "VA",
+                         county = county_fips,
+                         variables = c(overall_owned_housing = "S2502_C02_001"),
+                         summary_var = "S2502_C01_001",
+                         year = 2013,
+                         geometry = TRUE) %>% 
+  mutate(Percent = 100 * (estimate / summary_est)) %>% 
+  mutate(Percent = round(Percent, 2))
+
+#pulls 2012 total population home owner data
+tot_hm_12 <- get_acs(geography = "county",
+                         state = "VA",
+                         county = county_fips,
+                         variables = c(overall_owned_housing = "S2502_C02_001"),
+                         summary_var = "S2502_C01_001",
+                         year = 2012,
+                         geometry = TRUE) %>% 
+  mutate(Percent = 100 * (estimate / summary_est)) %>% 
+  mutate(Percent = round(Percent, 2))
+
+#pulls 2011 total population home owner data
+tot_hm_11<- get_acs(geography = "county",
+                         state = "VA",
+                         county = county_fips,
+                         variables = c(overall_owned_housing = "S2502_C02_001"),
+                         summary_var = "S2502_C01_001",
+                         year = 2011,
+                         geometry = TRUE) %>% 
+  mutate(Percent = 100 * (estimate / summary_est)) %>% 
+  mutate(Percent = round(Percent, 2))
+
+#pulls 2010 total population home owner data
+tot_hm_10 <- get_acs(geography = "county",
+                         state = "VA",
+                         county = county_fips,
+                         variables = c(overall_owned_housing = "S2502_C02_001"),
+                         summary_var = "S2502_C01_001",
+                         year = 2010,
+                         geometry = TRUE) %>% 
   mutate(Percent = 100 * (estimate / summary_est)) %>% 
   mutate(Percent = round(Percent, 2))
   
 
+
+
 # RDS Conversions ---------------------------------------------------------
 
+##Black
 #2019 Black
 write_rds(b_hm_19, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2019.rds")
 b_hm_19 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2019.rds")
@@ -378,6 +374,42 @@ write_rds(b_hm_17, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_
 b_hm_17 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2017.rds")
 b_hm_17 <- st_transform(b_hm_17)
 
+#2016 Black
+write_rds(b_hm_16, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2016.rds")
+b_hm_16 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2016.rds")
+b_hm_16 <- st_transform(b_hm_16)
+
+#2015 Black
+write_rds(b_hm_15, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2015.rds")
+b_hm_15 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2015.rds")
+b_hm_15 <- st_transform(b_hm_15)
+
+#2014 Black
+write_rds(b_hm_14, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2014.rds")
+b_hm_14 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2014.rds")
+b_hm_14 <- st_transform(b_hm_14)
+
+#2013 Black
+write_rds(b_hm_13, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2013.rds")
+b_hm_13 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2013.rds")
+b_hm_13 <- st_transform(b_hm_13)
+
+#2012 Black
+write_rds(b_hm_12, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2012.rds")
+b_hm_12 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2012.rds")
+b_hm_12 <- st_transform(b_hm_12)
+
+#2011 Black
+write_rds(b_hm_11, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2011.rds")
+b_hm_11 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2011.rds")
+b_hm_11 <- st_transform(b_hm_11)
+
+#2010 Black
+write_rds(b_hm_10, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2010.rds")
+b_hm_10 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/bhmown2010.rds")
+b_hm_10 <- st_transform(b_hm_10)
+
+##Total
 #2019 Total
 write_rds(tot_hm_19, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2019.rds")
 tot_hm_19 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2019.rds")
@@ -393,7 +425,40 @@ write_rds(tot_hm_17, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG202
 tot_hm_17 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2017.rds")
 tot_hm_17 <- st_transform(tot_hm_17)
 
+#2016 Total
+write_rds(tot_hm_16, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2016.rds")
+tot_hm_16 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2016.rds")
+tot_hm_16 <- st_transform(tot_hm_16)
 
+#2015 Total
+write_rds(tot_hm_15, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2015.rds")
+tot_hm_15 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2015.rds")
+tot_hm_15 <- st_transform(tot_hm_15)
+
+#2014 Total
+write_rds(tot_hm_14, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2014.rds")
+tot_hm_14 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2014.rds")
+tot_hm_14 <- st_transform(tot_hm_14)
+
+#2013 Total
+write_rds(tot_hm_13, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2013.rds")
+tot_hm_13 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2013.rds")
+tot_hm_13 <- st_transform(tot_hm_13)
+
+#2012 Total
+write_rds(tot_hm_12, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2012.rds")
+tot_hm_12 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2012.rds")
+tot_hm_12 <- st_transform(tot_hm_12)
+
+#2011 Total
+write_rds(tot_hm_11, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2011.rds")
+tot_hm_11 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2011.rds")
+tot_hm_11 <- st_transform(tot_hm_11)
+
+#2010 Total
+write_rds(tot_hm_10, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2010.rds")
+tot_hm_10 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2010.rds")
+tot_hm_10 <- st_transform(tot_hm_10)
 
 
 

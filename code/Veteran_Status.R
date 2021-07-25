@@ -91,11 +91,9 @@ black_vet_status <- get_acs(geography = "county",
 
 black_vet_status
 
-# Plots Leaflet Map -------------------------------------------------------
+# Pulls ACS Black Veteran Status Data -------------------------------------------------------
 
-
-
-##Pulls 2019 ACS Data and Geometry
+##Pulls 2019 ACS Data and Geometry and writes rds file
   b_vet_19 <- get_acs(geography = "county",
                               state = "VA",
                               county = county_fips,
@@ -111,7 +109,7 @@ write_rds(b_vet_19, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021
 b_vet_19 <- readRDS("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2019.rds")
 b_vet_19 <- st_transform(b_vet_19)
 
-##pulls 2018 ACS Data and Geometry
+##pulls 2018 ACS Data and Geometry and writes rds file
   b_vet_18 <- get_acs(geography = "county",
                                  state = "VA",
                                  county = county_fips,
@@ -127,7 +125,7 @@ write_rds(b_vet_18, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021
 b_vet_18 <- readRDS("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2018.rds")
 b_vet_18 <- st_transform(b_vet_18)
   
-##pulls 2017 ACS Data and Geometry
+##pulls 2017 ACS Data and Geometry and writes rds file
   b_vet_17 <- get_acs(geography = "county",
                                  state = "VA",
                                  county = county_fips,
@@ -143,7 +141,7 @@ write_rds(b_vet_17, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021
 b_vet_17 <- readRDS("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2017.rds")
 b_vet_17 <- st_transform(b_vet_17)
   
-##pulls 2016 ACS Data and Geometry
+##pulls 2016 ACS Data and Geometry and writes rds file
   b_vet_16 <- get_acs(geography = "county",
                                  state = "VA",
                                  county = county_fips,
@@ -159,7 +157,7 @@ write_rds(b_vet_16, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021
 b_vet_16 <- readRDS("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2016.rds")
 b_vet_16 <- st_transform(b_vet_16)
 
-##pulls 2015 ACS Data and Geometry
+##pulls 2015 ACS Data and Geometry and writes rds file
   b_vet_15 <- get_acs(geography = "county",
                                  state = "VA",
                                  county = county_fips,
@@ -175,16 +173,100 @@ write_rds(b_vet_15, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021
 b_vet_15 <- readRDS("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2015.rds")
 b_vet_15 <- st_transform(b_vet_15)
 
-#2014
+#pulls 2014 ACS Data and Geometry and writes rds file
+b_vet_14 <- get_acs(geography = "county",
+                       state = "VA",
+                       county = county_fips,
+                       variables = c("S2101_C02_016", "S2101_C02_001", "S2101_C01_016", "S2101_C01_001"),
+                       output = "wide",
+                       year = 2014,
+                       geometry = TRUE) %>% 
+  mutate(S2101_C02_016E = (S2101_C02_016E / 100)) %>% 
+  mutate(Number = (S2101_C02_016E * S2101_C02_001E)) %>% 
+  mutate(S2101_C01_016E = (S2101_C01_016E / 100)) %>% 
+  mutate(SumNumber = (S2101_C01_016E * S2101_C01_001E)) %>% 
+  mutate(Percent = 100 * (Number / SumNumber)) %>% 
+  mutate(Percent = round(Percent, 2))
 
+write_rds(b_vet_14, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2014.rds")
+b_vet_14 <- readRDS("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2014.rds")
+b_vet_14 <- st_transform(b_vet_14)
 
-#2013
+#pulls 2013 ACS Data and Geometry and writes rds file
+b_vet_13 <- get_acs(geography = "county",
+                    state = "VA",
+                    county = county_fips,
+                    variables = c("S2101_C02_016", "S2101_C02_001", "S2101_C01_016", "S2101_C01_001"),
+                    output = "wide",
+                    year = 2013,
+                    geometry = TRUE) %>% 
+  mutate(S2101_C02_016E = (S2101_C02_016E / 100)) %>% 
+  mutate(Number = (S2101_C02_016E * S2101_C02_001E)) %>% 
+  mutate(S2101_C01_016E = (S2101_C01_016E / 100)) %>% 
+  mutate(SumNumber = (S2101_C01_016E * S2101_C01_001E)) %>% 
+  mutate(Percent = 100 * (Number / SumNumber)) %>% 
+  mutate(Percent = round(Percent, 2))
 
-#2012
+write_rds(b_vet_13, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2013.rds")
+b_vet_13 <- readRDS("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2013.rds")
+b_vet_13 <- st_transform(b_vet_13)
 
-#2011
+#pulls 2012 ACS Data and Geometry and writes rds file
+b_vet_12 <- get_acs(geography = "county",
+                    state = "VA",
+                    county = county_fips,
+                    variables = c("S2101_C02_016", "S2101_C02_001", "S2101_C01_016", "S2101_C01_001"),
+                    output = "wide",
+                    year = 2012,
+                    geometry = TRUE) %>% 
+  mutate(S2101_C02_016E = (S2101_C02_016E / 100)) %>% 
+  mutate(Number = (S2101_C02_016E * S2101_C02_001E)) %>% 
+  mutate(S2101_C01_016E = (S2101_C01_016E / 100)) %>% 
+  mutate(SumNumber = (S2101_C01_016E * S2101_C01_001E)) %>% 
+  mutate(Percent = 100 * (Number / SumNumber)) %>% 
+  mutate(Percent = round(Percent, 2))
 
-#2010
+write_rds(b_vet_12, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2012.rds")
+b_vet_12 <- readRDS("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2012.rds")
+b_vet_12 <- st_transform(b_vet_12)
+
+#pulls 2011 ACS Data and Geometry and writes rds file
+b_vet_11 <- get_acs(geography = "county",
+                    state = "VA",
+                    county = county_fips,
+                    variables = c("S2101_C02_016", "S2101_C02_001", "S2101_C01_016", "S2101_C01_001"),
+                    output = "wide",
+                    year = 2011,
+                    geometry = TRUE) %>% 
+  mutate(S2101_C02_016E = (S2101_C02_016E / 100)) %>% 
+  mutate(Number = (S2101_C02_016E * S2101_C02_001E)) %>% 
+  mutate(S2101_C01_016E = (S2101_C01_016E / 100)) %>% 
+  mutate(SumNumber = (S2101_C01_016E * S2101_C01_001E)) %>% 
+  mutate(Percent = 100 * (Number / SumNumber)) %>% 
+  mutate(Percent = round(Percent, 2))
+
+write_rds(b_vet_11, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2011.rds")
+b_vet_11 <- readRDS("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2011.rds")
+b_vet_11 <- st_transform(b_vet_11)
+
+#pulls 2010 ACS Data and Geometry and writes rds file
+b_vet_10 <- get_acs(geography = "county",
+                    state = "VA",
+                    county = county_fips,
+                    variables = c("S2101_C02_016", "S2101_C02_001", "S2101_C01_016", "S2101_C01_001"),
+                    output = "wide",
+                    year = 2010,
+                    geometry = TRUE) %>% 
+  mutate(S2101_C02_016E = (S2101_C02_016E / 100)) %>% 
+  mutate(Number = (S2101_C02_016E * S2101_C02_001E)) %>% 
+  mutate(S2101_C01_016E = (S2101_C01_016E / 100)) %>% 
+  mutate(SumNumber = (S2101_C01_016E * S2101_C01_001E)) %>% 
+  mutate(Percent = 100 * (Number / SumNumber)) %>% 
+  mutate(Percent = round(Percent, 2))
+
+write_rds(b_vet_10, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2010.rds")
+b_vet_10 <- readRDS("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2101FiveYearEstimates/bveteran2010.rds")
+b_vet_10 <- st_transform(b_vet_10)
 
 ###Creates data table containing military base names/branches and lat/lng
 base_name <- c("Training Center Yorktown", "Naval Weapons Station Yorktown", "Fort Eustis", "Langley Air Force Base", "Fort Monroe", 
