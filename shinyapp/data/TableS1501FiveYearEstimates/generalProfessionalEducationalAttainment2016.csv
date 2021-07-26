@@ -1,17 +1,17 @@
-NAME,variable,pct_tot
-"Gloucester County, Virginia",S1501_C01_012,13.909418230054957
-"Isle of Wight County, Virginia",S1501_C01_012,16.8357789572276
-"James City County, Virginia",S1501_C01_012,26.677064078866298
-"Mathews County, Virginia",S1501_C01_012,15.459507301961942
-"Southampton County, Virginia",S1501_C01_012,11.04607534143779
-"York County, Virginia",S1501_C01_012,22.8744347200036
-"Chesapeake city, Virginia",S1501_C01_012,19.350122587865418
-"Franklin city, Virginia",S1501_C01_012,14.099895941727366
-"Hampton city, Virginia",S1501_C01_012,15.167544597406046
-"Newport News city, Virginia",S1501_C01_012,15.143037242355947
-"Norfolk city, Virginia",S1501_C01_012,16.002766435687022
-"Poquoson city, Virginia",S1501_C01_012,23.996232191216297
-"Portsmouth city, Virginia",S1501_C01_012,13.632568178595623
-"Suffolk city, Virginia",S1501_C01_012,16.21402303216561
-"Virginia Beach city, Virginia",S1501_C01_012,22.474626707051385
-"Williamsburg city, Virginia",S1501_C01_012,27.89013391637059
+NAME,variable,individualEstimates
+"Gloucester County, Virginia",S1501_C02_015,22.6
+"Isle of Wight County, Virginia",S1501_C02_015,27.4
+"James City County, Virginia",S1501_C02_015,47.8
+"Mathews County, Virginia",S1501_C02_015,26.6
+"Southampton County, Virginia",S1501_C02_015,16.1
+"York County, Virginia",S1501_C02_015,43.2
+"Chesapeake city, Virginia",S1501_C02_015,30.4
+"Franklin city, Virginia",S1501_C02_015,22.4
+"Hampton city, Virginia",S1501_C02_015,24
+"Newport News city, Virginia",S1501_C02_015,24.7
+"Norfolk city, Virginia",S1501_C02_015,26.6
+"Poquoson city, Virginia",S1501_C02_015,39.8
+"Portsmouth city, Virginia",S1501_C02_015,21.1
+"Suffolk city, Virginia",S1501_C02_015,26.6
+"Virginia Beach city, Virginia",S1501_C02_015,34.2
+"Williamsburg city, Virginia",S1501_C02_015,56.7

@@ -241,18 +241,27 @@ for (i in 1:length(years)) {
   
 }
 
-
-
+#if year is 2017, 2016, 2015
+#S1501_C02_015
+va_total2 = va_table("S1501", 2017)
+View(va_total2)
 
 #plots general data for professional degrees
 years <- c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019) 
 for (i in 1:length(years)) { 
-  #plots general data for education
+  #plots general data
   
-  va_total2 = county_stats("S1501_C01_012", "S1501_C01_006", years[i])
+  #these years just directly had the percentages so no need to sum up the numbers over the estimate
+  if (years[i] == "2017"|| years[i] == "2016" || years[i] == "2015") {
+    va_total2 = county_stats1("S1501_C02_015", years[i])
+  }
+  
+  else {
+    va_total2 = county_stats("S1501_C01_012", "S1501_C01_006", years[i])
+  }
+  
   write_csv(va_total2, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalProfessionalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
   va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalProfessionalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
-  
   
   
   #plots general data for population
@@ -267,7 +276,6 @@ for (i in 1:length(years)) {
   #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
   
   #va_tot_education_bar
-  
   
 }
 
@@ -315,7 +323,7 @@ black_total2
 black_total2Visual  <- black_total2  %>%  
 ggplot(aes(fill = gender, y = pct_tot, x = gender)) + geom_col() + theme_minimal() + labs(title = "2019 Data",
 y = "Percent (%)", x = "Counties of Hampton Roads", caption = "Source: ACS 5 Year Estimate Table C15002B") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
-hide_legend(ggplotly(black_total2Visual)
+hide_legend(ggplotly(black_total2Visual))
 
 
 hamp_black_employment_variables_2019 <- va_table("C23002B", 2019)
