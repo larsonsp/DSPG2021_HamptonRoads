@@ -1432,10 +1432,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       va_tot_education_bar2019 #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2019, tooltip=c("x", "y", "Gender"))) %>% 
-        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
                                   showarrow = F, xref='paper', yref='paper', 
                                   xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=15, color="black"))
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1452,11 +1452,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2018, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1473,11 +1472,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2017, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1494,11 +1492,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2016, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1515,11 +1512,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2015, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1536,11 +1532,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2014, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1557,11 +1552,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2013, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1578,11 +1572,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2012, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1599,11 +1592,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2011, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1620,11 +1612,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2010, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1650,11 +1641,10 @@ server <- function(input, output, session) {
         labs(title = "Black Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1668,11 +1658,10 @@ server <- function(input, output, session) {
         labs(title = "Asian Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1686,11 +1675,10 @@ server <- function(input, output, session) {
         labs(title = "White Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1704,11 +1692,10 @@ server <- function(input, output, session) {
         labs(title = "Hispanic Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1722,11 +1709,10 @@ server <- function(input, output, session) {
         labs(title = "American Indian Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1740,12 +1726,11 @@ server <- function(input, output, session) {
         labs(title = "Two or More Races Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
-        )  
+        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
+        )
       
     }
     
@@ -1759,11 +1744,10 @@ server <- function(input, output, session) {
         labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.60, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
