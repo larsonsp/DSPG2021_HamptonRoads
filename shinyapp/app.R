@@ -146,12 +146,12 @@ ui <- navbarPage(title = "Hampton Roads",
                                           p(strong("The problem."), "Systematic issues are preferential treatement given to certain groups of inidividuals. They have impeded minorities from being able to progress to share the same level of stature, accomplishment, and acceptance fellow peers with their similar backgrounds have achieved. The Black and African American (AA) community have been no exception to this injustice, resulting in several disadvantages across all facets of life.  This includes, but is certainly not limited to, various sectors of society like: 
                                           public health/healthcare, employment, education, government, and criminal justice. "),
                                           p(),
-                                          p(strong("The setting."), a(href = "https://en.wikipedia.org/wiki/Hampton_Roads", "Hampton Roads", target = "_blank"), "is a an area that comprises of sixteen total cities and counties with a much higher Black/AA percentage, have a per capita income and employment rate below the national and metropolitan statistical area (MSA) average. 
+                                          p(strong("The setting."), a(href = "https://en.wikipedia.org/wiki/Hampton_Roads", "Hampton Roads", target = "_blank"), "is a an area that comprises of sixteen total cities and counties with a much higher Black percentage, have a per capita income and employment rate below the national and metropolitan statistical area (MSA) average. 
                                           Additionally, the graduation rate is lower than state average.  As a result, our team wants to investigate the nature of these disadvantages through  indicators for Hampton Roads, Virginia, from 2010 to 2020 according to four key domains: Education, Economic Conditions, Housing, and Healthcare."),
                                           p(),
                                           p(strong("The project."), "This Virginia Tech", a(href = "https://biocomplexity.virginia.edu/social-decision-analytics", "Biocomplexity Institute", target = "_blank"), 
                                             "Data Science for Public Good (DSPG) project will be aimed at analyzing questions like: * How do the black unemployment rates in Hampton compare to the Hampton and Virginia mean? 
-* How do the black poverty rates in Hampton contrast with Hampton and Virginia rates? Our motivation is that the dashboard will help us see **potential** ways sysematic issues are (or are not) affecting the Black/AA community in **Hampton Roads** and what/how we can overcome those challenges. This project is under the much broader program of Virginia Tech Data Science for Public Good program, at the very gracious request of stakeholder  Mallory Tuttle. Additionally, we would like to give our immense credit and appreciation to the creators of R-Shiny-App-Graduate-Employment-Singapore, as their dashboard and code provided a great template and blueprint for forming our own Hampon-Roads-Shiny-App. .")
+* How do the black poverty rates in Hampton contrast with Hampton and Virginia rates? Our motivation is that the dashboard will help us see **potential** ways sysematic issues are (or are not) affecting the Black community in **Hampton Roads** and what/how we can overcome those challenges. This project is under the much broader program of Virginia Tech Data Science for Public Good program, at the very gracious request of stakeholder  Mallory Tuttle. Additionally, we would like to give our immense credit and appreciation to the creators of R-Shiny-App-Graduate-Employment-Singapore, as their dashboard and code provided a great template and blueprint for forming our own Hampon-Roads-Shiny-App. .")
                                    ),
                                    column(4,
                                           h2(strong("Our Work")),
@@ -350,6 +350,9 @@ ui <- navbarPage(title = "Hampton Roads",
                                                           withSpinner(plotOutput("graph_va")),
                                                           p(tags$small("Data Source: Kids Count Data Center"))
                                                  ),
+                                        column(5,
+                                               h4("Academic Punishments")
+                                               ),
                                         column(7, width = 12,
                                                h4("Percent of Black Students Suspended"),
                                                selectInput("BsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
@@ -357,6 +360,14 @@ ui <- navbarPage(title = "Hampton Roads",
                                                withSpinner(plotOutput("black_map")),
                                                p(tags$small("Data Source: Kids Count Data Center"))
                                                ),
+                                        column(7, width = 12,
+                                               h4("Percent of Black and White Students Suspended in Hampton Roads"),
+                                               selectInput("BWsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
+                                                 "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
+                                               withSpinner(plotOutput("BW_map")),
+                                               p(tags$small("Data Source: Kids Count Data Center"))
+                                        ),
+                                        
                                         
                                                 
                                         
@@ -384,11 +395,11 @@ ui <- navbarPage(title = "Hampton Roads",
                                           p("Knowledge is power. Consequently, education is a pivotal sector of society that influences and interwines with many other pillars like economics of health care."), 
                                           p("Investigating trends in education can allow us to explore the general 'well-being' of an area. In particular, looking at educational patterns over time like those who have reached a
                                             certain level of educational attainment or high school dropout rates can help us see if systematic issues might be playing a role (if any) to the Hampton Roads region."), 
-                                          p("If black/AA students are consistently underperforming and or have levels of educational attainment much lower than their contemporaries, we can speculate if issues like discrimination or lack of
+                                          p("If Black students are consistently underperforming and or have levels of educational attainment much lower than their contemporaries, we can speculate if issues like discrimination or lack of
                                             colored representation in education is in any way influencing the trends that we are noticing. Moreoever, comparing both
-                                            the general Hampton region and the Virginia averages to the Black/AA population specifically in Hampton Roads will allow us to see the impact of the Hampton region itself on its
-                                            constitutents as well (to seperate the possibility of sysematic issues from just relative lack of opporturnity or unideal conditions present in Hampton Roads) how that affects the Black/AA community present."),
-                                          p("In particular, researching those who are 25 years and older who have a Bachelor's degree or higher as their highest educational attainement will help us investigate the general educational development of the
+                                            the general Hampton region and the Virginia averages to the Black population specifically in Hampton Roads will allow us to see the impact of the Hampton region itself on its
+                                            constitutents as well (to seperate the possibility of sysematic issues from just relative lack of opporturnity or unideal conditions present in Hampton Roads) how that affects the Black community present."),
+                                          p("In particular, researching those who are 25 years and older who have a Bachelor's degree or higher as their highest educational Attainment will help us investigate the general educational development of the
                                           Hampton community as most individuals 25 years and older are old enough to have graduated high school and finished some type of college education.")
                                    ),
                                    column(7,
@@ -402,16 +413,17 @@ ui <- navbarPage(title = "Hampton Roads",
                                                      ),
                                                      p(strong("Percentage of Hampton Roads Population 25 years and older with highest educational attainment as Bachelor's degree or higher")),
                                                      withSpinner(plotlyOutput("genEdAttainmentPlots")),
-                                                     p(tags$small("Data Source: ACS 5 Year Estimate Table S1501"))
+                                                     p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages"))
                                             ),
-                                            tabPanel("Black/AA Population",
+                                            tabPanel("Black Population",
                                                      p(""),
                                                      selectInput("blackEdAttainmentYearDrop", "Select Year:", width = "100%", choices = c(
                                                        "2019","2018", "2017", "2016", "2015","2014",
                                                        "2013","2012", "2011", "2010")),
                                                      p(strong("Black Educational Attainment")),
                                                      withSpinner(plotlyOutput("blackEdAttainmentPlots")),
-                                                     p(tags$small("Data Source: ACS 5 Year Estimate Table C15002B"))
+                                                     p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages"))
+                                                     #p(tags$small("Data Source: ACS 5 Year Estimate Table C15002B"))
                                             )
                                           )
                                    ), 
@@ -424,11 +436,11 @@ ui <- navbarPage(title = "Hampton Roads",
                                             tabPanel("Teacher Race Breakdown",
                                                      p(""),
                                                      selectInput("teacherRaceBreakdown", "Select Race:", width = "100%", choices = c(
-                                                       "Black", "Asian", "American Indian", "Hispanic", "Two or More Races", "White"
+                                                       "Black", "Asian", "American Indian", "Hispanic", "Two or More Races", "White", "Hawaiian"
                                                      )),
                                                      p(strong("Virginia: Teacher Breakdown By Race in Hampton Roads")),
                                                      withSpinner(plotlyOutput("teacherRacePlots")),
-                                                     p(tags$small("Data Source: Virginia 2020-2021 Teacher Race Report"))
+                                                     p(tags$small("Possible Suppression of Counts in Dataset for Counties/Cities with Zero Values Stated"))
                                             )
                                    ), 
                           )
@@ -653,7 +665,12 @@ ui <- navbarPage(title = "Hampton Roads",
                                            "2013","2012", "2011", "2010")),
                                          withSpinner(plotOutput("income_plot")),
                                          p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
-                                         )
+                                         ),
+                                         column(12,
+                                                h4("Median Income from 2010 to 2019"),
+                                                withSpinner(plotOutput("medianTimeGraph")),
+                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
+                                                )
                                          
                                 )
                               ),
@@ -663,19 +680,20 @@ ui <- navbarPage(title = "Hampton Roads",
                                          h1(strong("Poverty Rates in Virginia and Hampton Roads"), align = "center"),
                                          column(7, 
                                                 h4(strong("Poverty Rates in Virginia and Hampton Roads")),
-                                                withSpinner(plotOutput("pov_plot")),
-                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S1701")),
                                                 selectInput("PovertyYearDrop", "Select Year:", width = "100%", choices = c(
                                                   "2019","2018", "2017", "2016", "2015","2014",
-                                                  "2013","2012"))
+                                                  "2013","2012")),
+                                                withSpinner(plotOutput("pov_plot")),
+                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S1701"))
                                                 ),
                                          column(7, width = 12,
                                                 h4(strong("Poverty Rates in Hampton Roads Counties and Cities")),
-                                                withSpinner(plotOutput("counties_pov")),
-                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S1701")),
                                                 selectInput("PovertyCountYearDrop", "Select Year:", width = "100%", choices = c(
                                                   "2019","2018", "2017", "2016", "2015","2014",
-                                                  "2013","2012"))
+                                                  "2013","2012")),
+                                                withSpinner(plotOutput("counties_pov")),
+                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S1701"))
+                                                
                                          )
                                          
                               
@@ -1437,148 +1455,204 @@ server <- function(input, output, session) {
   
   output$genEdAttainmentPlots <- renderPlotly({
     if(var_genEducationalAttainment() == "2019") {
-      generalEducationalAttainement2019 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2019.csv")
-      va_tot_education_bar2019 <- generalEducationalAttainement2019  %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "",
+      generalEducationalAttainment2019 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2019.csv")
+      colnames(generalEducationalAttainment2019) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      va_tot_education_bar2019 <- generalEducationalAttainment2019  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2019)",
                                y = "Percent (%)",
-                               x = "Hampton Roads",
-                               caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(va_tot_education_bar2019)
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2019, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if(var_genEducationalAttainment() == "2018") {
-      generalEducationalAttainement2018 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2018.csv")
-      va_tot_education_bar2018 <- generalEducationalAttainement2018  %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+      generalEducationalAttainment2018 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2018.csv")
+      colnames(generalEducationalAttainment2018) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      va_tot_education_bar2018 <- generalEducationalAttainment2018  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2018)",
                                y = "Percent (%)",
-                               x = "Hampton Roads",
-                               caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      va_tot_education_bar2018
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2018, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if(var_genEducationalAttainment() == "2017") {
-      generalEducationalAttainement2017 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2017.csv")
-      va_tot_education_bar2017 <- generalEducationalAttainement2017  %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+      generalEducationalAttainment2017 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2017.csv")
+      colnames(generalEducationalAttainment2017) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      va_tot_education_bar2017 <- generalEducationalAttainment2017  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2017)",
                                y = "Percent (%)",
-                               x = "Hampton Roads",
-                               caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      va_tot_education_bar2017
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2017, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if(var_genEducationalAttainment() == "2016") {
-      generalEducationalAttainement2016 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2016.csv")
-      va_tot_education_bar2016 <- generalEducationalAttainement2016  %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+      generalEducationalAttainment2016 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2016.csv")
+      colnames(generalEducationalAttainment2016) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      va_tot_education_bar2016 <- generalEducationalAttainment2016  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2016)",
                                y = "Percent (%)",
-                               x = "Hampton Roads",
-                               caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      
-      #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
-      va_tot_education_bar2016
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2016, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if(var_genEducationalAttainment() == "2015") {
-      generalEducationalAttainement2015 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2015.csv")
-      va_tot_education_bar2015 <- generalEducationalAttainement2015  %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+      generalEducationalAttainment2015 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2015.csv")
+      colnames(generalEducationalAttainment2015) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      va_tot_education_bar2015 <- generalEducationalAttainment2015  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2015)",
                                y = "Percent (%)",
-                               x = "Hampton Roads",
-                               caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      
-      #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
-      va_tot_education_bar2015
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2015, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if(var_genEducationalAttainment() == "2014") {
-      generalEducationalAttainement2014 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2014.csv")
-      va_tot_education_bar2014 <- generalEducationalAttainement2014  %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+      generalEducationalAttainment2014 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2014.csv")
+      colnames(generalEducationalAttainment2014) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      va_tot_education_bar2014 <- generalEducationalAttainment2014  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2014)",
                                y = "Percent (%)",
-                               x = "Hampton Roads",
-                               caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      
-      #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
-      va_tot_education_bar2014
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2014, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if(var_genEducationalAttainment() == "2013") {
-      generalEducationalAttainement2013 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2013.csv")
-      va_tot_education_bar2013 <- generalEducationalAttainement2013  %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+      generalEducationalAttainment2013 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2013.csv")
+      colnames(generalEducationalAttainment2013) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      va_tot_education_bar2013 <- generalEducationalAttainment2013  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2013)",
                                y = "Percent (%)",
-                               x = "Hampton Roads",
-                               caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      
-      #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
-      va_tot_education_bar2013
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2013, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if(var_genEducationalAttainment() == "2012") {
-      generalEducationalAttainement2012 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2012.csv")
-      va_tot_education_bar2012 <- generalEducationalAttainement2012  %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+      generalEducationalAttainment2012 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2012.csv")
+      colnames(generalEducationalAttainment2012) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      va_tot_education_bar2012 <- generalEducationalAttainment2012  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2012)",
                                y = "Percent (%)",
-                               x = "Hampton Roads",
-                               caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      
-      #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
-      va_tot_education_bar2012
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2012, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if(var_genEducationalAttainment() == "2011") {
-      generalEducationalAttainement2011 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2011.csv")
-      va_tot_education_bar2011 <- generalEducationalAttainement2011  %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+      generalEducationalAttainment2011 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2011.csv")
+      colnames(generalEducationalAttainment2011) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      va_tot_education_bar2011 <- generalEducationalAttainment2011  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2011)",
                                y = "Percent (%)",
-                               x = "Hampton Roads",
-                               caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      
-      #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
-      va_tot_education_bar2011
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2011, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     
     else if(var_genEducationalAttainment() == "2010") {
-      generalEducationalAttainement2010 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2010.csv")
-      va_tot_education_bar2010 <- generalEducationalAttainement2010  %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "Highest Educational Attainment for General Population 25 years and older: Bachelor's degree or higher",
+      generalEducationalAttainment2010 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2010.csv")
+      colnames(generalEducationalAttainment2010) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      va_tot_education_bar2010 <- generalEducationalAttainment2010  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2012)",
                                y = "Percent (%)",
-                               x = "Hampton Roads",
-                               caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      
-      #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
-      va_tot_education_bar2010
+                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2010, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
   })
@@ -1593,122 +1667,203 @@ server <- function(input, output, session) {
     
     if(var_blackEducationalAttainment() == "2019") {
       blackEducationalAttainment2019 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2019.csv")
+      colnames(blackEducationalAttainment2019) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       va_tot_education_bar2019 <- blackEducationalAttainment2019  %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "",
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        geom_bar(position = "dodge", stat = "identity") + 
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2019)",
                                y = "Percent (%)",
-                               x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(va_tot_education_bar2019)
+                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+     va_tot_education_bar2019 #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+     hide_legend(ggplotly(va_tot_education_bar2019, tooltip=c("x", "y"))) %>% 
+       layout(annotations = 
+                list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                     showarrow = F, xref='paper', yref='paper', 
+                     xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                     font=list(size=15, color="black"))
+       )
     }
     
     else if(var_blackEducationalAttainment() == "2018") {
       blackEducationalAttainment2018 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2018.csv")
+      colnames(blackEducationalAttainment2018) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       va_tot_education_bar2018 <- blackEducationalAttainment2018  %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "",
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2018)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(va_tot_education_bar2018)
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2018, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if(var_blackEducationalAttainment() == "2017") {
       blackEducationalAttainment2017 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2017.csv")
-      va_tot_education_bar2017 <- blackEducationalAttainment2017 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "",
+      colnames(blackEducationalAttainment2017) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      va_tot_education_bar2017 <- blackEducationalAttainment2017  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2017)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(va_tot_education_bar2017)
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2017, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if(var_blackEducationalAttainment() == "2016") {
       blackEducationalAttainment2016 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2016.csv")
+      colnames(blackEducationalAttainment2016) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       va_tot_education_bar2016 <- blackEducationalAttainment2016  %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "",
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2016)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(va_tot_education_bar2016)
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2016, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if(var_blackEducationalAttainment() == "2015") {
       blackEducationalAttainment2015 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2015.csv")
+      colnames(blackEducationalAttainment2015) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       va_tot_education_bar2015 <- blackEducationalAttainment2015  %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "",
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2015)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(va_tot_education_bar2015)
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2015, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if(var_blackEducationalAttainment() == "2014") {
       blackEducationalAttainment2014 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2014.csv")
-      va_tot_education_bar2014 <- blackEducationalAttainment2014 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "",
+      colnames(blackEducationalAttainment2014) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      va_tot_education_bar2014 <- blackEducationalAttainment2014  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2015)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(va_tot_education_bar2014)
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2014, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if(var_blackEducationalAttainment() == "2013") {
       blackEducationalAttainment2013 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2013.csv")
-      va_tot_education_bar2013 <- blackEducationalAttainment2013 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "",
+      colnames(blackEducationalAttainment2013) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      va_tot_education_bar2013 <- blackEducationalAttainment2013  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2013)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(va_tot_education_bar2013)
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2013, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if(var_blackEducationalAttainment() == "2012") {
       blackEducationalAttainment2012 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2012.csv")
-      va_tot_education_bar2012 <- blackEducationalAttainment2012 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "",
+      colnames(blackEducationalAttainment2012) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      va_tot_education_bar2012 <- blackEducationalAttainment2012  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2012)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(va_tot_education_bar2012)
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2012, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if(var_blackEducationalAttainment() == "2011") {
-      blackEducationalAttainment2012 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2011.csv")
-      va_tot_education_bar2011 <- blackEducationalAttainment2011 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "",
+      blackEducationalAttainment2011 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2011.csv")
+      colnames(blackEducationalAttainment2011) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      va_tot_education_bar2011 <- blackEducationalAttainment2011  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2015)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(va_tot_education_bar2011)
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2011, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if(var_blackEducationalAttainment() == "2010") {
       blackEducationalAttainment2010 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2010.csv")
+      colnames(blackEducationalAttainment2010) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       va_tot_education_bar2010 <- blackEducationalAttainment2010 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-        theme_minimal() + labs(title = "",
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2010)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(va_tot_education_bar2010)
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2010, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
   })
@@ -1723,56 +1878,129 @@ server <- function(input, output, session) {
   output$teacherRacePlots <- renderPlotly({
     if(var_teacherRaces() == "Black") {
       teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      #renaming column names to make division name to name for readability purposes and also made sure it was consistent mapping of columns to the excel spreadsheet
+      #original column names for reference: Division No.	Division Name	Total Counts	American Indian	Asian	Black	Hispanic	White	Hawaiian	Two or More Races	Not Specified	BlackProportions	AsianProportions	HispanicProportions	WhiteProportions	AmericanIndianProportions	TwoOrMoreRacesProportions	HawaiianProportions
+      colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
-        ggplot(aes(x = Division.Name, y = BlackProportions, fill = Division.Name)) + geom_col() +
-        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
-        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(teacherByRace)
+      ggplot(aes(x = Name, y = `% of Black Teachers`, fill = Name)) + geom_col() +
+      labs(title = "Black Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if (var_teacherRaces() == "Asian") {
       teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      #renaming column names to make division name to name for readability purposes and also made sure it was consistent mapping of columns to the excel spreadsheet
+      #original column names for reference: Division No.	Division Name	Total Counts	American Indian	Asian	Black	Hispanic	White	Hawaiian	Two or More Races	Not Specified	BlackProportions	AsianProportions	HispanicProportions	WhiteProportions	AmericanIndianProportions	TwoOrMoreRacesProportions	HawaiianProportions
+           colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
-        ggplot(aes(x = Division.Name, y = AsianProportions, fill = Division.Name)) + geom_col() +
-        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
-        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(teacherByRace)
+        ggplot(aes(x = Name, y = `% of Asian Teachers`, fill = Name)) + geom_col() +
+        labs(title = "Asian Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if (var_teacherRaces() == "White") {
       teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      #renaming column names to make division name to name for readability purposes and also made sure it was consistent mapping of columns to the excel spreadsheet
+      #original column names for reference: Division No.	Division Name	Total Counts	American Indian	Asian	Black	Hispanic	White	Hawaiian	Two or More Races	Not Specified	BlackProportions	AsianProportions	HispanicProportions	WhiteProportions	AmericanIndianProportions	TwoOrMoreRacesProportions	HawaiianProportions
+           colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
-        ggplot(aes(x = Division.Name, y = WhiteProportions, fill = Division.Name)) + geom_col() +
-        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
-        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(teacherByRace)
+        ggplot(aes(x = Name, y = `% of White Teachers`, fill = Name)) + geom_col() +
+        labs(title = "White Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if (var_teacherRaces() == "Hispanic") {
       teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      #renaming column names to make division name to name for readability purposes and also made sure it was consistent mapping of columns to the excel spreadsheet
+      #original column names for reference: Division No.	Division Name	Total Counts	American Indian	Asian	Black	Hispanic	White	Hawaiian	Two or More Races	Not Specified	BlackProportions	AsianProportions	HispanicProportions	WhiteProportions	AmericanIndianProportions	TwoOrMoreRacesProportions	HawaiianProportions
+           colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
-        ggplot(aes(x = Division.Name, y = HispanicProportions, fill = Division.Name)) + geom_col() +
-        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
-        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(teacherByRace)
+        ggplot(aes(x = Name, y = `% of Hispanic Teachers`, fill = Name)) + geom_col() +
+        labs(title = "Hispanic Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if (var_teacherRaces() == "American Indian") {
       teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      #renaming column names to make division name to name for readability purposes and also made sure it was consistent mapping of columns to the excel spreadsheet
+      #original column names for reference: Division No.	Division Name	Total Counts	American Indian	Asian	Black	Hispanic	White	Hawaiian	Two or More Races	Not Specified	BlackProportions	AsianProportions	HispanicProportions	WhiteProportions	AmericanIndianProportions	TwoOrMoreRacesProportions	HawaiianProportions
+      colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
-        ggplot(aes(x = Division.Name, y = AmericanIndianProportions, fill = Division.Name)) + geom_col() +
-        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
-        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(teacherByRace)
+        ggplot(aes(x = Name, y = `% of American Indian Teachers`, fill = Name)) + geom_col() +
+        labs(title = "American Indian Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
     else if (var_teacherRaces() == "Two or More Races") {
       teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      #renaming column names to make division name to name for readability purposes and also made sure it was consistent mapping of columns to the excel spreadsheet
+      #original column names for reference: Division No.	Division Name	Total Counts	American Indian	Asian	Black	Hispanic	White	Hawaiian	Two or More Races	Not Specified	BlackProportions	AsianProportions	HispanicProportions	WhiteProportions	AmericanIndianProportions	TwoOrMoreRacesProportions	HawaiianProportions
+           colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
-        ggplot(aes(x = Division.Name, y = TwoOrMoreRacesProportions, fill = Division.Name)) + geom_col() +
-        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + 
-        theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
-      ggplotly(teacherByRace)
+        ggplot(aes(x = Name, y = `% of Two Or More Races Teachers`, fill = Name)) + geom_col() +
+        labs(title = "Two or More Races Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )  
+          
+    }
+    
+    else if (var_teacherRaces() == "Hawaiian") {
+      teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
+      #renaming column names to make division name to name for readability purposes and also made sure it was consistent mapping of columns to the excel spreadsheet
+      #original column names for reference: Division No.	Division Name	Total Counts	American Indian	Asian	Black	Hispanic	White	Hawaiian	Two or More Races	Not Specified	BlackProportions	AsianProportions	HispanicProportions	WhiteProportions	AmericanIndianProportions	TwoOrMoreRacesProportions	HawaiianProportions
+           colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
+      teacherByRace <- teacherByRace  %>% 
+        ggplot(aes(x = Name, y = `% of Hawaiian Teachers`, fill = Name)) + geom_col() +
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
+        layout(annotations = 
+                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
+                      showarrow = F, xref='paper', yref='paper', 
+                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                      font=list(size=15, color="black"))
+        )
     }
     
   }
@@ -1854,7 +2082,7 @@ server <- function(input, output, session) {
     coord_data <- st_transform(coord_data)
     coordinates1 <- coord_data %>% group_by(NAME) %>% slice(1)
     coordinates2 <- coordinates1[,6]
-    city <- c("Chesapeake", "Franklin", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
+    city <- c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
               "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
               "Williamsburg", "York")
     coordinates2 <- mutate(coordinates2, Location = city)
@@ -1909,6 +2137,97 @@ server <- function(input, output, session) {
     black_map <- grid.arrange(graph_blck, table_plot, nrow=2, heights=c(3,1))
     black_map
     })
+  
+  # suspension for black and white (counties) ---------------------------------
+  var_BWsuspension <- reactive({
+    input$BWsuspensionYearDrop
+  })
+  
+  output$BW_map <- renderPlot({
+    if(var_Bsuspension() == "2018-2019"){
+      year <- "2018-2019"
+    }
+    else if (var_BWsuspension() == "AY 2017-2018") {
+      year <- "AY 2017-2018"
+    }
+    else if (var_BWsuspension() == "AY 2016-2017") {
+      year <- "AY 2016-2017"
+    }
+    else if (var_BWsuspension() == "AY 2015-2016") {
+      year <- "AY 2015-2016"
+    }
+    else if (var_BWsuspension() == "AY 2014-2015") {
+      year <- "AY 2014-2015"
+    }
+    suspension_data <- read_excel("data/suspension/shortTermSuspension.xlsx")
+    city <- c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
+              "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
+              "Williamsburg", "York")
+    suspension_counties <-filter(suspension_data, Location %in% city)
+    pct_white<- suspension_counties %>% filter(Race=="White") %>%
+      filter(DataFormat=="Percent")
+    pct_white2 <- pct_white %>% filter(TimeFrame==year)
+    #putting NAs and Ss in a table
+    display_tbl_white <- suspension_pct2 %>% filter(Data %in% c("NA", "S"))
+    display_tbl_white2<- display_tbl_white[,c(2,6)]
+    pct_white2$Data[pct_white2$Data=="NA"] <- 0
+    pct_white2$Data[pct_white2$Data=="S"] <- 0
+    #adding estimates by 100 (need to convert to numeric first)
+    pct_white2$Data <- sapply(pct_white2$Data, as.numeric)
+    pct_white2 <- mutate(pct_white2, pct = Data *100)
+    pct_white2$pct <- na_if(pct_white2$pct,0.00000)
+    as.numeric(pct_white2$pct, na.rm = TRUE)
+    #labeling
+    pct_white3 <- pct_white2[,c(2,7)]
+    colnames(pct_white3) <- c("Location", "Percentage of Students (%)")
+    #black data
+    suspension_pct<- suspension_counties %>% filter(Race=="Black") %>%
+      filter(DataFormat=="Percent")
+    suspension_pct2 <- suspension_pct %>% filter(TimeFrame==year)
+    #make a table w/ NA a S
+    display_tbl_black <- suspension_pct2 %>% filter(Data %in% c("NA", "S"))
+    display_tbl_black2 <- display_tbl_black[,c(2,6)]
+    suspension_pct2$Data[suspension_pct2$Data=="NA"] <- 0
+    suspension_pct2$Data[suspension_pct2$Data=="S"] <- 0
+    #convert data column to numeric so we can multiply by 100
+    suspension_pct2$Data <- sapply(suspension_pct2$Data, as.numeric)
+    suspension_pct2 <- mutate(suspension_pct2, pct = Data *100)
+    suspension_pct2$pct <- na_if(suspension_pct2$pct,0.00000)
+    as.numeric(suspension_pct2$pct, na.rm = TRUE)
+    pct_blck <-suspension_pct2[,c(2,7)]
+    colnames(pct_blck) <- c("Location", "Percentage of Students (%)")
+    sus <- rbind(pct_blck,pct_white3)
+    sus <- mutate(sus, race = c(rep("Black Students",16), rep("White Students", 16)))
+    #bar graph
+    suspension_counties_plot <-
+      ggplot(sus , aes(Location, y=`Percentage of Students (%)`, fill=race)) +
+      geom_bar(stat="identity", position=position_dodge())+
+      geom_text(aes(label=paste0(round(`Percentage of Students (%)`, digits=2), "%")), vjust=1.5, color="white",
+                position = position_dodge(0.9), size=2)+
+      theme_minimal() + 
+      theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'), 
+            legend.key.height = unit(0.3, 'cm'), 
+            legend.key.width = unit(0.3, 'cm'), 
+            legend.title = element_blank(),
+            legend.text = element_text(size=14),
+            axis.text=element_text(size=15),
+            axis.text.x = element_text(size=8, face="bold"),
+            axis.title=element_text(size=17),
+            axis.title.x=element_blank()) +
+      scale_fill_manual(values=c("#D55E00","#0072B2")) +
+      labs(x = "Location") 
+    #combining the tables
+    display_table <- rbind(display_tbl_white2, display_tbl_black2)
+    na_rows <- display_table %>% filter(Data == "NA")
+    supr_rows <- display_table %>% filter(Data == "S")
+    supr_rows <- mutate(supr_rows, Data = "Suppressed")
+    display_table_final <- rbind(na_rows, supr_rows)
+    table_plot <- tableGrob(display_table_final)
+    #plot together
+    BW_map <- grid.arrange(suspension_counties_plot, table_plot, nrow=2, heights=c(3,1))
+    BW_map
+  })
+  
   
   
   # Unemployment Rate -------------------------------------------------------
@@ -3018,6 +3337,349 @@ server <- function(input, output, session) {
     
   })
   
+  #median income line plots -------------------------------------------------
+  
+  output$medianTimeGraph <- renderPlot ({
+    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2019.csv")
+    va_yr <- va_yr[2:6]
+    race_names <- c("Total", "Black")
+    #median income
+    va_race_income_median <- data.frame(va_yr[c(81,83), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2019.csv")
+    hamp_yr <- hamp_yr[2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(81,83))
+    #This give us overall hampton overall and black median income
+    variable <- sample(c("S1903_C03_001","S1903_C03_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income19 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income19 <- mutate(median_income19, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income19 <- mutate(median_income19, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income19) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income19 <- transform(median_income19, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income19) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income19 <- mutate(median_income19, Year = "2019")
+    ############################################################################2018
+    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2018.csv")
+    va_yr <- va_yr[2:6]
+    race_names <- c("Total", "Black")
+    #median income
+    va_race_income_median <- data.frame(va_yr[c(81,83), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2018.csv")
+    hamp_yr <- hamp_yr[2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(81,83))
+    #This give us overall hampton overall and black median income
+    variable <- sample(c("S1903_C03_001","S1903_C03_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income18 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income18 <- mutate(median_income18, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income18 <- mutate(median_income18, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income18) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income18 <- transform(median_income18, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income18) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income18 <- mutate(median_income18, Year = "2018")
+    ############################################################################2017
+    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2017.csv")
+    va_yr <- va_yr[2:6]
+    race_names <- c("Total", "Black")
+    #median income
+    va_race_income_median <- data.frame(va_yr[c(81,83), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2017.csv")
+    hamp_yr <- hamp_yr[2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(81,83))
+    #This give us overall hampton overall and black median income
+    variable <- sample(c("S1903_C03_001","S1903_C03_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income17 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income17 <- mutate(median_income17, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income17 <- mutate(median_income17, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income17) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income17 <- transform(median_income17, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income17) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income17 <- mutate(median_income17, Year = "2017")
+    ###########################################################################2016
+    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2016.csv")
+    va_yr <- va_yr[,2:6]
+    race_names <- c("Total", "Black")
+    va_race_income_median <- data.frame(va_yr[c(31,33), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2016.csv")
+    hamp_yr <- hamp_yr[,2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(31,33))
+    variable <- sample(c("S1903_C02_001","S1903_C02_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income16 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income16 <- mutate(median_income16, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income16 <- mutate(median_income16, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income16) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income16 <- transform(median_income16, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income16) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income16 <- mutate(median_income16, Year = "2016")
+    ###########################################################################2016
+    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2015.csv")
+    va_yr <- va_yr[,2:6]
+    race_names <- c("Total", "Black")
+    va_race_income_median <- data.frame(va_yr[c(31,33), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2015.csv")
+    hamp_yr <- hamp_yr[,2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(31,33))
+    variable <- sample(c("S1903_C02_001","S1903_C02_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income15 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income15 <- mutate(median_income15, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income15 <- mutate(median_income15, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income15) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income15 <- transform(median_income15, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income15) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income15 <- mutate(median_income15, Year = "2015")
+    ###########################################################################2014
+    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2014.csv")
+    va_yr <- va_yr[,2:6]
+    race_names <- c("Total", "Black")
+    va_race_income_median <- data.frame(va_yr[c(31,33), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2014.csv")
+    hamp_yr <- hamp_yr[,2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(31,33))
+    variable <- sample(c("S1903_C02_001","S1903_C02_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income14 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income14 <- mutate(median_income14, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income14 <- mutate(median_income14, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income14) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income14 <- transform(median_income14, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income14) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income14 <- mutate(median_income14, Year = "2014")
+    ###########################################################################2013
+    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2013.csv")
+    va_yr <- va_yr[,2:6]
+    race_names <- c("Total", "Black")
+    va_race_income_median <- data.frame(va_yr[c(31,33), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2013.csv")
+    hamp_yr <- hamp_yr[,2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(31,33))
+    variable <- sample(c("S1903_C02_001","S1903_C02_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income13 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income13 <- mutate(median_income13, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income13 <- mutate(median_income13, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income13) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income13 <- transform(median_income13, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income13) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income13 <- mutate(median_income13, Year = "2013")
+    ############################################################################2012
+    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2012.csv")
+    va_yr <- va_yr[,2:6]
+    race_names <- c("Total", "Black")
+    va_race_income_median <- data.frame(va_yr[c(31,33), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2012.csv")
+    hamp_yr <- hamp_yr[,2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(31,33))
+    variable <- sample(c("S1903_C02_001","S1903_C02_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income12 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income12 <- mutate(median_income12, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income12 <- mutate(median_income12, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income12) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income12 <- transform(median_income12, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income12) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income12 <- mutate(median_income12, Year = "2012")
+    ###########################################################################2011
+    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2011.csv")
+    va_yr <- va_yr[,2:6]
+    race_names <- c("Total", "Black")
+    va_race_income_median <- data.frame(va_yr[c(31,33), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2011.csv")
+    hamp_yr <- hamp_yr[,2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(31,33))
+    variable <- sample(c("S1903_C02_001","S1903_C02_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income11 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income11 <- mutate(median_income11, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income11 <- mutate(median_income11, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income11) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income11 <- transform(median_income11, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income11) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income11 <- mutate(median_income11, Year = "2011")
+    ###########################################################################2010
+    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2010.csv")
+    va_yr <- va_yr[,2:6]
+    race_names <- c("Total", "Black")
+    va_race_income_median <- data.frame(va_yr[c(31,33), 4])
+    va_race_income <- data.frame(cbind(race_names, va_race_income_median))
+    colnames(va_race_income) <- c("Race", "Median Income")
+    #Hampton Income
+    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2010.csv")
+    hamp_yr <- hamp_yr[,2:6]
+    #getting the name, variable and estimate
+    hamp_income2 <- hamp_yr[,2:4]
+    hamp_income3 <- hamp_income2 %>%
+      group_by(NAME) %>%
+      slice(c(31,33))
+    variable <- sample(c("S1903_C02_001","S1903_C02_003"),32, replace = TRUE)
+    hamp_race_income_median <- hamp_income3 %>% group_by(variable) %>% summarize(median(estimate, na.rm = TRUE))
+    #Va and Hampton Roads
+    median_income <- cbind(va_race_income, hamp_race_income_median)
+    median_income <- median_income[, c(2,4)]
+    #having all the estimates in the same column
+    median_income10 <- data.frame(median = c(median_income[,1], median_income[,2]))
+    #labeling
+    median_income10 <- mutate(median_income10, location = c(rep("Virginia",2), rep("Hampton Roads",2)))
+    median_income10 <- mutate(median_income10, demo = rep(c("Total Population", "Black Population"),2))
+    colnames(median_income10) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    #making them all numeric
+    median_income10 <- transform(median_income10, `Median Income (US Dollars)` = as.numeric(`Median Income (US Dollars)`))
+    colnames(median_income10) <- c("Median Income (US Dollars)", "Location", "Demographic")
+    median_income10 <- mutate(median_income10, Year = "2010")
+    ###############################################################################Combined
+    income_years <- rbind(median_income19, median_income18, median_income17, median_income16,
+                          median_income15, median_income14, median_income13, median_income12,
+                          median_income11, median_income10)
+    #VA line graph
+    va_years <- income_years %>% filter(Location=="Virginia")
+    #graph
+    va_line <- ggplot(va_years, aes(x=Year, y=`Median Income (US Dollars)`, group = Demographic, color = Demographic)) + 
+      geom_line(position = "identity", size =1.3) +
+      ggtitle("Virginia") +
+      theme(plot.title = element_text(hjust = 0.5),
+            axis.title.x = element_blank()) +
+      theme(legend.title = element_blank()) +
+      labs(y ="Median Income (US Dollars") +
+      theme_minimal() +
+      scale_color_manual(values = c("#D55E00", "#0072B2"))
+    
+    #hamp line graph
+    hamp_years <- income_years %>% filter(Location == "Hampton Roads")
+    #graph
+    hamp_line <- ggplot(hamp_years, aes(x=Year, y=`Median Income (US Dollars)`, group = Demographic, color = Demographic)) + 
+      geom_line(position = "identity", size =1.3 ) +
+      scale_color_manual(values = c("#D55E00", "#0072B2")) +
+      ggtitle("Hampton Roads")+
+      theme(plot.title = element_text(hjust = 0.5),
+            axis.title.x=element_blank(),
+            legend.title = element_blank(),
+            legend.position = "none") +
+      labs(y ="Median Income (US Dollars)") +
+      theme_minimal() 
+    
+    medianTimeGraph  <- grid.arrange(hamp_line, va_line, ncol=2)
+    medianTimeGraph 
+  })
+  
   #poverty Rates in VA and Hampton Roads-------------------------------------
   var_poverty <- reactive ({
     input$PovertyYearDrop
@@ -3225,12 +3887,12 @@ server <- function(input, output, session) {
         theme_minimal() +
         scale_fill_manual(values=c("#D55E00","#0072B2")) +
         theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'), 
-              legend.key.height = unit(1, 'cm'), 
-              legend.key.width = unit(1, 'cm'), 
+              legend.key.height = unit(0., 'cm'), 
+              legend.key.width = unit(0.5, 'cm'), 
               legend.title = element_blank(),
               legend.text = element_text(size=14),
               axis.text=element_text(size=15),
-              axis.text.x = element_text(size=10, face="bold"),
+              axis.text.x = element_text(size=8, face="bold"),
               axis.title=element_text(size=17),
               axis.title.x=element_blank()) 
       #plot
