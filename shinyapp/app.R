@@ -602,15 +602,10 @@ ui <- navbarPage(title = "Hampton Roads",
                                          #sliderInput("MedianIncomeYearSlider", "", value = 2019, min =2010, max=2020),
                                   box(width = 8, height = 500,
                                          withSpinner(plotlyOutput("unemployment_plot")),
-                                         p(tags$small("Data Source: ACS 5 Year Estimates Table S2301"))
-                                  ),
+                                         p(tags$small("Data Source: ACS 5 Year Estimates Table S2301")),
+                                         sliderInput("UninsuredPctSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = ""))
                                   
-                                  box(width = 8, height = 75,
-                                  selectInput("UnemploymentRateYearDrop", "Select Year:", width = "100%", choices = c(
-                                    "2019","2018", "2017", "2016", "2015","2014",
-                                    "2013","2012", "2011", "2010")))
-                                         
-                                         
+                         
                                 )),
                               
                               tabItem(tabName = "unins",
@@ -619,11 +614,8 @@ ui <- navbarPage(title = "Hampton Roads",
                                         
                                         box(width = 8, height = 500,
                                         withSpinner(plotlyOutput("uninsured_plot")),
-                                        p(tags$small("Data Source: ACS 5 Year Estimates Table S2701"))
-                                        ),
-                                        
-                                        box(title = "Select Year:", width = 12,
-                                            sliderInput("UninsuredPctSlider", "", value = 2019, min = 2010, max = 2019))
+                                        p(tags$small("Data Source: ACS 5 Year Estimates Table S2701")),
+                                        sliderInput("UninsuredPctSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = ""))
                                         
                                         
                                       )
@@ -635,12 +627,10 @@ ui <- navbarPage(title = "Hampton Roads",
                                         
                                         box(width = 8, height = 600,
                                         withSpinner(leafletOutput("veteran_map")),
-                                        p(tags$small("Data Source: ACS 5 Year Estimates Table S2101"))
-                                        ),
-                                        box(title = "Select Year:", width = 8,
-                                            sliderInput("VeteranSlider", "", value = 2019, min = 2010, max = 2019))
+                                        p(tags$small("Data Source: ACS 5 Year Estimates Table S2101")),
+                                        sliderInput("VeteranSlider", "Select Year:", value = 2019, min = 2010, max = 2019, sep = ""))
                                       )
-                              ),
+                                      ),
                               
                               tabItem(tabName = "hmown",
                                       fluidRow(
@@ -649,12 +639,9 @@ ui <- navbarPage(title = "Hampton Roads",
                                         
                                         box(width = 8, height = 600,
                                         withSpinner(leafletOutput("homeownership_map")),
-                                        p(tags$small("Data Source: ACS 5 Year Estimates Table S2505"))
-                                        ),
-                                        
-                                        box(title = "Select Year:", width = 8,
-                                            sliderInput("HomeOwnSlider", "", value = 2019, min = 2010, max = 2019))
-                                      )),
+                                        p(tags$small("Data Source: ACS 5 Year Estimates Table S2505")),
+                                        sliderInput("HomeOwnSlider", "", value = 2019, min = 2010, max = 2019, sep = "")
+                                      ))),
                               
                               tabItem(
                                 tabName = "median",
@@ -2626,8 +2613,7 @@ server <- function(input, output, session) {
       tot_hm_19 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2019.rds")
       pal <- colorNumeric(palette = "viridis", domain = b_hm_19$Percent, reverse = TRUE)
       b_hmown_leaf_19 <- b_hm_19 %>%
-        leaflet(options = leafletOptions(minZoom = 0, maxZoom = 15, drag = FALSE)) %>% 
-        setView(lng = -76.31692, lat = 36.947398, zoom = 8.2) %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
@@ -2653,7 +2639,7 @@ server <- function(input, output, session) {
       tot_hm_18 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2018.rds")
       pal <- colorNumeric(palette = "viridis", domain = b_hm_18$Percent, reverse = TRUE)
       b_hmown_leaf_18 <- b_hm_18 %>%
-        leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
@@ -2679,7 +2665,7 @@ server <- function(input, output, session) {
       tot_hm_17 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2017.rds")
       pal <- colorNumeric(palette = "viridis", domain = b_hm_17$Percent, reverse = TRUE)
       b_hmown_leaf_17 <- b_hm_17 %>%
-        leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
@@ -2705,7 +2691,7 @@ server <- function(input, output, session) {
       tot_hm_16 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2016.rds")
       pal <- colorNumeric(palette = "viridis", domain = b_hm_16$Percent, reverse = TRUE)
       b_hmown_leaf_16 <- b_hm_16 %>%
-        leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
@@ -2731,7 +2717,7 @@ server <- function(input, output, session) {
       tot_hm_15 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2015.rds")
       pal <- colorNumeric(palette = "viridis", domain = b_hm_15$Percent, reverse = TRUE)
       b_hmown_leaf_15 <- b_hm_15 %>%
-        leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
@@ -2757,7 +2743,7 @@ server <- function(input, output, session) {
       tot_hm_14 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2014.rds")
       pal <- colorNumeric(palette = "viridis", domain = b_hm_14$Percent, reverse = TRUE)
       b_hmown_leaf_14 <- b_hm_14 %>%
-        leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
@@ -2783,7 +2769,7 @@ server <- function(input, output, session) {
       tot_hm_13 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2013.rds")
       pal <- colorNumeric(palette = "viridis", domain = b_hm_13$Percent, reverse = TRUE)
       b_hmown_leaf_13 <- b_hm_13 %>%
-        leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
@@ -2809,7 +2795,7 @@ server <- function(input, output, session) {
       tot_hm_12 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2012.rds")
       pal <- colorNumeric(palette = "viridis", domain = b_hm_12$Percent, reverse = TRUE)
       b_hmown_leaf_12 <- b_hm_12 %>%
-        leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
@@ -2835,7 +2821,7 @@ server <- function(input, output, session) {
       tot_hm_11 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2011.rds")
       pal <- colorNumeric(palette = "viridis", domain = b_hm_11$Percent, reverse = TRUE)
       b_hmown_leaf_11 <- b_hm_11 %>%
-        leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
@@ -2861,7 +2847,7 @@ server <- function(input, output, session) {
       tot_hm_10 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2010.rds")
       pal <- colorNumeric(palette = "viridis", domain = b_hm_10$Percent, reverse = TRUE)
       b_hmown_leaf_10 <- b_hm_10 %>%
-        leaflet(options = leafletOptions(minZoom = 8.5)) %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
