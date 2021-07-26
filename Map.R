@@ -308,8 +308,12 @@ black_total  <- black_total  %>%
                          x = "Counties of Hampton Roads",
                          caption = "Source: ACS 5 Year Estimate Table S1501") + theme(axis.text.x = element_text(angle = 40))
 
+black_total<- black_total  %>%
+  ggplot(aes(x = NAME, y = pct_tot, fill = NAME, group=gender)) + geom_col() +
+  theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2019)",
+                         y = "Percent (%)",
+                         x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
 black_total
-
 
 
 black_total2 = va_stats(c("C15002B_006", "C15002B_011"), "C15002B_001", 2019)
