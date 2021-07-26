@@ -413,7 +413,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                      ),
                                                      p(strong("Percentage of Hampton Roads Population 25 years and older with highest educational attainment as Bachelor's degree or higher")),
                                                      withSpinner(plotlyOutput("genEdAttainmentPlots")),
-                                                     p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages"))
+                                                     p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages. Some years also did not have data for specific counties/cities."))
                                             ),
                                             tabPanel("Black Population",
                                                      p(""),
@@ -422,7 +422,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                        "2013","2012", "2011", "2010")),
                                                      p(strong("Black Educational Attainment")),
                                                      withSpinner(plotlyOutput("blackEdAttainmentPlots")),
-                                                     p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages"))
+                                                     p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages. Some years also did not have data for specific counties/cities or had partial data (like male or female only)."))
                                                      #p(tags$small("Data Source: ACS 5 Year Estimate Table C15002B"))
                                             )
                                           )
@@ -1663,8 +1663,6 @@ server <- function(input, output, session) {
   output$blackEdAttainmentPlots  <- renderPlotly({
     
     if(var_blackEducationalAttainment() == "2019") {
-    
-      
       blackEducationalAttainment2019 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2019.csv")
       colnames(blackEducationalAttainment2019) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %", "Gender")
       va_tot_education_bar2019 <- blackEducationalAttainment2019  %>% 
@@ -1676,9 +1674,8 @@ server <- function(input, output, session) {
                                y = "Percent (%)",
                                x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
      va_tot_education_bar2019 #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-     hide_legend(ggplotly(va_tot_education_bar2019, tooltip=c("x", "y"))) %>% 
-       layout(annotations = 
-                list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
+     hide_legend(ggplotly(va_tot_education_bar2019, tooltip=c("x", "y", "Gender"))) %>% 
+       layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
                      showarrow = F, xref='paper', yref='paper', 
                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
                      font=list(size=15, color="black"))
@@ -1687,11 +1684,12 @@ server <- function(input, output, session) {
     
     else if(var_blackEducationalAttainment() == "2018") {
       blackEducationalAttainment2018 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2018.csv")
-      colnames(blackEducationalAttainment2018) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      colnames(blackEducationalAttainment2018) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %", "Gender")
       va_tot_education_bar2018 <- blackEducationalAttainment2018  %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
-        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Gender)) + geom_col() +
+        geom_bar (stat="identity", position = "dodge") + 
         theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2018)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
@@ -1707,11 +1705,12 @@ server <- function(input, output, session) {
     
     else if(var_blackEducationalAttainment() == "2017") {
       blackEducationalAttainment2017 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2017.csv")
-      colnames(blackEducationalAttainment2017) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      colnames(blackEducationalAttainment2017) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %", "Gender")
       va_tot_education_bar2017 <- blackEducationalAttainment2017  %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
-        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Gender)) + geom_col() +
+        geom_bar (stat="identity", position = "dodge") + 
         theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2017)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
@@ -1727,11 +1726,12 @@ server <- function(input, output, session) {
     
     else if(var_blackEducationalAttainment() == "2016") {
       blackEducationalAttainment2016 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2016.csv")
-      colnames(blackEducationalAttainment2016) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      colnames(blackEducationalAttainment2016) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %", "Gender")
       va_tot_education_bar2016 <- blackEducationalAttainment2016  %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
-        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Gender)) + geom_col() +
+        geom_bar (stat="identity", position = "dodge") + 
         theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2016)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
@@ -1747,11 +1747,12 @@ server <- function(input, output, session) {
     
     else if(var_blackEducationalAttainment() == "2015") {
       blackEducationalAttainment2015 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2015.csv")
-      colnames(blackEducationalAttainment2015) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      colnames(blackEducationalAttainment2015) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %", "Gender")
       va_tot_education_bar2015 <- blackEducationalAttainment2015  %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
-        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Gender)) + geom_col() +
+        geom_bar (stat="identity", position = "dodge") + 
         theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2015)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
@@ -1767,11 +1768,12 @@ server <- function(input, output, session) {
     
     else if(var_blackEducationalAttainment() == "2014") {
       blackEducationalAttainment2014 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2014.csv")
-      colnames(blackEducationalAttainment2014) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      colnames(blackEducationalAttainment2014) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %", "Gender")
       va_tot_education_bar2014 <- blackEducationalAttainment2014  %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
-        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Gender)) + geom_col() +
+        geom_bar (stat="identity", position = "dodge") + 
         theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2015)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
@@ -1787,11 +1789,12 @@ server <- function(input, output, session) {
     
     else if(var_blackEducationalAttainment() == "2013") {
       blackEducationalAttainment2013 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2013.csv")
-      colnames(blackEducationalAttainment2013) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      colnames(blackEducationalAttainment2013) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %", "Gender")
       va_tot_education_bar2013 <- blackEducationalAttainment2013  %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
-        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Gender)) + geom_col() +
+        geom_bar (stat="identity", position = "dodge") + 
         theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2013)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
@@ -1807,11 +1810,12 @@ server <- function(input, output, session) {
     
     else if(var_blackEducationalAttainment() == "2012") {
       blackEducationalAttainment2012 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2012.csv")
-      colnames(blackEducationalAttainment2012) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      colnames(blackEducationalAttainment2012) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %", "Gender")
       va_tot_education_bar2012 <- blackEducationalAttainment2012  %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
-        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Gender)) + geom_col() +
+        geom_bar (stat="identity", position = "dodge") + 
         theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2012)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
@@ -1827,11 +1831,12 @@ server <- function(input, output, session) {
     
     else if(var_blackEducationalAttainment() == "2011") {
       blackEducationalAttainment2011 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2011.csv")
-      colnames(blackEducationalAttainment2011) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      colnames(blackEducationalAttainment2011) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %", "Gender")
       va_tot_education_bar2011 <- blackEducationalAttainment2011  %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
-        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Gender)) + geom_col() +
+        geom_bar (stat="identity", position = "dodge") + 
         theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2015)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
@@ -1847,11 +1852,12 @@ server <- function(input, output, session) {
     
     else if(var_blackEducationalAttainment() == "2010") {
       blackEducationalAttainment2010 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2010.csv")
-      colnames(blackEducationalAttainment2010) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+      colnames(blackEducationalAttainment2010) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %", "Gender")
       va_tot_education_bar2010 <- blackEducationalAttainment2010 %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
-        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Gender)) + geom_col() +
+        geom_bar (stat="identity", position = "dodge") + 
         theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2010)",
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
