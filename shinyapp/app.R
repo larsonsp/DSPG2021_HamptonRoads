@@ -2031,7 +2031,7 @@ server <- function(input, output, session) {
     pct_white2 <- pct_white %>% filter(TimeFrame==year)
     #putting NAs and Ss in a table
     display_tbl_white <-pct_white2 %>% filter(Data %in% c("NA", "S"))
-    display_tbl_white2<- display_tbl_white[,c(2,6)]
+    display_tbl_white2<- display_tbl_white[,c(2,3,6)]
     pct_white2$Data[pct_white2$Data=="NA"] <- 0
     pct_white2$Data[pct_white2$Data=="S"] <- 0
     #adding estimates by 100 (need to convert to numeric first)
@@ -2048,7 +2048,7 @@ server <- function(input, output, session) {
     suspension_pct2 <- suspension_pct %>% filter(TimeFrame==year)
     #make a table w/ NA a S
     display_tbl_black <- suspension_pct2 %>% filter(Data %in% c("NA", "S"))
-    display_tbl_black2 <- display_tbl_black[,c(2,6)]
+    display_tbl_black2 <- display_tbl_black[,c(2,3,6)]
     suspension_pct2$Data[suspension_pct2$Data=="NA"] <- 0
     suspension_pct2$Data[suspension_pct2$Data=="S"] <- 0
     #convert data column to numeric so we can multiply by 100
