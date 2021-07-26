@@ -676,19 +676,20 @@ ui <- navbarPage(title = "Hampton Roads",
                                          h1(strong("Poverty Rates in Virginia and Hampton Roads"), align = "center"),
                                          column(7, 
                                                 h4(strong("Poverty Rates in Virginia and Hampton Roads")),
-                                                withSpinner(plotOutput("pov_plot")),
-                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S1701")),
                                                 selectInput("PovertyYearDrop", "Select Year:", width = "100%", choices = c(
                                                   "2019","2018", "2017", "2016", "2015","2014",
-                                                  "2013","2012"))
+                                                  "2013","2012")),
+                                                withSpinner(plotOutput("pov_plot")),
+                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S1701"))
                                                 ),
                                          column(7, width = 12,
                                                 h4(strong("Poverty Rates in Hampton Roads Counties and Cities")),
-                                                withSpinner(plotOutput("counties_pov")),
-                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S1701")),
                                                 selectInput("PovertyCountYearDrop", "Select Year:", width = "100%", choices = c(
                                                   "2019","2018", "2017", "2016", "2015","2014",
-                                                  "2013","2012"))
+                                                  "2013","2012")),
+                                                withSpinner(plotOutput("counties_pov")),
+                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S1701"))
+                                                
                                          )
                                          
                               
