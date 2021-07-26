@@ -432,7 +432,6 @@ ui <- navbarPage(title = "Hampton Roads",
                                                p(tags$small("Data Source: Kids Count Data Center"))
                                         ))),
                               
-<<<<<<< HEAD
                             )))),
                  
                  
@@ -621,7 +620,7 @@ ui <- navbarPage(title = "Hampton Roads",
                  
                  
                  # Potential code for sidebar ----------------------------------------------
-=======
+
                               #Dropout Rates
                               tabItem(
                                 tabName = "dropout",
@@ -636,8 +635,6 @@ ui <- navbarPage(title = "Hampton Roads",
                                            ))))
                                         
                  ))),
-
->>>>>>> 937cfa3a40a7414c769a8a104ca929f273659eff
                  
                  # Economic Indicators ----------------------------------------------
                  
