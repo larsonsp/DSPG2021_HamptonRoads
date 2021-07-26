@@ -424,7 +424,7 @@ years <- c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019)
 for (i in 1:length(years)) { 
   #plots general data for education
   
-  employment_types  = county_stats1(c("DP03_0033", "DP03_0034", "DP03_0035", "DP03_0036", "DP03_0037", "DP03_0038", "DP03_0039", "DP03_0040", "DP03_0041", "DP03_0042", "DP03_0043", "DP03_0044", "DP03_0045"), 2019)
+  employment_types  = county_stats1(c("DP03_0033", "DP03_0034", "DP03_0035", "DP03_0036", "DP03_0037", "DP03_0038", "DP03_0039", "DP03_0040", "DP03_0041", "DP03_0042", "DP03_0043", "DP03_0044", "DP03_0045"), years[i])
   sectors <- rep(c("Agriculture, forestry, fishing and hunting, and mining", "Construction", "Manufacturing", "Wholesale trade", "Retail trade", "Transportation and warehousing, and utilities", "Information", "Finance and insurance, and real estate and rental and leasing", "Professional, scientific, and management, and administrative and waste management services", "Educational services, and health care and social assistance", "Arts, entertainment, and recreation, and accommodation and food services", "Other services, except public administration", "Public administration"), 16)
   employment_types  <- cbind(employment_types, sectors)
   employment_types <- employment_types %>% 

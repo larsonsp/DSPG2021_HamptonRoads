@@ -8,7 +8,6 @@
 #
 library(shiny)
 library(leaflet)
-install.packages("leaflet.extras")
 library(leaflet.extras)
 library(leaflet.providers)
 library(leaflet.minicharts)
@@ -541,7 +540,13 @@ ui <- navbarPage(title = "Hampton Roads",
                                 tabName = "sector",
                                 fluidRow(
                                   h1(strong("Sector Employment in Hampton Roads"), align = "center"),
-                                  
+                                  column(7,
+                                         selectInput("SectorEmploymentYearDrop", "Select Year:", width = "100%", choices = c(
+                                           "2019","2018", "2017", "2016", "2015","2014",
+                                           "2013","2012", "2011", "2010")),
+                                         withSpinner(plotlyOutput("sector_plot")),
+                                         p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages. Some years also did not have data for specific counties/cities."))
+                                  ),
                                 )
                               ),
                               
@@ -2500,7 +2505,68 @@ server <- function(input, output, session) {
     medianTimeGraph 
   })
   # Employment By Sector ----------------------------------------------------
+  var_sectorEmployment <- reactive({
+    input$SectorEmploymentYearDrop
+  })
   
+  output$sector_plot <- renderPlotly({
+    if(var_sectorEmployment() == "2019") {
+      sectors2019 <- read.csv("data/TableDP03FiveYearEstimates/top2employmentSectors2019.csv")
+      colnames(sectors2019) <- c("Name", "Variable", "Number of People Employed in Sector", "Sector")
+      sectors2019 <- sectors2019  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
+        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+                               y = "Total Number of People Employed",
+                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      sectors2019  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(sectors2019 , tooltip=c("x", "y", "Sector"))) %>% 
+        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=15, color="black"))
+        )
+    }
+    
+    else if (var_sectorEmployment() == "2018") {
+      sectors2018 <- read.csv("data/TableDP03FiveYearEstimates/top2employmentSectors2018.csv")
+      colnames(sectors2018) <- c("Name", "Variable", "Number of People Employed in Sector", "Sector")
+      sectors2018 <- sectors2018  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
+        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+                               y = "Total Number of People Employed",
+                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      sectors2018  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(sectors2018 , tooltip=c("x", "y", "Sector"))) %>% 
+        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=15, color="black"))
+        )
+    }
+    
+    else if (var_sectorEmployment() == "2017") {
+      sectors2017 <- read.csv("data/TableDP03FiveYearEstimates/top2employmentSectors2017.csv")
+      colnames(sectors2017) <- c("Name", "Variable", "Number of People Employed in Sector", "Sector")
+      sectors2017 <- sectors2017  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
+        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+                               y = "Total Number of People Employed",
+                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      sectors2017  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(sectors2017 , tooltip=c("x", "y", "Sector"))) %>% 
+        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=15, color="black"))
+        )
+    }
+  })
   
   # Unemployment Rate -------------------------------------------------------
   
