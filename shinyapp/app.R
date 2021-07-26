@@ -1670,7 +1670,7 @@ server <- function(input, output, session) {
       va_tot_education_bar2019 <- blackEducationalAttainment2019  %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
-        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() + 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = gender)) + geom_col() + 
         geom_bar (stat="identity", position = position_dodge(width = 0.5)) + 
         theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2019)",
                                y = "Percent (%)",

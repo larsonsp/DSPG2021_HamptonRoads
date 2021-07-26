@@ -1,33 +1,33 @@
 NAME,variable,pct_tot,gender
-"Gloucester County, Virginia",C15002B_006,6.790657439446367,female
-"Gloucester County, Virginia",C15002B_011,7.612456747404845,male
-"Isle of Wight County, Virginia",C15002B_006,5.793664238522785,female
-"Isle of Wight County, Virginia",C15002B_011,7.6571234965271895,male
-"James City County, Virginia",C15002B_006,5.3893294881038205,female
-"James City County, Virginia",C15002B_011,8.25522710886806,male
-"Mathews County, Virginia",C15002B_006,4.918032786885246,female
-"Mathews County, Virginia",C15002B_011,0,male
-"Southampton County, Virginia",C15002B_006,2.7313493681206684,female
-"Southampton County, Virginia",C15002B_011,4.993885038728088,male
-"York County, Virginia",C15002B_006,9.473498855432293,female
-"York County, Virginia",C15002B_011,18.453953160767743,male
-"Chesapeake city, Virginia",C15002B_006,8.294499100032054,female
-"Chesapeake city, Virginia",C15002B_011,14.732351998421974,male
-"Franklin city, Virginia",C15002B_006,2.193593314763231,female
-"Franklin city, Virginia",C15002B_011,3.9693593314763227,male
-"Hampton city, Virginia",C15002B_006,8.222265303155138,female
-"Hampton city, Virginia",C15002B_011,12.143168710318422,male
-"Newport News city, Virginia",C15002B_006,7.025619565722788,female
-"Newport News city, Virginia",C15002B_011,9.82005858557679,male
-"Norfolk city, Virginia",C15002B_006,4.595366768785928,female
-"Norfolk city, Virginia",C15002B_011,8.118481291521807,male
-"Poquoson city, Virginia",C15002B_006,0,female
-"Poquoson city, Virginia",C15002B_011,66.66666666666666,male
-"Portsmouth city, Virginia",C15002B_006,4.895850153398999,female
-"Portsmouth city, Virginia",C15002B_011,8.961730986597772,male
-"Suffolk city, Virginia",C15002B_006,6.708017459223524,female
-"Suffolk city, Virginia",C15002B_011,11.592005513439007,male
-"Virginia Beach city, Virginia",C15002B_006,7.080901750739467,female
-"Virginia Beach city, Virginia",C15002B_011,13.895994883683748,male
-"Williamsburg city, Virginia",C15002B_006,3.1638418079096042,female
-"Williamsburg city, Virginia",C15002B_011,9.378531073446329,male
+"Gloucester County, Virginia",C15002B_006,6.790657439446367,male
+"Gloucester County, Virginia",C15002B_011,7.612456747404845,female
+"Isle of Wight County, Virginia",C15002B_006,5.793664238522785,male
+"Isle of Wight County, Virginia",C15002B_011,7.6571234965271895,female
+"James City County, Virginia",C15002B_006,5.3893294881038205,male
+"James City County, Virginia",C15002B_011,8.25522710886806,female
+"Mathews County, Virginia",C15002B_006,4.918032786885246,male
+"Mathews County, Virginia",C15002B_011,0,female
+"Southampton County, Virginia",C15002B_006,2.7313493681206684,male
+"Southampton County, Virginia",C15002B_011,4.993885038728088,female
+"York County, Virginia",C15002B_006,9.473498855432293,male
+"York County, Virginia",C15002B_011,18.453953160767743,female
+"Chesapeake city, Virginia",C15002B_006,8.294499100032054,male
+"Chesapeake city, Virginia",C15002B_011,14.732351998421974,female
+"Franklin city, Virginia",C15002B_006,2.193593314763231,male
+"Franklin city, Virginia",C15002B_011,3.9693593314763227,female
+"Hampton city, Virginia",C15002B_006,8.222265303155138,male
+"Hampton city, Virginia",C15002B_011,12.143168710318422,female
+"Newport News city, Virginia",C15002B_006,7.025619565722788,male
+"Newport News city, Virginia",C15002B_011,9.82005858557679,female
+"Norfolk city, Virginia",C15002B_006,4.595366768785928,male
+"Norfolk city, Virginia",C15002B_011,8.118481291521807,female
+"Poquoson city, Virginia",C15002B_006,0,male
+"Poquoson city, Virginia",C15002B_011,66.66666666666666,female
+"Portsmouth city, Virginia",C15002B_006,4.895850153398999,male
+"Portsmouth city, Virginia",C15002B_011,8.961730986597772,female
+"Suffolk city, Virginia",C15002B_006,6.708017459223524,male
+"Suffolk city, Virginia",C15002B_011,11.592005513439007,female
+"Virginia Beach city, Virginia",C15002B_006,7.080901750739467,male
+"Virginia Beach city, Virginia",C15002B_011,13.895994883683748,female
+"Williamsburg city, Virginia",C15002B_006,3.1638418079096042,male
+"Williamsburg city, Virginia",C15002B_011,9.378531073446329,female

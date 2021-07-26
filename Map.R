@@ -221,6 +221,8 @@ for (i in 1:length(years)) {
   #plots general data for education
  
   va_total2 = county_stats(c("C15002B_006", "C15002B_011"), "C15002B_001", years[i])
+  gender <- rep(c("male", "female"), 16)
+  va_total2 <- cbind(va_total2, gender)
   write_csv(va_total2, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableC15002BFiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
   va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableC15002BFiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
   
