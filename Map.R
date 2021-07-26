@@ -246,7 +246,7 @@ for (i in 1:length(years)) {
 va_total2 = va_table("S1501", 2017)
 View(va_total2)
 
-#plots general data for professional degrees
+
 years <- c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019) 
 for (i in 1:length(years)) { 
   #plots general data
@@ -257,11 +257,11 @@ for (i in 1:length(years)) {
   }
   
   else {
-    va_total2 = county_stats("S1501_C01_012", "S1501_C01_006", years[i])
+    va_total2 = county_stats("S1501_C01_015", "S1501_C01_006", years[i])
   }
   
-  write_csv(va_total2, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalProfessionalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
-  va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalProfessionalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
+  write_csv(va_total2, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
+  va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
   
   
   #plots general data for population
