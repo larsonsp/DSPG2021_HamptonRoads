@@ -285,6 +285,8 @@ gender <- rep(c("male", "female"), 16)
 black_total <- cbind(black_total, gender)
 black_total <-  black_total %>% mutate(NAME = str_remove(NAME, "County, Virginia")) %>% mutate(NAME = str_remove(NAME, "city, Virginia"))
 black_total
+
+
 #black_total %>% mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
 #  mutate(NAME = str_remove(NAME, "city, Virginia"))  %>% 
 #  ggplot() + geom_col(aes(x=NAME, y=pct_tot, group=gender, fill=gender)) + geom_hline(yintercept=general_va_cutoff_education$pct_tot, linetype="dashed", color = "black")  + geom_hline(yintercept=mean(black_total$pct_tot), linetype="dashed", color = "white")  +
@@ -305,13 +307,15 @@ black_total
 black_total2 = va_stats(c("C15002B_006", "C15002B_011"), "C15002B_001", 2019)
 black_total2
 gender <- rep(c("male", "female"))
-black_total2 <- cbind(black_total2, gender)
+gender2 <- rep(c("male", "female"))
+black_total2 <- cbind(black_total2, gender, gender2)
 
+black_total2
+#Virginia: Population 25 years and older with Bachelor's degree or higher
 black_total2Visual  <- black_total2  %>%  
-ggplot(aes(x = gender, y = pct_tot, fill = gender)) + geom_col() +
-theme_minimal() + labs(title = "Virginia: Population 25 years and older with Bachelor's degree or higher",
-y = "Percent (%)", x = "Counties of Hampton Roads", caption = "Source: ACS 5 Year Estimate Table C15002B") + theme(axis.text.x = element_text(angle = 40))
-black_total2Visual
+ggplot(aes(fill = gender, y = pct_tot, x = gender)) + geom_col() + theme_minimal() + labs(title = "2019 Data",
+y = "Percent (%)", x = "Counties of Hampton Roads", caption = "Source: ACS 5 Year Estimate Table C15002B") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+hide_legend(ggplotly(black_total2Visual)
 
 
 hamp_black_employment_variables_2019 <- va_table("C23002B", 2019)
@@ -608,7 +612,7 @@ teacherByRace$HispanicProportions <- teacherByRace$Hispanic/teacherByRace$`Total
 teacherByRace$WhiteProportions <- teacherByRace$White/teacherByRace$`Total Counts`
 teacherByRace$AmericanIndianProportions<- teacherByRace$`American Indian`/teacherByRace$`Total Counts`
 teacherByRace$TwoOrMoreRacesProportions <- teacherByRace$`Two or More Races`/teacherByRace$`Total Counts`
-teacherByRace$HawaiianProportions <- teacherByRace$Hawaiian/teacherByRace$`Total Counts`
+teacherByRace$HawaiianProportions <- teacherByRace$`Hawaiian`/teacherByRace$`Total Counts`
 teacherByRace <- teacherByRace %>% mutate(`Division Name` = str_remove(`Division Name`, "County Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City"))
 write_csv(teacherByRace, file = ("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/teacherByRacesBreakdown.csv"))
 teacherByRace <- read.csv("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/teacherByRacesBreakdown.csv")
