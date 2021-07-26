@@ -178,9 +178,9 @@ ui <- navbarPage(title = "Hampton Roads",
                                    p(tags$small(em('Last updated: August 2020'))))
                  ),
                  
-
-# Hampton Roads Overview & Demographics--------------------------------------------------
-
+                 
+                 # Hampton Roads Overview & Demographics--------------------------------------------------
+                 
                  tabPanel("Hampton Roads", value = "makeup",
                           dashboardPage(
                             skin = 'black',
@@ -211,45 +211,66 @@ ui <- navbarPage(title = "Hampton Roads",
                               tabItem(
                                 tabName = "makeup",
                                 fluidRow(style = "margin: 6px;",
-                                         h1(strong("Counties and Cities of Hampton Roads"), align = "center")
+                                         h1(strong("Counties and Cities of Hampton Roads"), align = "center"),
+                                         column(9,
+                                                withSpinner((plotOutput("hampton_counties_map", width ="100%")))
+                                                ),
+                                         column(3,
+                                                h4(strong("What is Hampton Roads (HR)?")),
+                                                p("City of Chesapeake"),
+                                                p("City of Franklin"),
+                                                p("City of Hampton"),
+                                                p("City of Newport News"),
+                                                p("City of Norfolk"),
+                                                p("City of Poquoson"),
+                                                p("City of Portsmouth"),
+                                                p("City of Suffolk"),
+                                                p("City of Virginia Beach"),
+                                                p("City of Williamsburg"),
+                                                p("Gloucester County"),
+                                                p("Isle of Wight COunty"),
+                                                p("James City County"),
+                                                p("Mathews County"),
+                                                p("Southampton County"),
+                                                p("York County")
+                                                )
                                          
                                          
-                                         
-                                         )
-                                ),
+                                )
+                              ),
                               
                               tabItem(tabName = "race",
                                       fluidRow(
                                         h1(strong("Race Composition of Hampton Roads"), align = "center"),
                                         column(5, width = 12,
                                                h4(strong("Race Demographic"))
-                                               ),
+                                        ),
                                         column(6,
-                                                 
-                                                    h4("Hampton Roads Breakdown"),
-                                                           
-                                                             selectInput("hampRaceYearDrop", "Select Year:", width = "100%", choices = c(
-                                                               "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
-                                                             )),
-                                                             p(strong("Hampton Roads")),
-                                                             withSpinner(plotOutput("hamp_pie")),
-                                                             p(tags$small("Data Source: ACS 5 Year Estimate Table B02001"))
-                                                    ),
-                                                   
+                                               
+                                               h4("Hampton Roads Breakdown"),
+                                               
+                                               selectInput("hampRaceYearDrop", "Select Year:", width = "100%", choices = c(
+                                                 "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
+                                               )),
+                                               p(strong("Hampton Roads")),
+                                               withSpinner(plotOutput("hamp_pie")),
+                                               p(tags$small("Data Source: ACS 5 Year Estimate Table B02001"))
+                                        ),
+                                        
                                         
                                         column(6,
-                                            
-                                                 h4("Virginia Breakdown"),
-                                                        
-                                                          selectInput("VaRaceYearDrop", "Select Year:", width = "100%", choices = c(
-                                                            "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
-                                                          )),
-                                                          p(strong("Virginia")),
-                                                          withSpinner(plotOutput("va_pie")),
-                                                          p(tags$small("Data Source: ACS 5 Year Estimate Table B02001"))
-                                                
-                                                
-                                                )
+                                               
+                                               h4("Virginia Breakdown"),
+                                               
+                                               selectInput("VaRaceYearDrop", "Select Year:", width = "100%", choices = c(
+                                                 "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
+                                               )),
+                                               p(strong("Virginia")),
+                                               withSpinner(plotOutput("va_pie")),
+                                               p(tags$small("Data Source: ACS 5 Year Estimate Table B02001"))
+                                               
+                                               
+                                        )
                                         
                                         
                                         
@@ -261,50 +282,50 @@ ui <- navbarPage(title = "Hampton Roads",
                                       fluidRow(
                                         h1(strong("Age Composition of Hampton Roads"), align = "center"),
                                         column(6,
-                                            
-                                                 h4("Hampton Roads Age Breakdown"),
-                                                        
-                                                          selectInput("HampAgeYearDrop", "Select Year:", width = "100%", choices = c(
-                                                            "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
-                                                          )),
-                                                          p(strong("Hampton Roads")),
-                                                          withSpinner(plotOutput("hamp_graph")),
-                                                          p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
-                                                ),
                                                
+                                               h4("Hampton Roads Age Breakdown"),
+                                               
+                                               selectInput("HampAgeYearDrop", "Select Year:", width = "100%", choices = c(
+                                                 "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
+                                               )),
+                                               p(strong("Hampton Roads")),
+                                               withSpinner(plotOutput("hamp_graph")),
+                                               p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
+                                        ),
+                                        
                                         column(6,
                                                
-                                                 h4("Virginia Age Breakdown"),
-                                                          p(""),
-                                                          selectInput("VaAgeYearDrop", "Select Year:", width = "100%", choices = c(
-                                                            "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
-                                                          )),
-                                                          p(strong("Virginia")),
-                                                          withSpinner(plotOutput("va_graph")),
-                                                          p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
-                                                 ),
-                                               
-                                        column(6, width=12,
-                                           
-                                                 h4("Hampton Roads' County and City Breakdown"),
-                                                          selectInput("HampCountAgeYearDrop", "Select Year:", width = "100%", choices = c(
-                                                            "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
-                                                          )),
-                                                          p(strong("Hampton Roads Counties and Cities' Age Breakdown")),
-                                                          withSpinner(plotOutput("age_map")),
-                                                          p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
-                                                 ),
-                                               
+                                               h4("Virginia Age Breakdown"),
+                                               p(""),
+                                               selectInput("VaAgeYearDrop", "Select Year:", width = "100%", choices = c(
+                                                 "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
+                                               )),
+                                               p(strong("Virginia")),
+                                               withSpinner(plotOutput("va_graph")),
+                                               p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
+                                        ),
                                         
-                                      
+                                        column(6, width=12,
+                                               
+                                               h4("Hampton Roads' County and City Breakdown"),
+                                               selectInput("HampCountAgeYearDrop", "Select Year:", width = "100%", choices = c(
+                                                 "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
+                                               )),
+                                               p(strong("Hampton Roads Counties and Cities' Age Breakdown")),
+                                               withSpinner(plotOutput("age_map")),
+                                               p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
+                                        ),
+                                        
+                                        
+                                        
                                       )
                               )
                               
-                              )))),
+                            )))),
                  
-
-# Education Indicators ----------------------------------------------------
-
+                 
+                 # Education Indicators ----------------------------------------------------
+                 
                  tabPanel("Education", value = "edu",
                           dashboardPage(
                             skin = 'black',
@@ -380,7 +401,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                       )
                                                ))
                                       
-                                      ),
+                              ),
                               
                               #Teacher Demographics
                               tabItem(tabName = "teacher",
@@ -399,31 +420,31 @@ ui <- navbarPage(title = "Hampton Roads",
                                                           withSpinner(plotlyOutput("teacherRacePlots")),
                                                           p(tags$small("Possible Suppression of Counts in Dataset for Counties/Cities with Zero Values Stated"))
                                                  ))))
-                                      ),
+                              ),
                               
                               #Suspension Rates
                               tabItem(tabName = "suspension",
                                       fluidRow(
                                         h1(strong("Short Term Suspension"), align = "center"),
                                         column(5,
-                                                 h4("Virgina Suspensions"),
-                                                          
-                                                          selectInput("suspensionYearDrop", "Select Year:", width = "100%", choices = c(
-                                                            "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
-                                                          p(strong("Virgina Suspensions")),
-                                                          withSpinner(plotOutput("graph_va")),
-                                                          p(tags$small("Data Source: Kids Count Data Center"))
-                                                 ),
+                                               h4("Virgina Suspensions"),
+                                               
+                                               selectInput("suspensionYearDrop", "Select Year:", width = "100%", choices = c(
+                                                 "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
+                                               p(strong("Virgina Suspensions")),
+                                               withSpinner(plotOutput("graph_va")),
+                                               p(tags$small("Data Source: Kids Count Data Center"))
+                                        ),
                                         column(5,
                                                h4("Academic Punishments")
-                                               ),
+                                        ),
                                         column(7, width = 12,
                                                h4("Percent of Black Students Suspended"),
                                                selectInput("BsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
                                                  "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
                                                withSpinner(plotOutput("black_map")),
                                                p(tags$small("Data Source: Kids Count Data Center"))
-                                               ),
+                                        ),
                                         column(7, width = 12,
                                                h4("Percent of Black and White Students Suspended in Hampton Roads"),
                                                selectInput("BWsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
@@ -435,18 +456,18 @@ ui <- navbarPage(title = "Hampton Roads",
                               #Dropout Rates
                               tabItem(
                                 tabName = "dropout",
-                                         fluidRow(
-                                           h1(strong("High School Dropout Rates in Hampton Roads"), align = "center"),
-                                           withSpinner(leafletOutput("dropout_map")),
-                                           p(tags$small("Data Source: Virginia Department of Education")),
-                                           box(title = "Select Year", width = 12,
-                                               selectInput("DropoutDropdown", "Select Year:", width = "100%", choices = c("2020", "2019", "2018", "2017", "2016", "2015", 
-                                                                                                                          "2014", "2013", "2012", "2011", "2010"))
-                       
-                                           ))))
-                                        
-                 ))),
-
+                                fluidRow(
+                                  h1(strong("High School Dropout Rates in Hampton Roads"), align = "center"),
+                                  withSpinner(leafletOutput("dropout_map")),
+                                  p(tags$small("Data Source: Virginia Department of Education")),
+                                  box(title = "Select Year", width = 12,
+                                      selectInput("DropoutDropdown", "Select Year:", width = "100%", choices = c("2020", "2019", "2018", "2017", "2016", "2015", 
+                                                                                                                 "2014", "2013", "2012", "2011", "2010"))
+                                      
+                                  ))))
+                              
+                            ))),
+                 
                  
                  # Economic Indicators ----------------------------------------------
                  
@@ -493,7 +514,7 @@ ui <- navbarPage(title = "Hampton Roads",
                             
                             #Body
                             dashboardBody(tabItems(
-
+                              
                               #Median Income
                               tabItem(
                                 tabName = "median",
@@ -519,7 +540,13 @@ ui <- navbarPage(title = "Hampton Roads",
                                 tabName = "sector",
                                 fluidRow(
                                   h1(strong("Sector Employment in Hampton Roads"), align = "center"),
-                                  
+                                  column(7,
+                                         selectInput("SectorEmploymentYearDrop", "Select Year:", width = "100%", choices = c(
+                                           "2019","2018", "2017", "2016", "2015","2014",
+                                           "2013","2012", "2011", "2010")),
+                                         withSpinner(plotlyOutput("sector_plot")),
+                                         p(tags$small("Note: Some year to year comparisions had very little variability in employment numbers per industry numbers. Some years also did not have data for specific counties/cities."))
+                                  ),
                                 )
                               ),
                               
@@ -569,6 +596,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                       fluidPage(
                                         h1(strong("Health Insurance in Hampton Roads"), align = "center"),
                                         
+
                                         box(width = 8, height = 550,
                                         withSpinner(plotlyOutput("uninsured_plot")),
                                         p(tags$small("Data Source: ACS 5 Year Estimates Table S2701")),
@@ -577,8 +605,13 @@ ui <- navbarPage(title = "Hampton Roads",
                                         box(width = 4, height = 550,
                                             h3("Description: "),
                                             p("Placeholder Text")
-                                            )
-                                        
+                                            ),
+
+                                        box(width = 8, height = 500,
+                                            withSpinner(plotlyOutput("uninsured_plot")),
+                                            p(tags$small("Data Source: ACS 5 Year Estimates Table S2701")),
+                                            sliderInput("UninsuredPctSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = ""))
+
                                         
                                       )
                               ),
@@ -599,6 +632,12 @@ ui <- navbarPage(title = "Hampton Roads",
                                             p("Placeholder Text"))
                                         
                                         )),
+
+                                        box(width = 8, height = 600,
+                                            withSpinner(leafletOutput("homeownership_map")),
+                                            p(tags$small("Data Source: ACS 5 Year Estimates Table S2505")),
+                                            sliderInput("HomeOwnSlider", "", value = 2019, min = 2010, max = 2019, sep = "")
+                                        ))),
                               
                               #Veteran Status
                               tabItem(tabName = "vet",
@@ -616,74 +655,103 @@ ui <- navbarPage(title = "Hampton Roads",
                               
                               
                               
-                              )))),
-                  
-                              tabPanel("DSPG Team", value = "team",
-                                      fluidRow(style = "margin-left: 300px; margin-right: 300px;",
-                                       h1(strong("Zimbabwe Team"), align = "center"),
-                                       br(),
-                                       h4(strong("UVA Data Science for the Public Good")),
-                                       p("The", a(href = 'https://biocomplexity.virginia.edu/social-decision-analytics/dspg-program', 'Data Science for the Public Good (DSPG) Young Scholars program', target = "_blank"), 
-                                         "is a summer immersive program held at the", a(href = 'https://biocomplexity.virginia.edu/social-decision-analytics', 'University of Virginia Biocomplexity Institute’s Social and Decision Analytics division (SDAD).'), 
-                                         "In its seventh year, the program engages students from across the country to work together on projects that address state, federal, and local government challenges around 
+                            )))),
+                 
+                 tabPanel("DSPG Team", value = "team",
+                          fluidRow(style = "margin-left: 300px; margin-right: 300px;",
+                                   h1(strong("Zimbabwe Team"), align = "center"),
+                                   br(),
+                                   h4(strong("UVA Data Science for the Public Good")),
+                                   p("The", a(href = 'https://biocomplexity.virginia.edu/social-decision-analytics/dspg-program', 'Data Science for the Public Good (DSPG) Young Scholars program', target = "_blank"), 
+                                     "is a summer immersive program held at the", a(href = 'https://biocomplexity.virginia.edu/social-decision-analytics', 'University of Virginia Biocomplexity Institute’s Social and Decision Analytics division (SDAD).'), 
+                                     "In its seventh year, the program engages students from across the country to work together on projects that address state, federal, and local government challenges around 
                                           critical social issues relevant in the world today. DSPG young scholars conduct research at the intersection of statistics, computation, and the social sciences 
                                           to determine how information generated within every community can be leveraged to improve quality of life and inform public policy. For more information on program 
                                           highlights, how to apply, and our annual symposium, please visit", a(href = 'https://biocomplexity.virginia.edu/social-decision-analytics/dspg-program', 'the official Biocomplexity DSPG website.', target = "_blank")),
-                                       p("", style = "padding-top:10px;")
-         ),
-         fluidRow(style = "margin-left: 300px; margin-right: 300px;",
-                  column(6, align = "center",
-                         h4(strong("DSPG Team Members")),
-                         img(src = "Avi_Seth_Headshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                         p("Avi Seth"),
-                         img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                         p("Matthew Burkholder"),
-                         img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                         p("Victor Mukora"),
-                         img(src = "Christina_Prisbe_Headshot.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                         p("Christina Prisbe"),
-                         img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                         p("Kwabena Boateng")
-                        
-                         # p(a(href = 'https://www.linkedin.com/in/yang-cheng-200118191/', 'Yang Cheng', target = '_blank'), "(Virginia Tech, Agricultural and Applied Microeconomics);",
-                         #   a(href = 'https://www.linkedin.com/in/tasfia-chowdhury-89005a1b2/', 'Tasfia Chowdhury', target = '_blank'), "(Indiana University Bloomington, Political Science);",
-                         #   a(href = 'https://www.linkedin.com/in/igomez-3099/', 'Isabel Gomez', target = '_blank'), "(Smith College, Statistical and Data Science)."),
-                         # p("", style = "padding-top:10px;")
-                  ),
-                  column(6, align = "center",
-                         h4(strong("Virginia Tech Faculty Members")),
-                         img(src = "Dr_Holmes.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                         p("Dr. Chanita Holmes"),
-                         img(src = "Dr_Bradburn.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                         p("Dr. Isabel Bradburn")
-                         # img(src = "team-teja.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                         # img(src = "team-brandon.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                         # img(src = "team-sallie.jpg", style = "display: inline; border: 1px solid #C0C0C0;", width = "150px"),
-                         # p(a(href = "https://www.linkedin.com/in/tejapristavec/", 'Teja Pristavec', target = '_blank'), "(Project Lead, Research Assistant Professor);",
-                         #   a(href = "https://biocomplexity.virginia.edu/brandon-kramer", 'Brandon Kramer', target = '_blank'), "(Postdoctoral Research Associate);",
-                         #   a(href = 'https://biocomplexity.virginia.edu/sallie-keller', 'Sallie Keller', target = '_blank'), "(Division Director and Distinguished Professor)."),
-                         # p("", style = "padding-top:10px;")
-                  )
-         ),
-         fluidRow(style = "margin-left: 300px; margin-right: 300px;",
-                  h4(strong("Project Stakeholders")),
-                  p(""),
-                  p("")
-                  # p(a(href = 'https://www.linkedin.com/in/nancy-bell-aa293810/', 'Nancy Bell', target = '_blank'), "(Virginia Department of Health);",
-                  #   a(href = 'https://www.linkedin.com/in/terri-alt-3138b4101/', 'Terri Alt', target = '_blank'), "(Virginia Cooperative Extension, Patrick County at Virginia Tech)."),
-                  # p("", style = "padding-top:10px;"),
-                  # h4(strong("Acknowledgments")),
-                  # p("We would like to thank Healthy Patrick County, an association of concerned Patrick County residents, and Brandon Kramer for their input to this project.")
-         )
-),
+                                   p("", style = "padding-top:10px;")
+                          ),
+                          fluidRow(style = "margin-left: 300px; margin-right: 300px;",
+                                   column(6, align = "center",
+                                          h4(strong("DSPG Team Members")),
+                                          img(src = "Avi_Seth_Headshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                          p("Avi Seth"),
+                                          img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                          p("Matthew Burkholder"),
+                                          img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                          p("Victor Mukora"),
+                                          img(src = "Christina_Prisbe_Headshot.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                          p("Christina Prisbe"),
+                                          img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                          p("Kwabena Boateng")
+                                          
+                                          # p(a(href = 'https://www.linkedin.com/in/yang-cheng-200118191/', 'Yang Cheng', target = '_blank'), "(Virginia Tech, Agricultural and Applied Microeconomics);",
+                                          #   a(href = 'https://www.linkedin.com/in/tasfia-chowdhury-89005a1b2/', 'Tasfia Chowdhury', target = '_blank'), "(Indiana University Bloomington, Political Science);",
+                                          #   a(href = 'https://www.linkedin.com/in/igomez-3099/', 'Isabel Gomez', target = '_blank'), "(Smith College, Statistical and Data Science)."),
+                                          # p("", style = "padding-top:10px;")
+                                   ),
+                                   column(6, align = "center",
+                                          h4(strong("Virginia Tech Faculty Members")),
+                                          img(src = "Dr_Holmes.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                          p("Dr. Chanita Holmes"),
+                                          img(src = "Dr_Bradburn.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                          p("Dr. Isabel Bradburn")
+                                          # img(src = "team-teja.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                          # img(src = "team-brandon.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                          # img(src = "team-sallie.jpg", style = "display: inline; border: 1px solid #C0C0C0;", width = "150px"),
+                                          # p(a(href = "https://www.linkedin.com/in/tejapristavec/", 'Teja Pristavec', target = '_blank'), "(Project Lead, Research Assistant Professor);",
+                                          #   a(href = "https://biocomplexity.virginia.edu/brandon-kramer", 'Brandon Kramer', target = '_blank'), "(Postdoctoral Research Associate);",
+                                          #   a(href = 'https://biocomplexity.virginia.edu/sallie-keller', 'Sallie Keller', target = '_blank'), "(Division Director and Distinguished Professor)."),
+                                          # p("", style = "padding-top:10px;")
+                                   )
+                          ),
+                          fluidRow(style = "margin-left: 300px; margin-right: 300px;",
+                                   h4(strong("Project Stakeholders")),
+                                   p(""),
+                                   p("")
+                                   # p(a(href = 'https://www.linkedin.com/in/nancy-bell-aa293810/', 'Nancy Bell', target = '_blank'), "(Virginia Department of Health);",
+                                   #   a(href = 'https://www.linkedin.com/in/terri-alt-3138b4101/', 'Terri Alt', target = '_blank'), "(Virginia Cooperative Extension, Patrick County at Virginia Tech)."),
+                                   # p("", style = "padding-top:10px;"),
+                                   # h4(strong("Acknowledgments")),
+                                   # p("We would like to thank Healthy Patrick County, an association of concerned Patrick County residents, and Brandon Kramer for their input to this project.")
+                          )
+                 ),
                  
-
+                 
                  inverse = T)
 
 # server -----------------------------------------------------------
 server <- function(input, output, session) {
   # Run JavaScript Code
   runjs(jscode)
+  
+  #hampton roads map of counties -------------------------------------------
+  output$hampton_counties_map <- renderPlot({
+    coord_data <- read_rds("data/TableB01001FiveYearEstimates/coordinates.rds")
+    coord_data <- st_transform(coord_data)
+    coordinates1 <- coord_data %>% group_by(NAME) %>% slice(1)
+    coordinates2 <- coordinates1[,6]
+    city <- c("Chesapeake", "Franklin", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
+              "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
+              "Williamsburg", "York")
+    coordinates2 <- mutate(coordinates2, Loc = city)
+    #Graph
+    hampton_counties_map <- ggplot(coordinates2) +
+      geom_sf() +
+      geom_sf_label(aes(label=Loc,geometry = geometry), label.padding = unit(.5, "mm"), size =4) +
+      theme(plot.title = element_text(hjust = 0.5),
+            axis.title.x=element_blank(),
+            axis.text.x=element_blank(),
+            axis.ticks.x=element_blank(),
+            axis.title.y=element_blank(),
+            axis.text.y=element_blank(),
+            axis.ticks.y=element_blank(),
+            legend.title = element_blank(),
+            legend.text = element_text(size=13),
+            panel.background = element_blank()) 
+    #plot
+    hampton_counties_map
+  
+  })
   
   # hampton race plots -----------------------------------------------------
   var_hampRace <- reactive({
@@ -740,7 +808,7 @@ server <- function(input, output, session) {
     hamp_races4 <- mutate(hamp_races4, race = c("White", "Black", "Asian", "Two or more", "Other"))
     colnames(hamp_races4) <- c("estimate", "Total", "Percent of Population", "race")
     #pal
-    vir_pal <- c("#404788FF", "#2D708EFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
+    vir_pal <- c("#33638DFF", "#1F968BFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
     
     hamp_races5 <- hamp_races4 %>% 
       mutate(
@@ -809,14 +877,14 @@ server <- function(input, output, session) {
     va_races2 <- mutate(va_races2, pct = estimate/totl*100)
     va_races2 <- mutate(va_races2, race = c("White", "Black", "Asian", "Two or more", "Other"))
     #pal
-    vir_pal <- c("#404788FF", "#2D708EFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
+    vir_pal <- c("#33638DFF", "#1F968BFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
     
     va_races3 <- va_races2 %>% 
       mutate(
         cs = rev(cumsum(rev(pct))), 
         pos = pct/2 + lead(cs, 1),
         pos = if_else(is.na(pos), pct/2, pos))
-
+    
     va_pie <- ggplot(va_races3, aes(x = "" , y = pct, fill = fct_inorder(race))) +
       geom_col(width = 1) +
       coord_polar(theta = "y", start = 0 ) +
@@ -911,17 +979,17 @@ server <- function(input, output, session) {
     hamp_graph <- ggplot(hamp_ages3 , aes(x="", y=PctPop, fill=Labels)) +
       geom_bar(stat="identity", width=1, color="white") +
       coord_polar("y", start=0) + 
-      theme(
-            axis.title.x=element_blank(),
-            axis.text.x=element_blank(),
-            axis.ticks.x=element_blank(),
-            axis.title.y=element_blank(),
-            axis.text.y=element_blank(),
-            axis.ticks.y=element_blank(),
-            legend.title = element_blank(),
-            legend.text = element_text(size = 13)) +
-      geom_text(aes(label = paste0(round(PctPop), "%")), position = position_stack(vjust=0.5), size=5, color = "white") +
       theme_void() +
+      theme(
+        axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 13)) +
+      geom_text(aes(label = paste0(round(PctPop), "%")), position = position_stack(vjust=0.5), size=5, color = "white") +
       scale_fill_viridis_d()
     #plot
     hamp_graph
@@ -999,17 +1067,17 @@ server <- function(input, output, session) {
     va_graph <- ggplot(va_ages2 , aes(x="", y=`Percent of Population`, fill=Labels)) +
       geom_bar(stat="identity", width=1, color="white") +
       coord_polar("y", start=0) + 
-      theme(
-            axis.title.x=element_blank(),
-            axis.text.x=element_blank(),
-            axis.ticks.x=element_blank(),
-            axis.title.y=element_blank(),
-            axis.text.y=element_blank(),
-            axis.ticks.y=element_blank(),
-            legend.title = element_blank(),
-            legend.text = element_text(size = 13)) +
-      geom_text(aes(label = paste0(round(`Percent of Population`), "%")), position = position_stack(vjust=0.5), size=5, color = "white") +
       theme_void() +
+      theme(
+        axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 13)) +
+      geom_text(aes(label = paste0(round(`Percent of Population`), "%")), position = position_stack(vjust=0.5), size=5, color = "white") +
       scale_fill_viridis_d()  
     #plot
     va_graph
@@ -1023,36 +1091,36 @@ server <- function(input, output, session) {
   })
   
   output$age_map <- renderPlot({
-      if(var_hampCountiesAge() == 2019){
-        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2019.csv")
-      }
-      if(var_hampCountiesAge() == 2018){
-        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2018.csv")
-      }
-      if(var_hampCountiesAge() == 2017){
-        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2017.csv")
-      }
-      if(var_hampCountiesAge() == 2016){
-        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2016.csv")
-      }
-      if(var_hampCountiesAge() == 2015){
-        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2015.csv")
-      }
-      if(var_hampCountiesAge() == 2014){
-        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2014.csv")
-      }
-      if(var_hampCountiesAge() == 2013){
-        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2013.csv")
-      }
-      if(var_hampCountiesAge() == 2012){
-        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2012.csv")
-      }
-      if(var_hampCountiesAge() == 2011){
-        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2011.csv")
-      }
-      if(var_hampCountiesAge() == 2010){
-        hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2010.csv")
-      }
+    if(var_hampCountiesAge() == 2019){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2019.csv")
+    }
+    if(var_hampCountiesAge() == 2018){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2018.csv")
+    }
+    if(var_hampCountiesAge() == 2017){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2017.csv")
+    }
+    if(var_hampCountiesAge() == 2016){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2016.csv")
+    }
+    if(var_hampCountiesAge() == 2015){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2015.csv")
+    }
+    if(var_hampCountiesAge() == 2014){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2014.csv")
+    }
+    if(var_hampCountiesAge() == 2013){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2013.csv")
+    }
+    if(var_hampCountiesAge() == 2012){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2012.csv")
+    }
+    if(var_hampCountiesAge() == 2011){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2011.csv")
+    }
+    if(var_hampCountiesAge() == 2010){
+      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2010.csv")
+    }
     hamp_ages <- hamp_ages[,2:6]
     county_pop <- hamp_ages %>% group_by(NAME) %>%
       slice(1)
@@ -1157,11 +1225,11 @@ server <- function(input, output, session) {
                                       "Middle Age: 45 to 64","Senior: 65 and Older")) 
     #plot
     age_map
- 
+    
   })
-
+  
   # Total Population Educational Attainment ---------------------------------
-
+  
   var_genEducationalAttainment <- reactive({
     input$genEdAttainmentYearDrop
   })
@@ -1370,9 +1438,9 @@ server <- function(input, output, session) {
     
   })
   
-
+  
   # Black Population Educational Attainment ---------------------------------
-
+  
   var_blackEducationalAttainment <- reactive({
     input$blackEdAttainmentYearDrop
   })
@@ -1391,13 +1459,13 @@ server <- function(input, output, session) {
         theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2019)",
                                y = "Percent (%)",
                                x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-     va_tot_education_bar2019 #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-     hide_legend(ggplotly(va_tot_education_bar2019, tooltip=c("x", "y", "Gender"))) %>% 
-       layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                     showarrow = F, xref='paper', yref='paper', 
-                     xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                     font=list(size=15, color="black"))
-       )
+      va_tot_education_bar2019 #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(va_tot_education_bar2019, tooltip=c("x", "y", "Gender"))) %>% 
+        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=15, color="black"))
+        )
     }
     
     else if(var_blackEducationalAttainment() == "2018") {
@@ -1591,10 +1659,10 @@ server <- function(input, output, session) {
     
   })
   
-
-
+  
+  
   # Teacher Demographics------------------------------------------------------
-
+  
   var_teacherRaces <- reactive({
     input$teacherRaceBreakdown
   })
@@ -1607,8 +1675,8 @@ server <- function(input, output, session) {
       #original column names for reference: Division No.	Division Name	Total Counts	American Indian	Asian	Black	Hispanic	White	Hawaiian	Two or More Races	Not Specified	BlackProportions	AsianProportions	HispanicProportions	WhiteProportions	AmericanIndianProportions	TwoOrMoreRacesProportions	HawaiianProportions
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
-      ggplot(aes(x = Name, y = `% of Black Teachers`, fill = Name)) + geom_col() +
-      labs(title = "Black Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+        ggplot(aes(x = Name, y = `% of Black Teachers`, fill = Name)) + geom_col() +
+        labs(title = "Black Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
         layout(annotations = 
@@ -1623,7 +1691,7 @@ server <- function(input, output, session) {
       teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
       #renaming column names to make division name to name for readability purposes and also made sure it was consistent mapping of columns to the excel spreadsheet
       #original column names for reference: Division No.	Division Name	Total Counts	American Indian	Asian	Black	Hispanic	White	Hawaiian	Two or More Races	Not Specified	BlackProportions	AsianProportions	HispanicProportions	WhiteProportions	AmericanIndianProportions	TwoOrMoreRacesProportions	HawaiianProportions
-           colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
+      colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Asian Teachers`, fill = Name)) + geom_col() +
         labs(title = "Asian Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
@@ -1641,7 +1709,7 @@ server <- function(input, output, session) {
       teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
       #renaming column names to make division name to name for readability purposes and also made sure it was consistent mapping of columns to the excel spreadsheet
       #original column names for reference: Division No.	Division Name	Total Counts	American Indian	Asian	Black	Hispanic	White	Hawaiian	Two or More Races	Not Specified	BlackProportions	AsianProportions	HispanicProportions	WhiteProportions	AmericanIndianProportions	TwoOrMoreRacesProportions	HawaiianProportions
-           colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
+      colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of White Teachers`, fill = Name)) + geom_col() +
         labs(title = "White Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
@@ -1659,7 +1727,7 @@ server <- function(input, output, session) {
       teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
       #renaming column names to make division name to name for readability purposes and also made sure it was consistent mapping of columns to the excel spreadsheet
       #original column names for reference: Division No.	Division Name	Total Counts	American Indian	Asian	Black	Hispanic	White	Hawaiian	Two or More Races	Not Specified	BlackProportions	AsianProportions	HispanicProportions	WhiteProportions	AmericanIndianProportions	TwoOrMoreRacesProportions	HawaiianProportions
-           colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
+      colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Hispanic Teachers`, fill = Name)) + geom_col() +
         labs(title = "Hispanic Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
@@ -1695,7 +1763,7 @@ server <- function(input, output, session) {
       teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
       #renaming column names to make division name to name for readability purposes and also made sure it was consistent mapping of columns to the excel spreadsheet
       #original column names for reference: Division No.	Division Name	Total Counts	American Indian	Asian	Black	Hispanic	White	Hawaiian	Two or More Races	Not Specified	BlackProportions	AsianProportions	HispanicProportions	WhiteProportions	AmericanIndianProportions	TwoOrMoreRacesProportions	HawaiianProportions
-           colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
+      colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Two Or More Races Teachers`, fill = Name)) + geom_col() +
         labs(title = "Two or More Races Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
@@ -1707,14 +1775,14 @@ server <- function(input, output, session) {
                       xanchor='right', yanchor='auto', xshift=0, yshift=0,
                       font=list(size=15, color="black"))
         )  
-          
+      
     }
     
     else if (var_teacherRaces() == "Hawaiian") {
       teacherByRace <- read.csv("data/teacherByRacesBreakdown.csv")
       #renaming column names to make division name to name for readability purposes and also made sure it was consistent mapping of columns to the excel spreadsheet
       #original column names for reference: Division No.	Division Name	Total Counts	American Indian	Asian	Black	Hispanic	White	Hawaiian	Two or More Races	Not Specified	BlackProportions	AsianProportions	HispanicProportions	WhiteProportions	AmericanIndianProportions	TwoOrMoreRacesProportions	HawaiianProportions
-           colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
+      colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Hawaiian Teachers`, fill = Name)) + geom_col() +
         labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
@@ -1729,8 +1797,8 @@ server <- function(input, output, session) {
     }
     
   }
-)
-
+  )
+  
   # VA suspension--------------------------------------------------------------
   var_suspension <- reactive({
     input$suspensionYearDrop
@@ -1850,17 +1918,17 @@ server <- function(input, output, session) {
                           na.value = "grey50",
                           guide = "colourbar",
                           aesthetics = "fill") +
-    guides(colour=guide_legend("No data", override.aes=list(colour="grey50")))
+      guides(colour=guide_legend("No data", override.aes=list(colour="grey50")))
     #display table
     na_rows <- display_tbl %>% filter(Data == "NA")
     supr_rows <- display_tbl %>% filter(Data == "S")
     supr_rows <- mutate(supr_rows, Data = "Suppressed")
     display_tbl_final <- rbind(na_rows, supr_rows)
-    table_plot <- tableGrob(display_tbl_final)
+    table_plot <- tableGrob(display_tbl_final, rows = NULL)
     #plot together
     black_map <- grid.arrange(graph_blck, table_plot, nrow=2, heights=c(3,1))
     black_map
-    })
+  })
   
   # Suspension for black and white (counties) ---------------------------------
   var_BWsuspension <- reactive({
@@ -1946,7 +2014,7 @@ server <- function(input, output, session) {
     supr_rows <- display_table %>% filter(Data == "S")
     supr_rows <- mutate(supr_rows, Data = "Suppressed")
     display_table_final <- rbind(na_rows, supr_rows)
-    table_plot <- tableGrob(display_table_final)
+    table_plot <- tableGrob(display_table_final, rows = NULL)
     #plot together
     BW_map <- grid.arrange(suspension_counties_plot, table_plot, nrow=2, heights=c(3,1))
     BW_map
@@ -2439,13 +2507,14 @@ server <- function(input, output, session) {
     #graph
     va_line <- ggplot(va_years, aes(x=Year, y=`Median Income (US Dollars)`, group = Demographic, color = Demographic)) + 
       geom_line(position = "identity", size =1.3) +
+      theme_minimal() +
       ggtitle("Virginia") +
       theme(plot.title = element_text(hjust = 0.5),
             axis.title.x = element_blank()) +
       theme(legend.title = element_blank()) +
-      labs(y ="Median Income (US Dollars") +
-      theme_minimal() +
-      scale_color_manual(values = c("#D55E00", "#0072B2"))
+      labs(y ="Median Income (US Dollars)") +
+      scale_color_manual(values = c("#D55E00", "#0072B2")) +
+      ylim(35000, 75000)
     
     #hamp line graph
     hamp_years <- income_years %>% filter(Location == "Hampton Roads")
@@ -2453,19 +2522,213 @@ server <- function(input, output, session) {
     hamp_line <- ggplot(hamp_years, aes(x=Year, y=`Median Income (US Dollars)`, group = Demographic, color = Demographic)) + 
       geom_line(position = "identity", size =1.3 ) +
       scale_color_manual(values = c("#D55E00", "#0072B2")) +
+      theme_minimal() +
       ggtitle("Hampton Roads")+
       theme(plot.title = element_text(hjust = 0.5),
             axis.title.x=element_blank(),
-            legend.title = element_blank(),
-            legend.position = "none") +
+            legend.title = element_blank())+
       labs(y ="Median Income (US Dollars)") +
-      theme_minimal() 
+      ylim(35000, 75000)
     
     medianTimeGraph  <- grid.arrange(hamp_line, va_line, ncol=2)
     medianTimeGraph 
   })
   # Employment By Sector ----------------------------------------------------
-
+  var_sectorEmployment <- reactive({
+    input$SectorEmploymentYearDrop
+  })
+  
+  output$sector_plot <- renderPlotly({
+    if(var_sectorEmployment() == "2019") {
+      sectors2019 <- read.csv("data/TableDP03FiveYearEstimates/top2employmentSectors2019.csv")
+      colnames(sectors2019) <- c("Name", "Variable", "Number of People Employed in Sector", "Sector")
+      sectors2019 <- sectors2019  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
+        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+                               y = "Total Number of People Employed",
+                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      sectors2019  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(sectors2019 , tooltip=c("x", "y", "Sector"))) %>% 
+        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=15, color="black"))
+        )
+    }
+    
+    else if (var_sectorEmployment() == "2018") {
+      sectors2018 <- read.csv("data/TableDP03FiveYearEstimates/top2employmentSectors2018.csv")
+      colnames(sectors2018) <- c("Name", "Variable", "Number of People Employed in Sector", "Sector")
+      sectors2018 <- sectors2018  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
+        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+                               y = "Total Number of People Employed",
+                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      sectors2018  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(sectors2018 , tooltip=c("x", "y", "Sector"))) %>% 
+        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=15, color="black"))
+        )
+    }
+    
+    else if (var_sectorEmployment() == "2017") {
+      sectors2017 <- read.csv("data/TableDP03FiveYearEstimates/top2employmentSectors2017.csv")
+      colnames(sectors2017) <- c("Name", "Variable", "Number of People Employed in Sector", "Sector")
+      sectors2017 <- sectors2017  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
+        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+                               y = "Total Number of People Employed",
+                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      sectors2017  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(sectors2017 , tooltip=c("x", "y", "Sector"))) %>% 
+        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=15, color="black"))
+        )
+    }
+    
+    else if (var_sectorEmployment() == "2016") {
+      sectors2016 <- read.csv("data/TableDP03FiveYearEstimates/top2employmentSectors2016.csv")
+      colnames(sectors2016) <- c("Name", "Variable", "Number of People Employed in Sector", "Sector")
+      sectors2016 <- sectors2016  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
+        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+                               y = "Total Number of People Employed",
+                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      sectors2016  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(sectors2016, tooltip=c("x", "y", "Sector"))) %>% 
+        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=15, color="black"))
+        )
+    }
+    
+    else if (var_sectorEmployment() == "2015") {
+      sectors2015 <- read.csv("data/TableDP03FiveYearEstimates/top2employmentSectors2015.csv")
+      colnames(sectors2015) <- c("Name", "Variable", "Number of People Employed in Sector", "Sector")
+      sectors2015 <- sectors2015  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
+        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+                               y = "Total Number of People Employed",
+                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      sectors2015  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(sectors2015, tooltip=c("x", "y", "Sector"))) %>% 
+        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=15, color="black"))
+        )
+    }
+    
+    else if (var_sectorEmployment() == "2014") {
+      sectors2014 <- read.csv("data/TableDP03FiveYearEstimates/top2employmentSectors2014.csv")
+      colnames(sectors2014) <- c("Name", "Variable", "Number of People Employed in Sector", "Sector")
+      sectors2014 <- sectors2014  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
+        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+                               y = "Total Number of People Employed",
+                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      sectors2014  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(sectors2014, tooltip=c("x", "y", "Sector"))) %>% 
+        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=15, color="black"))
+        )
+    }
+    
+    else if (var_sectorEmployment() == "2013") {
+      sectors2013 <- read.csv("data/TableDP03FiveYearEstimates/top2employmentSectors2013.csv")
+      colnames(sectors2013) <- c("Name", "Variable", "Number of People Employed in Sector", "Sector")
+      sectors2013 <- sectors2013  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
+        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+                               y = "Total Number of People Employed",
+                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      sectors2013  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(sectors2013, tooltip=c("x", "y", "Sector"))) %>% 
+        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=15, color="black"))
+        )
+    }
+    
+    else if (var_sectorEmployment() == "2012") {
+      sectors2012 <- read.csv("data/TableDP03FiveYearEstimates/top2employmentSectors2012.csv")
+      colnames(sectors2012) <- c("Name", "Variable", "Number of People Employed in Sector", "Sector")
+      sectors2012 <- sectors2012  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
+        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+                               y = "Total Number of People Employed",
+                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      sectors2012  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(sectors2012, tooltip=c("x", "y", "Sector"))) %>% 
+        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=15, color="black"))
+        )
+    }
+    
+    else if (var_sectorEmployment() == "2011") {
+      sectors2011 <- read.csv("data/TableDP03FiveYearEstimates/top2employmentSectors2011.csv")
+      colnames(sectors2011) <- c("Name", "Variable", "Number of People Employed in Sector", "Sector")
+      sectors2011 <- sectors2011  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
+        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+                               y = "Total Number of People Employed",
+                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      sectors2011  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(sectors2011, tooltip=c("x", "y", "Sector"))) %>% 
+        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=15, color="black"))
+        )
+    }
+    
+    else if (var_sectorEmployment() == "2010") {
+      sectors2010 <- read.csv("data/TableDP03FiveYearEstimates/top2employmentSectors2010.csv")
+      colnames(sectors2010) <- c("Name", "Variable", "Number of People Employed in Sector", "Sector")
+      sectors2010 <- sectors2010  %>% 
+        mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+        mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+        ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
+        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+                               y = "Total Number of People Employed",
+                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+      sectors2010 #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+      hide_legend(ggplotly(sectors2010, tooltip=c("x", "y", "Sector"))) %>% 
+        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=15, color="black"))
+        )
+    }
+  })
   
   # Unemployment Rate -------------------------------------------------------
   
@@ -3701,7 +3964,7 @@ server <- function(input, output, session) {
   })
   
   
-
+  
 }
 
 shinyApp(ui = ui, server = server)
