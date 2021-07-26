@@ -164,6 +164,8 @@ years <- c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019)
 for (i in 1:length(years)) { 
   #plots general data for education
   va_total2 = county_stats("S1501_C01_015", "S1501_C01_006", years[i])
+  gender <- rep(c("female", "male"), 16)
+  va_total2 <- cbind(va_total2, gender)
   write_csv(va_total2, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
   va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
   
@@ -219,26 +221,10 @@ for (i in 1:length(years)) {
   #plots general data for education
  
   va_total2 = county_stats(c("C15002B_006", "C15002B_011"), "C15002B_001", years[i])
+  gender <- rep(c("Male", "Female"), 16)
+  va_total2 <- cbind(va_total2, gender)
   write_csv(va_total2, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableC15002BFiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
   va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableC15002BFiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
-  
-  
-  
-  #plots general Black data for total population
-  va_tot_education_bar <- va_total2CSV  %>% 
-    mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-    mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-    ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-    theme_minimal() + labs(title = "",
-                           y = "Percent (%)",
-                           x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
-  ggplotly(va_tot_education_bar)
-  
-  #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
-  
-  va_tot_education_bar
-  
-  
 }
 
 #if year is 2017, 2016, 2015
@@ -419,10 +405,13 @@ general_professional_degrees$labels
 
 
 employment_types  = county_stats1(c("DP03_0033", "DP03_0034", "DP03_0035", "DP03_0036", "DP03_0037", "DP03_0038", "DP03_0039", "DP03_0040", "DP03_0041", "DP03_0042", "DP03_0043", "DP03_0044", "DP03_0045"), 2019)
-View(employment_types)
 sectors <- rep(c("Agriculture, forestry, fishing and hunting, and mining", "Construction", "Manufacturing", "Wholesale trade", "Retail trade", "Transportation and warehousing, and utilities", "Information", "Finance and insurance, and real estate and rental and leasing", "Professional, scientific, and management, and administrative and waste management services", "Educational services, and health care and social assistance", "Arts, entertainment, and recreation, and accommodation and food services", "Other services, except public administration", "Public administration"), 16)
 employment_types  <- cbind(employment_types, sectors)
-employment_types
+employment_types  %>% 
+  arrange(desc(individualEstimates))  %>% 
+  group_by(NAME)  %>% slice(1:2)
+
+
 
 #for (sector in sectors) {
 #  chosenSelector <- employment_types[which(employment_types$sectors == sector), ]$individualEstimates
@@ -435,29 +424,14 @@ years <- c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019)
 for (i in 1:length(years)) { 
   #plots general data for education
   
-  
   employment_types  = county_stats1(c("DP03_0033", "DP03_0034", "DP03_0035", "DP03_0036", "DP03_0037", "DP03_0038", "DP03_0039", "DP03_0040", "DP03_0041", "DP03_0042", "DP03_0043", "DP03_0044", "DP03_0045"), 2019)
-  View(employment_types)
   sectors <- rep(c("Agriculture, forestry, fishing and hunting, and mining", "Construction", "Manufacturing", "Wholesale trade", "Retail trade", "Transportation and warehousing, and utilities", "Information", "Finance and insurance, and real estate and rental and leasing", "Professional, scientific, and management, and administrative and waste management services", "Educational services, and health care and social assistance", "Arts, entertainment, and recreation, and accommodation and food services", "Other services, except public administration", "Public administration"), 16)
   employment_types  <- cbind(employment_types, sectors)
-  write_csv(employment_types, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalProfessionalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
-  va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalProfessionalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
-  
-  
-  
-  #plots general data for population
-  va_tot_education_bar <- va_total2CSV  %>% 
-    mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-    mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-    ggplot(aes(x = NAME, y = pct_tot, fill = NAME)) + geom_col() +
-    theme_minimal() + labs(title = "",
-                           y = "Percent (%)",
-                           x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))
-  
-  #this is likely not the most efficient way of coloring the scale but it works so using it for now, will hopefully change later...  
-  
-  #va_tot_education_bar
-  
+  employment_types <- employment_types %>% 
+    arrange(desc(individualEstimates))  %>% 
+    group_by(NAME)  %>% slice(1:2)
+  write_csv(employment_types, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableDP03FiveYearEstimates/top2employmentSectors", toString((years[i])),  ".csv", sep = ""))
+  va_total2CSV <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableDP03FiveYearEstimates/top2employmentSectors", toString((years[i])),  ".csv", sep = ""))
   
 }
 
