@@ -1,33 +1,33 @@
-NAME,variable,pct_tot
-"Gloucester County, Virginia",C15002B_006,4.964850615114235
-"Gloucester County, Virginia",C15002B_011,8.875219683655535
-"Isle of Wight County, Virginia",C15002B_006,6.2957291134932785
-"Isle of Wight County, Virginia",C15002B_011,8.660881402075889
-"James City County, Virginia",C15002B_006,11.516222293607454
-"James City County, Virginia",C15002B_011,13.154513331191778
-"Mathews County, Virginia",C15002B_006,0.5714285714285714
-"Mathews County, Virginia",C15002B_011,5.857142857142858
-"Southampton County, Virginia",C15002B_006,2.097611630321911
-"Southampton County, Virginia",C15002B_011,7.7673935617860845
-"York County, Virginia",C15002B_006,13.53542474444836
-"York County, Virginia",C15002B_011,16.831159675713785
-"Chesapeake city, Virginia",C15002B_006,8.082727780883175
-"Chesapeake city, Virginia",C15002B_011,15.968697596422581
-"Franklin city, Virginia",C15002B_006,7.09353421217828
-"Franklin city, Virginia",C15002B_011,8.349026993094789
-"Hampton city, Virginia",C15002B_006,8.044247992409339
-"Hampton city, Virginia",C15002B_011,14.362083728680197
-"Newport News city, Virginia",C15002B_006,6.373848573354303
-"Newport News city, Virginia",C15002B_011,11.707481464839361
-"Norfolk city, Virginia",C15002B_006,5.805184210964423
-"Norfolk city, Virginia",C15002B_011,8.568764879218206
-"Poquoson city, Virginia",C15002B_006,8.24742268041237
-"Poquoson city, Virginia",C15002B_011,9.278350515463918
-"Portsmouth city, Virginia",C15002B_006,5.644529413608299
-"Portsmouth city, Virginia",C15002B_011,11.292192935719434
-"Suffolk city, Virginia",C15002B_006,7.832797427652734
-"Suffolk city, Virginia",C15002B_011,12.407288317256162
-"Virginia Beach city, Virginia",C15002B_006,9.830319888734353
-"Virginia Beach city, Virginia",C15002B_011,15.106165971256374
-"Williamsburg city, Virginia",C15002B_006,12.611879576891782
-"Williamsburg city, Virginia",C15002B_011,18.06346623270952
+NAME,variable,pct_tot,gender
+"Gloucester County, Virginia",C15002B_006,4.964850615114235,female
+"Gloucester County, Virginia",C15002B_011,8.875219683655535,male
+"Isle of Wight County, Virginia",C15002B_006,6.2957291134932785,female
+"Isle of Wight County, Virginia",C15002B_011,8.660881402075889,male
+"James City County, Virginia",C15002B_006,11.516222293607454,female
+"James City County, Virginia",C15002B_011,13.154513331191778,male
+"Mathews County, Virginia",C15002B_006,0.5714285714285714,female
+"Mathews County, Virginia",C15002B_011,5.857142857142858,male
+"Southampton County, Virginia",C15002B_006,2.097611630321911,female
+"Southampton County, Virginia",C15002B_011,7.7673935617860845,male
+"York County, Virginia",C15002B_006,13.53542474444836,female
+"York County, Virginia",C15002B_011,16.831159675713785,male
+"Chesapeake city, Virginia",C15002B_006,8.082727780883175,female
+"Chesapeake city, Virginia",C15002B_011,15.968697596422581,male
+"Franklin city, Virginia",C15002B_006,7.09353421217828,female
+"Franklin city, Virginia",C15002B_011,8.349026993094789,male
+"Hampton city, Virginia",C15002B_006,8.044247992409339,female
+"Hampton city, Virginia",C15002B_011,14.362083728680197,male
+"Newport News city, Virginia",C15002B_006,6.373848573354303,female
+"Newport News city, Virginia",C15002B_011,11.707481464839361,male
+"Norfolk city, Virginia",C15002B_006,5.805184210964423,female
+"Norfolk city, Virginia",C15002B_011,8.568764879218206,male
+"Poquoson city, Virginia",C15002B_006,8.24742268041237,female
+"Poquoson city, Virginia",C15002B_011,9.278350515463918,male
+"Portsmouth city, Virginia",C15002B_006,5.644529413608299,female
+"Portsmouth city, Virginia",C15002B_011,11.292192935719434,male
+"Suffolk city, Virginia",C15002B_006,7.832797427652734,female
+"Suffolk city, Virginia",C15002B_011,12.407288317256162,male
+"Virginia Beach city, Virginia",C15002B_006,9.830319888734353,female
+"Virginia Beach city, Virginia",C15002B_011,15.106165971256374,male
+"Williamsburg city, Virginia",C15002B_006,12.611879576891782,female
+"Williamsburg city, Virginia",C15002B_011,18.06346623270952,male

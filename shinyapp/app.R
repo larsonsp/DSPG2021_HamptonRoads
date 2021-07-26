@@ -1663,13 +1663,15 @@ server <- function(input, output, session) {
   output$blackEdAttainmentPlots  <- renderPlotly({
     
     if(var_blackEducationalAttainment() == "2019") {
+    
+      
       blackEducationalAttainment2019 <- read.csv("data/TableC15002BFiveYearEstimates/blackEducationalAttainment2019.csv")
       colnames(blackEducationalAttainment2019) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       va_tot_education_bar2019 <- blackEducationalAttainment2019  %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
-        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
-        geom_bar(position = "dodge", stat = "identity") + 
+        ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() + 
+        geom_bar (stat="identity", position = position_dodge(width = 0.5)) + 
         theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2019)",
                                y = "Percent (%)",
                                x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
