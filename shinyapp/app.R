@@ -422,7 +422,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                        "2013","2012", "2011", "2010")),
                                                      p(strong("Black Educational Attainment")),
                                                      withSpinner(plotlyOutput("blackEdAttainmentPlots")),
-                                                     p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages. Some years also did not have data for specific counties/cities and or had partial data (like recorded values for male or female only)."))
+                                                     p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages. Some years also did not have data for specific counties/cities or had partial data (like male or female only)."))
                                                      #p(tags$small("Data Source: ACS 5 Year Estimate Table C15002B"))
                                             )
                                           )
@@ -440,7 +440,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                      )),
                                                      p(strong("Virginia: Teacher Breakdown By Race in Hampton Roads")),
                                                      withSpinner(plotlyOutput("teacherRacePlots")),
-                                                     p(tags$small("Note: Possible Suppression of Counts in Dataset for Counties/Cities with Zero Values Stated"))
+                                                     p(tags$small("Possible Suppression of Counts in Dataset for Counties/Cities with Zero Values Stated"))
                                             )
                                    ), 
                           )
@@ -1694,7 +1694,7 @@ server <- function(input, output, session) {
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(va_tot_education_bar2018, tooltip=c("x", "y", "Gender"))) %>% 
+      hide_legend(ggplotly(va_tot_education_bar2018, tooltip=c("x", "y"))) %>% 
         layout(annotations = 
                  list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
                       showarrow = F, xref='paper', yref='paper', 
@@ -1715,7 +1715,7 @@ server <- function(input, output, session) {
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(va_tot_education_bar2017, tooltip=c("x", "y", "Gender"))) %>% 
+      hide_legend(ggplotly(va_tot_education_bar2017, tooltip=c("x", "y"))) %>% 
         layout(annotations = 
                  list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
                       showarrow = F, xref='paper', yref='paper', 
@@ -1736,7 +1736,7 @@ server <- function(input, output, session) {
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(va_tot_education_bar2016, tooltip=c("x", "y", "Gender"))) %>% 
+      hide_legend(ggplotly(va_tot_education_bar2016, tooltip=c("x", "y"))) %>% 
         layout(annotations = 
                  list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
                       showarrow = F, xref='paper', yref='paper', 
@@ -1757,7 +1757,7 @@ server <- function(input, output, session) {
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(va_tot_education_bar2015, tooltip=c("x", "y", "Gender"))) %>% 
+      hide_legend(ggplotly(va_tot_education_bar2015, tooltip=c("x", "y"))) %>% 
         layout(annotations = 
                  list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
                       showarrow = F, xref='paper', yref='paper', 
@@ -1778,7 +1778,7 @@ server <- function(input, output, session) {
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(va_tot_education_bar2014, tooltip=c("x", "y", "Gender"))) %>% 
+      hide_legend(ggplotly(va_tot_education_bar2014, tooltip=c("x", "y"))) %>% 
         layout(annotations = 
                  list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
                       showarrow = F, xref='paper', yref='paper', 
@@ -1799,7 +1799,7 @@ server <- function(input, output, session) {
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(va_tot_education_bar2013, tooltip=c("x", "y", "Gender"))) %>% 
+      hide_legend(ggplotly(va_tot_education_bar2013, tooltip=c("x", "y"))) %>% 
         layout(annotations = 
                  list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
                       showarrow = F, xref='paper', yref='paper', 
@@ -1820,7 +1820,7 @@ server <- function(input, output, session) {
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(va_tot_education_bar2012, tooltip=c("x", "y", "Gender"))) %>% 
+      hide_legend(ggplotly(va_tot_education_bar2012, tooltip=c("x", "y"))) %>% 
         layout(annotations = 
                  list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
                       showarrow = F, xref='paper', yref='paper', 
@@ -1841,7 +1841,7 @@ server <- function(input, output, session) {
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(va_tot_education_bar2011, tooltip=c("x", "y", "Gender"))) %>% 
+      hide_legend(ggplotly(va_tot_education_bar2011, tooltip=c("x", "y"))) %>% 
         layout(annotations = 
                  list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
                       showarrow = F, xref='paper', yref='paper', 
@@ -1862,7 +1862,7 @@ server <- function(input, output, session) {
                                y = "Percent (%)",
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(va_tot_education_bar2010, tooltip=c("x", "y", "Gender"))) %>% 
+      hide_legend(ggplotly(va_tot_education_bar2010, tooltip=c("x", "y"))) %>% 
         layout(annotations = 
                  list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
                       showarrow = F, xref='paper', yref='paper', 
