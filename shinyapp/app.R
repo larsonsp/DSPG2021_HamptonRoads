@@ -211,8 +211,29 @@ ui <- navbarPage(title = "Hampton Roads",
                               tabItem(
                                 tabName = "makeup",
                                 fluidRow(style = "margin: 6px;",
-                                         h1(strong("Counties and Cities of Hampton Roads"), align = "center")
-                                         
+                                         h1(strong("Counties and Cities of Hampton Roads"), align = "center"),
+                                         column(9,
+                                                withSpinner((plotOutput("hampton_counties_map", width ="100%")))
+                                                ),
+                                         column(3,
+                                                h4(strong("What is Hampton Roads (HR)?")),
+                                                p("City of Chesapeake"),
+                                                p("City of Franklin"),
+                                                p("City of Hampton"),
+                                                p("City of Newport News"),
+                                                p("City of Norfolk"),
+                                                p("City of Poquoson"),
+                                                p("City of Portsmouth"),
+                                                p("City of Suffolk"),
+                                                p("City of Virginia Beach"),
+                                                p("City of Williamsburg"),
+                                                p("Gloucester County"),
+                                                p("Isle of Wight COunty"),
+                                                p("James City County"),
+                                                p("Mathews County"),
+                                                p("Southampton County"),
+                                                p("York County")
+                                                )
                                          
                                          
                                          )
@@ -668,6 +689,35 @@ server <- function(input, output, session) {
   # Run JavaScript Code
   runjs(jscode)
   
+  #hampton roads map of counties -------------------------------------------
+  output$hampton_counties_map <- renderPlot({
+    coord_data <- read_rds("data/TableB01001FiveYearEstimates/coordinates.rds")
+    coord_data <- st_transform(coord_data)
+    coordinates1 <- coord_data %>% group_by(NAME) %>% slice(1)
+    coordinates2 <- coordinates1[,6]
+    city <- c("Chesapeake", "Franklin", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
+              "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
+              "Williamsburg", "York")
+    coordinates2 <- mutate(coordinates2, Loc = city)
+    #Graph
+    hampton_counties_map <- ggplot(coordinates2) +
+      geom_sf() +
+      geom_sf_label(aes(label=Loc,geometry = geometry), label.padding = unit(.5, "mm"), size =4) +
+      theme(plot.title = element_text(hjust = 0.5),
+            axis.title.x=element_blank(),
+            axis.text.x=element_blank(),
+            axis.ticks.x=element_blank(),
+            axis.title.y=element_blank(),
+            axis.text.y=element_blank(),
+            axis.ticks.y=element_blank(),
+            legend.title = element_blank(),
+            legend.text = element_text(size=13),
+            panel.background = element_blank()) 
+    #plot
+    hampton_counties_map
+  
+  })
+  
   # hampton race plots -----------------------------------------------------
   var_hampRace <- reactive({
     input$hampRaceYearDrop
@@ -723,7 +773,7 @@ server <- function(input, output, session) {
     hamp_races4 <- mutate(hamp_races4, race = c("White", "Black", "Asian", "Two or more", "Other"))
     colnames(hamp_races4) <- c("estimate", "Total", "Percent of Population", "race")
     #pal
-    vir_pal <- c("#404788FF", "#2D708EFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
+    vir_pal <- c("#33638DFF", "#1F968BFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
     
     hamp_races5 <- hamp_races4 %>% 
       mutate(
@@ -792,7 +842,7 @@ server <- function(input, output, session) {
     va_races2 <- mutate(va_races2, pct = estimate/totl*100)
     va_races2 <- mutate(va_races2, race = c("White", "Black", "Asian", "Two or more", "Other"))
     #pal
-    vir_pal <- c("#404788FF", "#2D708EFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
+    vir_pal <- c("#33638DFF", "#1F968BFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
     
     va_races3 <- va_races2 %>% 
       mutate(
@@ -894,6 +944,7 @@ server <- function(input, output, session) {
     hamp_graph <- ggplot(hamp_ages3 , aes(x="", y=PctPop, fill=Labels)) +
       geom_bar(stat="identity", width=1, color="white") +
       coord_polar("y", start=0) + 
+      theme_void() +
       theme(
             axis.title.x=element_blank(),
             axis.text.x=element_blank(),
@@ -904,7 +955,6 @@ server <- function(input, output, session) {
             legend.title = element_blank(),
             legend.text = element_text(size = 13)) +
       geom_text(aes(label = paste0(round(PctPop), "%")), position = position_stack(vjust=0.5), size=5, color = "white") +
-      theme_void() +
       scale_fill_viridis_d()
     #plot
     hamp_graph
@@ -982,6 +1032,7 @@ server <- function(input, output, session) {
     va_graph <- ggplot(va_ages2 , aes(x="", y=`Percent of Population`, fill=Labels)) +
       geom_bar(stat="identity", width=1, color="white") +
       coord_polar("y", start=0) + 
+      theme_void() +
       theme(
             axis.title.x=element_blank(),
             axis.text.x=element_blank(),
@@ -992,7 +1043,6 @@ server <- function(input, output, session) {
             legend.title = element_blank(),
             legend.text = element_text(size = 13)) +
       geom_text(aes(label = paste0(round(`Percent of Population`), "%")), position = position_stack(vjust=0.5), size=5, color = "white") +
-      theme_void() +
       scale_fill_viridis_d()  
     #plot
     va_graph
@@ -1839,7 +1889,7 @@ server <- function(input, output, session) {
     supr_rows <- display_tbl %>% filter(Data == "S")
     supr_rows <- mutate(supr_rows, Data = "Suppressed")
     display_tbl_final <- rbind(na_rows, supr_rows)
-    table_plot <- tableGrob(display_tbl_final)
+    table_plot <- tableGrob(display_tbl_final, rows = NULL)
     #plot together
     black_map <- grid.arrange(graph_blck, table_plot, nrow=2, heights=c(3,1))
     black_map
@@ -1929,7 +1979,7 @@ server <- function(input, output, session) {
     supr_rows <- display_table %>% filter(Data == "S")
     supr_rows <- mutate(supr_rows, Data = "Suppressed")
     display_table_final <- rbind(na_rows, supr_rows)
-    table_plot <- tableGrob(display_table_final)
+    table_plot <- tableGrob(display_table_final, rows = NULL)
     #plot together
     BW_map <- grid.arrange(suspension_counties_plot, table_plot, nrow=2, heights=c(3,1))
     BW_map
@@ -2422,13 +2472,14 @@ server <- function(input, output, session) {
     #graph
     va_line <- ggplot(va_years, aes(x=Year, y=`Median Income (US Dollars)`, group = Demographic, color = Demographic)) + 
       geom_line(position = "identity", size =1.3) +
+      theme_minimal() +
       ggtitle("Virginia") +
       theme(plot.title = element_text(hjust = 0.5),
             axis.title.x = element_blank()) +
       theme(legend.title = element_blank()) +
-      labs(y ="Median Income (US Dollars") +
-      theme_minimal() +
-      scale_color_manual(values = c("#D55E00", "#0072B2"))
+      labs(y ="Median Income (US Dollars)") +
+      scale_color_manual(values = c("#D55E00", "#0072B2")) +
+      ylim(35000, 75000)
     
     #hamp line graph
     hamp_years <- income_years %>% filter(Location == "Hampton Roads")
@@ -2436,13 +2487,13 @@ server <- function(input, output, session) {
     hamp_line <- ggplot(hamp_years, aes(x=Year, y=`Median Income (US Dollars)`, group = Demographic, color = Demographic)) + 
       geom_line(position = "identity", size =1.3 ) +
       scale_color_manual(values = c("#D55E00", "#0072B2")) +
+      theme_minimal() +
       ggtitle("Hampton Roads")+
       theme(plot.title = element_text(hjust = 0.5),
             axis.title.x=element_blank(),
-            legend.title = element_blank(),
-            legend.position = "none") +
+            legend.title = element_blank())+
       labs(y ="Median Income (US Dollars)") +
-      theme_minimal() 
+      ylim(35000, 75000)
     
     medianTimeGraph  <- grid.arrange(hamp_line, va_line, ncol=2)
     medianTimeGraph 
