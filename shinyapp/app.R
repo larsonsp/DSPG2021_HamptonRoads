@@ -615,7 +615,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                   box(width = 8, height = 500,
                                          withSpinner(plotlyOutput("unemployment_plot")),
                                          p(tags$small("Data Source: ACS 5 Year Estimates Table S2301")),
-                                         sliderInput("UninsuredPctSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = ""))
+                                         sliderInput("UnemploymentRateSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = ""))
                                   
                          
                                 )),
@@ -2234,7 +2234,7 @@ server <- function(input, output, session) {
   
   
   var_unemploymentRate <- reactive({
-    input$UnemploymentRateYearDrop
+    input$UnemploymentRateSlider
   })
   
   output$unemployment_plot <- renderPlotly({
