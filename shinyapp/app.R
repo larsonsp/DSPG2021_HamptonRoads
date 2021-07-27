@@ -615,14 +615,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                             p("Placeholder Text")
                                             ),
 
-                                        box(width = 8, height = 500,
-                                            withSpinner(plotlyOutput("uninsured_plot")),
-                                            p(tags$small("Data Source: ACS 5 Year Estimates Table S2701")),
-                                            sliderInput("UninsuredPctSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = ""))
-
-                                        
-                                      )
-                              ),
+                                      )),
                               
                               #Home Ownership
                               tabItem(tabName = "hmown",
@@ -637,15 +630,9 @@ ui <- navbarPage(title = "Hampton Roads",
                                         
                                         box(width = 4, height = 550,
                                             h3("Description: "),
-                                            p("Placeholder Text"))
-                                        
+                                            p("Placeholder Text")),
+                    
                                         )),
-
-                                        box(width = 8, height = 600,
-                                            withSpinner(leafletOutput("homeownership_map")),
-                                            p(tags$small("Data Source: ACS 5 Year Estimates Table S2505")),
-                                            sliderInput("HomeOwnSlider", "", value = 2019, min = 2010, max = 2019, sep = "")
-                                        ))),
                               
                               #Veteran Status
                               tabItem(tabName = "vet",

@@ -7,6 +7,7 @@ library(tigris)
 library(ggplot2)
 library(sf)
 library(plotly)
+library(gganimate)
 
 # Retrieves ACS Tables ----------------------------------------------------
 
@@ -382,10 +383,50 @@ stack_unemp_19 <- unemp_19 %>%
 
 plotly_19 <- ggplotly(stack_unemp_19)
 
+unemp_19 <- unemp_19 %>% 
+  mutate(Year = "2019")
 
+unemp_18 <- unemp_18 %>% 
+  mutate(Year = "2018")
 
+unemp_17 <- unemp_17 %>% 
+  mutate(Year = "2017")
 
+unemp_16 <- unemp_16 %>% 
+  mutate(Year = "2016")
 
+unemp_15 <- unemp_15 %>% 
+  mutate(Year = "2015")
+
+unemp_14 <- unemp_14 %>% 
+  mutate(Year = "2014")
+
+unemp_13 <- unemp_13 %>% 
+  mutate(Year = "2013")
+
+unemp_12 <- unemp_12 %>% 
+  mutate(Year = "2012")
+
+unemp_11 <- unemp_11 %>% 
+  mutate(Year = "2011")
+
+unemp_10 <- unemp_10 %>% 
+  mutate(Year = "2010")
+
+unemp <- rbind(unemp_19, unemp_18, unemp_17, unemp_16, unemp_15, unemp_14, unemp_13, unemp_12, unemp_11, unemp_10)
+
+unemp <- unemp %>% 
+  select(NAME, variable, estimate, Year) %>% 
+  mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
+  mutate(NAME = str_remove(NAME, "city, Virginia")) 
+
+unemp_plot <- unemp %>% 
+  ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+  geom_bar(position = "dodge", stat = "identity") +
+  transition_states(Year, transition_length = 4, state_length = 1)
+  
+animate(unemp_plot, 200, fps = 20,  width = 1200, height = 1000, 
+        renderer = gifski_renderer("unemp_plot.gif"))
 
 
 
