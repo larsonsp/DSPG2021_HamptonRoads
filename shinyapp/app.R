@@ -437,7 +437,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                         #        p(tags$small("Data Source: Kids Count Data Center"))
                                         # ),
                                        column(5,
-                                              h4("Students Suspended in Virgini from the 2014-2015 to 2017-2018 School Years"),
+                                              h4("Students Suspended in Virginia from the 2014-2015 to 2017-2018 School Years"),
                                               withSpinner(plotOutput("graph_va19")),
                                               p(tags$small("Data Source: Kids Count Data Center"))
                                               ),
@@ -2031,18 +2031,19 @@ server <- function(input, output, session) {
       suspension_counties_plot <-
         ggplot(sus , aes(Location, y=`Percentage of Students (%)`, fill=race)) +
         geom_bar(stat="identity", position=position_dodge())+
-        geom_text(aes(label=paste0(round(`Percentage of Students (%)`, digits=2), "%")), vjust=1.5, color="white",
+        geom_text(aes(label=paste0(round(`Percentage of Students (%)`, digits=1), "%")), vjust=1.5, color="white",
                   position = position_dodge(0.9), size=3)+
         theme_minimal() + 
         theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'), 
-              legend.key.height = unit(0.5, 'cm'), 
-              legend.key.width = unit(0.5, 'cm'), 
+              legend.key.height = unit(0.3, 'cm'), 
+              legend.key.width = unit(0.3, 'cm'), 
               legend.title = element_blank(),
               legend.text = element_text(size=14),
               axis.text=element_text(size=15),
-              axis.text.x = element_text(size=10, face="bold"),
+              #axis.text.x = element_text(size=10, face="bold"),
               axis.title=element_text(size=17),
               axis.title.x=element_blank()) +
+        theme(axis.text.x = element_text(angle = 40, vjust = 0.95, hjust=1))+
         scale_fill_manual(values=c("#D55E00","#0072B2")) +
         labs(x = "Location") 
       #combining the tables
@@ -2057,7 +2058,7 @@ server <- function(input, output, session) {
       display_table_final <- rbind(na_rows, supr_rows, less_rows, other_rows)
       table_plot <- tableGrob(display_table_final, rows = NULL)
       #plot together
-      BW_map <- grid.arrange(suspension_counties_plot, table_plot, nrow=2, heights=c(3,1))
+      BW_map <- grid.arrange(suspension_counties_plot, table_plot, nrow=2, heights=c(4,1))
       BW_map
       
     }
@@ -2129,18 +2130,19 @@ server <- function(input, output, session) {
       suspension_counties_plot <-
         ggplot(sus , aes(Location, y=`Percentage of Students (%)`, fill=race)) +
         geom_bar(stat="identity", position=position_dodge())+
-        geom_text(aes(label=paste0(round(`Percentage of Students (%)`, digits=2), "%")), vjust=1.5, color="white",
+        geom_text(aes(label=paste0(round(`Percentage of Students (%)`, digits=1), "%")), vjust=1.5, color="white",
                   position = position_dodge(0.9), size=3)+
         theme_minimal() + 
         theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'), 
-              legend.key.height = unit(0.5, 'cm'), 
-              legend.key.width = unit(0.5, 'cm'), 
+              legend.key.height = unit(0.3, 'cm'), 
+              legend.key.width = unit(0.3, 'cm'), 
               legend.title = element_blank(),
               legend.text = element_text(size=14),
               axis.text=element_text(size=15),
-              axis.text.x = element_text(size=10, face="bold"),
+              #axis.text.x = element_text(size=10, face="bold"),
               axis.title=element_text(size=17),
               axis.title.x=element_blank()) +
+        theme(axis.text.x = element_text(angle = 40, vjust = 0.95, hjust =1)) +
         scale_fill_manual(values=c("#D55E00","#0072B2")) +
         labs(x = "Location") 
       #combining the tables
@@ -2155,7 +2157,7 @@ server <- function(input, output, session) {
       display_table_final <- rbind(na_rows, supr_rows, less_rows, other_rows)
       table_plot <- tableGrob(display_table_final, rows = NULL)
       #plot together
-      BW_map <- grid.arrange(suspension_counties_plot, table_plot, nrow=2, heights=c(3,1))
+      BW_map <- grid.arrange(suspension_counties_plot, table_plot, nrow=2, heights=c(4,1))
       BW_map
     }
   })
@@ -3324,9 +3326,10 @@ server <- function(input, output, session) {
               legend.title = element_blank(),
               legend.text = element_text(size=14),
               axis.text=element_text(size=15),
-              axis.text.x = element_text(size=8, face="bold"),
+              #axis.text.x = element_text(size=8, face="bold"),
               axis.title=element_text(size=17),
-              axis.title.x=element_blank()) 
+              axis.title.x=element_blank()) +
+        theme(axis.text.x = element_text(angle=40, vjust=0.95, hjust=1))
       #plot
       counties_pov 
     }
@@ -3374,9 +3377,10 @@ server <- function(input, output, session) {
               legend.title = element_blank(),
               legend.text = element_text(size=14),
               axis.text=element_text(size=15),
-              axis.text.x = element_text(size=10, face="bold"),
+              #axis.text.x = element_text(size=10, face="bold"),
               axis.title=element_text(size=17),
-              axis.title.x=element_blank()) 
+              axis.title.x=element_blank())+
+        theme(axis.text.x = element_text(angle=40, vjust=0.95, hjust=1))
       
       #plot
       counties_pov
