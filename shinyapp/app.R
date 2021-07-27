@@ -386,16 +386,17 @@ ui <- navbarPage(title = "Hampton Roads",
                                                                  ),
                                                                  p(strong("Percentage of Hampton Roads Population 25 years and older with highest educational attainment as Bachelor's degree or higher")),
                                                                  withSpinner(plotlyOutput("genEdAttainmentPlots")),
-                                                                 p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages. Some years also did not have data for specific counties/cities."))
+                                                                 p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages. Certain counties/cities may not have data for specific years."))
                                                         ),
                                                         tabPanel("Black Population",
                                                                  p(""),
-                                                                 selectInput("blackEdAttainmentYearDrop", "Select Year:", width = "100%", choices = c(
-                                                                   "2019","2018", "2017", "2016", "2015","2014",
-                                                                   "2013","2012", "2011", "2010")),
+                                                                 #selectInput("blackEdAttainmentYearDrop", "Select Year:", width = "100%", choices = c(
+                                                                #   "2019","2018", "2017", "2016", "2015","2014",
+                                                                #   "2013","2012", "2011", "2010")),
                                                                  p(strong("Black Educational Attainment")),
+                                                                 sliderInput("blackEdAttainmentYearDrop", "Select Year:", value = 2019, min = 2010, max = 2019, sep = "", animate=animationOptions(interval = 1400)),
                                                                  withSpinner(plotlyOutput("blackEdAttainmentPlots")),
-                                                                 p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages. Some years also did not have data for specific counties/cities or had partial data (like male or female only)."))
+                                                                 p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages. Certain counties/cities only had partial data (like male or female only) or no data at all for specific years."))
                                                                  #p(tags$small("Data Source: ACS 5 Year Estimate Table C15002B"))
                                                         )
                                                       )
@@ -557,7 +558,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                            "2019","2018", "2017", "2016", "2015","2014",
                                            "2013","2012", "2011", "2010")),
                                          withSpinner(plotlyOutput("sector_plot")),
-                                         p(tags$small("Note: Some year to year comparisions had very little variability in employment numbers per industry numbers. Some years also did not have data for specific counties/cities."))
+                                         p(tags$small("Note: Some year to year comparisions had very little variability in enrollement by industry sectors. Certain counties/cities may not have data for specific years."))
                                   ),
                                 )
                               ),
@@ -640,11 +641,11 @@ ui <- navbarPage(title = "Hampton Roads",
                               
                             )))),
                  
-                 tabPanel("DSPG Team", value = "team",
+                 tabPanel("VT DSPG Team", value = "team",
                           fluidRow(style = "margin-left: 300px; margin-right: 300px;",
-                                   h1(strong("Zimbabwe Team"), align = "center"),
+                                   h1(strong("Hampton Team"), align = "center"),
                                    br(),
-                                   h4(strong("UVA Data Science for the Public Good")),
+                                   h4(strong("Virginia Tech Data Science for the Public Good")),
                                    p("The", a(href = 'https://biocomplexity.virginia.edu/social-decision-analytics/dspg-program', 'Data Science for the Public Good (DSPG) Young Scholars program', target = "_blank"), 
                                      "is a summer immersive program held at the", a(href = 'https://biocomplexity.virginia.edu/social-decision-analytics', 'University of Virginia Biocomplexity Institute’s Social and Decision Analytics division (SDAD).'), 
                                      "In its seventh year, the program engages students from across the country to work together on projects that address state, federal, and local government challenges around 
@@ -660,17 +661,12 @@ ui <- navbarPage(title = "Hampton Roads",
                                           p("Avi Seth"),
                                           img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
                                           p("Matthew Burkholder"),
-                                          img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                          img(src = "VictorMukoraHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
                                           p("Victor Mukora"),
                                           img(src = "Christina_Prisbe_Headshot.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
                                           p("Christina Prisbe"),
                                           img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
                                           p("Kwabena Boateng")
-                                          
-                                          # p(a(href = 'https://www.linkedin.com/in/yang-cheng-200118191/', 'Yang Cheng', target = '_blank'), "(Virginia Tech, Agricultural and Applied Microeconomics);",
-                                          #   a(href = 'https://www.linkedin.com/in/tasfia-chowdhury-89005a1b2/', 'Tasfia Chowdhury', target = '_blank'), "(Indiana University Bloomington, Political Science);",
-                                          #   a(href = 'https://www.linkedin.com/in/igomez-3099/', 'Isabel Gomez', target = '_blank'), "(Smith College, Statistical and Data Science)."),
-                                          # p("", style = "padding-top:10px;")
                                    ),
                                    column(6, align = "center",
                                           h4(strong("Virginia Tech Faculty Members")),
@@ -678,13 +674,6 @@ ui <- navbarPage(title = "Hampton Roads",
                                           p("Dr. Chanita Holmes"),
                                           img(src = "Dr_Bradburn.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
                                           p("Dr. Isabel Bradburn")
-                                          # img(src = "team-teja.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                                          # img(src = "team-brandon.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                                          # img(src = "team-sallie.jpg", style = "display: inline; border: 1px solid #C0C0C0;", width = "150px"),
-                                          # p(a(href = "https://www.linkedin.com/in/tejapristavec/", 'Teja Pristavec', target = '_blank'), "(Project Lead, Research Assistant Professor);",
-                                          #   a(href = "https://biocomplexity.virginia.edu/brandon-kramer", 'Brandon Kramer', target = '_blank'), "(Postdoctoral Research Associate);",
-                                          #   a(href = 'https://biocomplexity.virginia.edu/sallie-keller', 'Sallie Keller', target = '_blank'), "(Division Director and Distinguished Professor)."),
-                                          # p("", style = "padding-top:10px;")
                                    )
                           ),
                           fluidRow(style = "margin-left: 300px; margin-right: 300px;",
@@ -1230,11 +1219,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2019, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table S1501", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1250,11 +1238,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2018, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table S1501", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1270,11 +1257,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2017, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table S1501", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1290,11 +1276,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2016, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table S1501", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1310,11 +1295,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2015, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table S1501", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1330,11 +1314,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2014, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table S1501", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1350,11 +1333,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2013, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table S1501", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1370,11 +1352,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2012, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table S1501", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1390,11 +1371,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2011, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table S1501", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1411,11 +1391,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2010, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table S1501", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table S1501", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
