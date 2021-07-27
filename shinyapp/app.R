@@ -435,7 +435,11 @@ ui <- navbarPage(title = "Hampton Roads",
                                         #        withSpinner(plotOutput("graph_va")),
                                         #        p(tags$small("Data Source: Kids Count Data Center"))
                                         # ),
-                                       
+                                       column(5,
+                                              h4("Students Suspended in Virgini from the 2014-2015 to 2017-2018 School Years"),
+                                              withSpinner(plotOutput("graph_va19")),
+                                              p(tags$small("Data Source: Kids Count Data Center"))
+                                              ),
                                         column(9,
                                                h4("Percent of Student Suspended from 2014 to 2019"),
                                                withSpinner(plotOutput("suspension_line_graph")),
@@ -1763,27 +1767,28 @@ server <- function(input, output, session) {
   )
   
   # VA suspension--------------------------------------------------------------
-  var_suspension <- reactive({
-    input$suspensionYearDrop
-  })
+  # var_suspension <- reactive({
+  #   input$suspensionYearDrop
+  # })
   
-  output$graph_va <- renderPlot({
-    if(var_suspension() == "2018-2019"){
-      year <- "2018-2019"
-    }
-    else if (var_suspension() == "AY 2017-2018") {
-      year <- "AY 2017-2018"
-    }
-    else if (var_suspension() == "AY 2016-2017") {
-      year <- "AY 2016-2017"
-    }
-    else if (var_suspension() == "AY 2015-2016") {
-      year <- "AY 2015-2016"
-    }
-    else if (var_suspension() == "AY 2014-2015") {
-      year <- "AY 2014-2015"
-    }
-    suspension_data <- read_excel("data/suspension/shortTermSuspension.xlsx")
+  output$graph_va19 <- renderPlot({
+    # if(var_suspension() == "2018-2019"){
+    #   year <- "2018-2019"
+    # }
+    # else if (var_suspension() == "AY 2017-2018") {
+    #   year <- "AY 2017-2018"
+    # }
+    # else if (var_suspension() == "AY 2016-2017") {
+    #   year <- "AY 2016-2017"
+    # }
+    # else if (var_suspension() == "AY 2015-2016") {
+    #   year <- "AY 2015-2016"
+    # }
+    # else if (var_suspension() == "AY 2014-2015") {
+    #   year <- "AY 2014-2015"
+    # }
+    year <- "2018-2019"
+    suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
     #using only  VA data for 2018-2019
     suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
     #VA percentage estimate for 2018-2019 (Black)
@@ -1798,7 +1803,7 @@ server <- function(input, output, session) {
     va_suspension_race <- mutate(va_suspension_race, Data = Data*100)
     va_suspension_race <- mutate(va_suspension_race, race = c("Black", "Hispanic", "White"))
     #Graph
-    graph_va <- ggplot(data=va_suspension_race, aes(x=race, y=Data)) +
+    graph_va19 <- ggplot(data=va_suspension_race, aes(x=race, y=Data)) +
       geom_bar(stat="identity", fill ="#0072B2")+
       geom_text(aes(label=paste0(round(Data, digits = 2), "%")), vjust=1.6, color="white", size=10)+
       theme_minimal()+
@@ -1807,7 +1812,7 @@ server <- function(input, output, session) {
             axis.text.y = element_blank(),
             axis.text.x = element_text(size=20)) 
     #plot
-    graph_va
+    graph_va19
     
   })
   
@@ -1895,25 +1900,8 @@ server <- function(input, output, session) {
   
   # suspension line graph
   output$suspension_line_graph <- renderPlot({
-    year <- "2018-2019"
-    suspension_data <- read_excel("data/suspension/shortTermSuspension.xlsx")
-    #using only  VA data for 2018-2019
-    suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
-    #VA percentage estimate for 2018-2019 (Black)
-    va_blck <- suspension_va %>% filter(Race == "Black") %>% filter(DataFormat == "Percent")
-    #VA percentage estimate for 2018-2019 (Hispanic)
-    va_hisp <- suspension_va %>% filter(Race == "Hispanic") %>% filter(DataFormat == "Percent")
-    #VA percentage estimate for 2018-2019 (white)
-    va_white <- suspension_va %>% filter(Race == "White") %>% filter(DataFormat == "Percent")
-    #combining the three percentages(b;ack, hispanic, white)
-    va_suspension_race19 <- rbind(va_blck[,6], va_hisp[,6], va_white[,6])
-    va_suspension_race19$Data <- as.numeric(va_suspension_race19$Data)
-    va_suspension_race19 <- mutate(va_suspension_race19, Data = Data*100)
-    va_suspension_race19 <- mutate(va_suspension_race19, race = c("Black", "Hispanic", "White"))
-    va_suspension_race19 <- mutate(va_suspension_race19, year = "2018-2019")
-    ##
     year <- "AY 2017-2018"
-    suspension_data <- read_excel("data/suspension/shortTermSuspension.xlsx")
+    suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
     #using only  VA data for 2018-2019
     suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
     #VA percentage estimate for 2018-2019 (Black)
@@ -1930,7 +1918,7 @@ server <- function(input, output, session) {
     va_suspension_race18 <- mutate(va_suspension_race18, year = "AY 2017-2018")
     ##
     year <- "AY 2016-2017"
-    suspension_data <- read_excel("data/suspension/shortTermSuspension.xlsx")
+    suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
     #using only  VA data for 2018-2019
     suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
     #VA percentage estimate for 2018-2019 (Black)
@@ -1947,7 +1935,7 @@ server <- function(input, output, session) {
     va_suspension_race17 <- mutate(va_suspension_race17, year = "AY 2016-2017")
     ##
     year <- "AY 2015-2016"
-    suspension_data <- read_excel("data/suspension/shortTermSuspension.xlsx")
+    suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
     #using only  VA data for 2018-2019
     suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
     #VA percentage estimate for 2018-2019 (Black)
@@ -1964,7 +1952,7 @@ server <- function(input, output, session) {
     va_suspension_race16 <- mutate(va_suspension_race16, year = "AY 2015-2016")
     ##
     year <- "AY 2014-2015"
-    suspension_data <- read_excel("data/suspension/shortTermSuspension.xlsx")
+    suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
     #using only  VA data for 2018-2019
     suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
     #VA percentage estimate for 2018-2019 (Black)
@@ -1980,7 +1968,7 @@ server <- function(input, output, session) {
     va_suspension_race15 <- mutate(va_suspension_race15, race = c("Black", "Hispanic", "White"))
     va_suspension_race15 <- mutate(va_suspension_race15, year = "AY 2014-2015")
     ##
-    suspension_line <- rbind(va_suspension_race19, va_suspension_race18, va_suspension_race17, va_suspension_race16, va_suspension_race15)
+    suspension_line <- rbind(va_suspension_race18, va_suspension_race17, va_suspension_race16, va_suspension_race15)
     suspension_line_graph <- ggplot(suspension_line, aes(x=year, y=Data, group = race, color = race)) + 
       geom_line(position = "identity", size =1.3) +
       theme_minimal() +
@@ -2006,89 +1994,193 @@ server <- function(input, output, session) {
   })
   
   output$BW_map <- renderPlot({
+    
     if(var_BWsuspension() == "2018-2019"){
       year <- "2018-2019"
+      suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
+      city <- c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
+                "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
+                "Williamsburg", "York")
+      suspension_counties <-filter(suspension_data, Location %in% city)
+      
+      pct_white<- suspension_counties %>% filter(Race=="White") %>%
+        filter(DataFormat=="Percent")
+      pct_white2 <- pct_white %>% filter(TimeFrame==year)
+      pct_white2$Location[pct_white2$Location == "Williamsburg"] <- "Williamsburg-James City"
+      pct_white2 <- pct_white2[c(1:5,7:16),]
+      #putting NAs and Ss in a table
+      #pct_white2$Data[is.na(pct_white2$Data)] <- "NA"
+      display_tbl_white <- pct_white2 %>% filter(Data %in% c("NA", "S", "<", "*"))
+      display_tbl_white2<- display_tbl_white[,c(2,3,6)]
+      pct_white2$Data[pct_white2$Data=="NA"] <- 0
+      pct_white2$Data[pct_white2$Data=="S"] <- 0
+      pct_white2$Data[pct_white2$Data=="<"] <- 0
+      pct_white2$Data[pct_white2$Data=="*"] <- 0
+      #adding estimates by 100 (need to convert to numeric first)
+      pct_white2$Data <- sapply(pct_white2$Data, as.numeric)
+      pct_white2 <- mutate(pct_white2, pct = Data *100)
+      pct_white2$pct <- na_if(pct_white2$pct,0.00000)
+      as.numeric(pct_white2$pct, na.rm = TRUE)
+      #labeling
+      pct_white3 <- pct_white2[,c(2,7)]
+      colnames(pct_white3) <- c("Location", "Percentage of Students (%)")
+      #black data
+      suspension_pct<- suspension_counties %>% filter(Race=="Black") %>%
+        filter(DataFormat=="Percent")
+      suspension_pct2 <- suspension_pct %>% filter(TimeFrame==year)
+      suspension_pct2$Location[suspension_pct2$Location == "Williamsburg"] <- "Williamsburg-James City"
+      suspension_pct2 <- suspension_pct2[c(1:5,7:16),]
+      #make a table w/ NA a S
+      suspension_pct2$Data[is.na(suspension_pct2$Data)] <- "NA"
+      display_tbl_black <- suspension_pct2 %>% filter(Data %in% c("NA", "S","<", "*"))
+      display_tbl_black2 <- display_tbl_black[,c(2,3,6)]
+      suspension_pct2$Data[suspension_pct2$Data=="NA"] <- 0
+      suspension_pct2$Data[suspension_pct2$Data=="S"] <- 0
+      suspension_pct2$Data[suspension_pct2$Data=="<"] <- 0
+      suspension_pct2$Data[suspension_pct2$Data=="*"] <- 0
+      #convert data column to numeric so we can multiply by 100
+      suspension_pct2$Data <- sapply(suspension_pct2$Data, as.numeric)
+      suspension_pct2 <- mutate(suspension_pct2, pct = Data *100)
+      suspension_pct2$pct <- na_if(suspension_pct2$pct,0.00000)
+      as.numeric(suspension_pct2$pct, na.rm = TRUE)
+      pct_blck <-suspension_pct2[,c(2,7)]
+      colnames(pct_blck) <- c("Location", "Percentage of Students (%)")
+      sus <- rbind(pct_blck,pct_white3)
+      num <- nrow(sus)/2
+      sus <- mutate(sus, race = c(rep("Black Students",num), rep("White Students", num)))
+      #bar graph
+      suspension_counties_plot <-
+        ggplot(sus , aes(Location, y=`Percentage of Students (%)`, fill=race)) +
+        geom_bar(stat="identity", position=position_dodge())+
+        geom_text(aes(label=paste0(round(`Percentage of Students (%)`, digits=2), "%")), vjust=1.5, color="white",
+                  position = position_dodge(0.9), size=3)+
+        theme_minimal() + 
+        theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'), 
+              legend.key.height = unit(0.5, 'cm'), 
+              legend.key.width = unit(0.5, 'cm'), 
+              legend.title = element_blank(),
+              legend.text = element_text(size=14),
+              axis.text=element_text(size=15),
+              axis.text.x = element_text(size=10, face="bold"),
+              axis.title=element_text(size=17),
+              axis.title.x=element_blank()) +
+        scale_fill_manual(values=c("#D55E00","#0072B2")) +
+        labs(x = "Location") 
+      #combining the tables
+      display_table <- rbind(display_tbl_white2, display_tbl_black2)
+      na_rows <- display_table %>% filter(Data == "NA")
+      supr_rows <- display_table %>% filter(Data == "S")
+      less_rows <- display_table %>% filter(Data == "<")
+      other_rows <- display_table %>% filter(Data == "*")
+      supr_rows <- mutate(supr_rows, Data = "Suppressed")
+      other_rows <- mutate(other_rows, Data = "Suppressed")
+      less_rows <- mutate(less_rows, Data = "less than 10")
+      display_table_final <- rbind(na_rows, supr_rows, less_rows, other_rows)
+      table_plot <- tableGrob(display_table_final, rows = NULL)
+      #plot together
+      BW_map <- grid.arrange(suspension_counties_plot, table_plot, nrow=2, heights=c(3,1))
+      BW_map
+      
     }
-    else if (var_BWsuspension() == "AY 2017-2018") {
-      year <- "AY 2017-2018"
+    else if (var_BWsuspension() %in% c("AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")){
+      if (var_BWsuspension() == "AY 2017-2018") {
+        year <- "AY 2017-2018"
+      }
+      else if (var_BWsuspension() == "AY 2016-2017") {
+        year <- "AY 2016-2017"
+      }
+      else if (var_BWsuspension() == "AY 2015-2016") {
+        year <- "AY 2015-2016"
+      }
+      else if (var_BWsuspension() == "AY 2014-2015") {
+        year <- "AY 2014-2015"
+      }
+      suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
+      city <- c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
+                "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
+                "Williamsburg", "York")
+      suspension_counties <-filter(suspension_data, Location %in% city)
+      
+      pct_white<- suspension_counties %>% filter(Race=="White") %>%
+        filter(DataFormat=="Percent")
+      pct_white2 <- pct_white %>% filter(TimeFrame==year)
+      pct_white2$Location[pct_white2$Location == "James City"] <- "Williamsburg-James City"
+      pct_white2$Location[pct_white2$Location == "Williamsburg"] <- "Williamsburg-James City"
+      #putting NAs and Ss in a table
+      pct_white2$Data[is.na(pct_white2$Data)] <- "NA"
+      display_tbl_white <- pct_white2 %>% filter(Data %in% c("NA", "S", "<", "*"))
+      display_tbl_white2<- display_tbl_white[,c(2,3,6)]
+      pct_white2$Data[pct_white2$Data=="NA"] <- 0
+      pct_white2$Data[pct_white2$Data=="S"] <- 0
+      pct_white2$Data[pct_white2$Data=="<"] <- 0
+      pct_white2$Data[pct_white2$Data=="*"] <- 0
+      #adding estimates by 100 (need to convert to numeric first)
+      pct_white2$Data <- sapply(pct_white2$Data, as.numeric)
+      pct_white2 <- mutate(pct_white2, pct = Data *100)
+      pct_white2$pct <- na_if(pct_white2$pct,0.00000)
+      as.numeric(pct_white2$pct, na.rm = TRUE)
+      #labeling
+      pct_white3 <- pct_white2[,c(2,7)]
+      colnames(pct_white3) <- c("Location", "Percentage of Students (%)")
+      #black data
+      suspension_pct<- suspension_counties %>% filter(Race=="Black") %>%
+        filter(DataFormat=="Percent")
+      suspension_pct2 <- suspension_pct %>% filter(TimeFrame==year)
+      suspension_pct2$Location[suspension_pct2$Location == "James City"] <- "Williamsburg-James City"
+      suspension_pct2$Location[suspension_pct2$Location == "Williamsburg"] <- "Williamsburg-James City"
+      #make a table w/ NA a S
+      suspension_pct2$Data[is.na(suspension_pct2$Data)] <- "NA"
+      display_tbl_black <- suspension_pct2 %>% filter(Data %in% c("NA", "S","<", "*"))
+      display_tbl_black2 <- display_tbl_black[,c(2,3,6)]
+      suspension_pct2$Data[suspension_pct2$Data=="NA"] <- 0
+      suspension_pct2$Data[suspension_pct2$Data=="S"] <- 0
+      suspension_pct2$Data[suspension_pct2$Data=="<"] <- 0
+      suspension_pct2$Data[suspension_pct2$Data=="*"] <- 0
+      #convert data column to numeric so we can multiply by 100
+      suspension_pct2$Data <- sapply(suspension_pct2$Data, as.numeric)
+      suspension_pct2 <- mutate(suspension_pct2, pct = Data *100)
+      suspension_pct2$pct <- na_if(suspension_pct2$pct,0.00000)
+      as.numeric(suspension_pct2$pct, na.rm = TRUE)
+      pct_blck <-suspension_pct2[,c(2,7)]
+      colnames(pct_blck) <- c("Location", "Percentage of Students (%)")
+      sus <- rbind(pct_blck,pct_white3)
+      num <- nrow(sus)/2
+      sus <- mutate(sus, race = c(rep("Black Students",num), rep("White Students", num)))
+      #bar graph
+      suspension_counties_plot <-
+        ggplot(sus , aes(Location, y=`Percentage of Students (%)`, fill=race)) +
+        geom_bar(stat="identity", position=position_dodge())+
+        geom_text(aes(label=paste0(round(`Percentage of Students (%)`, digits=2), "%")), vjust=1.5, color="white",
+                  position = position_dodge(0.9), size=3)+
+        theme_minimal() + 
+        theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'), 
+              legend.key.height = unit(0.5, 'cm'), 
+              legend.key.width = unit(0.5, 'cm'), 
+              legend.title = element_blank(),
+              legend.text = element_text(size=14),
+              axis.text=element_text(size=15),
+              axis.text.x = element_text(size=10, face="bold"),
+              axis.title=element_text(size=17),
+              axis.title.x=element_blank()) +
+        scale_fill_manual(values=c("#D55E00","#0072B2")) +
+        labs(x = "Location") 
+      #combining the tables
+      display_table <- rbind(display_tbl_white2, display_tbl_black2)
+      na_rows <- display_table %>% filter(Data == "NA")
+      supr_rows <- display_table %>% filter(Data == "S")
+      less_rows <- display_table %>% filter(Data == "<")
+      other_rows <- display_table %>% filter(Data == "*")
+      supr_rows <- mutate(supr_rows, Data = "Suppressed")
+      other_rows <- mutate(other_rows, Data = "Suppressed")
+      less_rows <- mutate(less_rows, Data = "less than 10")
+      display_table_final <- rbind(na_rows, supr_rows, less_rows, other_rows)
+      table_plot <- tableGrob(display_table_final, rows = NULL)
+      #plot together
+      BW_map <- grid.arrange(suspension_counties_plot, table_plot, nrow=2, heights=c(3,1))
+      BW_map
     }
-    else if (var_BWsuspension() == "AY 2016-2017") {
-      year <- "AY 2016-2017"
-    }
-    else if (var_BWsuspension() == "AY 2015-2016") {
-      year <- "AY 2015-2016"
-    }
-    else if (var_BWsuspension() == "AY 2014-2015") {
-      year <- "AY 2014-2015"
-    }
-    suspension_data <- read_excel("data/suspension/shortTermSuspension.xlsx")
-    city <- c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
-              "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
-              "Williamsburg", "York")
-    suspension_counties <-filter(suspension_data, Location %in% city)
-    pct_white<- suspension_counties %>% filter(Race=="White") %>%
-      filter(DataFormat=="Percent")
-    pct_white2 <- pct_white %>% filter(TimeFrame==year)
-    #putting NAs and Ss in a table
-    display_tbl_white <-pct_white2 %>% filter(Data %in% c("NA", "S"))
-    display_tbl_white2<- display_tbl_white[,c(2,3,6)]
-    pct_white2$Data[pct_white2$Data=="NA"] <- 0
-    pct_white2$Data[pct_white2$Data=="S"] <- 0
-    #adding estimates by 100 (need to convert to numeric first)
-    pct_white2$Data <- sapply(pct_white2$Data, as.numeric)
-    pct_white2 <- mutate(pct_white2, pct = Data *100)
-    pct_white2$pct <- na_if(pct_white2$pct,0.00000)
-    as.numeric(pct_white2$pct, na.rm = TRUE)
-    #labeling
-    pct_white3 <- pct_white2[,c(2,7)]
-    colnames(pct_white3) <- c("Location", "Percentage of Students (%)")
-    #black data
-    suspension_pct<- suspension_counties %>% filter(Race=="Black") %>%
-      filter(DataFormat=="Percent")
-    suspension_pct2 <- suspension_pct %>% filter(TimeFrame==year)
-    #make a table w/ NA a S
-    display_tbl_black <- suspension_pct2 %>% filter(Data %in% c("NA", "S"))
-    display_tbl_black2 <- display_tbl_black[,c(2,3,6)]
-    suspension_pct2$Data[suspension_pct2$Data=="NA"] <- 0
-    suspension_pct2$Data[suspension_pct2$Data=="S"] <- 0
-    #convert data column to numeric so we can multiply by 100
-    suspension_pct2$Data <- sapply(suspension_pct2$Data, as.numeric)
-    suspension_pct2 <- mutate(suspension_pct2, pct = Data *100)
-    suspension_pct2$pct <- na_if(suspension_pct2$pct,0.00000)
-    as.numeric(suspension_pct2$pct, na.rm = TRUE)
-    pct_blck <-suspension_pct2[,c(2,7)]
-    colnames(pct_blck) <- c("Location", "Percentage of Students (%)")
-    sus <- rbind(pct_blck,pct_white3)
-    sus <- mutate(sus, race = c(rep("Black Students",16), rep("White Students", 16)))
-    #bar graph
-    suspension_counties_plot <-
-      ggplot(sus , aes(Location, y=`Percentage of Students (%)`, fill=race)) +
-      geom_bar(stat="identity", position=position_dodge())+
-      geom_text(aes(label=paste0(round(`Percentage of Students (%)`, digits=2), "%")), vjust=1.5, color="white",
-                position = position_dodge(0.9), size=2)+
-      theme_minimal() + 
-      theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'), 
-            legend.key.height = unit(0.3, 'cm'), 
-            legend.key.width = unit(0.3, 'cm'), 
-            legend.title = element_blank(),
-            legend.text = element_text(size=14),
-            axis.text=element_text(size=15),
-            axis.text.x = element_text(size=8, face="bold"),
-            axis.title=element_text(size=17),
-            axis.title.x=element_blank()) +
-      scale_fill_manual(values=c("#D55E00","#0072B2")) +
-      labs(x = "Location") 
-    #combining the tables
-    display_table <- rbind(display_tbl_white2, display_tbl_black2)
-    na_rows <- display_table %>% filter(Data == "NA")
-    supr_rows <- display_table %>% filter(Data == "S")
-    supr_rows <- mutate(supr_rows, Data = "Suppressed")
-    display_table_final <- rbind(na_rows, supr_rows)
-    table_plot <- tableGrob(display_table_final, rows = NULL)
-    #plot together
-    BW_map <- grid.arrange(suspension_counties_plot, table_plot, nrow=2, heights=c(3,1))
-    BW_map
   })
+  
   
   # Dropout Rates -----------------------------------------------------------
   
