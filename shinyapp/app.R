@@ -213,7 +213,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                 fluidRow(style = "margin: 6px;",
                                          h1(strong("Counties and Cities of Hampton Roads"), align = "center"),
                                          column(9,
-                                                withSpinner((plotOutput("hampton_counties_map", width ="100%")))
+                                                withSpinner((plotOutput("hampton_counties_map", width ="100%", height = "600px")))
                                                 ),
                                          column(3,
                                                 h4(strong("What is Hampton Roads (HR)?")),
@@ -312,7 +312,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                  "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
                                                )),
                                                p(strong("Hampton Roads Counties and Cities' Age Breakdown")),
-                                               withSpinner(plotOutput("age_map")),
+                                               withSpinner(plotOutput("age_map", height="600px")),
                                                p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
                                         ),
                                         
@@ -1181,7 +1181,9 @@ server <- function(input, output, session) {
     #Graph
     age_map <- ggplot(coordinates2) +
       geom_sf() +
-      geom_sf_label(aes(label=Loc,geometry = geometry), label.padding = unit(.5, "mm"), size =4, nudge_x=0.05, nudge_y = 0.1) +
+      geom_scatterpie(aes(x=lon, y=lat, group=county, r =0.05), data=general_county_alt2,
+                      cols=LETTERS[1:5]) +
+      geom_sf_label(aes(label=Loc,geometry = geometry), label.padding = unit(.5, "mm"), size =4, nudge_x=0.05, nudge_y = 0.05) +
       theme(plot.title = element_text(hjust = 0.5),
             axis.title.x=element_blank(),
             axis.text.x=element_blank(),
@@ -1191,8 +1193,8 @@ server <- function(input, output, session) {
             axis.ticks.y=element_blank(),
             legend.title = element_blank(),
             legend.text = element_text(size=13)) +
-      geom_scatterpie(aes(x=lon, y=lat, group=county, r =0.05), data=general_county_alt2,
-                      cols=LETTERS[1:5]) + 
+      #geom_scatterpie(aes(x=lon, y=lat, group=county, r =0.05), data=general_county_alt2,
+         #             cols=LETTERS[1:5]) + 
       scale_fill_viridis_d(labels = c("Under 18", "Young Adult: 18 to 29", "Adult: 30 to 44",
                                       "Middle Age: 45 to 64","Senior: 65 and Older")) 
     #plot
