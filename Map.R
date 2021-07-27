@@ -592,12 +592,12 @@ View(teacherByRace)
 
 #keep.cols <- c("Division Name",'Total Counts','Black')
 #teacherByRace <- teacherByRace[, names(teacherByRace) %in% keep.cols]
-teacherByRace$BlackProportions <- teacherByRace$Black/teacherByRace$`Total Counts`
-teacherByRace$AsianProportions <- teacherByRace$Asian/teacherByRace$`Total Counts`
-teacherByRace$HispanicProportions <- teacherByRace$Hispanic/teacherByRace$`Total Counts`
-teacherByRace$WhiteProportions <- teacherByRace$White/teacherByRace$`Total Counts`
-teacherByRace$AmericanIndianProportions<- teacherByRace$`American Indian`/teacherByRace$`Total Counts`
-teacherByRace$TwoOrMoreRacesProportions <- teacherByRace$`Two or More Races`/teacherByRace$`Total Counts`
+teacherByRace$BlackProportions <- (teacherByRace$Black/teacherByRace$`Total Counts`) * 100
+teacherByRace$AsianProportions <- (teacherByRace$Asian/teacherByRace$`Total Counts`) * 100
+teacherByRace$HispanicProportions <- (teacherByRace$Hispanic/teacherByRace$`Total Counts`) * 100
+teacherByRace$WhiteProportions <- (teacherByRace$White/teacherByRace$`Total Counts`) * 100
+teacherByRace$AmericanIndianProportions<- (teacherByRace$`American Indian`/teacherByRace$`Total Counts`) * 100
+teacherByRace$TwoOrMoreRacesProportions <- (teacherByRace$`Two or More Races`/teacherByRace$`Total Counts`) * 100
 teacherByRace$HawaiianProportions <- teacherByRace$`Hawaiian`/teacherByRace$`Total Counts`
 teacherByRace <- teacherByRace %>% mutate(`Division Name` = str_remove(`Division Name`, "County Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City"))
 write_csv(teacherByRace, file = ("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/teacherByRacesBreakdown.csv"))

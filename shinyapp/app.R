@@ -426,25 +426,33 @@ ui <- navbarPage(title = "Hampton Roads",
                               tabItem(tabName = "suspension",
                                       fluidRow(
                                         h1(strong("Short Term Suspension"), align = "center"),
-                                        column(5,
-                                               h4("Virgina Suspensions"),
+                                        # column(5,
+                                        #        h4("Virgina Suspensions"),
+                                        #        
+                                        #        selectInput("suspensionYearDrop", "Select Year:", width = "100%", choices = c(
+                                        #          "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
+                                        #        p(strong("Virgina Suspensions")),
+                                        #        withSpinner(plotOutput("graph_va")),
+                                        #        p(tags$small("Data Source: Kids Count Data Center"))
+                                        # ),
+                                       
+                                        column(9,
+                                               h4("Percent of Student Suspended from 2014 to 2019"),
+                                               withSpinner(plotOutput("suspension_line_graph")),
+                                               p(tags$small("Data Source: Kids Count Data Center"))
+                                        ),
+                                        column(3,
+                                               h4("Academic Suspension"),
                                                
-                                               selectInput("suspensionYearDrop", "Select Year:", width = "100%", choices = c(
-                                                 "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
-                                               p(strong("Virgina Suspensions")),
-                                               withSpinner(plotOutput("graph_va")),
-                                               p(tags$small("Data Source: Kids Count Data Center"))
                                         ),
-                                        column(5,
-                                               h4("Academic Punishments")
-                                        ),
-                                        column(7, width = 12,
-                                               h4("Percent of Black Students Suspended"),
-                                               selectInput("BsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
-                                                 "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
-                                               withSpinner(plotOutput("black_map")),
-                                               p(tags$small("Data Source: Kids Count Data Center"))
-                                        ),
+                                      
+                                        # column(7, width = 12,
+                                        #        h4("Percent of Black Students Suspended"),
+                                        #        selectInput("BsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
+                                        #          "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
+                                        #        withSpinner(plotOutput("black_map")),
+                                        #        p(tags$small("Data Source: Kids Count Data Center"))
+                                        #),
                                         column(7, width = 12,
                                                h4("Percent of Black and White Students Suspended in Hampton Roads"),
                                                selectInput("BWsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
@@ -1461,10 +1469,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       va_tot_education_bar2019 #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2019, tooltip=c("x", "y", "Gender"))) %>% 
-        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
                                   showarrow = F, xref='paper', yref='paper', 
                                   xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=15, color="black"))
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1481,11 +1489,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2018, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1502,11 +1509,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2017, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1523,11 +1529,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2016, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1544,11 +1549,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2015, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1565,11 +1569,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2014, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1586,11 +1589,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2013, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1607,11 +1609,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2012, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1628,11 +1629,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2011, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1649,11 +1649,10 @@ server <- function(input, output, session) {
                                x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(va_tot_education_bar2010, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table C15002B", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table C15002B", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1679,11 +1678,10 @@ server <- function(input, output, session) {
         labs(title = "Black Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1697,11 +1695,10 @@ server <- function(input, output, session) {
         labs(title = "Asian Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1715,11 +1712,10 @@ server <- function(input, output, session) {
         labs(title = "White Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1733,11 +1729,10 @@ server <- function(input, output, session) {
         labs(title = "Hispanic Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1751,11 +1746,10 @@ server <- function(input, output, session) {
         labs(title = "American Indian Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1769,12 +1763,11 @@ server <- function(input, output, session) {
         labs(title = "Two or More Races Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
-        )  
+        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
+        )
       
     }
     
@@ -1788,11 +1781,10 @@ server <- function(input, output, session) {
         labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = 
-                 list(x = 1, y = -0.6, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
-                      showarrow = F, xref='paper', yref='paper', 
-                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                      font=list(size=15, color="black"))
+        layout(annotations = list(x = 1, y = -0.60, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
+                                  showarrow = F, xref='paper', yref='paper', 
+                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                  font=list(size=10, color="black"))
         )
     }
     
@@ -1849,86 +1841,193 @@ server <- function(input, output, session) {
   })
   
   # Black suspension map -----------------------------------------------------
+  # 
+  # var_Bsuspension <- reactive({
+  #   input$BsuspensionYearDrop
+  # })
+  # 
+  # output$black_map <- renderPlot({
+  #   if(var_Bsuspension() == "2018-2019"){
+  #     year <- "2018-2019"
+  #   }
+  #   else if (var_Bsuspension() == "AY 2017-2018") {
+  #     year <- "AY 2017-2018"
+  #   }
+  #   else if (var_Bsuspension() == "AY 2016-2017") {
+  #     year <- "AY 2016-2017"
+  #   }
+  #   else if (var_Bsuspension() == "AY 2015-2016") {
+  #     year <- "AY 2015-2016"
+  #   }
+  #   else if (var_Bsuspension() == "AY 2014-2015") {
+  #     year <- "AY 2014-2015"
+  #   }
+  #   coord_data <- read_rds("data/suspension/coordinates.rds")
+  #   coord_data <- st_transform(coord_data)
+  #   coordinates1 <- coord_data %>% group_by(NAME) %>% slice(1)
+  #   coordinates2 <- coordinates1[,6]
+  #   city <- c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
+  #             "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
+  #             "Williamsburg", "York")
+  #   coordinates2 <- mutate(coordinates2, Location = city)
+  #   suspension_counties <-filter(suspension_data, Location %in% city)
+  #   #using percentages instead of number estimates (black)
+  #   suspension_pct<- suspension_counties %>% filter(Race=="Black") %>%
+  #     filter(DataFormat=="Percent")
+  #   suspension_pct2 <- suspension_pct %>% filter(TimeFrame==year)
+  #   #make a table w/ NA a S
+  #   display_tbl <- suspension_pct2 %>% filter(Data %in% c("NA", "S"))
+  #   display_tbl <- display_tbl[,c(2,6)]
+  #   suspension_pct2$Data[suspension_pct2$Data=="NA"] <- 0
+  #   suspension_pct2$Data[suspension_pct2$Data=="S"] <- 0
+  #   #convert data column to numeric so we can multiply by 100
+  #   suspension_pct2$Data <- sapply(suspension_pct2$Data, as.numeric)
+  #   suspension_pct2 <- mutate(suspension_pct2, pct = Data *100)
+  #   #adding geometry column(coordinates)
+  #   suspension_pct3 <- merge(suspension_pct2, coordinates2, by = "Location")
+  #   suspension_pct4 <- suspension_pct3[,c(1,7,8)]
+  #   #add back the NA (S will be NA. We have a table to clarify)
+  #   suspension_pct4$pct <- na_if(suspension_pct4$pct,0.00000)
+  #   as.numeric(suspension_pct4$pct, na.rm = TRUE)
+  #   #Graph
+  #   graph_blck <-
+  #     suspension_pct4 %>%
+  #     ggplot() +
+  #     geom_sf(aes(fill = pct, geometry = geometry))+
+  #     geom_sf_label(aes(label=Location,geometry = geometry), label.padding = unit(.5, "mm"), size =4) +
+  #     theme(plot.title = element_text(hjust = 0.5),
+  #           axis.title.x=element_blank(),
+  #           axis.text.x=element_blank(),
+  #           axis.ticks.x=element_blank(),
+  #           axis.title.y=element_blank(),
+  #           axis.text.y=element_blank(),
+  #           axis.ticks.y=element_blank(),
+  #           legend.title = element_blank(),
+  #           legend.text = element_text(size=13)) +
+  #     scale_fill_gradient(high = "#132B43",
+  #                         low = "#56B1F7",
+  #                         space = "Lab",
+  #                         na.value = "grey50",
+  #                         guide = "colourbar",
+  #                         aesthetics = "fill") +
+  #     guides(colour=guide_legend("No data", override.aes=list(colour="grey50")))
+  #   #display table
+  #   na_rows <- display_tbl %>% filter(Data == "NA")
+  #   supr_rows <- display_tbl %>% filter(Data == "S")
+  #   supr_rows <- mutate(supr_rows, Data = "Suppressed")
+  #   display_tbl_final <- rbind(na_rows, supr_rows)
+  #   table_plot <- tableGrob(display_tbl_final, rows = NULL)
+  #   #plot together
+  #   black_map <- grid.arrange(graph_blck, table_plot, nrow=2, heights=c(3,1))
+  #   black_map
+  # })
   
-  var_Bsuspension <- reactive({
-    input$BsuspensionYearDrop
+  # suspension line graph
+  output$suspension_line_graph <- renderPlot({
+    year <- "2018-2019"
+    suspension_data <- read_excel("data/suspension/shortTermSuspension.xlsx")
+    #using only  VA data for 2018-2019
+    suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
+    #VA percentage estimate for 2018-2019 (Black)
+    va_blck <- suspension_va %>% filter(Race == "Black") %>% filter(DataFormat == "Percent")
+    #VA percentage estimate for 2018-2019 (Hispanic)
+    va_hisp <- suspension_va %>% filter(Race == "Hispanic") %>% filter(DataFormat == "Percent")
+    #VA percentage estimate for 2018-2019 (white)
+    va_white <- suspension_va %>% filter(Race == "White") %>% filter(DataFormat == "Percent")
+    #combining the three percentages(b;ack, hispanic, white)
+    va_suspension_race19 <- rbind(va_blck[,6], va_hisp[,6], va_white[,6])
+    va_suspension_race19$Data <- as.numeric(va_suspension_race19$Data)
+    va_suspension_race19 <- mutate(va_suspension_race19, Data = Data*100)
+    va_suspension_race19 <- mutate(va_suspension_race19, race = c("Black", "Hispanic", "White"))
+    va_suspension_race19 <- mutate(va_suspension_race19, year = "2018-2019")
+    ##
+    year <- "AY 2017-2018"
+    suspension_data <- read_excel("data/suspension/shortTermSuspension.xlsx")
+    #using only  VA data for 2018-2019
+    suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
+    #VA percentage estimate for 2018-2019 (Black)
+    va_blck <- suspension_va %>% filter(Race == "Black") %>% filter(DataFormat == "Percent")
+    #VA percentage estimate for 2018-2019 (Hispanic)
+    va_hisp <- suspension_va %>% filter(Race == "Hispanic") %>% filter(DataFormat == "Percent")
+    #VA percentage estimate for 2018-2019 (white)
+    va_white <- suspension_va %>% filter(Race == "White") %>% filter(DataFormat == "Percent")
+    #combining the three percentages(b;ack, hispanic, white)
+    va_suspension_race18 <- rbind(va_blck[,6], va_hisp[,6], va_white[,6])
+    va_suspension_race18$Data <- as.numeric(va_suspension_race18$Data)
+    va_suspension_race18 <- mutate(va_suspension_race18, Data = Data*100)
+    va_suspension_race18 <- mutate(va_suspension_race18, race = c("Black", "Hispanic", "White"))
+    va_suspension_race18 <- mutate(va_suspension_race18, year = "AY 2017-2018")
+    ##
+    year <- "AY 2016-2017"
+    suspension_data <- read_excel("data/suspension/shortTermSuspension.xlsx")
+    #using only  VA data for 2018-2019
+    suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
+    #VA percentage estimate for 2018-2019 (Black)
+    va_blck <- suspension_va %>% filter(Race == "Black") %>% filter(DataFormat == "Percent")
+    #VA percentage estimate for 2018-2019 (Hispanic)
+    va_hisp <- suspension_va %>% filter(Race == "Hispanic") %>% filter(DataFormat == "Percent")
+    #VA percentage estimate for 2018-2019 (white)
+    va_white <- suspension_va %>% filter(Race == "White") %>% filter(DataFormat == "Percent")
+    #combining the three percentages(b;ack, hispanic, white)
+    va_suspension_race17 <- rbind(va_blck[,6], va_hisp[,6], va_white[,6])
+    va_suspension_race17$Data <- as.numeric(va_suspension_race17$Data)
+    va_suspension_race17 <- mutate(va_suspension_race17, Data = Data*100)
+    va_suspension_race17 <- mutate(va_suspension_race17, race = c("Black", "Hispanic", "White"))
+    va_suspension_race17 <- mutate(va_suspension_race17, year = "AY 2016-2017")
+    ##
+    year <- "AY 2015-2016"
+    suspension_data <- read_excel("data/suspension/shortTermSuspension.xlsx")
+    #using only  VA data for 2018-2019
+    suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
+    #VA percentage estimate for 2018-2019 (Black)
+    va_blck <- suspension_va %>% filter(Race == "Black") %>% filter(DataFormat == "Percent")
+    #VA percentage estimate for 2018-2019 (Hispanic)
+    va_hisp <- suspension_va %>% filter(Race == "Hispanic") %>% filter(DataFormat == "Percent")
+    #VA percentage estimate for 2018-2019 (white)
+    va_white <- suspension_va %>% filter(Race == "White") %>% filter(DataFormat == "Percent")
+    #combining the three percentages(b;ack, hispanic, white)
+    va_suspension_race16 <- rbind(va_blck[,6], va_hisp[,6], va_white[,6])
+    va_suspension_race16$Data <- as.numeric(va_suspension_race16$Data)
+    va_suspension_race16 <- mutate(va_suspension_race16, Data = Data*100)
+    va_suspension_race16 <- mutate(va_suspension_race16, race = c("Black", "Hispanic", "White"))
+    va_suspension_race16 <- mutate(va_suspension_race16, year = "AY 2015-2016")
+    ##
+    year <- "AY 2014-2015"
+    suspension_data <- read_excel("data/suspension/shortTermSuspension.xlsx")
+    #using only  VA data for 2018-2019
+    suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
+    #VA percentage estimate for 2018-2019 (Black)
+    va_blck <- suspension_va %>% filter(Race == "Black") %>% filter(DataFormat == "Percent")
+    #VA percentage estimate for 2018-2019 (Hispanic)
+    va_hisp <- suspension_va %>% filter(Race == "Hispanic") %>% filter(DataFormat == "Percent")
+    #VA percentage estimate for 2018-2019 (white)
+    va_white <- suspension_va %>% filter(Race == "White") %>% filter(DataFormat == "Percent")
+    #combining the three percentages(b;ack, hispanic, white)
+    va_suspension_race15 <- rbind(va_blck[,6], va_hisp[,6], va_white[,6])
+    va_suspension_race15$Data <- as.numeric(va_suspension_race15$Data)
+    va_suspension_race15 <- mutate(va_suspension_race15, Data = Data*100)
+    va_suspension_race15 <- mutate(va_suspension_race15, race = c("Black", "Hispanic", "White"))
+    va_suspension_race15 <- mutate(va_suspension_race15, year = "AY 2014-2015")
+    ##
+    suspension_line <- rbind(va_suspension_race19, va_suspension_race18, va_suspension_race17, va_suspension_race16, va_suspension_race15)
+    suspension_line_graph <- ggplot(suspension_line, aes(x=year, y=Data, group = race, color = race)) + 
+      geom_line(position = "identity", size =1.3) +
+      theme_minimal() +
+      theme(
+        axis.title.x = element_blank(),
+        legend.title = element_blank()) +
+      labs(y ="Percent of Students Suspended (%)") +
+      scale_color_viridis_d()
+    #plot
+     suspension_line_graph
+
+    
   })
   
-  output$black_map <- renderPlot({
-    if(var_Bsuspension() == "2018-2019"){
-      year <- "2018-2019"
-    }
-    else if (var_Bsuspension() == "AY 2017-2018") {
-      year <- "AY 2017-2018"
-    }
-    else if (var_Bsuspension() == "AY 2016-2017") {
-      year <- "AY 2016-2017"
-    }
-    else if (var_Bsuspension() == "AY 2015-2016") {
-      year <- "AY 2015-2016"
-    }
-    else if (var_Bsuspension() == "AY 2014-2015") {
-      year <- "AY 2014-2015"
-    }
-    coord_data <- read_rds("data/suspension/coordinates.rds")
-    coord_data <- st_transform(coord_data)
-    coordinates1 <- coord_data %>% group_by(NAME) %>% slice(1)
-    coordinates2 <- coordinates1[,6]
-    city <- c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
-              "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
-              "Williamsburg", "York")
-    coordinates2 <- mutate(coordinates2, Location = city)
-    suspension_counties <-filter(suspension_data, Location %in% city)
-    #using percentages instead of number estimates (black)
-    suspension_pct<- suspension_counties %>% filter(Race=="Black") %>%
-      filter(DataFormat=="Percent")
-    suspension_pct2 <- suspension_pct %>% filter(TimeFrame==year)
-    #make a table w/ NA a S
-    display_tbl <- suspension_pct2 %>% filter(Data %in% c("NA", "S"))
-    display_tbl <- display_tbl[,c(2,6)]
-    suspension_pct2$Data[suspension_pct2$Data=="NA"] <- 0
-    suspension_pct2$Data[suspension_pct2$Data=="S"] <- 0
-    #convert data column to numeric so we can multiply by 100
-    suspension_pct2$Data <- sapply(suspension_pct2$Data, as.numeric)
-    suspension_pct2 <- mutate(suspension_pct2, pct = Data *100)
-    #adding geometry column(coordinates)
-    suspension_pct3 <- merge(suspension_pct2, coordinates2, by = "Location")
-    suspension_pct4 <- suspension_pct3[,c(1,7,8)]
-    #add back the NA (S will be NA. We have a table to clarify)
-    suspension_pct4$pct <- na_if(suspension_pct4$pct,0.00000)
-    as.numeric(suspension_pct4$pct, na.rm = TRUE)
-    #Graph
-    graph_blck <-
-      suspension_pct4 %>%
-      ggplot() +
-      geom_sf(aes(fill = pct, geometry = geometry))+
-      geom_sf_label(aes(label=Location,geometry = geometry), label.padding = unit(.5, "mm"), size =4) +
-      theme(plot.title = element_text(hjust = 0.5),
-            axis.title.x=element_blank(),
-            axis.text.x=element_blank(),
-            axis.ticks.x=element_blank(),
-            axis.title.y=element_blank(),
-            axis.text.y=element_blank(),
-            axis.ticks.y=element_blank(),
-            legend.title = element_blank(),
-            legend.text = element_text(size=13)) +
-      scale_fill_gradient(high = "#132B43",
-                          low = "#56B1F7",
-                          space = "Lab",
-                          na.value = "grey50",
-                          guide = "colourbar",
-                          aesthetics = "fill") +
-      guides(colour=guide_legend("No data", override.aes=list(colour="grey50")))
-    #display table
-    na_rows <- display_tbl %>% filter(Data == "NA")
-    supr_rows <- display_tbl %>% filter(Data == "S")
-    supr_rows <- mutate(supr_rows, Data = "Suppressed")
-    display_tbl_final <- rbind(na_rows, supr_rows)
-    table_plot <- tableGrob(display_tbl_final, rows = NULL)
-    #plot together
-    black_map <- grid.arrange(graph_blck, table_plot, nrow=2, heights=c(3,1))
-    black_map
-  })
+  
+  
+  
+  
   
   # Suspension for black and white (counties) ---------------------------------
   var_BWsuspension <- reactive({
@@ -1936,7 +2035,7 @@ server <- function(input, output, session) {
   })
   
   output$BW_map <- renderPlot({
-    if(var_Bsuspension() == "2018-2019"){
+    if(var_BWsuspension() == "2018-2019"){
       year <- "2018-2019"
     }
     else if (var_BWsuspension() == "AY 2017-2018") {
@@ -1960,8 +2059,8 @@ server <- function(input, output, session) {
       filter(DataFormat=="Percent")
     pct_white2 <- pct_white %>% filter(TimeFrame==year)
     #putting NAs and Ss in a table
-    display_tbl_white <- suspension_pct2 %>% filter(Data %in% c("NA", "S"))
-    display_tbl_white2<- display_tbl_white[,c(2,6)]
+    display_tbl_white <-pct_white2 %>% filter(Data %in% c("NA", "S"))
+    display_tbl_white2<- display_tbl_white[,c(2,3,6)]
     pct_white2$Data[pct_white2$Data=="NA"] <- 0
     pct_white2$Data[pct_white2$Data=="S"] <- 0
     #adding estimates by 100 (need to convert to numeric first)
@@ -1978,7 +2077,7 @@ server <- function(input, output, session) {
     suspension_pct2 <- suspension_pct %>% filter(TimeFrame==year)
     #make a table w/ NA a S
     display_tbl_black <- suspension_pct2 %>% filter(Data %in% c("NA", "S"))
-    display_tbl_black2 <- display_tbl_black[,c(2,6)]
+    display_tbl_black2 <- display_tbl_black[,c(2,3,6)]
     suspension_pct2$Data[suspension_pct2$Data=="NA"] <- 0
     suspension_pct2$Data[suspension_pct2$Data=="S"] <- 0
     #convert data column to numeric so we can multiply by 100
@@ -3164,19 +3263,14 @@ server <- function(input, output, session) {
       hamp_pctB <- hamp_pov_blck_tbl[,4] 
       hamp_comb <- rbind(hamp_pctG, hamp_pctB)
       colnames(hamp_comb) <- "Ratio"
-      pov_pct3 <- data.frame(pov_pct2[,1]) 
-      colnames(pov_pct3) <- "Ratio"
-      hamp_pct2 <- rbind(pov_pct3, hamp_comb)
-      hamp_pct2 <- mutate(hamp_pct2, Location = c(rep("Virginia", 2), rep("Hampton Roads", 2), rep(c("Chesapeake", "Franklin", "Gloucester", "Hampton", "Isle of Wight", "James City",
-                                                                                                     "Mathews", "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton",
-                                                                                                     "Suffolk", "Virginia Beach", "Williamsburg", "York"),2)))
-      hamp_pct2 <- mutate(hamp_pct2, Demographic = c(rep(c("Total Population", "Black Population"),2), rep("Total Population", 16),
+      hamp_comb <- mutate(hamp_comb, Location =  rep(c("Chesapeake", "Franklin", "Gloucester", "Hampton", "Isle of Wight", "James City",
+                                                       "Mathews", "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton",
+                                                       "Suffolk", "Virginia Beach", "Williamsburg", "York"),2))
+      hamp_comb <- mutate(hamp_comb, Demographic = c(rep("Total Population", 16),
                                                      rep("Black Population",16)))
-      colnames(hamp_pct2) <- c("Ratio (%)", "Location", "Demographic")
-      #Graph for just the Hampton Counties
-      hamp_pct3 <- hamp_pct2[5:36,]
-      colnames(hamp_pct3) <- c("Percentage (%)", "Location", "Demographic")
-      counties_pov <-  ggplot(hamp_pct3, aes(Location, y=`Percentage (%)`, fill=Demographic)) +
+      colnames(hamp_comb) <- c("Percentage (%)", "Location", "Demographic")
+      #Graph 
+      counties_pov <-  ggplot(hamp_comb, aes(Location, y=`Percentage (%)`, fill=Demographic)) +
         geom_bar(stat="identity", position=position_dodge())+
         geom_text(aes(label=paste0(round(`Percentage (%)`, digits=2), "%")), vjust=1.5, color="white",
                   position = position_dodge(0.9), size=3)+
@@ -3218,20 +3312,15 @@ server <- function(input, output, session) {
       hamp_pctB <- hamp_pov_blck_tbl[,4] 
       hamp_comb <- rbind(hamp_pctG, hamp_pctB)
       colnames(hamp_comb) <- "Ratio"
-      pov_pct3 <- data.frame(pov_pct2[,1]) 
-      colnames(pov_pct3) <- "Ratio"
-      hamp_pct2 <- rbind(pov_pct3, hamp_comb)
-      hamp_pct2 <- mutate(hamp_pct2, Location = c(rep("Virginia", 2), rep("Hampton Roads", 2), rep(c("Chesapeake", "Franklin", "Gloucester", "Hampton", "Isle of Wight", "James City",
-                                                                                                     "Mathews", "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton",
-                                                                                                     "Suffolk", "Virginia Beach", "Williamsburg", "York"),2)))
-      hamp_pct2 <- mutate(hamp_pct2, Demographic = c(rep(c("Total Population", "Black Population"),2), rep("Total Population", 16),
+      hamp_comb <- mutate(hamp_comb, Location = c(rep(c("Chesapeake", "Franklin", "Gloucester", "Hampton", "Isle of Wight", "James City",
+                                                        "Mathews", "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton",
+                                                        "Suffolk", "Virginia Beach", "Williamsburg", "York"),2)))
+      hamp_comb <- mutate(hamp_comb, Demographic = c(rep("Total Population", 16),
                                                      rep("Black Population",16)))
-      colnames(hamp_pct2) <- c("Ratio (%)", "Location", "Demographic")
-      #Graph for just the Hampton Counties
-      hamp_pct3 <- hamp_pct2[5:36,]
-      colnames(hamp_pct3) <- c("Percentage (%)", "Location", "Demographic")
+      colnames(hamp_comb) <- c("Percentage (%)", "Location", "Demographic")
+      #Graph 
       
-      counties_pov <-  ggplot(hamp_pct3, aes(Location, y=`Percentage (%)`, fill=Demographic)) +
+      counties_pov <-  ggplot(hamp_comb, aes(Location, y=`Percentage (%)`, fill=Demographic)) +
         geom_bar(stat="identity", position=position_dodge())+
         geom_text(aes(label=paste0(round(`Percentage (%)`, digits=2), "%")), vjust=1.5, color="white",
                   position = position_dodge(0.9), size=3)+
@@ -3246,6 +3335,7 @@ server <- function(input, output, session) {
               axis.text.x = element_text(size=10, face="bold"),
               axis.title=element_text(size=17),
               axis.title.x=element_blank()) 
+      
       #plot
       counties_pov
     }
