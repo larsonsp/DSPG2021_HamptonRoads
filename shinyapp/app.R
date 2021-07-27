@@ -427,22 +427,8 @@ ui <- navbarPage(title = "Hampton Roads",
                               tabItem(tabName = "suspension",
                                       fluidRow(
                                         h1(strong("Short Term Suspension"), align = "center"),
-                                        # column(5,
-                                        #        h4("Virgina Suspensions"),
-                                        #        
-                                        #        selectInput("suspensionYearDrop", "Select Year:", width = "100%", choices = c(
-                                        #          "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
-                                        #        p(strong("Virgina Suspensions")),
-                                        #        withSpinner(plotOutput("graph_va")),
-                                        #        p(tags$small("Data Source: Kids Count Data Center"))
-                                        # ),
-                                       column(5,
-                                              h4("Students Suspended in Virginia from the 2014-2015 to 2017-2018 School Years"),
-                                              withSpinner(plotOutput("graph_va19")),
-                                              p(tags$small("Data Source: Kids Count Data Center"))
-                                              ),
                                         column(9,
-                                               h4("Percent of Student Suspended from 2014 to 2019"),
+                                               h4("Percent of Students Suspended from 2014-2015 to 2018-2019 Academic School Years"),
                                                withSpinner(plotOutput("suspension_line_graph")),
                                                p(tags$small("Data Source: Kids Count Data Center"))
                                         ),
@@ -451,14 +437,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                
                                         ),
                                       
-                                        # column(7, width = 12,
-                                        #        h4("Percent of Black Students Suspended"),
-                                        #        selectInput("BsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
-                                        #          "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
-                                        #        withSpinner(plotOutput("black_map")),
-                                        #        p(tags$small("Data Source: Kids Count Data Center"))
-                                        #),
-                                        column(7, width = 12,
+                                        column(12,
                                                h4("Percent of Black and White Students Suspended in Hampton Roads"),
                                                selectInput("BWsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
                                                  "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
@@ -1752,50 +1731,50 @@ server <- function(input, output, session) {
   #   input$suspensionYearDrop
   # })
   
-  output$graph_va19 <- renderPlot({
-    # if(var_suspension() == "2018-2019"){
-    #   year <- "2018-2019"
-    # }
-    # else if (var_suspension() == "AY 2017-2018") {
-    #   year <- "AY 2017-2018"
-    # }
-    # else if (var_suspension() == "AY 2016-2017") {
-    #   year <- "AY 2016-2017"
-    # }
-    # else if (var_suspension() == "AY 2015-2016") {
-    #   year <- "AY 2015-2016"
-    # }
-    # else if (var_suspension() == "AY 2014-2015") {
-    #   year <- "AY 2014-2015"
-    # }
-    year <- "2018-2019"
-    suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
-    #using only  VA data for 2018-2019
-    suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
-    #VA percentage estimate for 2018-2019 (Black)
-    va_blck <- suspension_va %>% filter(Race == "Black") %>% filter(DataFormat == "Percent")
-    #VA percentage estimate for 2018-2019 (Hispanic)
-    va_hisp <- suspension_va %>% filter(Race == "Hispanic") %>% filter(DataFormat == "Percent")
-    #VA percentage estimate for 2018-2019 (white)
-    va_white <- suspension_va %>% filter(Race == "White") %>% filter(DataFormat == "Percent")
-    #combining the three percentages(b;ack, hispanic, white)
-    va_suspension_race <- rbind(va_blck[,6], va_hisp[,6], va_white[,6])
-    va_suspension_race$Data <- as.numeric(va_suspension_race$Data)
-    va_suspension_race <- mutate(va_suspension_race, Data = Data*100)
-    va_suspension_race <- mutate(va_suspension_race, race = c("Black", "Hispanic", "White"))
-    #Graph
-    graph_va19 <- ggplot(data=va_suspension_race, aes(x=race, y=Data)) +
-      geom_bar(stat="identity", fill ="#0072B2")+
-      geom_text(aes(label=paste0(round(Data, digits = 2), "%")), vjust=1.6, color="white", size=10)+
-      theme_minimal()+
-      theme(axis.title.x = element_blank(),
-            axis.title.y = element_blank(),
-            axis.text.y = element_blank(),
-            axis.text.x = element_text(size=20)) 
-    #plot
-    graph_va19
-    
-  })
+  # output$graph_va19 <- renderPlot({
+  #   # if(var_suspension() == "2018-2019"){
+  #   #   year <- "2018-2019"
+  #   # }
+  #   # else if (var_suspension() == "AY 2017-2018") {
+  #   #   year <- "AY 2017-2018"
+  #   # }
+  #   # else if (var_suspension() == "AY 2016-2017") {
+  #   #   year <- "AY 2016-2017"
+  #   # }
+  #   # else if (var_suspension() == "AY 2015-2016") {
+  #   #   year <- "AY 2015-2016"
+  #   # }
+  #   # else if (var_suspension() == "AY 2014-2015") {
+  #   #   year <- "AY 2014-2015"
+  #   # }
+  #   year <- "2018-2019"
+  #   suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
+  #   #using only  VA data for 2018-2019
+  #   suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
+  #   #VA percentage estimate for 2018-2019 (Black)
+  #   va_blck <- suspension_va %>% filter(Race == "Black") %>% filter(DataFormat == "Percent")
+  #   #VA percentage estimate for 2018-2019 (Hispanic)
+  #   va_hisp <- suspension_va %>% filter(Race == "Hispanic") %>% filter(DataFormat == "Percent")
+  #   #VA percentage estimate for 2018-2019 (white)
+  #   va_white <- suspension_va %>% filter(Race == "White") %>% filter(DataFormat == "Percent")
+  #   #combining the three percentages(b;ack, hispanic, white)
+  #   va_suspension_race <- rbind(va_blck[,6], va_hisp[,6], va_white[,6])
+  #   va_suspension_race$Data <- as.numeric(va_suspension_race$Data)
+  #   va_suspension_race <- mutate(va_suspension_race, Data = Data*100)
+  #   va_suspension_race <- mutate(va_suspension_race, race = c("Black", "Hispanic", "White"))
+  #   #Graph
+  #   graph_va19 <- ggplot(data=va_suspension_race, aes(x=race, y=Data)) +
+  #     geom_bar(stat="identity", fill ="#0072B2")+
+  #     geom_text(aes(label=paste0(round(Data, digits = 2), "%")), vjust=1.6, color="white", size=10)+
+  #     theme_minimal()+
+  #     theme(axis.title.x = element_blank(),
+  #           axis.title.y = element_blank(),
+  #           axis.text.y = element_blank(),
+  #           axis.text.x = element_text(size=20)) 
+  #   #plot
+  #   graph_va19
+  #   
+  # })
   
   # Black suspension map -----------------------------------------------------
   # 
@@ -1881,6 +1860,23 @@ server <- function(input, output, session) {
   
   # suspension line graph
   output$suspension_line_graph <- renderPlot({
+    year <- "2018-2019"
+    suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
+    #using only  VA data for 2018-2019
+    suspension_va <- suspension_data %>% filter(Location=="Virginia")%>% filter(TimeFrame == year)
+    #VA percentage estimate for 2018-2019 (Black)
+    va_blck <- suspension_va %>% filter(Race == "Black") %>% filter(DataFormat == "Percent")
+    #VA percentage estimate for 2018-2019 (Hispanic)
+    va_hisp <- suspension_va %>% filter(Race == "Hispanic") %>% filter(DataFormat == "Percent")
+    #VA percentage estimate for 2018-2019 (white)
+    va_white <- suspension_va %>% filter(Race == "White") %>% filter(DataFormat == "Percent")
+    #combining the three percentages(b;ack, hispanic, white)
+    va_suspension_race19 <- rbind(va_blck[,6], va_hisp[,6], va_white[,6])
+    va_suspension_race19$Data <- as.numeric(va_suspension_race19$Data)
+    va_suspension_race19 <- mutate(va_suspension_race19, Data = Data*100)
+    va_suspension_race19 <- mutate(va_suspension_race19, race = c("Black", "Hispanic", "White"))
+    va_suspension_race19 <- mutate(va_suspension_race19, year = "2018-2019")
+    ####
     year <- "AY 2017-2018"
     suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
     #using only  VA data for 2018-2019
@@ -1896,8 +1892,8 @@ server <- function(input, output, session) {
     va_suspension_race18$Data <- as.numeric(va_suspension_race18$Data)
     va_suspension_race18 <- mutate(va_suspension_race18, Data = Data*100)
     va_suspension_race18 <- mutate(va_suspension_race18, race = c("Black", "Hispanic", "White"))
-    va_suspension_race18 <- mutate(va_suspension_race18, year = "AY 2017-2018")
-    ##
+    va_suspension_race18 <- mutate(va_suspension_race18, year = "2017-2018")
+    ###
     year <- "AY 2016-2017"
     suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
     #using only  VA data for 2018-2019
@@ -1913,8 +1909,8 @@ server <- function(input, output, session) {
     va_suspension_race17$Data <- as.numeric(va_suspension_race17$Data)
     va_suspension_race17 <- mutate(va_suspension_race17, Data = Data*100)
     va_suspension_race17 <- mutate(va_suspension_race17, race = c("Black", "Hispanic", "White"))
-    va_suspension_race17 <- mutate(va_suspension_race17, year = "AY 2016-2017")
-    ##
+    va_suspension_race17 <- mutate(va_suspension_race17, year = "2016-2017")
+    ###
     year <- "AY 2015-2016"
     suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
     #using only  VA data for 2018-2019
@@ -1930,7 +1926,7 @@ server <- function(input, output, session) {
     va_suspension_race16$Data <- as.numeric(va_suspension_race16$Data)
     va_suspension_race16 <- mutate(va_suspension_race16, Data = Data*100)
     va_suspension_race16 <- mutate(va_suspension_race16, race = c("Black", "Hispanic", "White"))
-    va_suspension_race16 <- mutate(va_suspension_race16, year = "AY 2015-2016")
+    va_suspension_race16 <- mutate(va_suspension_race16, year = "2015-2016")
     ##
     year <- "AY 2014-2015"
     suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
@@ -1947,19 +1943,23 @@ server <- function(input, output, session) {
     va_suspension_race15$Data <- as.numeric(va_suspension_race15$Data)
     va_suspension_race15 <- mutate(va_suspension_race15, Data = Data*100)
     va_suspension_race15 <- mutate(va_suspension_race15, race = c("Black", "Hispanic", "White"))
-    va_suspension_race15 <- mutate(va_suspension_race15, year = "AY 2014-2015")
-    ##
-    suspension_line <- rbind(va_suspension_race18, va_suspension_race17, va_suspension_race16, va_suspension_race15)
+    va_suspension_race15 <- mutate(va_suspension_race15, year = "2014-2015")
+    ###########
+    suspension_line <- rbind(va_suspension_race19, va_suspension_race18, va_suspension_race17, va_suspension_race16, va_suspension_race15)
     suspension_line_graph <- ggplot(suspension_line, aes(x=year, y=Data, group = race, color = race)) + 
-      geom_line(position = "identity", size =1.3) +
+      geom_line(position = "identity", size =1.5) +
       theme_minimal() +
       theme(
         axis.title.x = element_blank(),
-        legend.title = element_blank()) +
+        axis.title.y = element_text(size=12),
+        legend.title = element_blank(),
+        legend.text = element_text(size=12),
+        axis.text = element_text(siz=12)) +
       labs(y ="Percent of Students Suspended (%)") +
-      scale_color_viridis_d()
+      scale_color_viridis_d() +
+      scale_y_continuous(limits = c(2,14), breaks = seq(2, 14, by =4))
     #plot
-     suspension_line_graph
+    suspension_line_graph
 
     
   })
