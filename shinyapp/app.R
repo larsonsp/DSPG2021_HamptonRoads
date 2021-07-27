@@ -436,14 +436,20 @@ ui <- navbarPage(title = "Hampton Roads",
                                                h4("Academic Suspension"),
                                                
                                         ),
-                                      
-                                        column(12,
-                                               h4("Percent of Black and White Students Suspended in Hampton Roads"),
-                                               selectInput("BWsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
-                                                 "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
-                                               withSpinner(plotOutput("BW_map")),
+                                        column(12, 
+                                               h4("Difference Between Black and White Student Short-Term Suspension"),
+                                               withSpinner(plotlyOutput("suspensionGap", height = "700px")),
                                                p(tags$small("Data Source: Kids Count Data Center"))
-                                        ))),
+                                               )
+                                        
+                                        # column(12,
+                                        #        h4("Percent of Black and White Students Suspended in Hampton Roads"),
+                                        #        selectInput("BWsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
+                                        #          "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
+                                        #        withSpinner(plotOutput("BW_map")),
+                                        #        p(tags$small("Data Source: Kids Count Data Center"))
+                                        # )
+                                        )),
                               
                               #Dropout Rates
                               tabItem(
@@ -1963,7 +1969,26 @@ server <- function(input, output, session) {
 
     
   })
-  
+  #suspension gap line graph ------------------------------------------------
+  output$suspensionGap <- renderPlotly({
+    gap_data <- read.csv("data/suspension/suspensionGap.csv")
+    
+    susGapPlot <- ggplot(gap_data, aes(x=year, y=gap, group = Location, color =Location)) + 
+      geom_line(position = "identity", size =1.5) +
+      theme_minimal() +
+      theme(
+        axis.title.x = element_blank(),
+        axis.title.y = element_text(size=12),
+        legend.title = element_blank(),
+        legend.text = element_text(size=12),
+        axis.text = element_text(siz=12)) +
+      labs(y ="Percent Difference (%)") +
+      scale_color_viridis_d() +
+      ylim(0,16)
+    
+    suspensionGap <- ggplotly(susGapPlot)
+ 
+  })
   
   
   
