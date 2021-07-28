@@ -110,6 +110,62 @@ county_stats <- function(varcode, summary, year) {
 }
 
 
+
+county_stats2 <- function(varcode, year) { 
+  get_acs(geography = "county",
+          county = fips_codes,
+          state = 51,
+          year = year,
+          variables = varcode) %>% 
+    mutate(Male = estimate) %>% 
+    select(NAME, variable, Male) 
+}
+
+county_stats3 <- function(varcode, year) { 
+  get_acs(geography = "county",
+          county = fips_codes,
+          state = 51,
+          year = year,
+          variables = varcode) %>% 
+    mutate(Female = estimate) %>% 
+    select(variable, Female) 
+}
+
+county_stats4 <- function(varcode, year) { 
+  get_acs(geography = "county",
+          county = fips_codes,
+          state = 51,
+          year = year,
+          variables = varcode) %>% 
+    mutate(Total = estimate) %>% 
+    select(variable, Total) 
+}
+
+
+black_totalMale <- county_stats2("C15002B_006", years[i])
+black_totalFemale <- county_stats3("C15002B_011", years[i])
+black_totalBoth <- county_stats4("C15002B_001", years[i])
+black_total <- cbind(black_totalMale, black_totalFemale, black_totalBoth)
+black_total$BlackGeneral <- (black_total$Male + black_total$Female)/black_total$Total
+black_total$BlackGeneral
+
+
+#plots general data for black education
+years <- c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019) 
+for (i in 1:length(years)) { 
+  #plots general data for education
+  
+  black_totalMale <- county_stats2("C15002B_006", years[i])
+  black_totalFemale <- county_stats3("C15002B_011", years[i])
+  black_totalBoth <- county_stats4("C15002B_001", years[i])
+  black_total <- cbind(black_totalMale, black_totalFemale, black_totalBoth)
+  black_total$BlackGeneral <- (black_total$Male + black_total$Female)/black_total$Total
+  write_csv(black_total, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
+  #black_total <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableC15002BFiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
+}
+
+
+
 county_stats1 <- function(varcode, year) { 
   get_acs(geography = "county",
           county = fips_codes,
