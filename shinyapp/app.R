@@ -591,6 +591,7 @@ ui <- navbarPage(title = "Hampton Roads",
                               #Poverty Rates
                               tabItem(
                                 tabName = "poverty",
+                                
                                 fluidRow(style = "margin: 6px;",
                                          h1(strong("Poverty Rates in Virginia and Hampton Roads"), align = "center"),
                                          column(7, 
@@ -600,16 +601,29 @@ ui <- navbarPage(title = "Hampton Roads",
                                                   "2013","2012")),
                                                 withSpinner(plotOutput("pov_plot")),
                                                 p(tags$small("Data Source: ACS 5 Year Estimates Table S1701"))
-                                         ),
-                                         column(7, width = 12,
-                                                h4(strong("Poverty Rates in Hampton Roads Counties and Cities")),
-                                                selectInput("PovertyCountYearDrop", "Select Year:", width = "100%", choices = c(
-                                                  "2019","2018", "2017", "2016", "2015","2014",
-                                                  "2013","2012")),
-                                                withSpinner(plotOutput("counties_pov")),
-                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S1701"))
-                                                
-                                         ))),
+                                         )),
+                                # 
+                                  tabsetPanel(
+                                         tabPanel("Poverty Rates",
+                                                  
+                                         fluidRow(
+                                                 h1(strong(strong("Poverty Rates in Hampton Roads Counties and Cities"), align = "center")),
+                                                 #box(width=12, height=550),
+                                                 selectInput("PovertyCountYearDrop", "Select Year:", width = "100%", choices = c(
+                                                    "2019","2018", "2017", "2016", "2015","2014",
+                                                    "2013","2012")),
+                                                  withSpinner(plotOutput("counties_pov")),
+                                                  p(tags$small("Data Source: ACS 5 Year Estimates Table S1701"))
+                                                    )
+                                          ),
+                                          tabPanel("Poverty Rates over Time",
+                                                   
+                                          fluidRow(width=12, height=550,
+                                          img(src="poverty.gif", height = "800", width="1200"))
+                                           )
+                                #          
+                                         )
+                              ),
                               
                               #Uninsured Percentages
                               tabItem(tabName = "unins",
