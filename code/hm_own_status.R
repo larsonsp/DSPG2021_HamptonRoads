@@ -460,12 +460,137 @@ write_rds(tot_hm_10, file = "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG202
 tot_hm_10 <- read_rds("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/TableS2502FiveYearEstimates/tothmown2010.rds")
 tot_hm_10 <- st_transform(tot_hm_10)
 
+# #negative data charts
+# pick_n <- function(id){​​​​​​​
+#   dataFiltered <- filter(neg_data, ID== id)
+#   
+#   p <- ggplot(dataFiltered, aes(x=Year, y=estimate)) + 
+#     geom_line(position = "identity", aes(group=1)) +
+#     ggtitle("AADT from 2010 to 2020") +
+#     theme(plot.title = element_text(hjust=0.5),
+#           axis.title.x = element_blank()) +
+#     labs(y ="Annual Average Daily Traffic") +
+#     theme_minimal()
+#   p
+#   return(p)
+# }​​​​​​​
+# 
+# 
+# #loops through all the data (3 routes)
+# r <- lapply(1:length(unique(neg_data$ID)), function(i) {​​​​​​​
+#   pick_n(neg_data$ID[i])
+# }​​​​​​​)
+# 
+# 
+# 
+# 
+# ​[7/23 8:57 PM] Prisbe, Christina
+# then use the argument:  popup = popup graph(r)    in your addMarkers or addCircleMarkers
 
 
+# Line Plot ---------------------------------------------------------------
+
+#adds year element to each data frame for total population
+tot_hm_10 <- tot_hm_10 %>% 
+  mutate(Year = "2010")
+
+tot_hm_11 <- tot_hm_11 %>% 
+  mutate(Year = "2011")
+
+tot_hm_12 <- tot_hm_12 %>% 
+  mutate(Year = "2012")
+
+tot_hm_13 <- tot_hm_13 %>% 
+  mutate(Year = "2013")
+
+tot_hm_14 <- tot_hm_14 %>% 
+  mutate(Year = "2014")
+
+tot_hm_15 <- tot_hm_15 %>% 
+  mutate(Year = "2015")
+
+tot_hm_16 <- tot_hm_16 %>% 
+  mutate(Year = "2016")
+
+tot_hm_17 <- tot_hm_17 %>% 
+  mutate(Year = "2017")
+
+tot_hm_18 <- tot_hm_18 %>% 
+  mutate(Year = "2018")
+
+tot_hm_19 <- tot_hm_19 %>% 
+  mutate(Year = "2019")
+
+#adds year element to each data frame for black population
+b_hm_10 <- b_hm_10 %>% 
+  mutate(Year = "2010") %>% 
+  mutate(variable = "black_owned_housing") %>% 
+  select(NAME, variable, Percent, Year)
+
+b_hm_11 <- b_hm_11 %>% 
+  mutate(Year = "2011") %>% 
+  mutate(variable = "black_owned_housing") %>% 
+  select(NAME, variable, Percent, Year)
 
 
+b_hm_12 <- b_hm_12 %>% 
+  mutate(Year = "2012") %>% 
+  mutate(variable = "black_owned_housing") %>% 
+  select(NAME, variable, Percent, Year)
 
+b_hm_13 <- b_hm_13 %>% 
+  mutate(Year = "2013") %>% 
+  mutate(variable = "black_owned_housing") %>% 
+  select(NAME, variable, Percent, Year)
 
+b_hm_14 <- b_hm_14 %>% 
+  mutate(Year = "2014") %>% 
+  mutate(variable = "black_owned_housing") %>% 
+  select(NAME, variable, Percent, Year)
+
+b_hm_15 <- b_hm_15 %>% 
+  mutate(Year = "2015") %>% 
+  mutate(variable = "black_owned_housing") %>% 
+  select(NAME, variable, Percent, Year)
+
+b_hm_16 <- b_hm_16 %>% 
+  mutate(Year = "2016") %>% 
+  mutate(variable = "black_owned_housing") %>% 
+  select(NAME, variable, Percent, Year)
+
+b_hm_17 <- b_hm_17 %>% 
+  mutate(Year = "2017") %>% 
+  select(NAME, variable, Percent, Year)
+
+b_hm_18 <- b_hm_18 %>% 
+  mutate(Year = "2018") %>% 
+  select(NAME, variable, Percent, Year)
+
+b_hm_19 <- b_hm_19 %>% 
+  mutate(Year = "2019") %>% 
+  select(NAME, variable, Percent, Year)
+
+#combines data frames
+tot_hm <- rbind(tot_hm_10, tot_hm_11, tot_hm_12, tot_hm_13, tot_hm_14, tot_hm_15, tot_hm_16, tot_hm_17, tot_hm_18, tot_hm_19)
+tot_hm <- tot_hm %>% 
+  select(NAME, variable, Percent, Year)
+
+b_hm <- rbind(b_hm_10, b_hm_11, b_hm_12, b_hm_13, b_hm_14, b_hm_15, b_hm_16, b_hm_17, b_hm_18, b_hm_19)
+
+all_hm_data <- rbind(tot_hm, b_hm)
+
+line <- all_hm_data %>% 
+  filter(NAME == "Gloucester County, Virginia") %>% 
+  ggplot(aes(x = Year, y = Percent)) +
+  geom_line(aes(group = black_owned_housing, color = "blue")) +
+  geom_line(aes(group = overall_owned_housing, color = "red"))
+
+glouc_data <- all_hm_data %>% 
+  filter(NAME == "Gloucester County, Virginia")
+
+glouc_line <- glouc_data %>% 
+  ggplot(aes(x = Year, )) +
+  geom_line()
   
 
   

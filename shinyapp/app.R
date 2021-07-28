@@ -175,7 +175,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                    )
                           ),
                           fluidRow(align = "center",
-                                   p(tags$small(em('Last updated: August 2020'))))
+                                   p(tags$small(em('Last updated: August 2021'))))
                  ),
                  
                  
@@ -552,15 +552,41 @@ ui <- navbarPage(title = "Hampton Roads",
                               tabItem(
                                 tabName = "unemp",
                                 
+                                tabsetPanel(
+                                  tabPanel("Unemployment",
+                                
+                                
                                 fluidRow(
                                   h1(strong("Unemployment in Hampton Roads"), align = "center"),
-                                  box(width = 8, height = 500,
+                                  box(width = 8, height = 550,
                                       withSpinner(plotlyOutput("unemployment_plot")),
                                       p(tags$small("Data Source: ACS 5 Year Estimates Table S2301")),
-                                      sliderInput("UnemploymentRateSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = ""))
+                                      sliderInput("UnemploymentRateSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = "")),
+                                  
+                                  box(width = 4, height = 550,
+                                      h3("Description: "),
+                                      p("Placeholder Text"))
                                   
                                   
                                 )),
+                                
+                                tabPanel("Unemployment Over Time",
+                                  fluidRow(
+                                  box(width = 8, height = 800,
+                                      img(src="unemployment_plot.gif", height='750',width='700')),
+                                  
+                                  box(width = 4, height = 550,
+                                      h3("Description: "),
+                                      p("Placeholder Text"))
+                                  ),
+                                  
+                                  fluidRow(
+                                    box(width =12, height = 300,
+                                        h3("Trends: "),
+                                        p("Text"))
+                                  )
+
+                                ))),
                               
                               #Poverty Rates
                               tabItem(
@@ -587,39 +613,51 @@ ui <- navbarPage(title = "Hampton Roads",
                               
                               #Uninsured Percentages
                               tabItem(tabName = "unins",
-                                      fluidRow(
+                                      fluidPage(
                                         h1(strong("Health Insurance in Hampton Roads"), align = "center"),
                                         
-                                        box(width = 8, height = 500,
-                                            withSpinner(plotlyOutput("uninsured_plot")),
-                                            p(tags$small("Data Source: ACS 5 Year Estimates Table S2701")),
-                                            sliderInput("UninsuredPctSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = ""))
+
+                                        box(width = 8, height = 550,
+                                        withSpinner(plotlyOutput("uninsured_plot")),
+                                        p(tags$small("Data Source: ACS 5 Year Estimates Table S2701")),
+                                        sliderInput("UninsuredPctSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = "")),
                                         
-                                        
-                                      )
-                              ),
+                                        box(width = 4, height = 550,
+                                            h3("Description: "),
+                                            p("Placeholder Text")
+                                            ),
+
+                                      )),
                               
                               #Home Ownership
                               tabItem(tabName = "hmown",
-                                      fluidRow(
+                                      fluidPage(
                                         
                                         h1(strong("Homeownership in Hampton Roads"), align = "center"),
                                         
-                                        box(width = 8, height = 600,
-                                            withSpinner(leafletOutput("homeownership_map")),
-                                            p(tags$small("Data Source: ACS 5 Year Estimates Table S2505")),
-                                            sliderInput("HomeOwnSlider", "", value = 2019, min = 2010, max = 2019, sep = "")
-                                        ))),
+                                        box(width = 8, height = 550,
+                                        withSpinner(leafletOutput("homeownership_map")),
+                                        p(tags$small("Data Source: ACS 5 Year Estimates Table S2505")),
+                                        sliderInput("HomeOwnSlider", "", value = 2019, min = 2010, max = 2019, sep = "")),
+                                        
+                                        box(width = 4, height = 550,
+                                            h3("Description: "),
+                                            p("Placeholder Text")),
+                    
+                                        )),
                               
                               #Veteran Status
                               tabItem(tabName = "vet",
-                                      fluidRow(
+                                      fluidPage(
                                         h1(strong("Veteran Status in Hampton Roads"), align = "center"),
                                         
-                                        box(width = 8, height = 600,
+                                        box(width = 8, height = 550,
                                             withSpinner(leafletOutput("veteran_map")),
                                             p(tags$small("Data Source: ACS 5 Year Estimates Table S2101")),
-                                            sliderInput("VeteranSlider", "Select Year:", value = 2019, min = 2010, max = 2019, sep = ""))
+                                            sliderInput("VeteranSlider", "Select Year:", value = 2019, min = 2010, max = 2019, sep = "")),
+                                        box(width = 4, height = 550,
+                                            h3("Description: "),
+                                            p("Placeholder Text"))
                                       ))
                               
                               
@@ -2916,7 +2954,9 @@ server <- function(input, output, session) {
         mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
         arrange(desc(NAME)) %>% 
         ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-        geom_bar(position = "dodge", stat = "identity") +
+        geom_bar(position = "dodge", stat = "identity", aes(text = paste0("</br> Locality: ", NAME,
+                                                                          "</br> Percent Uninsured: ", estimate, "%",
+                                                                          "</br> Population: ", variable))) +
         geom_hline(yintercept = va_unemp_19$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
         theme_minimal() +
         theme(legend.title = element_blank()) +
@@ -3107,7 +3147,7 @@ server <- function(input, output, session) {
         arrange(desc(NAME)) %>% 
         ggplot(aes(fill = variable, y = estimate, x = NAME)) +
         geom_bar(position = "dodge", stat = "identity") +
-        geom_hline(yintercept = va_unemp_11$estimate, linetype="dashed", color = "red", show.legend = TRUE) 
+        geom_hline(yintercept = va_unemp_11$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
       theme(legend.title = element_blank()) +
         labs(title = "",
              y = "Unemployment Rate (%)",
