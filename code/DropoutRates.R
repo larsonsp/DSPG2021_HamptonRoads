@@ -42,6 +42,21 @@ write_csv(plot_data, "/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_Hampt
 
 st_co <- read_csv("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/statelevelcohort.csv")
 
+b_rates <- read_csv("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/cohort_stats_black.csv")
+b_rates <- b_rates %>% 
+  mutate(Race = "Black Students")
+
+gen_rates <- read_csv("/Users/mattb24/Documents/DSPG_Hampton_Roads/DSPG2021_HamptonRoads/shinyapp/data/cohort_stats_general.csv")
+gen_rates <- gen_rates %>% 
+  mutate(Race = "All Students")
+
+rates <- rbind(b_rates, gen_rates)
+
+rates <- rates %>% 
+  select(`Cohort Year`, `Division Name`, `Graduation Rate`, Race)
+
+rates <- data.frame(rates)
+
 clean_stco <- st_co[1:15,] %>% 
   select(`All Students`, `Black Students`) 
 
@@ -61,7 +76,7 @@ colors <- c("#0072B2", "#D55E00")
 minmap <- basemap %>% 
   addMinicharts(
     plot_data$lon, plot_data$lat,
-    chartdata = clean_stco,
+    chartdata = rates,
     colorPalette = colors,
     width = 45, height = 45
   )

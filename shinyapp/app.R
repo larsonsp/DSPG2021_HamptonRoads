@@ -175,7 +175,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                    )
                           ),
                           fluidRow(align = "center",
-                                   p(tags$small(em('Last updated: August 2020'))))
+                                   p(tags$small(em('Last updated: August 2021'))))
                  ),
                  
                  
@@ -552,6 +552,10 @@ ui <- navbarPage(title = "Hampton Roads",
                               tabItem(
                                 tabName = "unemp",
                                 
+                                tabsetPanel(
+                                  tabPanel("Unemployment",
+                                
+                                
                                 fluidRow(
                                   h1(strong("Unemployment in Hampton Roads"), align = "center"),
                                   box(width = 8, height = 550,
@@ -565,6 +569,24 @@ ui <- navbarPage(title = "Hampton Roads",
                                   
                                   
                                 )),
+                                
+                                tabPanel("Unemployment Over Time",
+                                  fluidRow(
+                                  box(width = 8, height = 800,
+                                      img(src="unemployment_plot.gif", height='750',width='700')),
+                                  
+                                  box(width = 4, height = 550,
+                                      h3("Description: "),
+                                      p("Placeholder Text"))
+                                  ),
+                                  
+                                  fluidRow(
+                                    box(width =12, height = 300,
+                                        h3("Trends: "),
+                                        p("Text"))
+                                  )
+
+                                ))),
                               
                               #Poverty Rates
                               tabItem(
@@ -2932,7 +2954,9 @@ server <- function(input, output, session) {
         mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
         arrange(desc(NAME)) %>% 
         ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-        geom_bar(position = "dodge", stat = "identity") +
+        geom_bar(position = "dodge", stat = "identity", aes(text = paste0("</br> Locality: ", NAME,
+                                                                          "</br> Percent Uninsured: ", estimate, "%",
+                                                                          "</br> Population: ", variable))) +
         geom_hline(yintercept = va_unemp_19$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
         theme_minimal() +
         theme(legend.title = element_blank()) +
