@@ -573,7 +573,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                 tabPanel("Unemployment Over Time",
                                   fluidRow(
                                   box(width = 8, height = 800,
-                                      img(src="unemployment_plot.gif", height='750',width='700')),
+                                      img(src="unemployment_plot.gif", height='800',width='800')),
                                   
                                   box(width = 4, height = 550,
                                       h3("Description: "),
