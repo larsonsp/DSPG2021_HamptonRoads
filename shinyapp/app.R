@@ -289,6 +289,13 @@ ui <- navbarPage(title = "Hampton Roads",
                                      fluidRow(
                                        column(4,
                                               h4(strong("Who are the Educators in Hampton Roads?")),
+                                              
+                                              p("The African American population overwhelmingly attends public schools, yet in most parts of the U.S., teachers are overwhelmingly White (citation) [1]."),   
+                                              p("For the 2020-2021 academic year, the Virginia Department of Education released racial and ethnic breakdown for educators by school division, which enables examination of racial parity and match within local school divisions."), 
+                                              p("As of that year, 13 percent of public-school educators identified as Black, compared to a state rate of 19.9% Black population in 2019, a difference of almost seven percentage points [2]. "), 
+                                              p("In Hampton Roads, Black teacher representation ranged from a high of 55 percent in Franklin City to a low of no (zero) representation in Poquoson City."),   
+                                              p("[2].  Virginia Department of Education, Virginia Educator Ethnicity and Race Data, https://doe.virginia.gov/teaching/workforce_data/index.shtml; U.S Census QuickFacts, https://www.census.gov/quickfacts/fact/table/VA,US/PST045219.") 
+
                                        ),
                                        column(8,
                                               tabsetPanel(
