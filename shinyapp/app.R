@@ -571,7 +571,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                        
                                        tabPanel("Poverty Over Time", h1(strong("Poverty Over Time"), align = "center"),
                                                 fluidRow(width=12, height=550,
-                                                    img(src="poverty.gif", height = "800", width="1200")
+                                                    img(src="poverty2.gif", height = "800", width="1200")
                                                     
                                                 )
                                         )
