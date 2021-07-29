@@ -1959,7 +1959,10 @@ server <- function(input, output, session) {
       scale_y_continuous(limits = c(2,14), breaks = seq(0, 14, by =2))
     #plot
     ggplotly(suspension_line_graph) %>%
-      layout(legend = list(y=0.5))
+      layout(legend = list(y=0.5) )
+    
+    
+    #layout(legend = list(y=0.5))
     
   })
   #suspension gap line graph ------------------------------------------------
