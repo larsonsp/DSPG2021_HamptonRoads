@@ -336,7 +336,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                        column(8, 
                                               tabsetPanel(
                                                 tabPanel("Short Term Suspension",
-                                                  h4("Percent Students Suspende Short-Term", align = "center"),
+                                                  h4("Percent Students Suspended Short-Term", align = "center"),
                                                   withSpinner(plotlyOutput("suspension_line_graph")),
                                                   p(tags$small("Data Source: KIDS COUNT, Annie E. Casey Foundation"))
                                                 ),
@@ -1960,7 +1960,6 @@ server <- function(input, output, session) {
     #plot
     ggplotly(suspension_line_graph) %>%
       layout(legend = list(y=0.5))
-
     
   })
   #suspension gap line graph ------------------------------------------------
