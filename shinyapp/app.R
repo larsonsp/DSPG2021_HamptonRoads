@@ -390,8 +390,8 @@ ui <- navbarPage(title = "Hampton Roads",
                                                 tabPanel("Suspension Rate by Race", p(""),
                                                           h4("Percent of Students Suspended Short-Term in Hampton Roads by Race", align = "center"),
                                                           selectInput("BWsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
-                                                            "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
-                                                          withSpinner(plotOutput("BW_map", height = "700px")),
+                                                            "2019", "2018", "2017", "2016", "2015")),
+                                                          withSpinner(plotlyOutput("BW_map", height = "700px")),
                                                           p(tags$small("Data Source: KIDS COUNT, Annie E. Casey Foundation")),
                                                           p(tags$small("*Note: Black student data supressed for Mathews and Poquoson."))
                                                  ),
@@ -1971,9 +1971,9 @@ server <- function(input, output, session) {
     input$BWsuspensionYearDrop
   })
 
-  output$BW_map <- renderPlot({
+  output$BW_map <- renderPlotly({
   #
-    if(var_BWsuspension() == "2018-2019"){
+    if(var_BWsuspension() == "2019"){
       year <- "2018-2019"
       suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
       city <- c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews",
@@ -2025,20 +2025,20 @@ server <- function(input, output, session) {
       colnames(pct_blck) <- c("Location", "Percent (%)")
       sus <- rbind(pct_blck,pct_white3)
       num <- nrow(sus)/2
-      sus <- mutate(sus, race = c(rep("Black Students",num), rep("White Students", num)))
+      sus <- mutate(sus, Race = c(rep("Black",num), rep("White", num)))
       #bar graph
       suspension_counties_plot <-
-        ggplot(sus , aes(Location, y=`Percent (%)`, fill=race)) +
+        ggplot(sus , aes(Location, y=`Percent (%)`, fill=Race)) +
         geom_bar(stat="identity", position=position_dodge())+
-        geom_text(aes(label=paste0(round(`Percent (%)`, digits=1), "%")), vjust=1.5, color="white",
-                  position = position_dodge(0.9), size=3)+
+       # geom_text(aes(label=paste0(round(`Percent (%)`, digits=1), "%")), vjust=1.5, color="white",
+                 # position = position_dodge(0.9), size=3)+
         theme_minimal() +
         theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'),
               legend.key.height = unit(0.3, 'cm'),
               legend.key.width = unit(0.3, 'cm'),
               legend.title = element_blank(),
               legend.text = element_text(size=14),
-              axis.text=element_text(size=15),
+              axis.text=element_text(size=12),
               #axis.text.x = element_text(size=10, face="bold"),
               axis.title=element_text(size=17),
               axis.title.x=element_blank()) +
@@ -2061,21 +2061,21 @@ server <- function(input, output, session) {
       #BW_map
       #
 
-    BW_map <- grid.arrange(suspension_counties_plot)
-    BW_map
+    BW_map <- suspension_counties_plot
+    ggplotly(BW_map)
 
   }
-    else if (var_BWsuspension() %in% c("AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")){
-      if (var_BWsuspension() == "AY 2017-2018") {
+    else if (var_BWsuspension() %in% c("2018", "2017", "2016", "2015")){
+      if (var_BWsuspension() == "2018") {
         year <- "AY 2017-2018"
       }
-      else if (var_BWsuspension() == "AY 2016-2017") {
+      else if (var_BWsuspension() == "2017") {
         year <- "AY 2016-2017"
       }
-      else if (var_BWsuspension() == "AY 2015-2016") {
+      else if (var_BWsuspension() == "2016") {
         year <- "AY 2015-2016"
       }
-      else if (var_BWsuspension() == "AY 2014-2015") {
+      else if (var_BWsuspension() == "2015") {
         year <- "AY 2014-2015"
       }
       suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
@@ -2128,20 +2128,20 @@ server <- function(input, output, session) {
       colnames(pct_blck) <- c("Location", "Percentage of Students (%)")
       sus <- rbind(pct_blck,pct_white3)
       num <- nrow(sus)/2
-      sus <- mutate(sus, race = c(rep("Black Students",num), rep("White Students", num)))
+      sus <- mutate(sus, Race = c(rep("Black",num), rep("White", num)))
       #bar graph
       suspension_counties_plot <-
-        ggplot(sus , aes(Location, y=`Percentage of Students (%)`, fill=race)) +
+        ggplot(sus , aes(Location, y=`Percentage of Students (%)`, fill=Race)) +
         geom_bar(stat="identity", position=position_dodge())+
-        geom_text(aes(label=paste0(round(`Percentage of Students (%)`, digits=1), "%")), vjust=1.5, color="white",
-                  position = position_dodge(0.9), size=3)+
+       # geom_text(aes(label=paste0(round(`Percentage of Students (%)`, digits=1), "%")), vjust=1.5, color="white",
+                #  position = position_dodge(0.9), size=3)+
         theme_minimal() +
         theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'),
               legend.key.height = unit(0.3, 'cm'),
               legend.key.width = unit(0.3, 'cm'),
               legend.title = element_blank(),
               legend.text = element_text(size=14),
-              axis.text=element_text(size=15),
+              axis.text=element_text(size=12),
               #axis.text.x = element_text(size=10, face="bold"),
               axis.title=element_text(size=17),
               axis.title.x=element_blank()) +
@@ -2149,19 +2149,19 @@ server <- function(input, output, session) {
         scale_fill_manual(values=c("#D55E00","#0072B2")) +
         labs(x = "Location")
       #combining the tables
-      display_table <- rbind(display_tbl_white2, display_tbl_black2)
-      na_rows <- display_table %>% filter(Data == "NA")
-      supr_rows <- display_table %>% filter(Data == "S")
-      less_rows <- display_table %>% filter(Data == "<")
-      other_rows <- display_table %>% filter(Data == "*")
-      supr_rows <- mutate(supr_rows, Data = "Suppressed")
-      other_rows <- mutate(other_rows, Data = "Suppressed")
-      less_rows <- mutate(less_rows, Data = "less than 10")
-      display_table_final <- rbind(na_rows, supr_rows, less_rows, other_rows)
-      table_plot <- tableGrob(display_table_final, rows = NULL)
+      # display_table <- rbind(display_tbl_white2, display_tbl_black2)
+      # na_rows <- display_table %>% filter(Data == "NA")
+      # supr_rows <- display_table %>% filter(Data == "S")
+      # less_rows <- display_table %>% filter(Data == "<")
+      # other_rows <- display_table %>% filter(Data == "*")
+      # supr_rows <- mutate(supr_rows, Data = "Suppressed")
+      # other_rows <- mutate(other_rows, Data = "Suppressed")
+      # less_rows <- mutate(less_rows, Data = "less than 10")
+      # display_table_final <- rbind(na_rows, supr_rows, less_rows, other_rows)
+      # table_plot <- tableGrob(display_table_final, rows = NULL)
       #plot together
-      BW_map <- grid.arrange(suspension_counties_plot)
-      BW_map
+      BW_map <- suspension_counties_plot
+      ggplotly(BW_map)
     }
   })
 
