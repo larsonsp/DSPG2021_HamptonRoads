@@ -660,9 +660,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                    # p("We would like to thank Healthy Patrick County, an association of concerned Patrick County residents, and Brandon Kramer for their input to this project.")
                           )
                  ),
-                 
-                 
-                 inverse = T)
+inverse = T)
 
 # server -----------------------------------------------------------
 server <- function(input, output, session) {
