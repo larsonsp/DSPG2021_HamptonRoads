@@ -283,6 +283,35 @@ ui <- navbarPage(title = "Hampton Roads",
                  
                  
                  navbarMenu(title="Education",
+                            #Educator Demographics
+                            tabPanel("Educator Demographics",
+                                     
+                                     fluidRow(
+                                       column(4,
+                                              h4(strong("Who are the Educators in Hampton Roads?")),
+                                              
+                                              p("The African American population overwhelmingly attends public schools, yet in most parts of the U.S., teachers are overwhelmingly White (citation) [1]."),   
+                                              p("For the 2020-2021 academic year, the Virginia Department of Education released racial and ethnic breakdown for educators by school division, which enables examination of racial parity and match within local school divisions."), 
+                                              p("As of that year, 13 percent of public-school educators identified as Black, compared to a state rate of 19.9% Black population in 2019, a difference of almost seven percentage points [2]. "), 
+                                              p("In Hampton Roads, Black teacher representation ranged from a high of 55 percent in Franklin City to a low of no (zero) representation in Poquoson City."),   
+                                              p("[2].  Virginia Department of Education, Virginia Educator Ethnicity and Race Data, https://doe.virginia.gov/teaching/workforce_data/index.shtml; U.S Census QuickFacts, https://www.census.gov/quickfacts/fact/table/VA,US/PST045219.") 
+                                              
+                                       ),
+                                       column(8,
+                                              tabsetPanel(
+                                                tabPanel("Educator Demographics",
+                                                         p(""),
+                                                         selectInput("teacherRaceBreakdown", "Select Race:", width = "100%", choices = c(
+                                                           "Black", "White", "American Indian", "Asian", "Hawaiian", "Two or More Races", "Hispanic"
+                                                         )),
+                                                         p(strong("Educator by Racial and Ethnic Groups")),
+                                                         withSpinner(plotlyOutput("teacherRacePlots")),
+                                                         p(tags$small("*Note: No bar reflects 0 teachers for the racial/ethnic group.")),
+                                                         p(tags$small("Source: Virginia DOE, Virginia 2020-2021 Teacher Race Report"))
+                                                ))))
+                                     
+                            ),
+                            
                             tabPanel("Educational Attainment", 
                                      fluidRow(style = "margin: 6px;",
                                               h1(strong("Percentage of Hampton Roads Population 25 years and older with highest educational attainment as Bachelor's degree or higher"), align = "center"),
@@ -310,7 +339,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                                 ),
                                                                 p(strong("Percentage of Hampton Roads Population 25 years and older with highest educational attainment as Bachelor's degree or higher")),
                                                                 withSpinner(plotlyOutput("genEdAttainmentPlots")),
-                                                                p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages. Certain counties/cities may not have data for specific years."))
+                                                                p(tags$small("*Note: Some year to year comparisions had very little variability in attainement percentages. Certain counties/cities may not have data for specific years."))
                                                        ),
                                                        tabPanel("Black Population",
                                                                 p(""),
@@ -320,68 +349,12 @@ ui <- navbarPage(title = "Hampton Roads",
                                                                 p(strong("Black Educational Attainment")),
                                                                 sliderInput("blackEdAttainmentYearDrop", "Select Year:", value = 2019, min = 2010, max = 2019, sep = "", animate=animationOptions(interval = 1400)),
                                                                 withSpinner(plotlyOutput("blackEdAttainmentPlots")),
-                                                                p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages. Certain counties/cities only had partial data (like male or female only) or no data at all for specific years."))
+                                                                p(tags$small("*Note: Some year to year comparisions had very little variability in attainement percentages. Certain counties/cities only had partial data (like male or female only) or no data at all for specific years."))
                                                                 #p(tags$small("Data Source: ACS 5 Year Estimate Table C15002B"))
                                                        )
                                                      )
                                               ))
                             ),
-                            
-                            tabPanel("Suspension",
-                                     
-                                     fluidRow(
-                                       
-                                       h1(strong("Suspension"), align = "center"),
-                                       column(4, h4(strong("Suspension Rate")), ),
-                                       column(8, 
-                                              tabsetPanel(
-                                                tabPanel("Short Term Suspension",
-                                                         h4("Percent Students Suspended Short-Term", align = "center"),
-                                                         withSpinner(plotlyOutput("suspension_line_graph")),
-                                                         p(tags$small("Data Source: KIDS COUNT, Annie E. Casey Foundation"))
-                                                ),
-                                                # tabPanel("Suspension Rate by Race", p(""),
-                                                #          selectInput("BWsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
-                                                #            "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
-                                                #          withSpinner(plotOutput("BW_map", height = "700px")),
-                                                #          p(tags$small("Data Source: KIDS COUNT, Annie E. Casey Foundation")),
-                                                #          p(tags$small("Note: Black student data supressed for Mathews and Poquoson."))
-                                                # ),
-                                                tabPanel("Suspension Gap",
-                                                         h4("Difference Between Black and White Student Short-Term Suspension", align = "center"),
-                                                         withSpinner(plotlyOutput("suspensionGap", height = "700px")),
-                                                         p(tags$small("Data Source: KIDS COUNT, Annie E. Casey Foundation"))
-                                                )
-                                                
-                                              )
-                                              
-                                       )
-                                       
-                                     )
-                                     
-                            ), 
-                            
-                            #Teacher Demographics
-                            tabPanel("Teacher Demographics",
-                                     
-                                     fluidRow(
-                                       column(4,
-                                              h4(strong("Teacher Race Breakdown")),
-                                       ),
-                                       column(8,
-                                              tabsetPanel(
-                                                tabPanel("Teacher Race Breakdown",
-                                                         p(""),
-                                                         selectInput("teacherRaceBreakdown", "Select Race:", width = "100%", choices = c(
-                                                           "Black", "Asian", "American Indian", "Hispanic", "Two or More Races", "White", "Hawaiian"
-                                                         )),
-                                                         p(strong("Virginia: Teacher Breakdown By Race in Hampton Roads")),
-                                                         withSpinner(plotlyOutput("teacherRacePlots")),
-                                                         p(tags$small("Possible Suppression of Counts in Dataset for Counties/Cities with Zero Values Stated"))
-                                                ))))
-                                     
-                            ),
-                            
                             
                             #Drop Out Rate
                             tabPanel("Dropout Rate",
@@ -400,11 +373,42 @@ ui <- navbarPage(title = "Hampton Roads",
                                               ))
                                      )
                                      
-                            )
+                            ), 
                             
-                            
-                            
-                 ),
+                            tabPanel("Suspension Rate",
+                                     
+                                     fluidRow(
+                                       h1(strong("Suspension"), align = "center"),
+                                       column(4, h4(strong("Suspension Rate")), ),
+                                       column(8, 
+                                              tabsetPanel(
+                                                tabPanel("Suspension Rate", p(""),
+                                                         h4("Percent of Students Suspended Short-Term in Virginia", align = "center"),
+                                                         withSpinner(plotlyOutput("suspension_line_graph")),
+                                                         p(tags$small("Data Source: KIDS COUNT, Annie E. Casey Foundation"))
+                                                ),
+                                                tabPanel("Suspension Rate by Race", p(""),
+                                                         h4("Percent of Students Suspended Short-Term in Hampton Roads by Race", align = "center"),
+                                                         selectInput("BWsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
+                                                           "2019", "2018", "2017", "2016", "2015")),
+                                                         withSpinner(plotlyOutput("BW_map", height = "700px")),
+                                                         p(tags$small("Data Source: KIDS COUNT, Annie E. Casey Foundation")),
+                                                         p(tags$small("*Note: Black student data supressed for Mathews and Poquoson."))
+                                                ),
+                                                tabPanel("Suspension Gap", p(""),
+                                                         h4("Difference Between Black and White Student Short-Term Suspension", align = "center"),
+                                                         withSpinner(plotlyOutput("suspensionGap", height = "700px")),
+                                                         p(tags$small("Data Source: KIDS COUNT, Annie E. Casey Foundation"))
+                                                )
+                                                
+                                              )
+                                              
+                                       )
+                                       
+                                     )
+                                     
+                                     
+                            ) ),
                  
                  navbarMenu(title="Economics",
                             #Median Income
@@ -513,7 +517,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                                     "2019","2018", "2017", "2016", "2015","2014",
                                                                     "2013","2012", "2011", "2010")),
                                                                   withSpinner(plotlyOutput("sector_plot")),
-                                                                  p(tags$small("Note: Some year to year comparisions had very little variability in enrollement by industry sectors. Certain counties/cities may not have data for specific years."))
+                                                                  p(tags$small("*Note: Some year to year comparisions had very little variability in enrollement by industry sectors. Certain counties/cities may not have data for specific years."))
                                                                   
                                                          )
                                                 ),
@@ -1609,14 +1613,9 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Black Teachers`, fill = Name)) + geom_col() +
-        labs(title = "Black Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=10, color="black"))
-        )
+      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) 
     }
     
     else if (var_teacherRaces() == "Asian") {
@@ -1626,14 +1625,9 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Asian Teachers`, fill = Name)) + geom_col() +
-        labs(title = "Asian Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=10, color="black"))
-        )
+      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y")))
     }
     
     else if (var_teacherRaces() == "White") {
@@ -1645,12 +1639,7 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `% of White Teachers`, fill = Name)) + geom_col() +
         labs(title = "White Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=10, color="black"))
-        )
+      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) 
     }
     
     else if (var_teacherRaces() == "Hispanic") {
@@ -1662,12 +1651,7 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `% of Hispanic Teachers`, fill = Name)) + geom_col() +
         labs(title = "Hispanic Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=10, color="black"))
-        )
+      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) 
     }
     
     else if (var_teacherRaces() == "American Indian") {
@@ -1679,12 +1663,7 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `% of American Indian Teachers`, fill = Name)) + geom_col() +
         labs(title = "American Indian Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=10, color="black"))
-        )
+      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) 
     }
     
     else if (var_teacherRaces() == "Two or More Races") {
@@ -1696,12 +1675,7 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `% of Two Or More Races Teachers`, fill = Name)) + geom_col() +
         labs(title = "Two or More Races Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=10, color="black"))
-        )
+      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) 
       
     }
     
@@ -1714,12 +1688,7 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `% of Hawaiian Teachers`, fill = Name)) + geom_col() +
         labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
-        layout(annotations = list(x = 1, y = -0.60, text = "Data Source: Virginia 2020-2021 Teacher Race Report", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=10, color="black"))
-        )
+      hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y")))
     }
     
   }
@@ -1945,7 +1914,8 @@ server <- function(input, output, session) {
     va_suspension_race15 <- mutate(va_suspension_race15, year = "2015")
     ###########
     suspension_line <- rbind(va_suspension_race19, va_suspension_race18, va_suspension_race17, va_suspension_race16, va_suspension_race15)
-    suspension_line_graph <- ggplot(suspension_line, aes(x=year, y=Data, group = race, color = race)) + 
+    colnames(suspension_line) <- c("Percent Suspended", "Race", "Year")
+    suspension_line_graph <- ggplot(suspension_line, aes(x=Year, y=`Percent Suspended`, group = Race, color = Race)) + 
       geom_line(position = "identity", size =1.5) +
       theme_minimal() +
       theme(
@@ -1958,8 +1928,8 @@ server <- function(input, output, session) {
       scale_color_viridis_d() +
       scale_y_continuous(limits = c(2,14), breaks = seq(0, 14, by =2))
     #plot
-    ggplotly(suspension_line_graph) %>%
-      layout(legend = list(y=0.5) )
+    ggplotly(suspension_line_graph, tooltip = c("x", "y", "group")) %>%
+      layout(legend = list(y=0.5))
     
     
     #layout(legend = list(y=0.5))
@@ -1973,7 +1943,8 @@ server <- function(input, output, session) {
     gap_data$year[gap_data$year == "2016-2017"] <- "2017"
     gap_data$year[gap_data$year == "2015-2016"] <- "2016"
     gap_data$year[gap_data$year == "2014-2015"] <- "2015"
-    susGapPlot <- ggplot(gap_data, aes(x=year, y=gap, group = Location, color =Location)) + 
+    colnames(gap_data) <- c("x", "Location", "Percent Difference", "Year")
+    susGapPlot <- ggplot(gap_data, aes(x=Year, y=`Percent Difference`, group = Location, color =Location)) + 
       geom_line(position = "identity", size =1.5) +
       theme_minimal() +
       theme(
@@ -1986,7 +1957,7 @@ server <- function(input, output, session) {
       scale_color_viridis_d() +
       ylim(0,16)
     
-    suspensionGap <- ggplotly(susGapPlot) %>%
+    suspensionGap <- ggplotly(susGapPlot, tooltip = c("x", "y", "group")) %>%
       layout(legend = list(y=0.5))
     
   })
@@ -2000,12 +1971,12 @@ server <- function(input, output, session) {
     input$BWsuspensionYearDrop
   })
   
-  output$BW_map <- renderPlot({
-    
-    if(var_BWsuspension() == "2018-2019"){
+  output$BW_map <- renderPlotly({
+    #
+    if(var_BWsuspension() == "2019"){
       year <- "2018-2019"
       suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
-      city <- c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
+      city <- c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews",
                 "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
                 "Williamsburg", "York")
       suspension_counties <-filter(suspension_data, Location %in% city)
@@ -2016,7 +1987,7 @@ server <- function(input, output, session) {
       pct_white2$Location[pct_white2$Location == "Williamsburg"] <- "Williamsburg-James City"
       pct_white2 <- pct_white2[c(1:5,7:16),]
       #putting NAs and Ss in a table
-      #pct_white2$Data[is.na(pct_white2$Data)] <- "NA"
+      pct_white2$Data[is.na(pct_white2$Data)] <- "NA"
       display_tbl_white <- pct_white2 %>% filter(Data %in% c("NA", "S", "<", "*"))
       display_tbl_white2<- display_tbl_white[,c(2,3,6)]
       pct_white2$Data[pct_white2$Data=="NA"] <- 0
@@ -2054,64 +2025,61 @@ server <- function(input, output, session) {
       colnames(pct_blck) <- c("Location", "Percent (%)")
       sus <- rbind(pct_blck,pct_white3)
       num <- nrow(sus)/2
-      sus <- mutate(sus, race = c(rep("Black Students",num), rep("White Students", num)))
+      sus <- mutate(sus, Race = c(rep("Black",num), rep("White", num)))
       #bar graph
       suspension_counties_plot <-
-        ggplot(sus , aes(Location, y=`Percent (%)`, fill=race)) +
+        ggplot(sus , aes(Location, y=`Percent (%)`, fill=Race)) +
         geom_bar(stat="identity", position=position_dodge())+
-        geom_text(aes(label=paste0(round(`Percent (%)`, digits=1), "%")), vjust=1.5, color="white",
-                  position = position_dodge(0.9), size=3)+
-        theme_minimal() + 
-        theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'), 
-              legend.key.height = unit(0.3, 'cm'), 
-              legend.key.width = unit(0.3, 'cm'), 
+        # geom_text(aes(label=paste0(round(`Percent (%)`, digits=1), "%")), vjust=1.5, color="white",
+        # position = position_dodge(0.9), size=3)+
+        theme_minimal() +
+        theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'),
+              legend.key.height = unit(0.3, 'cm'),
+              legend.key.width = unit(0.3, 'cm'),
               legend.title = element_blank(),
               legend.text = element_text(size=14),
-              axis.text=element_text(size=15),
+              axis.text=element_text(size=12),
               #axis.text.x = element_text(size=10, face="bold"),
               axis.title=element_text(size=17),
               axis.title.x=element_blank()) +
         theme(axis.text.x = element_text(angle = 40, vjust = 0.95, hjust=1))+
         scale_fill_manual(values=c("#D55E00","#0072B2")) +
-        labs(x = "Location") 
+        labs(x = "Location")
       #combining the tables
-      # display_table <- rbind(display_tbl_white2, display_tbl_black2)
-      # na_rows <- display_table %>% filter(Data == "NA")
-      # supr_rows <- display_table %>% filter(Data == "S")
-      # less_rows <- display_table %>% filter(Data == "<")
-      # other_rows <- display_table %>% filter(Data == "*")
-      # supr_rows <- mutate(supr_rows, Data = "Suppressed")
-      # other_rows <- mutate(other_rows, Data = "Suppressed")
-      # less_rows <- mutate(less_rows, Data = "less than 10")
-      # display_table_final <- rbind(na_rows, supr_rows, less_rows, other_rows)
-      # table_plot <- tableGrob(display_table_final, rows = NULL)
+      display_table <- rbind(display_tbl_white2, display_tbl_black2)
+      na_rows <- display_table %>% filter(Data == "NA")
+      supr_rows <- display_table %>% filter(Data == "S")
+      less_rows <- display_table %>% filter(Data == "<")
+      other_rows <- display_table %>% filter(Data == "*")
+      supr_rows <- mutate(supr_rows, Data = "Suppressed")
+      other_rows <- mutate(other_rows, Data = "Suppressed")
+      less_rows <- mutate(less_rows, Data = "less than 10")
+      display_table_final <- rbind(na_rows, supr_rows, less_rows, other_rows)
+      table_plot <- tableGrob(display_table_final, rows = NULL)
       #plot together
+      #BW_map <- grid.arrange(suspension_counties_plot, table_plot, nrow=2, heights=c(4,1))
+      #BW_map
+      #
       
-      
-      
-      # BW_map <- grid.arrange(suspension_counties_plot, table_plot, nrow=2, heights=c(4,1))
-      # BW_map
-      # 
-      
-      BW_map <- grid.arrange(suspension_counties_plot)
-      BW_map
+      BW_map <- suspension_counties_plot
+      ggplotly(BW_map)
       
     }
-    else if (var_BWsuspension() %in% c("AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")){
-      if (var_BWsuspension() == "AY 2017-2018") {
+    else if (var_BWsuspension() %in% c("2018", "2017", "2016", "2015")){
+      if (var_BWsuspension() == "2018") {
         year <- "AY 2017-2018"
       }
-      else if (var_BWsuspension() == "AY 2016-2017") {
+      else if (var_BWsuspension() == "2017") {
         year <- "AY 2016-2017"
       }
-      else if (var_BWsuspension() == "AY 2015-2016") {
+      else if (var_BWsuspension() == "2016") {
         year <- "AY 2015-2016"
       }
-      else if (var_BWsuspension() == "AY 2014-2015") {
+      else if (var_BWsuspension() == "2015") {
         year <- "AY 2014-2015"
       }
       suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
-      city <- c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews", 
+      city <- c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City", "Mathews",
                 "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
                 "Williamsburg", "York")
       suspension_counties <-filter(suspension_data, Location %in% city)
@@ -2160,40 +2128,40 @@ server <- function(input, output, session) {
       colnames(pct_blck) <- c("Location", "Percentage of Students (%)")
       sus <- rbind(pct_blck,pct_white3)
       num <- nrow(sus)/2
-      sus <- mutate(sus, race = c(rep("Black Students",num), rep("White Students", num)))
+      sus <- mutate(sus, Race = c(rep("Black",num), rep("White", num)))
       #bar graph
       suspension_counties_plot <-
-        ggplot(sus , aes(Location, y=`Percentage of Students (%)`, fill=race)) +
+        ggplot(sus , aes(Location, y=`Percentage of Students (%)`, fill=Race)) +
         geom_bar(stat="identity", position=position_dodge())+
-        geom_text(aes(label=paste0(round(`Percentage of Students (%)`, digits=1), "%")), vjust=1.5, color="white",
-                  position = position_dodge(0.9), size=3)+
-        theme_minimal() + 
-        theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'), 
-              legend.key.height = unit(0.3, 'cm'), 
-              legend.key.width = unit(0.3, 'cm'), 
+        # geom_text(aes(label=paste0(round(`Percentage of Students (%)`, digits=1), "%")), vjust=1.5, color="white",
+        #  position = position_dodge(0.9), size=3)+
+        theme_minimal() +
+        theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'),
+              legend.key.height = unit(0.3, 'cm'),
+              legend.key.width = unit(0.3, 'cm'),
               legend.title = element_blank(),
               legend.text = element_text(size=14),
-              axis.text=element_text(size=15),
+              axis.text=element_text(size=12),
               #axis.text.x = element_text(size=10, face="bold"),
               axis.title=element_text(size=17),
               axis.title.x=element_blank()) +
         theme(axis.text.x = element_text(angle = 40, vjust = 0.95, hjust =1)) +
         scale_fill_manual(values=c("#D55E00","#0072B2")) +
-        labs(x = "Location") 
+        labs(x = "Location")
       #combining the tables
-      display_table <- rbind(display_tbl_white2, display_tbl_black2)
-      na_rows <- display_table %>% filter(Data == "NA")
-      supr_rows <- display_table %>% filter(Data == "S")
-      less_rows <- display_table %>% filter(Data == "<")
-      other_rows <- display_table %>% filter(Data == "*")
-      supr_rows <- mutate(supr_rows, Data = "Suppressed")
-      other_rows <- mutate(other_rows, Data = "Suppressed")
-      less_rows <- mutate(less_rows, Data = "less than 10")
-      display_table_final <- rbind(na_rows, supr_rows, less_rows, other_rows)
-      table_plot <- tableGrob(display_table_final, rows = NULL)
+      # display_table <- rbind(display_tbl_white2, display_tbl_black2)
+      # na_rows <- display_table %>% filter(Data == "NA")
+      # supr_rows <- display_table %>% filter(Data == "S")
+      # less_rows <- display_table %>% filter(Data == "<")
+      # other_rows <- display_table %>% filter(Data == "*")
+      # supr_rows <- mutate(supr_rows, Data = "Suppressed")
+      # other_rows <- mutate(other_rows, Data = "Suppressed")
+      # less_rows <- mutate(less_rows, Data = "less than 10")
+      # display_table_final <- rbind(na_rows, supr_rows, less_rows, other_rows)
+      # table_plot <- tableGrob(display_table_final, rows = NULL)
       #plot together
-      BW_map <- grid.arrange(suspension_counties_plot, table_plot, nrow=2, heights=c(4,1))
-      BW_map
+      BW_map <- suspension_counties_plot
+      ggplotly(BW_map)
     }
   })
   

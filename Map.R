@@ -20,6 +20,7 @@ library(readr)
 library(hash)
 library(readxl)
 library(sos)
+library(plotly)
 
 setwd("~/GitPractice/DSPG2021_HamptonRoads")
 census_api_key("5dff03cc06392730a33b6cc8b5f354730915dd20")
@@ -699,16 +700,25 @@ teacherByRace$HawaiianProportions <- teacherByRace$`Hawaiian`/teacherByRace$`Tot
 teacherByRace <- teacherByRace %>% mutate(`Division Name` = str_remove(`Division Name`, "County Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City"))
 write_csv(teacherByRace, file = ("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/teacherByRacesBreakdown.csv"))
 teacherByRace <- read.csv("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/teacherByRacesBreakdown.csv")
-teacherByRace
+colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
 
 #teacherByRace$BlackProportions <- teacherByRace$Black/teacherByRace$`Total Counts`
 #changing col names so it I can convert division name column without getting mutate character error 
 #colnames(teacherByRace) <- c("DivisionName",'TotalCounts','Black', 'Proportions')
-teacherByRace <- teacherByRace %>% mutate(`Division Name` = str_remove(`Division Name`, "County Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City"))
-
 teacherByRace <- teacherByRace  %>% 
-  ggplot(aes(x = `Division Name`, y = BlackProportions, fill = `Division Name`)) + geom_col() +
-  labs(title = "Virginia: Percentage of Black Teachers in Hampton Roads", y = "Percentage (%)", x = "Hampton Roads", caption = "Source: Virginia 2020-2021 Teacher Race Report") + 
-  theme(axis.text.x = element_text(angle = 40))
-teacherByRace 
+  ggplot(aes(x = Name, y = `% of Two Or More Races Teachers`, fill = Name)) + geom_col() +
+  labs(title = "Two or More Races Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d() + ylim(0, 25)
+#adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
+  layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
+                            showarrow = F, xref='paper', yref='paper', 
+                            xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                            font=list(size=10, color="black")), xaxis = list(autorange = FALSE),
+                  yaxis = list(autorange = FALSE))
+
+
+
+
+#adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+
 
