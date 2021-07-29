@@ -336,21 +336,21 @@ ui <- navbarPage(title = "Hampton Roads",
                                        column(8, 
                                               tabsetPanel(
                                                 tabPanel("Short Term Suspension",
-                                                  h4("Percent of Students Suspended from AY2014-2015 to AY2018-2019"),
-                                                  withSpinner(plotOutput("suspension_line_graph")),
-                                                  p(tags$small("Data Source: Kids Count Data Center"))
+                                                  h4("Percent Students Suspende Short-Term", align = "center"),
+                                                  withSpinner(plotlyOutput("suspension_line_graph")),
+                                                  p(tags$small("Data Source: KIDS COUNT, Annie E. Casey Foundation"))
                                                 ),
-                                                tabPanel("Suspension Rate by Race", p(""),
-                                                         selectInput("BWsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
-                                                           "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
-                                                         withSpinner(plotOutput("BW_map", height = "700px")),
-                                                         p(tags$small("Data Source: Kids Count Data Center")),
-                                                         p(tags$small("Note: Black student data supressed for Mathews and Poquoson."))
-                                                ),
+                                                # tabPanel("Suspension Rate by Race", p(""),
+                                                #          selectInput("BWsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
+                                                #            "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
+                                                #          withSpinner(plotOutput("BW_map", height = "700px")),
+                                                #          p(tags$small("Data Source: KIDS COUNT, Annie E. Casey Foundation")),
+                                                #          p(tags$small("Note: Black student data supressed for Mathews and Poquoson."))
+                                                # ),
                                                 tabPanel("Suspension Gap",
-                                                         h4("Difference Between Black and White Student Short-Term Suspension"),
+                                                         h4("Difference Between Black and White Student Short-Term Suspension", align = "center"),
                                                          withSpinner(plotlyOutput("suspensionGap", height = "700px")),
-                                                         p(tags$small("Data Source: Kids Count Data Center"))
+                                                         p(tags$small("Data Source: KIDS COUNT, Annie E. Casey Foundation"))
                                                 )
                                                 
                                               )
@@ -565,7 +565,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                 selectInput("PovertyCountYearDrop", "Select Year:", width = "100%", choices = c(
                                                 "2019","2018", "2017", "2016", "2015","2014",
                                                 "2013","2012")),
-                                                withSpinner(plotOutput("counties_pov")),
+                                                withSpinner(plotlyOutput("counties_pov")),
                                                 p(tags$small("Data Source: ACS 5 Year Estimates Table S1701"))
                                         ), 
                                        
@@ -675,6 +675,7 @@ server <- function(input, output, session) {
               "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
               "Williamsburg", "York")
     coordinates2 <- mutate(coordinates2, Loc = city)
+    coordinates2$Loc[coordinates2$Loc == "Franklin"] <- "Franklin City"
     #Graph
     hampton_counties_map <- ggplot(coordinates2) +
       geom_sf() +
@@ -1154,6 +1155,7 @@ server <- function(input, output, session) {
               "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton", "Suffolk", "Virginia Beach",
               "Williamsburg", "York")
     coordinates2 <- mutate(coordinates2, Loc = city)
+    coordinates2$Loc[coordinates2$Loc == "Franklin"] <- "Franklin City"
     #Graph
     age_map <- ggplot(coordinates2) +
       geom_sf() +
@@ -1856,7 +1858,7 @@ server <- function(input, output, session) {
   # })
   
   # suspension line graph
-  output$suspension_line_graph <- renderPlot({
+  output$suspension_line_graph <- renderPlotly({
     year <- "2018-2019"
     suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
     #using only  VA data for 2018-2019
@@ -1872,7 +1874,7 @@ server <- function(input, output, session) {
     va_suspension_race19$Data <- as.numeric(va_suspension_race19$Data)
     va_suspension_race19 <- mutate(va_suspension_race19, Data = Data*100)
     va_suspension_race19 <- mutate(va_suspension_race19, race = c("Black", "Hispanic", "White"))
-    va_suspension_race19 <- mutate(va_suspension_race19, year = "2018-2019")
+    va_suspension_race19 <- mutate(va_suspension_race19, year = "2019")
     ####
     year <- "AY 2017-2018"
     suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
@@ -1889,7 +1891,7 @@ server <- function(input, output, session) {
     va_suspension_race18$Data <- as.numeric(va_suspension_race18$Data)
     va_suspension_race18 <- mutate(va_suspension_race18, Data = Data*100)
     va_suspension_race18 <- mutate(va_suspension_race18, race = c("Black", "Hispanic", "White"))
-    va_suspension_race18 <- mutate(va_suspension_race18, year = "2017-2018")
+    va_suspension_race18 <- mutate(va_suspension_race18, year = "2018")
     ###
     year <- "AY 2016-2017"
     suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
@@ -1906,7 +1908,7 @@ server <- function(input, output, session) {
     va_suspension_race17$Data <- as.numeric(va_suspension_race17$Data)
     va_suspension_race17 <- mutate(va_suspension_race17, Data = Data*100)
     va_suspension_race17 <- mutate(va_suspension_race17, race = c("Black", "Hispanic", "White"))
-    va_suspension_race17 <- mutate(va_suspension_race17, year = "2016-2017")
+    va_suspension_race17 <- mutate(va_suspension_race17, year = "2017")
     ###
     year <- "AY 2015-2016"
     suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
@@ -1923,7 +1925,7 @@ server <- function(input, output, session) {
     va_suspension_race16$Data <- as.numeric(va_suspension_race16$Data)
     va_suspension_race16 <- mutate(va_suspension_race16, Data = Data*100)
     va_suspension_race16 <- mutate(va_suspension_race16, race = c("Black", "Hispanic", "White"))
-    va_suspension_race16 <- mutate(va_suspension_race16, year = "2015-2016")
+    va_suspension_race16 <- mutate(va_suspension_race16, year = "2016")
     ##
     year <- "AY 2014-2015"
     suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
@@ -1940,7 +1942,7 @@ server <- function(input, output, session) {
     va_suspension_race15$Data <- as.numeric(va_suspension_race15$Data)
     va_suspension_race15 <- mutate(va_suspension_race15, Data = Data*100)
     va_suspension_race15 <- mutate(va_suspension_race15, race = c("Black", "Hispanic", "White"))
-    va_suspension_race15 <- mutate(va_suspension_race15, year = "2014-2015")
+    va_suspension_race15 <- mutate(va_suspension_race15, year = "2015")
     ###########
     suspension_line <- rbind(va_suspension_race19, va_suspension_race18, va_suspension_race17, va_suspension_race16, va_suspension_race15)
     suspension_line_graph <- ggplot(suspension_line, aes(x=year, y=Data, group = race, color = race)) + 
@@ -1948,36 +1950,42 @@ server <- function(input, output, session) {
       theme_minimal() +
       theme(
         axis.title.x = element_blank(),
-        axis.title.y = element_text(size=12),
+        axis.title.y = element_text(size=13),
         legend.title = element_blank(),
-        legend.text = element_text(size=12),
-        axis.text = element_text(siz=12)) +
+        legend.text = element_text(size=13),
+        axis.text = element_text(size=13)) +
       labs(y ="Percent (%)") +
       scale_color_viridis_d() +
-      scale_y_continuous(limits = c(2,14), breaks = seq(2, 14, by =4))
+      scale_y_continuous(limits = c(2,14), breaks = seq(0, 14, by =2))
     #plot
-    suspension_line_graph
+    ggplotly(suspension_line_graph) %>%
+      layout(legend = list(y=0.5))
 
     
   })
   #suspension gap line graph ------------------------------------------------
   output$suspensionGap <- renderPlotly({
     gap_data <- read.csv("data/suspension/suspensionGap.csv")
-    
+    gap_data$year[gap_data$year == "2018-2019"] <- "2019"
+    gap_data$year[gap_data$year == "2017-2018"] <- "2018"
+    gap_data$year[gap_data$year == "2016-2017"] <- "2017"
+    gap_data$year[gap_data$year == "2015-2016"] <- "2016"
+    gap_data$year[gap_data$year == "2014-2015"] <- "2015"
     susGapPlot <- ggplot(gap_data, aes(x=year, y=gap, group = Location, color =Location)) + 
       geom_line(position = "identity", size =1.5) +
       theme_minimal() +
       theme(
         axis.title.x = element_blank(),
-        axis.title.y = element_text(size=12),
+        axis.title.y = element_text(size=13),
         legend.title = element_blank(),
-        legend.text = element_text(size=12),
-        axis.text = element_text(siz=12)) +
+        legend.text = element_text(size=13),
+        axis.text = element_text(siz=13)) +
       labs(y ="Percent Difference (%)") +
       scale_color_viridis_d() +
       ylim(0,16)
     
-    suspensionGap <- ggplotly(susGapPlot)
+    suspensionGap <- ggplotly(susGapPlot) %>%
+      layout(legend = list(y=0.5))
  
   })
   
@@ -3304,7 +3312,7 @@ server <- function(input, output, session) {
     input$PovertyCountYearDrop
   })
   
-  output$counties_pov <- renderPlot({
+  output$counties_pov <- renderPlotly({
     if( var_povertyCount() %in% c("2019", "2018", "2017", "2016", "2015")){
       if( var_povertyCount() == "2019") { 
         hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2019.csv")
@@ -3334,31 +3342,33 @@ server <- function(input, output, session) {
       hamp_pctB <- hamp_pov_blck_tbl[,4] 
       hamp_comb <- rbind(hamp_pctG, hamp_pctB)
       colnames(hamp_comb) <- "Ratio"
-      hamp_comb <- mutate(hamp_comb, Location =  rep(c("Chesapeake", "Franklin", "Gloucester", "Hampton", "Isle of Wight", "James City",
+      hamp_comb <- mutate(hamp_comb, Location =  rep(c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City",
                                                        "Mathews", "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton",
                                                        "Suffolk", "Virginia Beach", "Williamsburg", "York"),2))
       hamp_comb <- mutate(hamp_comb, Demographic = c(rep("Total Population", 16),
                                                      rep("Black Population",16)))
       colnames(hamp_comb) <- c("Percentage (%)", "Location", "Demographic")
+      hamp_comb <- hamp_comb %>% filter(hamp_comb[,2] != "Poquoson")
       #Graph 
       counties_pov <-  ggplot(hamp_comb, aes(Location, y=`Percentage (%)`, fill=Demographic)) +
         geom_bar(stat="identity", position=position_dodge())+
-        geom_text(aes(label=paste0(round(`Percentage (%)`, digits=2), "%")), vjust=1.5, color="white",
-                  position = position_dodge(0.9), size=3)+
+        #geom_text(aes(label=paste0(round(`Percentage (%)`, digits=2), "%")), vjust=1.5, color="white",
+                  #position = position_dodge(0.9), size=3)+
         theme_minimal() +
         scale_fill_manual(values=c("#D55E00","#0072B2")) +
         theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'), 
-              legend.key.height = unit(0., 'cm'), 
-              legend.key.width = unit(0.5, 'cm'), 
+              #legend.key.height = unit(0.5, 'cm'), 
+              #legend.key.width = unit(0.5, 'cm'), 
               legend.title = element_blank(),
-              legend.text = element_text(size=14),
-              axis.text=element_text(size=15),
+              #legend.text = element_text(size=14),
+              #axis.text=element_text(size=15),
               #axis.text.x = element_text(size=8, face="bold"),
-              axis.title=element_text(size=17),
+              #axis.title=element_text(size=17),
               axis.title.x=element_blank()) +
-        theme(axis.text.x = element_text(angle=40, vjust=0.95, hjust=1))
+        theme(axis.text.x = element_text(angle=40, vjust=0.95, hjust=1)) +
+        labs(caption = "Source: ACS 5 Year Estimate Table S1701")
       #plot
-      counties_pov 
+      counties_pov <- ggplotly(counties_pov)
     }
     #when table changes
     else if (var_povertyCount() %in% c("2014", "2013", "2012")){
@@ -3384,33 +3394,33 @@ server <- function(input, output, session) {
       hamp_pctB <- hamp_pov_blck_tbl[,4] 
       hamp_comb <- rbind(hamp_pctG, hamp_pctB)
       colnames(hamp_comb) <- "Ratio"
-      hamp_comb <- mutate(hamp_comb, Location = c(rep(c("Chesapeake", "Franklin", "Gloucester", "Hampton", "Isle of Wight", "James City",
+      hamp_comb <- mutate(hamp_comb, Location = c(rep(c("Chesapeake", "Franklin City", "Gloucester", "Hampton", "Isle of Wight", "James City",
                                                         "Mathews", "Newport News", "Norfolk", "Poquoson", "Portsmouth", "Southampton",
                                                         "Suffolk", "Virginia Beach", "Williamsburg", "York"),2)))
       hamp_comb <- mutate(hamp_comb, Demographic = c(rep("Total Population", 16),
                                                      rep("Black Population",16)))
       colnames(hamp_comb) <- c("Percentage (%)", "Location", "Demographic")
+      hamp_comb <- hamp_comb %>% filter(hamp_comb[,2] != "Poquoson")
       #Graph 
       
       counties_pov <-  ggplot(hamp_comb, aes(Location, y=`Percentage (%)`, fill=Demographic)) +
         geom_bar(stat="identity", position=position_dodge())+
-        geom_text(aes(label=paste0(round(`Percentage (%)`, digits=2), "%")), vjust=1.5, color="white",
-                  position = position_dodge(0.9), size=3)+
+        #geom_text(aes(label=paste0(round(`Percentage (%)`, digits=2), "%")), vjust=1.5, color="white",
+                  #position = position_dodge(0.9), size=3)+
         theme_minimal() +
         scale_fill_manual(values=c("#D55E00","#0072B2")) +
         theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'), 
-              legend.key.height = unit(1, 'cm'), 
-              legend.key.width = unit(1, 'cm'), 
               legend.title = element_blank(),
-              legend.text = element_text(size=14),
-              axis.text=element_text(size=15),
+              #legend.text = element_text(size=14),
+             # axis.text=element_text(size=15),
               #axis.text.x = element_text(size=10, face="bold"),
-              axis.title=element_text(size=17),
+              #axis.title=element_text(size=17),
               axis.title.x=element_blank())+
-        theme(axis.text.x = element_text(angle=40, vjust=0.95, hjust=1))
+        theme(axis.text.x = element_text(angle=40, vjust=0.95, hjust=1)) +
+        labs(caption = "Source: ACS 5 Year Estimate Table S1701")
       
       #plot
-      counties_pov
+      counties_pov <- ggplotly(counties_pov)
     }
     
     
