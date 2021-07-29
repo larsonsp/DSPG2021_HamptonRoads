@@ -707,7 +707,7 @@ colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "America
 #colnames(teacherByRace) <- c("DivisionName",'TotalCounts','Black', 'Proportions')
 teacherByRace <- teacherByRace  %>% 
   ggplot(aes(x = Name, y = `% of Two Or More Races Teachers`, fill = Name)) + geom_col() +
-  labs(title = "Two or More Races Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d() + ylim(0, 100)
+  labs(title = "Two or More Races Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_color_viridis_d() +  scale_fill_viridis_d() + ylim(0, 25)
 #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
 hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) %>% 
   layout(annotations = list(x = 1, y = -0.60, text = "Source: Virginia 2020-2021 Teacher Race Report", 
