@@ -115,7 +115,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                    # br("", style = "padding-top:2px;"),
                                    # img(src = "VTDSPG Logo.png", class = "topimage", width = "20%", style = "display: block; margin-left: auto; margin-right: auto;"),
                                    br(""),
-                                   h1(strong("Developing indicators to track the economic and social mobility of Black families in Hampton Roads"),
+                                   h1(strong("Tracking indicators of the economic and social mobility of the Black community in Hampton Roads"),
                                       br(""),
                                       h4("Data Science for the Public Good Program"),
                                       h4("Virginia Tech"),
@@ -131,47 +131,22 @@ ui <- navbarPage(title = "Hampton Roads",
                                           p(),
                                           p(strong("The setting."), a(href = "https://en.wikipedia.org/wiki/Hampton_Roads", "Hampton Roads", target = "_blank"), "is a an area that comprises of sixteen total cities and counties with a much higher Black percentage, have a per capita income and employment rate below the national and metropolitan statistical area (MSA) average. 
                                           Additionally, the graduation rate is lower than state average.  As a result, our team wants to investigate the nature of these disadvantages through  indicators for Hampton Roads, Virginia, from 2010 to 2020 according to four key domains: Education, Economic Conditions, Housing, and Healthcare."),
-                                          p(),
-                                          p(strong("The project."), "This Virginia Tech", a(href = "https://biocomplexity.virginia.edu/social-decision-analytics", "Biocomplexity Institute", target = "_blank"), 
-                                            "Data Science for Public Good (DSPG) project will be aimed at analyzing questions like: * How do the black unemployment rates in Hampton compare to the Hampton and Virginia mean? 
-* How do the black poverty rates in Hampton contrast with Hampton and Virginia rates? Our motivation is that the dashboard will help us see **potential** ways sysematic issues are (or are not) affecting the Black community in **Hampton Roads** and what/how we can overcome those challenges. This project is under the much broader program of Virginia Tech Data Science for Public Good program, at the very gracious request of stakeholder  Mallory Tuttle. Additionally, we would like to give our immense credit and appreciation to the creators of R-Shiny-App-Graduate-Employment-Singapore, as their dashboard and code provided a great template and blueprint for forming our own Hampon-Roads-Shiny-App. .")
+                                          
+                                          p("The Hampton Roads Metropolitan Statistical Area (MSA) consists of ten cities and six counties in the Southeastern region of Virginia.  It is ranked as the 33rd largest MSA in the United States, the 8th largest metro area in the Southeast region, and the 2nd largest between Atlanta and Washington, DC. "),  
+                                          p("The jurisdictions of Hampton Roads are the cities of Chesapeake, Franklin, Hampton, Newport News, Norfolk, Poquoson, Portsmouth, Suffolk, Virginia Beach, and Williamsburg, and the counties of Isle of Wright, James City, Matthews, Southampton, and York. "),
+                                          p("The population of the Hampton Roads MSA has been growing over the last decade with an estimated population of approximately 1.7 million in 2020, a 3% increase from 2010. This region accounts for a large percentage – about 20% - of Virginia’s state population."), 
+                                          p("Each jurisdiction in Hampton Roads has a separate municipal government, unlike some other metro areas. While there are consultations on regional issues, there are more than 20 elected independent municipal governing bodies. As such, it is imperative for our project to examine not only differences with the Virginia population but also within the localities of Hampton Roads."),
                                    ),
                                    column(4,
-                                          h2(strong("Our Work")),
-                                          p("Our research team worked closely with Patrick County Extension Office, Virginia Department of Health, and Healthy Patrick County coalition stakeholders 
-                                            to identify the county’s priority challenges in the area of health. The research team reviewed a prior", a(href = "https://www.vdh.virginia.gov/west-piedmont/2020/05/27/patrick-county-health-needs-improvement-plan-completed/", 
-                                                                                                                                                       "community health assessment,", target = "blank"), a(href = "https://www.pubs.ext.vt.edu/VCE/VCE-596/VCE-596-75/VCE-1002-75.html", "situation analysis", target = "_blank"),
-                                            "relevant funding applications, and held a listening meeting with stakeholders to identify these challenges. Lack of 
-                                            data on health care access, food access as related to diabetes and heart disease prevalence, older adult health, and digital connectivity that would facilitate 
-                                            access to telemedicine emerged as key problems where providing actionable insights could address barriers to Patrick County residents’ health."),
-                                          p(),
-                                          p("We implemented the", a(href = "https://doi.org/10.1162/99608f92.2d83f7f5", "data science framework", target = "_blank"), "and identified, acquired, profiled, and used 
-                                            publicly available data to provide Patrick County with data-driven resources in each of the four priority areas. We:"),
-                                          tags$li("Provided census tract- and census block group-level maps of Patrick County residents'", strong("sociodemographic and socioeconomic characteristics,"), " highlighting underprivileged areas."),
-                                          tags$li("Created census tract-level maps on", strong("older adult health"), "to show the geographic distribution of older adults in the county by gender and
-                                                  type of disability, identifying areas where providing telehealth or travelling preventive care services may be particularly important."),
-                                          tags$li("Mapped residents'", strong("computing device and internet access"), "at census block group level, and constructed 10- and 15-minute isochrones (areas of equal travel time) from households to free
-                                                  wifi hotspots to highlight internet gaps that could suggest where new wi-fi hotspots could be optimally placed to provide internet access to more residents."),
-                                          tags$li("Calculated and mapped", strong("emergency medical service (EMS) station coverage"), "of households within 8-, 10-, and 12-minute travel times, identifying areas difficult to reach within 
-                                                   standard EMS travel thresholds."),
-                                          tags$li("Constructed", strong("food access"), "maps by census tract, 10- and 15-minute isochrones from households to grocery stores and farmers markets, and maps of food security resources in the county,
-                                                highlighting food deserts and areas that could benefit from programs facilitating access to fresh produce."),
+                                          h2(strong("Project Goals")),
+                                          p("The primary goal of this project was to identify key economic and education indicators that collectively will produce an overview of the challenges facing the Black community in Hampton Roads.  
+                                            Identifying emerging patterns in these key areas will allow our stakeholders to plan strategic policies and initiatives to improve the economic wellbeing of the Black community.  "),
                                           p(),
                                           p("This dashboard compiles our findings and allows extension professionals, stakeholders, and other users to explore the information interactively.")
                                    ),
                                    column(4,
-                                          h2(strong("Dashboard Aims")),
-                                          p("Our dashboard is aimed at:"),
-                                          p(strong("Patrick County extension professionals and the communities they serve."), "Information available through the interface helps extension 
-                                            agents identify areas where residents may not have access to internet, or areas with a high smartphone ownership share, suggesting what channels agents may 
-                                            want to use to disseminate health-related information most effectively. Information on older adult populations and grocery store access can help extension agents 
-                                            better understand where underserved populations live and how to advocate on their behalf."),
-                                          p(strong("Local health-related agencies and departments seeking data insights to inform their decision-making."), "For local stakeholders, identifying broadband 
-                                            access gaps that limit access to telemedicine, grocery store access gaps, and areas with high proportions of older adults with independent living difficulty can suggest 
-                                            optimal locations for placing free wifi hotspots, providing grocery delivery services, devising mobile health unit routes, or can inform other solutions that would benefit 
-                                            a broad population base."),
-                                          p(strong("State government representatives in the Virginia Department of Health and the State Office of Rural Health."), "These and similar stakeholders may 
-                                            need small or rural area-specific insights that Centers for Disease Control and other county-level datasets cannot provide.")
+                                          h2(strong("Our approach")),
+                                          p("Guided by our meetings with the Black BRAND stakeholders and Claud Anderson’s PowerNomics model, our reach team identify two main pillars – education and economics – to measure the overall economic and social progress of the Black community in Hampton Roads")
                                    )
                           ),
                           fluidRow(align = "center",
@@ -179,504 +154,461 @@ ui <- navbarPage(title = "Hampton Roads",
                  ),
                  
                  
-                 # Hampton Roads Overview & Demographics--------------------------------------------------
-                 
-                 tabPanel("Hampton Roads", value = "makeup",
-                          dashboardPage(
-                            skin = 'black',
-                            dashboardHeader(
-                              title = 'Hampton Roads Composition'
-                            ),
-                            
-                            #Sidebar with Demographic Selections
-                            dashboardSidebar(
-                              sidebarMenu(
-                                menuItem(
-                                  "Counties and Cities",
-                                  tabName = 'makeup'
-                                ),
-                                menuItem(
-                                  "Race",
-                                  tabName = "race"
-                                ),
-                                menuItem(
-                                  "Age",
-                                  tabName = "age"
-                                )
+                 #Hampton Roads Overview & Demographics--------------------------------------------------
+                     navbarMenu(title="Hampton Region",
+                       tabPanel("Hampton Roads Localities", 
+                              fluidRow(
+                                       column(5,
+                                       h3(strong("Counties and Cities of Hampton Roads"), align = "center"),
+                                       withSpinner((plotOutput("hampton_counties_map", width ="100%", height = "600px")))
+                                       ),
+                                       
+                                       column(5,
+                                              h4(strong("What is Hampton Roads (HR)?")),
+                                              p("City of Chesapeake"),
+                                              p("City of Franklin"),
+                                              p("City of Hampton"),
+                                              p("City of Newport News"),
+                                              p("City of Norfolk"),
+                                              p("City of Poquoson"),
+                                              p("City of Portsmouth"),
+                                              p("City of Suffolk"),
+                                              p("City of Virginia Beach"),
+                                              p("City of Williamsburg"),
+                                              p("Gloucester County"),
+                                              p("Isle of Wight COunty"),
+                                              p("James City County"),
+                                              p("Mathews County"),
+                                              p("Southampton County"),
+                                              p("York County") )
                               )
-                            ),
-                            
-                            #Body
-                            dashboardBody(tabItems(
-                              tabItem(
-                                tabName = "makeup",
+                       ),
+                       
+                       tabPanel("Sociodemographics",
                                 fluidRow(style = "margin: 6px;",
-                                         h1(strong("Counties and Cities of Hampton Roads"), align = "center"),
-                                         column(9,
-                                                withSpinner((plotOutput("hampton_counties_map", width ="100%", height = "600px")))
-                                                ),
-                                         column(3,
-                                                h4(strong("What is Hampton Roads (HR)?")),
-                                                p("City of Chesapeake"),
-                                                p("City of Franklin"),
-                                                p("City of Hampton"),
-                                                p("City of Newport News"),
-                                                p("City of Norfolk"),
-                                                p("City of Poquoson"),
-                                                p("City of Portsmouth"),
-                                                p("City of Suffolk"),
-                                                p("City of Virginia Beach"),
-                                                p("City of Williamsburg"),
-                                                p("Gloucester County"),
-                                                p("Isle of Wight COunty"),
-                                                p("James City County"),
-                                                p("Mathews County"),
-                                                p("Southampton County"),
-                                                p("York County")
-                                                )
-                                         
-                                         
-                                )
-                              ),
-                              
-                              tabItem(tabName = "race",
-                                      fluidRow(
-                                        h1(strong("Race Composition of Hampton Roads"), align = "center"),
-                                        column(5, width = 12,
-                                               h4(strong("Race Demographic"))
-                                        ),
-                                        column(6,
-                                               
-                                               h4("Hampton Roads Breakdown"),
-                                               
-                                               selectInput("hampRaceYearDrop", "Select Year:", width = "100%", choices = c(
-                                                 "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
-                                               )),
-                                               p(strong("Hampton Roads")),
-                                               withSpinner(plotOutput("hamp_pie")),
-                                               p(tags$small("Data Source: ACS 5 Year Estimate Table B02001"))
-                                        ),
-                                        
-                                        
-                                        column(6,
-                                               
-                                               h4("Virginia Breakdown"),
-                                               
-                                               selectInput("VaRaceYearDrop", "Select Year:", width = "100%", choices = c(
-                                                 "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
-                                               )),
-                                               p(strong("Virginia")),
-                                               withSpinner(plotOutput("va_pie")),
-                                               p(tags$small("Data Source: ACS 5 Year Estimate Table B02001"))
-                                               
-                                               
-                                        )
-                                        
-                                        
-                                        
-                                        
-                                      )
-                              ),
-                              
-                              tabItem(tabName = "age",
-                                      fluidRow(
-                                        h1(strong("Age Composition of Hampton Roads"), align = "center"),
-                                        column(6,
-                                               
-                                               h4("Hampton Roads Age Breakdown"),
-                                               
-                                               selectInput("HampAgeYearDrop", "Select Year:", width = "100%", choices = c(
-                                                 "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
-                                               )),
-                                               p(strong("Hampton Roads")),
-                                               withSpinner(plotOutput("hamp_graph")),
-                                               p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
-                                        ),
-                                        
-                                        column(6,
-                                               
-                                               h4("Virginia Age Breakdown"),
-                                               p(""),
-                                               selectInput("VaAgeYearDrop", "Select Year:", width = "100%", choices = c(
-                                                 "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
-                                               )),
-                                               p(strong("Virginia")),
-                                               withSpinner(plotOutput("va_graph")),
-                                               p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
-                                        ),
-                                        
-                                        column(6, width=12,
-                                               
-                                               h4("Hampton Roads' County and City Breakdown"),
-                                               selectInput("HampCountAgeYearDrop", "Select Year:", width = "100%", choices = c(
-                                                 "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
-                                               )),
-                                               p(strong("Hampton Roads Counties and Cities' Age Breakdown")),
-                                               withSpinner(plotOutput("age_map", height="600px")),
-                                               p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
-                                        ),
-                                        
-                                        
-                                        
-                                      )
-                              )
-                              
-                            )))),
+                                         h1(strong("Sociodemographic Characteristics" ), align = "center"),
+                                         column(4,
+                                         p("We used the American Community Census data (ACS) to better understand the population in Hampton Roads and Virginia.  The ACS is a yearly survey conducted by the U.S. Census Bureau provides detailed demographic information about American household. We collected the 5-year estimates over the period 2010-2019 to compute the percent of Hampton Roads residents in each locality by race and age.  This information is also presented for the state of Virginia."), 
+                                         p("The black population accounts for about 30% of the total population in Hampton Roads. This is significantly greater than Virginia’s which is about 19%."),
+                                         p("The population breakdown by age for Hampton Roads is relatively and representative of Virginia’s breakdown. However, there seems to be variation by localities, for example, there exists a large population of young adults (ages 18 to 29) in Southampton County, whereas Portsmouth has a greater population of seniors - individuals 65 years and older. This data suggests that such ages difference may play a role in differences in economic or education indicators across localities"), 
+                                          ),
+                                         column(8, 
+                                                tabsetPanel(
+                                                  # Tab race
+                                                  tabPanel("Race",
+                                                           fluidRow(
+                                                             h1(strong("Racial Demographics"), align = "center"),
+                                                             
+                                                             column(12, 
+                                                                    h4(strong("Race Demographic")) ),
+                                                             column(6,
+                                                                    h4("Hampton Roads"),
+                                                                    
+                                                                    selectInput("hampRaceYearDrop", "Select Year:", width = "100%", choices = c(
+                                                                      "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
+                                                                    )),
+                                                                    p(strong("Hampton Roads Population by Race")),
+                                                                    withSpinner(plotOutput("hamp_pie")),
+                                                                    p(tags$small("Data Source: ACS 5 Year Estimate Table B02001")),
+                                                             ),
+                                                             
+                                                             
+                                                             column(6,
+                                                                    
+                                                                    h4("Virginia"),
+                                                                    
+                                                                    selectInput("VaRaceYearDrop", "Select Year:", width = "100%", choices = c(
+                                                                      "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
+                                                                    )),
+                                                                    p(strong("Virginia")),
+                                                                    withSpinner(plotOutput("va_pie")),
+                                                                    p(tags$small("Data Source: ACS 5 Year Estimate Table B02001"))
+                                                             )
+                                                             
+                                                           )
+                                                  ),
+                                                  #Tab age
+                                                  tabPanel("Age",
+                                                           fluidRow(
+                                                             h1(strong("Age Composition of Hampton Roads"), align = "center"),
+                                                             column(4,
+                                                                    
+                                                                    h4("Hampton Roads Age Breakdown"),
+                                                                    selectInput("HampAgeYearDrop", "Select Year:", width = "100%", choices = c(
+                                                                      "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
+                                                                    )),
+                                                                    p(strong("Hampton Roads")),
+                                                                    withSpinner(plotOutput("hamp_graph")),
+                                                                    p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
+                                                             ),
+                                                             
+                                                             column(4,
+                                                                    
+                                                                    h4("Virginia Age Breakdown"),
+                                                                    p(""),
+                                                                    selectInput("VaAgeYearDrop", "Select Year:", width = "100%", choices = c(
+                                                                      "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
+                                                                    )),
+                                                                    p(strong("Virginia")),
+                                                                    withSpinner(plotOutput("va_graph")),
+                                                                    p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
+                                                             ),
+                                                             
+                                                             column(12,
+                                                                    
+                                                                    h4("Hampton Roads' Counties and Cities' Age Breakdown"),
+                                                                    selectInput("HampCountAgeYearDrop", "Select Year:", width = "100%", choices = c(
+                                                                      "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
+                                                                    )),
+                                                                    p(strong("Hampton Roads Counties and Cities' Age Breakdown")),
+                                                                    withSpinner(plotOutput("age_map", height="600px")),
+                                                                    p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
+                                                             )
+                                                             
+                                                           )
+                                                           
+                                                  )
+                                                ) 
+                                         )    
+                                )) 
+                       
+                       
+                     ),
+                     
+                    
                  
                  
+
                  # Education Indicators ----------------------------------------------------
                  
-                 tabPanel("Education", value = "edu",
-                          dashboardPage(
-                            skin = 'black',
-                            dashboardHeader(
-                              title = ''
-                            ),
-                            
-                            #Sidebar with Indicators to Select
-                            dashboardSidebar(
-                              sidebarMenu(
-                                menuItem(
-                                  "Educational Attainment",
-                                  tabName = "attainment"
-                                ),
-                                menuItem(
-                                  "Teacher Demographics",
-                                  tabName = "teacher"
-                                ),
-                                menuItem(
-                                  "Suspension",
-                                  tabName = "suspension"
-                                ),
-                                menuItem(
-                                  "Dropout Rate",
-                                  tabName = "dropout"
-                                )
-                              )
-                            ),
-                            
-                            #Body
-                            dashboardBody(tabItems(
-                              
-                              #Educational Attainment
-                              tabItem(tabName = "attainment",
-                                      fluidRow(style = "margin: 6px;",
-                                               h1(strong("Percentage of Hampton Roads Population 25 years and older with highest educational attainment as Bachelor's degree or higher"), align = "center"),
-                                               p("", style = "padding-top:10px;"),
-                                               column(5,
-                                                      h4(strong("Why education?")),
-                                                      p("Knowledge is power. Consequently, education is a pivotal sector of society that influences and interwines with many other pillars like economics of health care."), 
-                                                      p("Investigating trends in education can allow us to explore the general 'well-being' of an area. In particular, looking at educational patterns over time like those who have reached a
-                                            certain level of educational attainment or high school dropout rates can help us see if systematic issues might be playing a role (if any) to the Hampton Roads region."), 
-                                                      p("If Black students are consistently underperforming and or have levels of educational attainment much lower than their contemporaries, we can speculate if issues like discrimination or lack of
+                 
+                 navbarMenu(title="Education",
+                            tabPanel("Educational Attainment", 
+                                     fluidRow(style = "margin: 6px;",
+                                              h1(strong("Percentage of Hampton Roads Population 25 years and older with highest educational attainment as Bachelor's degree or higher"), align = "center"),
+                                              p("", style = "padding-top:10px;"),
+                                              column(4,
+                                                     h4(strong("Why education?")),
+                                                     p("Knowledge is power. Consequently, education is a pivotal sector of society that influences and interwines with many other pillars like economics of health care."),
+                                                     p("Investigating trends in education can allow us to explore the general 'well-being' of an area. In particular, looking at educational patterns over time like those who have reached a
+                                            certain level of educational attainment or high school dropout rates can help us see if systematic issues might be playing a role (if any) to the Hampton Roads region."),
+                                                     p("If Black students are consistently underperforming and or have levels of educational attainment much lower than their contemporaries, we can speculate if issues like discrimination or lack of
                                             colored representation in education is in any way influencing the trends that we are noticing. Moreoever, comparing both
                                             the general Hampton region and the Virginia averages to the Black population specifically in Hampton Roads will allow us to see the impact of the Hampton region itself on its
                                             constitutents as well (to seperate the possibility of sysematic issues from just relative lack of opporturnity or unideal conditions present in Hampton Roads) how that affects the Black community present."),
-                                                      p("In particular, researching those who are 25 years and older who have a Bachelor's degree or higher as their highest educational Attainment will help us investigate the general educational development of the
+                                                     p("In particular, researching those who are 25 years and older who have a Bachelor's degree or higher as their highest educational Attainment will help us investigate the general educational development of the
                                           Hampton community as most individuals 25 years and older are old enough to have graduated high school and finished some type of college education.")
-                                               ),
-                                               column(7,
-                                                      tabsetPanel(
-                                                        tabPanel("General Population",
-                                                                 p(""),
-                                                                 selectInput("genEdAttainmentYearDrop", "Select Year:", width = "100%", choices = c(
-                                                                   "2019", "2018", "2017", "2016", "2015", "2014", "2013",
-                                                                   "2012", "2011", "2010"
-                                                                 )
-                                                                 ),
-                                                                 p(strong("Percentage of Hampton Roads Population 25 years and older with highest educational attainment as Bachelor's degree or higher")),
-                                                                 withSpinner(plotlyOutput("genEdAttainmentPlots")),
-                                                                 p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages. Certain counties/cities may not have data for specific years."))
-                                                        ),
-                                                        tabPanel("Black Population",
-                                                                 p(""),
-                                                                 #selectInput("blackEdAttainmentYearDrop", "Select Year:", width = "100%", choices = c(
+                                              ),
+                                              column(8,
+                                                     tabsetPanel(
+                                                       tabPanel("General Population",
+                                                                p(""),
+                                                                selectInput("genEdAttainmentYearDrop", "Select Year:", width = "100%", choices = c(
+                                                                  "2019", "2018", "2017", "2016", "2015", "2014", "2013",
+                                                                  "2012", "2011", "2010"
+                                                                )
+                                                                ),
+                                                                p(strong("Percentage of Hampton Roads Population 25 years and older with highest educational attainment as Bachelor's degree or higher")),
+                                                                withSpinner(plotlyOutput("genEdAttainmentPlots")),
+                                                                p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages. Certain counties/cities may not have data for specific years."))
+                                                       ),
+                                                       tabPanel("Black Population",
+                                                                p(""),
+                                                                #selectInput("blackEdAttainmentYearDrop", "Select Year:", width = "100%", choices = c(
                                                                 #   "2019","2018", "2017", "2016", "2015","2014",
                                                                 #   "2013","2012", "2011", "2010")),
-                                                                 p(strong("Black Educational Attainment")),
-                                                                 sliderInput("blackEdAttainmentYearDrop", "Select Year:", value = 2019, min = 2010, max = 2019, sep = "", animate=animationOptions(interval = 1400)),
-                                                                 withSpinner(plotlyOutput("blackEdAttainmentPlots")),
-                                                                 p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages. Certain counties/cities only had partial data (like male or female only) or no data at all for specific years."))
-                                                                 #p(tags$small("Data Source: ACS 5 Year Estimate Table C15002B"))
-                                                        )
-                                                      )
-                                               ))
-                                      
-                              ),
-                              
-                              #Teacher Demographics
-                              tabItem(tabName = "teacher",
-                                      fluidRow(
-                                        column(5,
-                                               h4(strong("Teacher Race Breakdown")),
-                                        ),
-                                        column(7,
-                                               tabsetPanel(
-                                                 tabPanel("Teacher Race Breakdown",
-                                                          p(""),
-                                                          selectInput("teacherRaceBreakdown", "Select Race:", width = "100%", choices = c(
-                                                            "Black", "Asian", "American Indian", "Hispanic", "Two or More Races", "White", "Hawaiian"
-                                                          )),
-                                                          p(strong("Virginia: Teacher Breakdown By Race in Hampton Roads")),
-                                                          withSpinner(plotlyOutput("teacherRacePlots")),
-                                                          p(tags$small("Possible Suppression of Counts in Dataset for Counties/Cities with Zero Values Stated"))
-                                                 ))))
-                              ),
-                              
-                              #Suspension Rates
-                              tabItem(tabName = "suspension",
-                                      fluidRow(
-                                        h1(strong("Short Term Suspension"), align = "center"),
-                                        column(9,
-                                               h4("Percent of Students Suspended from 2014-2015 to 2018-2019 Academic School Years"),
-                                               withSpinner(plotOutput("suspension_line_graph")),
-                                               p(tags$small("Data Source: Kids Count Data Center"))
-                                        ),
-                                        column(3,
-                                               h4("Academic Suspension"),
-                                               
-                                        ),
-                                        column(12, 
-                                               h4("Difference Between Black and White Student Short-Term Suspension"),
-                                               withSpinner(plotlyOutput("suspensionGap", height = "700px")),
-                                               p(tags$small("Data Source: Kids Count Data Center"))
-                                               )
+                                                                p(strong("Black Educational Attainment")),
+                                                                sliderInput("blackEdAttainmentYearDrop", "Select Year:", value = 2019, min = 2010, max = 2019, sep = "", animate=animationOptions(interval = 1400)),
+                                                                withSpinner(plotlyOutput("blackEdAttainmentPlots")),
+                                                                p(tags$small("Note: Some year to year comparisions had very little variability in attainement percentages. Certain counties/cities only had partial data (like male or female only) or no data at all for specific years."))
+                                                                #p(tags$small("Data Source: ACS 5 Year Estimate Table C15002B"))
+                                                       )
+                                                     )
+                                              ))
+                            ),
+                            
+                            tabPanel("Suspension",
+                                     
+                                     fluidRow(
+                                       
+                                       h1(strong("Suspension"), align = "center"),
+                                       column(4, h4(strong("Suspension Rate")), ),
+                                       column(8, 
+                                              tabsetPanel(
+                                                tabPanel("Short Term Suspension",
+                                                  h4("Percent of Students Suspended from AY2014-2015 to AY2018-2019"),
+                                                  withSpinner(plotOutput("suspension_line_graph")),
+                                                  p(tags$small("Data Source: Kids Count Data Center"))
+                                                ),
+                                                tabPanel("Suspension Rate by Race", p(""),
+                                                         selectInput("BWsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
+                                                           "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
+                                                         withSpinner(plotOutput("BW_map", height = "700px")),
+                                                         p(tags$small("Data Source: Kids Count Data Center")),
+                                                         p(tags$small("Note: Black student data supressed for Mathews and Poquoson."))
+                                                ),
+                                                tabPanel("Suspension Gap",
+                                                         h4("Difference Between Black and White Student Short-Term Suspension"),
+                                                         withSpinner(plotlyOutput("suspensionGap", height = "700px")),
+                                                         p(tags$small("Data Source: Kids Count Data Center"))
+                                                )
+                                                
+                                              )
+                                              
+                                       )
+                                       
+                                     )
+                                     
+                            ), 
+                            
+                            #Teacher Demographics
+                            tabPanel("Teacher Demographics",
+                                     
+                                   fluidRow(
+                                       column(4,
+                                              h4(strong("Teacher Race Breakdown")),
+                                       ),
+                                       column(8,
+                                              tabsetPanel(
+                                                tabPanel("Teacher Race Breakdown",
+                                                         p(""),
+                                                         selectInput("teacherRaceBreakdown", "Select Race:", width = "100%", choices = c(
+                                                           "Black", "Asian", "American Indian", "Hispanic", "Two or More Races", "White", "Hawaiian"
+                                                         )),
+                                                         p(strong("Virginia: Teacher Breakdown By Race in Hampton Roads")),
+                                                         withSpinner(plotlyOutput("teacherRacePlots")),
+                                                         p(tags$small("Possible Suppression of Counts in Dataset for Counties/Cities with Zero Values Stated"))
+                                                ))))
+                            
+                         ),
+                         
+                         
+                         #Drop Out Rate
+                         tabPanel("Dropout Rate",
+                                  column(4,
+                                         h4(strong("Dropout Rate")),
+                                  ),
+                                  column(8,
+                                  fluidRow(
+                                    h1(strong("High School Dropout Rates in Hampton Roads"), align = "center"),
+                                    withSpinner(leafletOutput("dropout_map")),
+                                    p(tags$small("Data Source: Virginia Department of Education")),
+                                    box(title = "Select Year", width = 12,
+                                        selectInput("DropoutDropdown", "Select Year:", width = "100%", choices = c("2020", "2019", "2018", "2017", "2016", "2015",
+                                                                                                                   "2014", "2013", "2012", "2011", "2010"))
                                         
-                                        # column(12,
-                                        #        h4("Percent of Black and White Students Suspended in Hampton Roads"),
-                                        #        selectInput("BWsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
-                                        #          "2018-2019", "AY 2017-2018", "AY 2016-2017", "AY 2015-2016", "AY 2014-2015")),
-                                        #        withSpinner(plotOutput("BW_map")),
-                                        #        p(tags$small("Data Source: Kids Count Data Center"))
-                                        # )
-                                        )),
-                              
-                              #Dropout Rates
-                              tabItem(
-                                tabName = "dropout",
-                                fluidRow(
-                                  h1(strong("High School Dropout Rates in Hampton Roads"), align = "center"),
-                                  withSpinner(leafletOutput("dropout_map")),
-                                  p(tags$small("Data Source: Virginia Department of Education")),
-                                  box(title = "Select Year", width = 12,
-                                      selectInput("DropoutDropdown", "Select Year:", width = "100%", choices = c("2020", "2019", "2018", "2017", "2016", "2015", 
-                                                                                                                 "2014", "2013", "2012", "2011", "2010"))
-                                      
-                                  ))))
-                              
-                            ))),
-                 
-                 
-                 # Economic Indicators ----------------------------------------------
-                 
-                 tabPanel("Economics", value = "economics",
-                          dashboardPage(
-                            skin = 'black',
-                            dashboardHeader(
-                              title = 'Economic Indicators'
-                            ),
-                            
-                            #Sidebar with Indicators to Select
-                            dashboardSidebar(
-                              sidebarMenu(
-                                menuItem(
-                                  "Median Income",
-                                  tabName = 'median'
-                                ),
-                                menuItem(
-                                  "Employment By Sector",
-                                  tabName = "sector"
-                                ),
-                                menuItem(
-                                  "Unemployment",
-                                  tabName = 'unemp'
-                                ),
-                                menuItem(
-                                  "Poverty Rate",
-                                  tabName = 'poverty'
-                                ),
-                                menuItem(
-                                  "Health Insurance",
-                                  tabName = "unins"
-                                ),
-                                menuItem(
-                                  "Home Ownership",
-                                  tabName = "hmown"
-                                ),
-                                menuItem(
-                                  "Veteran Status",
-                                  tabName = "vet"
-                                )
-                              )
-                            ),
-                            
-                            #Body
-                            dashboardBody(tabItems(
-                              
-                              #Median Income
-                              tabItem(
-                                tabName = "median",
-                                fluidRow(style = "margin: 6px;",
-                                         h1(strong("Median Income in Virginia and Hampton Roads"), align = "center"),
-                                         column(9,
-                                                selectInput("MedianIncomeYearDrop", "Select Year:", width = "100%", choices = c(
-                                                  "2019","2018", "2017", "2016", "2015","2014",
-                                                  "2013","2012", "2011", "2010")),
-                                                withSpinner(plotOutput("income_plot")),
-                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
-                                         ),
-                                         column(12,
-                                                h4("Median Income from 2010 to 2019"),
-                                                withSpinner(plotOutput("medianTimeGraph")),
-                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
-                                         )
-                                         
-                                )),
-                              
-                              #Sector Employment
-                              tabItem(
-                                tabName = "sector",
-                                fluidRow(
-                                  h1(strong("Sector Employment in Hampton Roads"), align = "center"),
-                                  column(7,
-                                         selectInput("SectorEmploymentYearDrop", "Select Year:", width = "100%", choices = c(
-                                           "2019","2018", "2017", "2016", "2015","2014",
-                                           "2013","2012", "2011", "2010")),
-                                         withSpinner(plotlyOutput("sector_plot")),
-                                         p(tags$small("Note: Some year to year comparisions had very little variability in enrollement by industry sectors. Certain counties/cities may not have data for specific years."))
-                                  ),
-                                )
-                              ),
-                              
-                              #Unemployment Rates
-                              tabItem(
-                                tabName = "unemp",
-                                
-                                tabsetPanel(
-                                  tabPanel("Unemployment",
-                                
-                                
-                                fluidRow(
-                                  h1(strong("Unemployment in Hampton Roads"), align = "center"),
-                                  box(width = 8, height = 550,
-                                      withSpinner(plotlyOutput("unemployment_plot")),
-                                      p(tags$small("Data Source: ACS 5 Year Estimates Table S2301")),
-                                      sliderInput("UnemploymentRateSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = "")),
-                                  
-                                  box(width = 4, height = 550,
-                                      h3("Description: "),
-                                      p("Placeholder Text"))
-                                  
-                                  
-                                )),
-                                
-                                tabPanel("Unemployment Over Time",
-                                  fluidRow(
-                                  box(width = 8, height = 800,
-                                      img(src="unemployment_plot.gif", height='750',width='700')),
-                                  
-                                  box(width = 4, height = 550,
-                                      h3("Description: "),
-                                      p("Placeholder Text"))
-                                  ),
-                                  
-                                  fluidRow(
-                                    box(width =12, height = 300,
-                                        h3("Trends: "),
-                                        p("Text"))
+                                    ))
                                   )
+                                  
+                         )
+                 
+                 
+                 
+                 ),
 
-                                ))),
-                              
-                              #Poverty Rates
-                              tabItem(
-                                tabName = "poverty",
-                                
-                                fluidRow(style = "margin: 6px;",
-                                         h1(strong("Poverty Rates in Virginia and Hampton Roads"), align = "center"),
-                                         column(7, 
+                 navbarMenu(title="Economics",
+                            #Median Income
+                            # tabPanel("Median Income",
+                            #          fluidRow(style = "margin: 6px;",
+                            #                   #change this later to formatting that is desired
+                            #                   column(4,
+                            #                           h4(strong("Median Income")),
+                            #                           p("In 2019, the Black community had a median annual income of $52,596, which is less than the median income of $67,387 of Hampton Road’s general population. This is consistent with the state trend.  Notably, the gap has been closing over the last decade as in 2010, it was $37,941 and $55,062, respectively. This suggests that despite the Black household having a lower median annual income in the region, there have been some improvements since 2010.")
+                            #                   ),
+                            #                   h1(strong("Median Income in Virginia and Hampton Roads"), align = "center"),
+                            #                   column(8, 
+                            #                          h4("Median Income from 2010 to 2019"),
+                            #                          withSpinner(plotOutput("medianTimeGraph")),
+                            #                          p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
+                            #                   ), 
+                            #                   
+                            #                   column(8,
+                            #                          selectInput("MedianIncomeYearDrop", "Select Year:", width = "100%", choices = c(
+                            #                            "2019","2018", "2017", "2016", "2015","2014",
+                            #                            "2013","2012", "2011", "2010")),
+                            #                          withSpinner(plotOutput("income_plot")),
+                            #                          p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
+                            #                   )
+                            #          )), 
+                            tabPanel("Median Income",
+                                     fluidRow(
+                                       column(3),
+                                       column(6,
+                                              tags$br(),
+                                              p(style = "text-align: justify;", "In 2019, the Black community had a median annual income of $52,596, which is less than the median income of $67,387 of Hampton Road’s general population. This is consistent with the state trend.  Notably, the gap has been closing over the last decade as in 2010, it was $37,941 and $55,062, respectively. This suggests that despite the Black household having a lower median annual income in the region, there have been some improvements since 2010."))
+                                     ),
+                                     fluidRow(style = "margin: 6px", align = "center",
+                                              column(12, align = "center",
+                                                     h4("Median Income from 2010 to 2019"),
+                                                     selectInput("MedianIncomeYearDrop", "Select Year:", width = "100%", choices = c(
+                                                                                  "2019","2018", "2017", "2016", "2015","2014",
+                                                                                  "2013","2012", "2011", "2010")),
+                                                                                withSpinner(plotOutput("income_plot"))
+                                                      )
+
+                                                    )
+                                     
+                                     , 
+                                     
+                                     
+                                     fluidRow(style = "margin: 6px", align = "center",
+                                              column(12, align = "center",
+                                                     h4("Median Income from 2010 to 2019"),
+                                                     withSpinner(plotOutput("medianTimeGraph")),
+                                                     p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
+                                              )
+                                              
+                                     )
+                                     ),
+                           
+                 
+                                     
+                            
+                                     # fluidRow(style = "margin: 6px;",
+                                     #          #change this later to formatting that is desired
+                                     #          column(4,
+                                     #                 h4(strong("Median Income")),
+                                     #                 p("In 2019, the Black community had a median annual income of $52,596, which is less than the median income of $67,387 of Hampton Road’s general population. This is consistent with the state trend.  Notably, the gap has been closing over the last decade as in 2010, it was $37,941 and $55,062, respectively. This suggests that despite the Black household having a lower median annual income in the region, there have been some improvements since 2010.")
+                                     #          ),
+                                     #          h1(strong("Median Income in Virginia and Hampton Roads"), align = "center"),
+                                     #          column(8, 
+                                     #                 h4("Median Income from 2010 to 2019"),
+                                     #                 withSpinner(plotOutput("medianTimeGraph")),
+                                     #                 p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
+                                     #          ), 
+                                     #          
+                                     #          column(8,
+                                     #                 selectInput("MedianIncomeYearDrop", "Select Year:", width = "100%", choices = c(
+                                     #                   "2019","2018", "2017", "2016", "2015","2014",
+                                     #                   "2013","2012", "2011", "2010")),
+                                     #                 withSpinner(plotOutput("income_plot")),
+                                     #                 p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
+                                     #          )
+                                     #)
+                                     
+                                     #),
+                            #Homeownership Map
+                            tabPanel("Homeownership Map", 
+                                     fluidPage(
+                                       
+                                       column(4, h1(strong("Homeownership in Hampton Roads"), align = "center")),
+                                       column(8,
+                                           withSpinner(leafletOutput("homeownership_map")),
+                                           p(tags$small("Data Source: ACS 5 Year Estimates Table S2505")),
+                                           sliderInput("HomeOwnSlider", "", value = 2019, min = 2010, max = 2019, sep = "", width = "100%", animate=animationOptions(interval = 1400))),
+                            )),
+                            
+                            
+                            #Unemployment Rate
+                            tabPanel("Labor Market Characteristics", 
+                                     fluidRow(
+                                       column(4, h1(strong("Unemployment"), align = "center")),
+                                       column(8,
+                                              tabsetPanel(
+                                                #Sector Employment
+                                                tabPanel("Industry Employment", 
+                                                         h1(strong("Top Two Highest Industry Sectors"), align = "center"),
+                                                         fluidRow(p(""),
+                                                                  selectInput("SectorEmploymentYearDrop", "Select Year:", width = "100%", choices = c(
+                                                                    "2019","2018", "2017", "2016", "2015","2014",
+                                                                    "2013","2012", "2011", "2010")),
+                                                                  withSpinner(plotlyOutput("sector_plot")),
+                                                                  p(tags$small("Note: Some year to year comparisions had very little variability in enrollement by industry sectors. Certain counties/cities may not have data for specific years."))
+                                                           
+                                                         )
+                                                ),
+                                                
+                                                tabPanel("Unemployment Rate",
+                                                         h1(strong("Unemployment Rate in Hampton Roads"), align = "center"),
+                                                             withSpinner(plotlyOutput("unemployment_plot")),
+                                                             p(tags$small("Data Source: ACS 5 Year Estimates Table S2301")),
+                                                             sliderInput("UnemploymentRateSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = "", width = "100%"),
+                                                ),
+                                                tabPanel("Unemployment Over Time",
+                                                  fluidRow(
+                                                  box(width = 8, height = 800,
+                                                      img(src="unemployment_plot.gif", height='750', width='700')),
+
+                                                  box(width = 4, height = 550,
+                                                      h3("Description: "),
+                                                      p("Placeholder Text"))
+                                                  ),
+
+                                                  fluidRow(
+                                                    box(width =12, height = 300,
+                                                        h3("Trends: "),
+                                                        p("Text"))
+                                                  )
+
+                                                )
+                                                
+                                            )
+                                         )
+                                       )
+                                     ), 
+                            
+                            #Poverty Rate
+                            tabPanel("Poverty Rates",
+                              column(4, h1(strong("Poverty Rates"), align = "center")),
+                              column(8,
+                                     tabsetPanel(
+                                       tabPanel("Poverty Rates in Hampton and Virginia",
                                                 h4(strong("Poverty Rates in Virginia and Hampton Roads")),
                                                 selectInput("PovertyYearDrop", "Select Year:", width = "100%", choices = c(
-                                                  "2019","2018", "2017", "2016", "2015","2014",
-                                                  "2013","2012")),
+                                                "2019","2018", "2017", "2016", "2015","2014",
+                                                "2013","2012")),
                                                 withSpinner(plotOutput("pov_plot")),
                                                 p(tags$small("Data Source: ACS 5 Year Estimates Table S1701"))
-                                         )),
-                                # 
-                                  tabsetPanel(
-                                         tabPanel("Poverty Rates",
-                                                  
-                                         fluidRow(
-                                                 h1(strong(strong("Poverty Rates in Hampton Roads Counties and Cities"), align = "center")),
-                                                 #box(width=12, height=550),
-                                                 selectInput("PovertyCountYearDrop", "Select Year:", width = "100%", choices = c(
-                                                    "2019","2018", "2017", "2016", "2015","2014",
-                                                    "2013","2012")),
-                                                  withSpinner(plotOutput("counties_pov")),
-                                                  p(tags$small("Data Source: ACS 5 Year Estimates Table S1701"))
-                                                    )
-                                          ),
-                                          tabPanel("Poverty Rates over Time",
-                                                   
-                                          fluidRow(width=12, height=550,
-                                          img(src="poverty.gif", height = "800", width="1200"))
-                                           )
-                                #          
-                                         )
-                              ),
-                              
-                              #Uninsured Percentages
-                              tabItem(tabName = "unins",
-                                      fluidPage(
-                                        h1(strong("Health Insurance in Hampton Roads"), align = "center"),
-                                        
-
-                                        box(width = 8, height = 550,
-                                        withSpinner(plotlyOutput("uninsured_plot")),
-                                        p(tags$small("Data Source: ACS 5 Year Estimates Table S2701")),
-                                        sliderInput("UninsuredPctSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = "")),
-                                        
-                                        box(width = 4, height = 550,
-                                            h3("Description: "),
-                                            p("Placeholder Text")
-                                            ),
-
-                                      )),
-                              
-                              #Home Ownership
-                              tabItem(tabName = "hmown",
-                                      fluidPage(
-                                        
-                                        h1(strong("Homeownership in Hampton Roads"), align = "center"),
-                                        
-                                        box(width = 8, height = 550,
-                                        withSpinner(leafletOutput("homeownership_map")),
-                                        p(tags$small("Data Source: ACS 5 Year Estimates Table S2505")),
-                                        sliderInput("HomeOwnSlider", "", value = 2019, min = 2010, max = 2019, sep = "")),
-                                        
-                                        box(width = 4, height = 550,
-                                            h3("Description: "),
-                                            p("Placeholder Text")),
-                    
-                                        )),
-                              
-                              #Veteran Status
-                              tabItem(tabName = "vet",
-                                      fluidPage(
-                                        h1(strong("Veteran Status in Hampton Roads"), align = "center"),
-                                        
-                                        box(width = 8, height = 550,
-                                            withSpinner(leafletOutput("veteran_map")),
-                                            p(tags$small("Data Source: ACS 5 Year Estimates Table S2101")),
-                                            sliderInput("VeteranSlider", "Select Year:", value = 2019, min = 2010, max = 2019, sep = "")),
-                                        box(width = 4, height = 550,
-                                            h3("Description: "),
-                                            p("Placeholder Text"))
-                                      ))
-                              
-                              
-                              
-                            )))),
+                                       ),
+                                       tabPanel("Poverty Rates in Hampton Roads Counties and Cities",
+                                                h1(strong("Poverty Rates in Hampton Roads Counties and Cities"), align = "center"), 
+                                                selectInput("PovertyCountYearDrop", "Select Year:", width = "100%", choices = c(
+                                                "2019","2018", "2017", "2016", "2015","2014",
+                                                "2013","2012")),
+                                                withSpinner(plotOutput("counties_pov")),
+                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S1701"))
+                                        ), 
+                                       
+                                       tabPanel("Poverty Over Time", h1(strong("Poverty Over Time"), align = "center"),
+                                                fluidRow(width=12, height=550,
+                                                    img(src="poverty.gif", height = "800", width="1200")
+                                                    
+                                                )
+                                        )
+                                                 
+                                                
+                                       )
+                                       
+                                     )       
+                                     
+                                     
+                              ), 
+                            
+                              #Uninsured Rates
+                              tabPanel("Uninsured Rates", 
+                                       column(4, h1(strong("Uninsured Rates"), align = "center")),
+                                       column(8,
+                                         fluidPage(
+                                          h1(strong("Health Insurance in Hampton Roads"), align = "center"),
+                                          withSpinner(plotlyOutput("uninsured_plot")),
+                                          p(tags$small("Data Source: ACS 5 Year Estimates Table S2701")),
+                                          sliderInput("UninsuredPctSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = "", width = "100%")),
+                                  )
+                                  
+                                ),
+                            
+                            
+                             #Veteran Status
+                            
+                            tabPanel("Veteran Status", 
+                                     column(4, h1(strong("Veteran Status"), align = "center")),
+                                     column(8,
+                                        withSpinner(leafletOutput("veteran_map")),
+                                        p(tags$small("Data Source: ACS 5 Year Estimates Table S2101")),
+                                        sliderInput("VeteranSlider", "Select Year:", value = 2019, min = 2010, max = 2019, sep = "",  width = "100%")),
+                                     )
+                                     
+                            ),
                  
                  tabPanel("VT DSPG Team", value = "team",
                           fluidRow(style = "margin-left: 300px; margin-right: 300px;",
@@ -768,6 +700,9 @@ server <- function(input, output, session) {
   })
   
   output$hamp_pie <- renderPlot({
+    #pal
+    vir_pal <- c("#33638DFF", "#1F968BFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
+    
     if(var_hampRace() == 2019){
       hamp_data <- read.csv("data/TableB02001FiveYearEstimates/hamp_race2019.csv")
     }
@@ -816,8 +751,6 @@ server <- function(input, output, session) {
     hamp_races4 <- mutate(hamp_races4, pct = estimate/total*100)
     hamp_races4 <- mutate(hamp_races4, race = c("White", "Black", "Asian", "Two or more", "Other"))
     colnames(hamp_races4) <- c("estimate", "Total", "Percent of Population", "race")
-    #pal
-    vir_pal <- c("#33638DFF", "#1F968BFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
     
     hamp_races5 <- hamp_races4 %>% 
       mutate(
@@ -845,6 +778,8 @@ server <- function(input, output, session) {
   })
   
   output$va_pie <- renderPlot({
+    #pal
+    vir_pal <- c("#33638DFF", "#1F968BFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
     if(var_VaRace() == 2019){
       races <- read.csv("data/TableB02001FiveYearEstimates/va_race2019.csv")
     }
@@ -885,9 +820,6 @@ server <- function(input, output, session) {
     va_races2 <- mutate(va_races2, totl = total)
     va_races2 <- mutate(va_races2, pct = estimate/totl*100)
     va_races2 <- mutate(va_races2, race = c("White", "Black", "Asian", "Two or more", "Other"))
-    #pal
-    vir_pal <- c("#33638DFF", "#1F968BFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
-    
     va_races3 <- va_races2 %>% 
       mutate(
         cs = rev(cumsum(rev(pct))), 
@@ -900,7 +832,7 @@ server <- function(input, output, session) {
       geom_label_repel(aes(y = pos, label = paste0(round(pct, digits=2), "%")),
                        data = va_races3, size=4, show.legend = F, nudge_x = 1) +
       guides(fill = guide_legend(title = "Key")) +
-      scale_fill_manual(values =vir_pal)+
+      scale_fill_manual(values=vir_pal)+
       theme_void()  +
       theme(legend.title = element_blank()) 
     #plot 
@@ -914,6 +846,8 @@ server <- function(input, output, session) {
   })
   
   output$hamp_graph <- renderPlot({
+    #pal
+    vir_pal <- c("#33638DFF", "#1F968BFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
     if(var_hampAge() == 2019){
       hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2019.csv")
     }
@@ -980,11 +914,14 @@ server <- function(input, output, session) {
     #Getting the percentage
     hamp_ages3 <- mutate(hamp_ages3,TotalPopulation = hamp_pop)
     hamp_ages3 <- mutate(hamp_ages3, PctPop = General.Estimate/TotalPopulation*100)
-    hamp_ages3 <- mutate(hamp_ages3, Labels =c("Under 18: 17 and Younger", "Young Adult: 18 to 29", "Adult: 30 to 44", "Middle Age: 45 to 64","Senior: 65 and Older"))
+    hamp_ages3 <- mutate(hamp_ages3, Labels =c("Under 18", "18 to 29", "30 to 44",
+                                               "45 to 64","65 and Older"))
     #ordering the age grpups
-    hamp_ages3$Labels <- factor(hamp_ages3$Labels, levels=c("Under 18: 17 and Younger", "Young Adult: 18 to 29", "Adult: 30 to 44",
-                                                            "Middle Age: 45 to 64","Senior: 65 and Older"))
+    hamp_ages3$Labels <- factor(hamp_ages3$Labels, levels=c("Under 18", "18 to 29", "30 to 44",
+                                                            "45 to 64","65 and Older"))
     #Graph
+    
+    
     hamp_graph <- ggplot(hamp_ages3 , aes(x="", y=PctPop, fill=Labels)) +
       geom_bar(stat="identity", width=1, color="white") +
       coord_polar("y", start=0) + 
@@ -998,8 +935,8 @@ server <- function(input, output, session) {
         axis.ticks.y=element_blank(),
         legend.title = element_blank(),
         legend.text = element_text(size = 13)) +
-      geom_text(aes(label = paste0(round(PctPop), "%")), position = position_stack(vjust=0.5), size=5, color = "white") +
-      scale_fill_viridis_d()
+      geom_text(aes(label = paste0(round(PctPop), "%")), position = position_stack(vjust=0.5), size=5, color = "white")  +
+      scale_fill_manual(values =vir_pal)
     #plot
     hamp_graph
     
@@ -1011,6 +948,8 @@ server <- function(input, output, session) {
   })
   
   output$va_graph <- renderPlot({
+    #pal
+    vir_pal <- c("#33638DFF", "#1F968BFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
     if(var_VaAge() == 2019){
       age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2019.csv")
     }
@@ -1067,11 +1006,11 @@ server <- function(input, output, session) {
     #Make Percentage
     va_ages2 <- mutate(va_ages2, PctPop = Estimate/TotalPopulation*100)
     #labeling
-    va_ages2 <- mutate(va_ages2, labels = c("Under 18: 17 and Younger", "Young Adult: 18 to 29", "Adult: 30 to 44",
-                                            "Middle Age: 45 to 64","Senior: 65 and Older"))
+    va_ages2 <- mutate(va_ages2, labels = c("Under 18", "18 to 29", "30 to 44",
+                                            "45 to 64","65 and Older"))
     colnames(va_ages2) <- c("Estimate", "Total Population", "Percent of Population", "Labels")
-    va_ages2[,4] <- factor(va_ages2[,4], levels = c("Under 18: 17 and Younger", "Young Adult: 18 to 29", "Adult: 30 to 44",
-                                                    "Middle Age: 45 to 64","Senior: 65 and Older"))
+    va_ages2[,4] <- factor(va_ages2[,4], levels = c("Under 18", "18 to 29", "30 to 44",
+                                                    "45 to 64","65 and Older"))
     #Graph
     va_graph <- ggplot(va_ages2 , aes(x="", y=`Percent of Population`, fill=Labels)) +
       geom_bar(stat="identity", width=1, color="white") +
@@ -1087,7 +1026,7 @@ server <- function(input, output, session) {
         legend.title = element_blank(),
         legend.text = element_text(size = 13)) +
       geom_text(aes(label = paste0(round(`Percent of Population`), "%")), position = position_stack(vjust=0.5), size=5, color = "white") +
-      scale_fill_viridis_d()  
+      scale_fill_manual(values =vir_pal)
     #plot
     va_graph
     
@@ -1232,8 +1171,8 @@ server <- function(input, output, session) {
             legend.text = element_text(size=13)) +
       #geom_scatterpie(aes(x=lon, y=lat, group=county, r =0.05), data=general_county_alt2,
          #             cols=LETTERS[1:5]) + 
-      scale_fill_viridis_d(labels = c("Under 18", "Young Adult: 18 to 29", "Adult: 30 to 44",
-                                      "Middle Age: 45 to 64","Senior: 65 and Older")) 
+      scale_fill_viridis_d(labels = c("Under 18", "18 to 29", "30 to 44",
+                                      "45 to 64","65 and Older")) 
     #plot
     age_map
     
@@ -1249,7 +1188,7 @@ server <- function(input, output, session) {
     if(var_genEducationalAttainment() == "2019") {
       generalEducationalAttainment2019 <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2019.csv")
       colnames(generalEducationalAttainment2019) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
-      va_tot_education_bar2019 <- generalEducationalAttainment2019  %>% 
+      va_tot_education_bar2019 <- generalEducationalAttainment2019 %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
         ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Name)) + geom_col() +
@@ -1979,7 +1918,7 @@ server <- function(input, output, session) {
     va_hisp <- suspension_va %>% filter(Race == "Hispanic") %>% filter(DataFormat == "Percent")
     #VA percentage estimate for 2018-2019 (white)
     va_white <- suspension_va %>% filter(Race == "White") %>% filter(DataFormat == "Percent")
-    #combining the three percentages(b;ack, hispanic, white)
+    #combining the three percentages(black, hispanic, white)
     va_suspension_race16 <- rbind(va_blck[,6], va_hisp[,6], va_white[,6])
     va_suspension_race16$Data <- as.numeric(va_suspension_race16$Data)
     va_suspension_race16 <- mutate(va_suspension_race16, Data = Data*100)
@@ -2013,7 +1952,7 @@ server <- function(input, output, session) {
         legend.title = element_blank(),
         legend.text = element_text(size=12),
         axis.text = element_text(siz=12)) +
-      labs(y ="Percent of Students Suspended (%)") +
+      labs(y ="Percent (%)") +
       scale_color_viridis_d() +
       scale_y_continuous(limits = c(2,14), breaks = seq(2, 14, by =4))
     #plot
@@ -2081,7 +2020,7 @@ server <- function(input, output, session) {
       as.numeric(pct_white2$pct, na.rm = TRUE)
       #labeling
       pct_white3 <- pct_white2[,c(2,7)]
-      colnames(pct_white3) <- c("Location", "Percentage of Students (%)")
+      colnames(pct_white3) <- c("Location", "Percent (%)")
       #black data
       suspension_pct<- suspension_counties %>% filter(Race=="Black") %>%
         filter(DataFormat=="Percent")
@@ -2102,15 +2041,15 @@ server <- function(input, output, session) {
       suspension_pct2$pct <- na_if(suspension_pct2$pct,0.00000)
       as.numeric(suspension_pct2$pct, na.rm = TRUE)
       pct_blck <-suspension_pct2[,c(2,7)]
-      colnames(pct_blck) <- c("Location", "Percentage of Students (%)")
+      colnames(pct_blck) <- c("Location", "Percent (%)")
       sus <- rbind(pct_blck,pct_white3)
       num <- nrow(sus)/2
       sus <- mutate(sus, race = c(rep("Black Students",num), rep("White Students", num)))
       #bar graph
       suspension_counties_plot <-
-        ggplot(sus , aes(Location, y=`Percentage of Students (%)`, fill=race)) +
+        ggplot(sus , aes(Location, y=`Percent (%)`, fill=race)) +
         geom_bar(stat="identity", position=position_dodge())+
-        geom_text(aes(label=paste0(round(`Percentage of Students (%)`, digits=1), "%")), vjust=1.5, color="white",
+        geom_text(aes(label=paste0(round(`Percent (%)`, digits=1), "%")), vjust=1.5, color="white",
                   position = position_dodge(0.9), size=3)+
         theme_minimal() + 
         theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'), 
@@ -2126,18 +2065,25 @@ server <- function(input, output, session) {
         scale_fill_manual(values=c("#D55E00","#0072B2")) +
         labs(x = "Location") 
       #combining the tables
-      display_table <- rbind(display_tbl_white2, display_tbl_black2)
-      na_rows <- display_table %>% filter(Data == "NA")
-      supr_rows <- display_table %>% filter(Data == "S")
-      less_rows <- display_table %>% filter(Data == "<")
-      other_rows <- display_table %>% filter(Data == "*")
-      supr_rows <- mutate(supr_rows, Data = "Suppressed")
-      other_rows <- mutate(other_rows, Data = "Suppressed")
-      less_rows <- mutate(less_rows, Data = "less than 10")
-      display_table_final <- rbind(na_rows, supr_rows, less_rows, other_rows)
-      table_plot <- tableGrob(display_table_final, rows = NULL)
+      # display_table <- rbind(display_tbl_white2, display_tbl_black2)
+      # na_rows <- display_table %>% filter(Data == "NA")
+      # supr_rows <- display_table %>% filter(Data == "S")
+      # less_rows <- display_table %>% filter(Data == "<")
+      # other_rows <- display_table %>% filter(Data == "*")
+      # supr_rows <- mutate(supr_rows, Data = "Suppressed")
+      # other_rows <- mutate(other_rows, Data = "Suppressed")
+      # less_rows <- mutate(less_rows, Data = "less than 10")
+      # display_table_final <- rbind(na_rows, supr_rows, less_rows, other_rows)
+      # table_plot <- tableGrob(display_table_final, rows = NULL)
       #plot together
-      BW_map <- grid.arrange(suspension_counties_plot, table_plot, nrow=2, heights=c(4,1))
+     
+      
+      
+      # BW_map <- grid.arrange(suspension_counties_plot, table_plot, nrow=2, heights=c(4,1))
+      # BW_map
+      # 
+    
+      BW_map <- grid.arrange(suspension_counties_plot)
       BW_map
       
     }
@@ -2768,7 +2714,7 @@ server <- function(input, output, session) {
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
-        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+        theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
                                x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       sectors2019  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
@@ -2787,7 +2733,7 @@ server <- function(input, output, session) {
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
-        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+        theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
                                x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       sectors2018  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
@@ -2806,7 +2752,7 @@ server <- function(input, output, session) {
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
-        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+        theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
                                x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       sectors2017  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
@@ -2825,7 +2771,7 @@ server <- function(input, output, session) {
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
-        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+        theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
                                x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       sectors2016  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
@@ -2844,7 +2790,7 @@ server <- function(input, output, session) {
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
-        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+        theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
                                x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       sectors2015  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
@@ -2863,7 +2809,7 @@ server <- function(input, output, session) {
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
-        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+        theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
                                x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       sectors2014  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
@@ -2882,7 +2828,7 @@ server <- function(input, output, session) {
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
-        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+        theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
                                x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       sectors2013  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
@@ -2901,7 +2847,7 @@ server <- function(input, output, session) {
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
-        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+        theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
                                x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       sectors2012  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
@@ -2920,7 +2866,7 @@ server <- function(input, output, session) {
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
-        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+        theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
                                x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       sectors2011  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
@@ -2939,7 +2885,7 @@ server <- function(input, output, session) {
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>% 
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
-        theme_minimal() + labs(title = "Top Two Highest Employed Industries",
+        theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
                                x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
       sectors2010 #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately

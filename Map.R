@@ -164,6 +164,47 @@ for (i in 1:length(years)) {
   #black_total <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableC15002BFiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
 }
 
+generalEducationalAttainment2010 <- read.csv("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment2010.csv")
+generalBlackEducationalAttainment2010 <- read.csv("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2010.csv")
+generalBlackEducationalAttainment2010 
+colnames(generalEducationalAttainment2010) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+colnames(generalBlackEducationalAttainment2010) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
+generalTotal <- rbind(generalEducationalAttainment2010, generalBlackEducationalAttainment2010)
+generalTotal
+
+
+va_tot_education_bar2019 <- generalTotal %>% 
+  mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+  mutate(Name = str_remove(Name, "city, Virginia")) %>%
+  arrange(desc(Name)) %>% 
+  ggplot(aes(fill = Variable, y = `Bachelor or Higher as Highest Attainment %`, x = Name)) +
+  geom_bar(position = "dodge", stat = "identity") +
+  theme_minimal() +
+  theme(legend.title = element_blank()) +
+  labs(title = "Bachelor's Degree or Higher as Highest Attainment (2019)",
+       y = "Percent (%)",
+       x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +
+  scale_color_viridis_d() +  scale_fill_viridis_d()
+ggplotly(va_tot_education_bar2019)
+
+
+
+va_tot_education_bar2019 <- generalTotal  %>% 
+  mutate(Name = str_remove(Name, "County, Virginia")) %>% 
+  mutate(Name = str_remove(Name, "city, Virginia")) %>% 
+  ggplot(aes(x = Name, y = `Bachelor or Higher as Highest Attainment %`, fill = Variable)) + geom_col() +
+  geom_bar (stat="identity", position = "dodge") + 
+  theme_minimal() + labs(title = "Bachelor's Degree or Higher as Highest Attainment (2019)",
+                         y = "Percent (%)",
+                         x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +  scale_color_viridis_d() +  scale_fill_viridis_d()
+#adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
+hide_legend(ggplotly(va_tot_education_bar2019, tooltip=c("x", "y"))) %>% 
+  layout(annotations = list(x = 1, y = -0.43, text = "Source: ACS 5 Year Estimate Table S1501 and ACS 5 Year Estimate Table C15002B", 
+                            showarrow = F, xref='paper', yref='paper', 
+                            xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                            font=list(size=10, color="black"))
+  )
+#generalTotal <- dplyr::full_join(generalEducationalAttainment2019, generalBlackEducationalAttainment2019)
 
 
 county_stats1 <- function(varcode, year) { 
