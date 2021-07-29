@@ -526,23 +526,18 @@ ui <- navbarPage(title = "Hampton Roads",
                                                          h1(strong("Unemployment Rate in Hampton Roads"), align = "center"),
                                                          withSpinner(plotlyOutput("unemployment_plot")),
                                                          p(tags$small("Data Source: ACS 5 Year Estimates Table S2301")),
-                                                         sliderInput("UnemploymentRateSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = "", width = "100%"),
+                                                         sliderInput("UnemploymentRateSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = "", width = "100%",
+                                                                     animate=animationOptions(interval = 1400)),
                                                 ),
                                                 tabPanel("Unemployment Over Time",
                                                          fluidRow(
                                                            box(width = 8, height = 800,
-                                                               img(src="unemployment_plot.gif", height='750', width='700')),
-                                                           
-                                                           box(width = 4, height = 550,
-                                                               h3("Description: "),
-                                                               p("Placeholder Text"))
-                                                         ),
+                                                               img(src="unemployment_plot.gif", height='750', width='700'))),
                                                          
                                                          fluidRow(
                                                            box(width =12, height = 300,
                                                                h3("Trends: "),
-                                                               p("Text"))
-                                                         )
+                                                               p("Text")))
                                                          
                                                 )
                                                 
@@ -596,7 +591,8 @@ ui <- navbarPage(title = "Hampton Roads",
                                               h1(strong("Health Insurance in Hampton Roads"), align = "center"),
                                               withSpinner(plotlyOutput("uninsured_plot")),
                                               p(tags$small("Data Source: ACS 5 Year Estimates Table S2701")),
-                                              sliderInput("UninsuredPctSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = "", width = "100%")),
+                                              sliderInput("UninsuredPctSlider", "Select Year", value = 2019, min = 2012, max = 2019, sep = "", width = "100%",
+                                                          animate=animationOptions(interval = 1400))),
                                      )
                                      
                             ),
@@ -638,19 +634,18 @@ ui <- navbarPage(title = "Hampton Roads",
                                           p("Victor Mukora"),
                                           img(src = "Christina_Prisbe_Headshot.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
                                           p("Christina Prisbe"),
-                                          img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                          img(src = "kwabe.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
                                           p("Kwabena Boateng")
                                    ),
                                    column(6, align = "center",
                                           h4(strong("Virginia Tech Faculty Members")),
-                                          img(src = "Dr_Holmes.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                          img(src = "Dr_Holmes.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", height = "150px", width = "150px"),
                                           p("Dr. Chanita Holmes"),
-                                          img(src = "Dr_Bradburn.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                          img(src = "Dr_Bradburn.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", height = "150px", width = "150px"),
                                           p("Dr. Isabel Bradburn")
                                    )
                           ),
-                          fluidRow(style = "margin-left: 300px; margin-right: 300px;",
-                                   h4(strong("Project Stakeholders")),
+                          fluidRow(h4(strong("Project Stakeholders"), align = "center"),
                                    p(""),
                                    p("")
                                    # p(a(href = 'https://www.linkedin.com/in/nancy-bell-aa293810/', 'Nancy Bell', target = '_blank'), "(Virginia Department of Health);",
@@ -2886,22 +2881,23 @@ server <- function(input, output, session) {
   output$unemployment_plot <- renderPlotly({
     if(var_unemploymentRate() == "2019") {
       unemp_19 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2019.csv") 
+      colnames(unemp_19)[2] <- "Locality"
+      colnames(unemp_19)[3] <- "Demographic"
+      colnames(unemp_19)[4] <- "Unemployment Rate"
       va_unemp_19 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2019.csv")
       unemployment_2019 <- unemp_19 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
-        arrange(desc(NAME)) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-        geom_bar(position = "dodge", stat = "identity", aes(text = paste0("</br> Locality: ", NAME,
-                                                                          "</br> Percent Uninsured: ", estimate, "%",
-                                                                          "</br> Population: ", variable))) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>%
+        arrange(desc(Locality)) %>% 
+        ggplot(aes(fill = Demographic, y = `Unemployment Rate`, x = Locality)) +
+        geom_bar(position = "dodge", stat = "identity") +
         geom_hline(yintercept = va_unemp_19$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
         theme_minimal() +
         theme(legend.title = element_blank()) +
         labs(title = "",
              y = "Unemployment Rate (%)",
              x = "",
-             caption = "Source: ACS 5 Year Estimate Table S2301") +
+             caption = "") +
         theme(axis.text.x = element_text(angle = 40)) +
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       
@@ -2912,12 +2908,15 @@ server <- function(input, output, session) {
     
     else if(var_unemploymentRate() == "2018") {
       unemp_18 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2018.csv") 
+      colnames(unemp_18)[2] <- "Locality"
+      colnames(unemp_18)[3] <- "Demographic"
+      colnames(unemp_18)[4] <- "Unemployment Rate"
       va_unemp_18 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2018.csv")
       unemployment_2018 <- unemp_18 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
-        arrange(desc(NAME)) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>%
+        arrange(desc(Locality)) %>% 
+        ggplot(aes(fill = Demographic, y = `Unemployment Rate`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         geom_hline(yintercept = va_unemp_18$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
         theme_minimal() +
@@ -2936,12 +2935,15 @@ server <- function(input, output, session) {
     
     else if(var_unemploymentRate() == "2017") {
       unemp_17 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2017.csv") 
+      colnames(unemp_17)[2] <- "Locality"
+      colnames(unemp_17)[3] <- "Demographic"
+      colnames(unemp_17)[4] <- "Unemployment Rate"
       va_unemp_17 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2017.csv")
       unemployment_2017 <- unemp_17 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
-        arrange(desc(NAME)) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>%
+        arrange(desc(Locality)) %>% 
+        ggplot(aes(fill = Demographic, y = `Unemployment Rate`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         geom_hline(yintercept = va_unemp_17$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
         theme_minimal() +
@@ -2960,12 +2962,15 @@ server <- function(input, output, session) {
     
     else if(var_unemploymentRate() == "2016") {
       unemp_16 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2016.csv") 
+      colnames(unemp_16)[2] <- "Locality"
+      colnames(unemp_16)[3] <- "Demographic"
+      colnames(unemp_16)[4] <- "Unemployment Rate"
       va_unemp_16 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2016.csv")
       unemployment_2016 <- unemp_16 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
-        arrange(desc(NAME)) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>%
+        arrange(desc(Locality)) %>% 
+        ggplot(aes(fill = Demographic, y = `Unemployment Rate`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         geom_hline(yintercept = va_unemp_16$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
         theme_minimal() +
@@ -2984,12 +2989,15 @@ server <- function(input, output, session) {
     
     else if(var_unemploymentRate() == "2015") {
       unemp_15 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2015.csv") 
+      colnames(unemp_15)[2] <- "Locality"
+      colnames(unemp_15)[3] <- "Demographic"
+      colnames(unemp_15)[4] <- "Unemployment Rate"
       va_unemp_15 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2015.csv")
       unemployment_2015 <- unemp_15 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
-        arrange(desc(NAME)) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>%
+        arrange(desc(Locality)) %>% 
+        ggplot(aes(fill = Demographic, y = `Unemployment Rate`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         geom_hline(yintercept = va_unemp_15$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
         theme_minimal() +
@@ -3008,12 +3016,15 @@ server <- function(input, output, session) {
     
     else if(var_unemploymentRate() == "2014") {
       unemp_14 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2014.csv") 
+      colnames(unemp_14)[2] <- "Locality"
+      colnames(unemp_14)[3] <- "Demographic"
+      colnames(unemp_14)[4] <- "Unemployment Rate"
       va_unemp_14 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2014.csv")
       unemployment_2014 <- unemp_14 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
-        arrange(desc(NAME)) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>%
+        arrange(desc(Locality)) %>% 
+        ggplot(aes(fill = Demographic, y = `Unemployment Rate`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         geom_hline(yintercept = va_unemp_14$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
         theme(legend.title = element_blank()) +
@@ -3031,12 +3042,15 @@ server <- function(input, output, session) {
     
     else if(var_unemploymentRate() == "2013") {
       unemp_13 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2013.csv") 
+      colnames(unemp_13)[2] <- "Locality"
+      colnames(unemp_13)[3] <- "Demographic"
+      colnames(unemp_13)[4] <- "Unemployment Rate"
       va_unemp_13 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2013.csv")
       unemployment_2013 <- unemp_13 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
-        arrange(desc(NAME)) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>%
+        arrange(desc(Locality)) %>% 
+        ggplot(aes(fill = Demographic, y = `Unemployment Rate`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         geom_hline(yintercept = va_unemp_13$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
         theme_minimal() +
@@ -3055,12 +3069,15 @@ server <- function(input, output, session) {
     
     else if(var_unemploymentRate() == "2012") {
       unemp_12 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2012.csv") 
+      colnames(unemp_12)[2] <- "Locality"
+      colnames(unemp_12)[3] <- "Demographic"
+      colnames(unemp_12)[4] <- "Unemployment Rate"
       va_unemp_12 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2012.csv")
       unemployment_2012 <- unemp_12 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
-        arrange(desc(NAME)) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>%
+        arrange(desc(Locality)) %>% 
+        ggplot(aes(fill = Demographic, y = `Unemployment Rate`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         geom_hline(yintercept = va_unemp_12$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
         theme(legend.title = element_blank()) +
@@ -3078,12 +3095,15 @@ server <- function(input, output, session) {
     
     else if(var_unemploymentRate() == "2011") {
       unemp_11 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2011.csv") 
+      colnames(unemp_11)[2] <- "Locality"
+      colnames(unemp_11)[3] <- "Demographic"
+      colnames(unemp_11)[4] <- "Unemployment Rate"
       va_unemp_11 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2011.csv")
       unemployment_2011 <- unemp_11 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
-        arrange(desc(NAME)) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>%
+        arrange(desc(Locality)) %>% 
+        ggplot(aes(fill = Demographic, y = `Unemployment Rate`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         geom_hline(yintercept = va_unemp_11$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
         theme(legend.title = element_blank()) +
@@ -3101,12 +3121,15 @@ server <- function(input, output, session) {
     
     else if(var_unemploymentRate() == "2010") {
       unemp_10 <- read.csv("data/TableS2301FiveYearEstimates/unemployment2010.csv") 
+      colnames(unemp_10)[2] <- "Locality"
+      colnames(unemp_10)[3] <- "Demographic"
+      colnames(unemp_10)[4] <- "Unemployment Rate"
       va_unemp_10 <- read.csv("data/TableS2301FiveYearEstimates/vaunemployment2010.csv")
       unemployment_2010 <- unemp_10 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>%
-        arrange(desc(NAME)) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>%
+        arrange(desc(Locality)) %>% 
+        ggplot(aes(fill = Demographic, y = `Unemployment Rate`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         geom_hline(yintercept = va_unemp_10$estimate, linetype="dashed", color = "red", show.legend = TRUE) +
         theme_minimal() +
@@ -3407,10 +3430,16 @@ server <- function(input, output, session) {
   output$uninsured_plot <- renderPlotly({
     if(var_uninsuredpct() == "2019") {
       unins_19 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2019.csv")
+      colnames(unins_19)[1] <- "Locality"
+      colnames(unins_19)[2] <- "Demographic"
+      colnames(unins_19)[3] <- "Percent Uninsured"
+      unins_19 <- unins_19 %>% 
+        mutate(`Percent Uninsured` = round(`Percent Uninsured`, 2))
+      
       uninsured_2019 <- unins_19 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>% 
+        ggplot(aes(fill = Demographic, y = `Percent Uninsured`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         theme_minimal() +
         theme(legend.title = element_blank()) +
@@ -3427,10 +3456,16 @@ server <- function(input, output, session) {
     
     else if(var_uninsuredpct() == "2018") {
       unins_18 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2018.csv")
+      colnames(unins_18)[1] <- "Locality"
+      colnames(unins_18)[2] <- "Demographic"
+      colnames(unins_18)[3] <- "Percent Uninsured"
+      unins_18 <- unins_18 %>% 
+        mutate(`Percent Uninsured` = round(`Percent Uninsured`, 2))
+      
       uninsured_2018 <- unins_18 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>% 
+        ggplot(aes(fill = Demographic, y = `Percent Uninsured`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         theme_minimal() +
         theme(legend.title = element_blank()) +
@@ -3446,10 +3481,16 @@ server <- function(input, output, session) {
     
     else if(var_uninsuredpct() == "2017") {
       unins_17 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2017.csv")
+      colnames(unins_17)[1] <- "Locality"
+      colnames(unins_17)[2] <- "Demographic"
+      colnames(unins_17)[3] <- "Percent Uninsured"
+      unins_17 <- unins_17 %>% 
+        mutate(`Percent Uninsured` = round(`Percent Uninsured`, 2))
+      
       uninsured_2017 <- unins_17 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>% 
+        ggplot(aes(fill = Demographic, y = `Percent Uninsured`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         theme_minimal() +
         theme(legend.title = element_blank()) +
@@ -3465,10 +3506,16 @@ server <- function(input, output, session) {
     
     else if(var_uninsuredpct() == "2016") {
       unins_16 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2016.csv")
+      colnames(unins_16)[1] <- "Locality"
+      colnames(unins_16)[2] <- "Demographic"
+      colnames(unins_16)[3] <- "Percent Uninsured"
+      unins_16 <- unins_16 %>% 
+        mutate(`Percent Uninsured` = round(`Percent Uninsured`, 2))
+      
       uninsured_2016 <- unins_16 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>% 
+        ggplot(aes(fill = Demographic, y = `Percent Uninsured`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         theme_minimal() +
         theme(legend.title = element_blank()) +
@@ -3484,10 +3531,16 @@ server <- function(input, output, session) {
     
     else if(var_uninsuredpct() == "2015") {
       unins_15 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2015.csv")
+      colnames(unins_15)[1] <- "Locality"
+      colnames(unins_15)[2] <- "Demographic"
+      colnames(unins_15)[3] <- "Percent Uninsured"
+      unins_15 <- unins_15 %>% 
+        mutate(`Percent Uninsured` = round(`Percent Uninsured`, 2))
+      
       uninsured_2015 <- unins_15 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>% 
+        ggplot(aes(fill = Demographic, y = `Percent Uninsured`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         theme_minimal() +
         theme(legend.title = element_blank()) +
@@ -3503,10 +3556,16 @@ server <- function(input, output, session) {
     
     else if(var_uninsuredpct() == "2014") {
       unins_14 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2014.csv")
+      colnames(unins_14)[1] <- "Locality"
+      colnames(unins_14)[2] <- "Demographic"
+      colnames(unins_14)[3] <- "Percent Uninsured"
+      unins_14 <- unins_14 %>% 
+        mutate(`Percent Uninsured` = round(`Percent Uninsured`, 2))
+      
       uninsured_2014 <- unins_14 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>% 
+        ggplot(aes(fill = Demographic, y = `Percent Uninsured`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         theme_minimal() +
         theme(legend.title = element_blank()) +
@@ -3522,10 +3581,16 @@ server <- function(input, output, session) {
     
     else if(var_uninsuredpct() == "2013") {
       unins_13 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2013.csv")
+      colnames(unins_13)[1] <- "Locality"
+      colnames(unins_13)[2] <- "Demographic"
+      colnames(unins_13)[3] <- "Percent Uninsured"
+      unins_13 <- unins_13 %>% 
+        mutate(`Percent Uninsured` = round(`Percent Uninsured`, 2))
+      
       uninsured_2013 <- unins_13 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>% 
+        ggplot(aes(fill = Demographic, y = `Percent Uninsured`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         theme_minimal() +
         theme(legend.title = element_blank()) +
@@ -3541,10 +3606,17 @@ server <- function(input, output, session) {
     
     else if(var_uninsuredpct() == "2012") {
       unins_12 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2012.csv")
+      
+      colnames(unins_12)[1] <- "Locality"
+      colnames(unins_12)[2] <- "Demographic"
+      colnames(unins_12)[3] <- "Percent Uninsured"
+      unins_12 <- unins_12 %>% 
+        mutate(`Percent Uninsured` = round(`Percent Uninsured`, 2))
+      
       uninsured_2012 <- unins_12 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
+        mutate(Locality = str_remove(Locality, "County, Virginia")) %>% 
+        mutate(Locality = str_remove(Locality, "city, Virginia")) %>% 
+        ggplot(aes(fill = Demographic, y = `Percent Uninsured`, x = Locality)) +
         geom_bar(position = "dodge", stat = "identity") +
         theme_minimal() +
         theme(legend.title = element_blank()) +
@@ -3557,44 +3629,7 @@ server <- function(input, output, session) {
       
       ggplotly(uninsured_2012)
     }
-    
-    else if(var_uninsuredpct() == "2011") {
-      unins_11 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2011.csv")
-      uninsured_2011 <- unins_11 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-        geom_bar(position = "dodge", stat = "identity") +
-        theme_minimal() +
-        theme(legend.title = element_blank()) +
-        labs(title = "",
-             y = "Percent Uninsured (%)",
-             x = "",
-             caption = "Source: ACS 5 Year Estimate Table S2701") +
-        theme(axis.text.x = element_text(angle = 40)) + 
-        scale_fill_manual(values = c("#D55E00", "#0072B2"))
-      
-      ggplotly(uninsured_2011)
-    }
-    
-    else if(var_uninsuredpct() == "2010") {
-      unins_10 <- read.csv("data/TableS2701FiveYearEstimates/uninsured2010.csv")
-      uninsured_2010 <- unins_10 %>% 
-        mutate(NAME = str_remove(NAME, "County, Virginia")) %>% 
-        mutate(NAME = str_remove(NAME, "city, Virginia")) %>% 
-        ggplot(aes(fill = variable, y = estimate, x = NAME)) +
-        geom_bar(position = "dodge", stat = "identity") +
-        theme_minimal() +
-        theme(legend.title = element_blank()) +
-        labs(title = "",
-             y = "Percent Uninsured (%)",
-             x = "",
-             caption = "Source: ACS 5 Year Estimate Table S2701") +
-        theme(axis.text.x = element_text(angle = 40)) + 
-        scale_fill_manual(values = c("#D55E00", "#0072B2"))
-      
-      ggplotly(uninsured_2010)
-    }
+
   })
   
   
@@ -3848,16 +3883,37 @@ server <- function(input, output, session) {
     if(var_hmown() == "2019") {
       b_hm_19 <- read_rds("data/TableS2502FiveYearEstimates/bhmown2019.rds")
       tot_hm_19 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2019.rds")
+      all_hm_data <- read_rds("data/TableS2502FiveYearEstimates/allhomedata.rds")
+      
+      pick_n <- function(Locality){
+        dataFiltered <- filter(all_hm_data, NAME == Locality)
+        
+        hm_line <- ggplot(dataFiltered, aes(x = Year, y = Percent, color = variable, group = variable)) +
+          geom_line(position = "identity") +
+          theme(axis.text.x = element_text(angle = 40)) +
+          scale_fill_manual(values = c("#D55E00", "#0072B2")) +
+          theme(legend.position = "none") +
+          labs(title = Locality) 
+
+        #ggplotly(hm_line)
+      }
+      
+      r <- lapply(1:length(unique(b_hm_19$NAME)), function(i){
+        pick_n(b_hm_19$NAME[i])
+      })
+      
       pal <- colorNumeric(palette = "viridis", domain = b_hm_19$Percent, reverse = TRUE)
       b_hmown_leaf_19 <- b_hm_19 %>%
         leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
-                    label = ~paste0(NAME,  " Black Homeowners: ", Percent, "%"), group = "Black Home Owners") %>% 
+                    label = ~paste0(NAME,  " Black Homeowners: ", Percent, "%"), group = "Black Home Owners",
+                    popup = popupGraph(r)) %>% 
         addPolygons(data = tot_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
-                    label = ~paste0(NAME,  " Total Homeowners: ", Percent, "%"), group = "Total Home Owners") %>% 
+                    label = ~paste0(NAME,  " Total Homeowners: ", Percent, "%"), group = "Total Home Owners",
+                    popup = popupGraph(r)) %>% 
         addLayersControl(
           baseGroups = c("Total Home Owners"),
           overlayGroups = c("Black Home Owners"),
@@ -3870,7 +3926,7 @@ server <- function(input, output, session) {
                   labFormat = labelFormat(suffix = "%"),
                   opacity = 1)
     }
-    
+
     else if(var_hmown() == "2018") {
       b_hm_18 <- read_rds("data/TableS2502FiveYearEstimates/bhmown2018.rds")
       tot_hm_18 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2018.rds")
