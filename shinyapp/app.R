@@ -161,10 +161,12 @@ ui <- navbarPage(title = "Hampton Roads",
                             tabPanel("Sociodemographics",
                                      fluidRow(style = "margin: 6px;",
                                               h1(strong("Sociodemographic Characteristics" ), align = "center"),
+                                              p("", style = "padding-top:20px;"),
                                               column(4,
+                                                     h4(strong("Who Makes Up Hampton Roads?")),
                                                      p("We used the American Community Census data (ACS) to better understand the population in Hampton Roads and Virginia.  The ACS is a yearly survey conducted by the U.S. Census Bureau provides detailed demographic information about American household. We collected the 5-year estimates over the period 2010-2019 to compute the percent of Hampton Roads residents in each locality by race and age.  This information is also presented for the state of Virginia."), 
                                                      p("The black population accounts for about 30% of the total population in Hampton Roads. This is significantly greater than Virginia’s which is about 19%."),
-                                                     p("The population breakdown by age for Hampton Roads is relatively and representative of Virginia’s breakdown. However, there seems to be variation by localities, for example, there exists a large population of young adults (ages 18 to 29) in Southampton County, whereas Portsmouth has a greater population of seniors - individuals 65 years and older. This data suggests that such ages difference may play a role in differences in economic or education indicators across localities"), 
+                                                     p("The age composition for the Hampton Roads region appears to be representative of Virginia's population. However, there are variations by localities. For example, there exists a large population of young adults (ages 18 to 29) in Southampton County, whereas Portsmouth has a larger population of seniors - individuals 65 years and older. This data suggests that such ages difference may play a role in the differences in economic or education indicators across localities."), 
                                               ),
                                               column(8, 
                                                      tabsetPanel(
@@ -172,16 +174,12 @@ ui <- navbarPage(title = "Hampton Roads",
                                                        tabPanel("Race",
                                                                 fluidRow(
                                                                   h1(strong("Racial Demographics"), align = "center"),
-                                                                  
-                                                                  column(12, 
-                                                                         h4(strong("Race Demographic")) ),
                                                                   column(6,
                                                                          h4("Hampton Roads"),
                                                                          
                                                                          selectInput("hampRaceYearDrop", "Select Year:", width = "100%", choices = c(
                                                                            "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
                                                                          )),
-                                                                         p(strong("Hampton Roads Population by Race")),
                                                                          withSpinner(plotOutput("hamp_pie")),
                                                                          p(tags$small("Data Source: ACS 5 Year Estimate Table B02001")),
                                                                   ),
@@ -194,7 +192,6 @@ ui <- navbarPage(title = "Hampton Roads",
                                                                          selectInput("VaRaceYearDrop", "Select Year:", width = "100%", choices = c(
                                                                            "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
                                                                          )),
-                                                                         p(strong("Virginia")),
                                                                          withSpinner(plotOutput("va_pie")),
                                                                          p(tags$small("Data Source: ACS 5 Year Estimate Table B02001"))
                                                                   )
@@ -205,36 +202,35 @@ ui <- navbarPage(title = "Hampton Roads",
                                                        tabPanel("Age",
                                                                 fluidRow(
                                                                   h1(strong("Age Composition of Hampton Roads"), align = "center"),
-                                                                  column(4,
+                                                                  column(6,
                                                                          
-                                                                         h4("Hampton Roads Age Breakdown"),
+                                                                         h4("Hampton Roads"),
                                                                          selectInput("HampAgeYearDrop", "Select Year:", width = "100%", choices = c(
                                                                            "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
                                                                          )),
-                                                                         p(strong("Hampton Roads")),
+                                                                         
                                                                          withSpinner(plotOutput("hamp_graph")),
                                                                          p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
                                                                   ),
                                                                   
-                                                                  column(4,
+                                                                  column(6,
                                                                          
-                                                                         h4("Virginia Age Breakdown"),
+                                                                         h4("Virginia"),
                                                                          p(""),
                                                                          selectInput("VaAgeYearDrop", "Select Year:", width = "100%", choices = c(
                                                                            "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
                                                                          )),
-                                                                         p(strong("Virginia")),
+                                                                         
                                                                          withSpinner(plotOutput("va_graph")),
                                                                          p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
                                                                   ),
                                                                   
                                                                   column(12,
                                                                          
-                                                                         h4("Hampton Roads' Counties and Cities' Age Breakdown"),
+                                                                         h4("Hampton Roads Age Group by Localities"),
                                                                          selectInput("HampCountAgeYearDrop", "Select Year:", width = "100%", choices = c(
                                                                            "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"
                                                                          )),
-                                                                         p(strong("Hampton Roads Counties and Cities' Age Breakdown")),
                                                                          withSpinner(plotOutput("age_map", height="600px")),
                                                                          p(tags$small("Data Source: ACS 5 Year Estimate Table B01001"))
                                                                   )
@@ -250,26 +246,60 @@ ui <- navbarPage(title = "Hampton Roads",
                  ),
                  
                  
+                 #Data and Methodology ----------------------------------------------------
                  
                  
-                 
+                 tabPanel("Data and Methodology", value = "data",
+                          fluidRow(style = "margin: 6px;",
+                                   h1(strong("Data and Methodology"), align = "center"),
+                                   p("", style = "padding-top:10px;"), 
+                                   column(4,
+                                          img(src = 'acs.png', style = "display: inline; float: left;", width = "200px"),
+                                          p("The ",strong("American Community Survey (ACS)")," is an ongoing annual survey conducted by the U.S. Census Bureau. 
+                                            The ACS samples households to compile a 1-year and 5-year datasets providing information on households sociodemographic 
+                                            and socioeconomic characteristics. We used almost a decade (2010-2019) 5- year estimates to obtain county and city level 
+                                            characteristics to explore the population of Hampton Roads."),
+                                          br(), 
+                                          img(src = 'doe.jpg', style = "display: inline; float: left;", width = "150px"),
+                                          p("The ", strong("Virginia Department of Education (VDOE)"), "collects a variety of information from all school divisions in Virginia including the total number of educators and graduation rates. 
+                                            This allowed us to report demographic information for educators across the Hampton Roads region along with on-time graduation rate "), 
+                                          br(), 
+                                          img(src = 'kidscount.png', style = "display: inline; float: left;", width = "150px"),
+                                          p(strong("Kids Count"), "is a project of the", strong("Annie E. Casey foundation"), "produces an annual report that assess child well-being in the United States. 
+                                            We use this data source to present information on short-term suspension by race for the counties and cities in the Hampton Roads region. ")) ,
+                                   
+                                   
+                                   column(4,  
+                                          h5(strong("Methodology")))  
+                          )
+                          
+                 ),
+
+
                  # Education Indicators ----------------------------------------------------
-                 
-                 
+
+
                  navbarMenu(title="Education",
                             #Educator Demographics
-                            tabPanel("Educator Demographics",
-                                     
+                            tabPanel("Educators",
                                      fluidRow(
+                                       p("", style = "padding-top:20px;"),
                                        column(4,
                                               h4(strong("Who are the Educators in Hampton Roads?")),
-                                              
-                                              p("The African American population overwhelmingly attends public schools, yet in most parts of the U.S., teachers are overwhelmingly White (citation) [1]."),   
-                                              p("For the 2020-2021 academic year, the Virginia Department of Education released racial and ethnic breakdown for educators by school division, which enables examination of racial parity and match within local school divisions."), 
-                                              p("As of that year, 13 percent of public-school educators identified as Black, compared to a state rate of 19.9% Black population in 2019, a difference of almost seven percentage points [2]. "), 
-                                              p("In Hampton Roads, Black teacher representation ranged from a high of 55 percent in Franklin City to a low of no (zero) representation in Poquoson City."),   
-                                              p("[2].  Virginia Department of Education, Virginia Educator Ethnicity and Race Data, https://doe.virginia.gov/teaching/workforce_data/index.shtml; U.S Census QuickFacts, https://www.census.gov/quickfacts/fact/table/VA,US/PST045219.") 
-                                              
+                                              p("", style = "padding-top:10px;"),  
+                                              p("The African American population overwhelmingly attends public schools, yet in most parts of the U.S., teachers are overwhelmingly White. The National Center for Education 
+						Statistics reports that about 79 percent of all U.S. public school teachers were non-hispanic White [1]. This trend is also reflected in the State of Virginia.   
+            For the 2020-2021 academic year, the Virginia Department of Education released racial and ethnic breakdown for educators-administrators, teachers, and other pupil personnel- by school division.
+						These data enables examination of racial and ethnic representation to be matched within local school divisions. 
+           In 2020/21, 13 percent of public-school educators identified as Black, compared to a state rate of 19.9% Black population in 2019, a difference of almost seven percentage points [2]. "), 
+                                              p("In 2019, 31% percent of the Hampton Roads population identified as Black.  Seven of the 16 localities (44%) reported rates of public school Black educator representation at or above the regional average, while another 7 reported rates less than 12%.  
+						Black educator representation ranged from high rates of 62.3% in Portsmouth and 55.8% in Franklin City to very low rates of 3.5% in Poquoson.  These percentages are reversed for White educators, with highs of 92.6% representation in Poquoson and lows of 34.6% and 40% respectively in Portsmouth and Franklin City."),   
+                                              p("Hampton Roads localities vary considerably in their racial and ethnic profiles, making it difficult to ascertain from these data alone how well educator representation matches specific communities.A future project might be to map local demographic profiles to school division educator representation to determine 
+						how well Black educators are matched to local Black population representation."),
+                                              p("", style = "padding-top:20px;"),
+                                              p(tags$small("[1] Taie,S. and Golding, R. (2020). Characterisitcs of Public and Private Elementary and Secondary School Teachers
+						in the United States: Results from the 2017-18 National Teacher and Principal Survery. First Look. NCES 2020-142. National Center for Education Statistics")),
+                                              p(tags$small("[2].  Virginia Department of Education, Virginia Educator Ethnicity and Race Data, https://doe.virginia.gov/teaching/workforce_data/index.shtml; U.S Census QuickFacts, https://www.census.gov/quickfacts/fact/table/VA,US/PST045219.")),
                                        ),
                                        column(8,
                                               tabsetPanel(
@@ -285,8 +315,8 @@ ui <- navbarPage(title = "Hampton Roads",
                                                 ))))
                                      
                             ),
-                            
-                            tabPanel("Educational Attainment", 
+
+                            tabPanel("Educational Attainment",
                                      fluidRow(style = "margin: 6px;",
                                               h1(strong("Percentage of Hampton Roads Population 25 years and older with highest educational attainment as Bachelor's degree or higher"), align = "center"),
                                               p("", style = "padding-top:10px;"),
@@ -332,7 +362,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                      )
                                               ))
                             ),
-                            
+
                             #Drop Out Rate
                             tabPanel("Dropout Rate",
                                      column(4,
@@ -346,18 +376,18 @@ ui <- navbarPage(title = "Hampton Roads",
                                               box(title = "Select Year", width = 12,
                                                   selectInput("DropoutDropdown", "Select Year:", width = "100%", choices = c("2020", "2019", "2018", "2017", "2016", "2015",
                                                                                                                              "2014", "2013", "2012", "2011", "2010"))
-                                                  
+
                                               ))
                                      )
-                                     
-                            ), 
-                            
+
+                            ),
+
                             tabPanel("Suspension Rate",
-                                     
+
                                      fluidRow(
                                        h1(strong("Suspension"), align = "center"),
                                        column(4, h4(strong("Suspension Rate")), ),
-                                       column(8, 
+                                       column(8,
                                               tabsetPanel(
                                                 tabPanel("Suspension Rate", p(""),
                                                          h4("Percent of Students Suspended Short-Term in Virginia", align = "center"),
@@ -377,14 +407,14 @@ ui <- navbarPage(title = "Hampton Roads",
                                                          withSpinner(plotlyOutput("suspensionGap", height = "700px")),
                                                          p(tags$small("Data Source: KIDS COUNT, Annie E. Casey Foundation"))
                                                 )
-                                                
+
                                               )
-                                              
+
                                        )
-                                       
+
                                      )
-                                     
-                                     
+
+
                             ) ),
                  
                  navbarMenu(title="Economics",
@@ -1471,7 +1501,8 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Black Teachers`, fill = Name)) + geom_col() +
-        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  + scale_fill_viridis_d()
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  + 
+        scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) 
     }
@@ -1483,7 +1514,7 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Asian Teachers`, fill = Name)) + geom_col() +
-        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))   + scale_fill_viridis_d()
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) + scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y")))
     }
