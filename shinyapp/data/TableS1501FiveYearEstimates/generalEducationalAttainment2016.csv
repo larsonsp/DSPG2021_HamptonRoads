@@ -1,17 +1,17 @@
-NAME,variable,Percent
-"Gloucester County, Virginia",S1501_C02_015,22.6
-"Isle of Wight County, Virginia",S1501_C02_015,27.4
-"James City County, Virginia",S1501_C02_015,47.8
-"Mathews County, Virginia",S1501_C02_015,26.6
-"Southampton County, Virginia",S1501_C02_015,16.1
-"York County, Virginia",S1501_C02_015,43.2
-"Chesapeake city, Virginia",S1501_C02_015,30.4
-"Franklin city, Virginia",S1501_C02_015,22.4
-"Hampton city, Virginia",S1501_C02_015,24
-"Newport News city, Virginia",S1501_C02_015,24.7
-"Norfolk city, Virginia",S1501_C02_015,26.6
-"Poquoson city, Virginia",S1501_C02_015,39.8
-"Portsmouth city, Virginia",S1501_C02_015,21.1
-"Suffolk city, Virginia",S1501_C02_015,26.6
-"Virginia Beach city, Virginia",S1501_C02_015,34.2
-"Williamsburg city, Virginia",S1501_C02_015,56.7
+NAME,variable,pct_tot
+"Gloucester County, Virginia",S1501_C01_015,NA
+"Isle of Wight County, Virginia",S1501_C01_015,NA
+"James City County, Virginia",S1501_C01_015,NA
+"Mathews County, Virginia",S1501_C01_015,NA
+"Southampton County, Virginia",S1501_C01_015,NA
+"York County, Virginia",S1501_C01_015,NA
+"Chesapeake city, Virginia",S1501_C01_015,NA
+"Franklin city, Virginia",S1501_C01_015,NA
+"Hampton city, Virginia",S1501_C01_015,NA
+"Newport News city, Virginia",S1501_C01_015,NA
+"Norfolk city, Virginia",S1501_C01_015,NA
+"Poquoson city, Virginia",S1501_C01_015,NA
+"Portsmouth city, Virginia",S1501_C01_015,NA
+"Suffolk city, Virginia",S1501_C01_015,NA
+"Virginia Beach city, Virginia",S1501_C01_015,NA
+"Williamsburg city, Virginia",S1501_C01_015,NA

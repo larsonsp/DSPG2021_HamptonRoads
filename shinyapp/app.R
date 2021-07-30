@@ -316,7 +316,9 @@ ui <- navbarPage(title = "Hampton Roads",
                                                                 ),
                                                                 p(strong("Percentage of Hampton Roads Population 25 years and older with highest educational attainment as Bachelor's degree or higher")),
                                                                 withSpinner(plotlyOutput("genEdAttainmentPlots")),
-                                                                p(tags$small("*Note: Some year to year comparisions had very little variability in attainement percentages. Certain counties/cities may not have data for specific years."))
+                                                                p(tags$small("*Note: Some year to year comparisions had very little variability in attainement percentages. Certain counties/cities may not have data for specific years.")),
+                                                                p(tags$small("Data Source: ACS 5 Year Estimate Table C15002B (For Black Population)")),
+                                                                p(tags$small("Data Source: ACS 5 Year Estimate Table TableS1501 (For General Population)"))
                                                        )
                                                        #,
                                                        # tabPanel("Black Population",
