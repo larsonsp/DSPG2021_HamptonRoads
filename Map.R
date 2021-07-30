@@ -325,7 +325,7 @@ for (i in 1:length(years)) {
 
 #if year is 2017, 2016, 2015
 #S1501_C02_015
-va_total2 = va_table("S1501", 2010)
+va_total2 = va_table("S1501", 2017)
 View(va_total2)
 
 
@@ -335,7 +335,7 @@ for (i in 1:length(years)) {
   
   #these years just directly had the percentages so no need to sum up the numbers over the estimate
   if (years[i] == "2017"|| years[i] == "2016" || years[i] == "2015") {
-    va_total2 <-  county_stats1("S1501_C02_015", years[i])
+    va_total2 = county_stats1("S1501_C02_015", years[i])
   }
   
   #these years just directly had the percentages so no need to sum up the numbers over the estimate

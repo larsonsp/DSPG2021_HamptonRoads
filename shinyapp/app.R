@@ -102,7 +102,7 @@ ui <- navbarPage(title = "Hampton Roads",
                           fluidRow(style = "margin: 6px;",
                                    column(4,
                                           h2(strong("Project Background")),
-                                          p(strong("The problem."), "Systematic issues are preferential treatement given to certain groups of inidividuals. They have impeded minorities from being able to progress to share the same level of stature, accomplishment, and acceptance fellow peers with their similar backgrounds have achieved. The Black and African American (AA) community have been no exception to this injustice, resulting in several disadvantages across all facets of life.  This includes, but is certainly not limited to, various sectors of society like: 
+                                          p(strong("The problem."), "Systematic issues are preferential treatement given to certain groups of inidividuals. They have impeded minorities from being able to progress to share the same level of stature, accomplishment, and acceptance fellow peers with their similar backgrounds have achieved. The Black community have been no exception to this injustice, resulting in several disadvantages across all facets of life.  This includes, but is certainly not limited to, various sectors of society like: 
                                           public health/healthcare, employment, education, government, and criminal justice. "),
                                           p(),
                                           p(strong("The setting."), a(href = "https://en.wikipedia.org/wiki/Hampton_Roads", "Hampton Roads", target = "_blank"), "area consists of ten cities and six counties in the Southeastern region of Virginia. It is ranked as the 33rd largest MSA in the United States, the 8th largest metro area in the Southeast region, and the 2nd largest between Atlanta and Washington, DC."),
@@ -287,7 +287,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                        column(4,
                                               h4(strong("Who are the Educators in Hampton Roads?")),
                                               p("", style = "padding-top:10px;"),  
-                                              p("The African American population overwhelmingly attends public schools, yet in most parts of the U.S., teachers are overwhelmingly White. The National Center for Education 
+                                              p("The Black population overwhelmingly attends public schools, yet in most parts of the U.S., teachers are overwhelmingly White. The National Center for Education 
 						Statistics reports that about 79 percent of all U.S. public school teachers were non-hispanic White [1]. This trend is also reflected in the State of Virginia.   
             For the 2020-2021 academic year, the Virginia Department of Education released racial and ethnic breakdown for educators-administrators, teachers, and other pupil personnel- by school division.
 						These data enables examination of racial and ethnic representation to be matched within local school divisions. 
@@ -302,23 +302,20 @@ ui <- navbarPage(title = "Hampton Roads",
                                               p(tags$small("[2].  Virginia Department of Education, Virginia Educator Ethnicity and Race Data, https://doe.virginia.gov/teaching/workforce_data/index.shtml; U.S Census QuickFacts, https://www.census.gov/quickfacts/fact/table/VA,US/PST045219.")),
                                        ),
                                        column(8,
-                                              tabsetPanel(
-                                                tabPanel("Educator Demographics",
-                                                         p(""),
+                                                         h1(strong("Educator by Racial and Ethnic Groups"), align = "center"),
+                                                         p("", style = "padding-top:20px;"),
                                                          selectInput("teacherRaceBreakdown", "Select Race:", width = "100%", choices = c(
                                                            "Black", "White", "American Indian", "Asian", "Hawaiian", "Two or More Races", "Hispanic"
                                                          )),
-                                                         p(strong("Educator by Racial and Ethnic Groups")),
                                                          withSpinner(plotlyOutput("teacherRacePlots")),
-                                                         p(tags$small("*Note: No bar reflects 0 teachers for the racial/ethnic group.")),
+                                                         p(tags$small("*Note: Missing bar reflects 0 teachers for that locality's racial/ethnic group. Williamsburg and James City educator data were combined from the source dataset. ")),
                                                          p(tags$small("Source: Virginia DOE, Virginia 2020-2021 Teacher Race Report"))
-                                                ))))
+                                                ))
                                      
                             ),
 
                             tabPanel("Educational Attainment",
                                      fluidRow(style = "margin: 6px;",
-                                              h1(strong("Percentage of Hampton Roads Population 25 years and older with highest educational attainment as Bachelor's degree or higher"), align = "center"),
                                               p("", style = "padding-top:10px;"),
                                               column(4,
                                                      h4(strong("Why education?")),
@@ -333,35 +330,21 @@ ui <- navbarPage(title = "Hampton Roads",
                                           Hampton community as most individuals 25 years and older are old enough to have graduated high school and finished some type of college education.")
                                               ),
                                               column(8,
-                                                     tabsetPanel(
-                                                       tabPanel("General and Black Population in Hampton Roads",
-                                                                p(""),
+                                                           h1(strong("Percentage of Hampton Roads Population 25 years and older with Bachelor's degree or higher"), align = "center"),
+                                                          p("", style = "padding-top:20px;"),
                                                                 selectInput("genEdAttainmentYearDrop", "Select Year:", width = "100%", choices = c(
                                                                   "2019", "2018", "2017", "2016", "2015", "2014", "2013",
                                                                   "2012", "2011", "2010"
                                                                 )
                                                                 ),
-                                                                p(strong("Percentage of Hampton Roads Population 25 years and older with highest educational attainment as Bachelor's degree or higher")),
                                                                 withSpinner(plotlyOutput("genEdAttainmentPlots")),
-                                                                p(tags$small("*Note: Some year to year comparisions had very little variability in attainement percentages. Certain counties/cities may not have data for specific years.")),
-                                                                p(tags$small("Data Source: ACS 5 Year Estimate Table C15002B (For Black Population)")),
-                                                                p(tags$small("Data Source: ACS 5 Year Estimate Table TableS1501 (For General Population)"))
-                                                       )
-                                                       #,
-                                                       # tabPanel("Black Population",
-                                                       #          p(""),
-                                                       #          #selectInput("blackEdAttainmentYearDrop", "Select Year:", width = "100%", choices = c(
-                                                       #          #   "2019","2018", "2017", "2016", "2015","2014",
-                                                       #          #   "2013","2012", "2011", "2010")),
-                                                       #          p(strong("Black Educational Attainment")),
-                                                       #          sliderInput("blackEdAttainmentYearDrop", "Select Year:", value = 2019, min = 2010, max = 2019, sep = "", animate=animationOptions(interval = 1400)),
-                                                       #          withSpinner(plotlyOutput("blackEdAttainmentPlots")),
-                                                       #          p(tags$small("*Note: Some year to year comparisions had very little variability in attainement percentages. Certain counties/cities only had partial data (like male or female only) or no data at all for specific years."))
-                                                       #          #p(tags$small("Data Source: ACS 5 Year Estimate Table C15002B"))
-                                                       # )
+                                                                p(tags$small("*Note: Data missing for some years. ")),
+                                                                p(tags$small("Data Source: ACS 5 Year Estimate Tables C15002B (For Black Population), S1501 (For Total Population)"))
+                                                       
                                                      )
-                                              ))
-                            ),
+                                                     )
+                                              ),
+                            
 
                             #Drop Out Rate
                             tabPanel("Dropout Rate",
@@ -1198,7 +1181,7 @@ server <- function(input, output, session) {
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2019.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
-      generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
+      generalEducationalAttainment$Variable  <- rep(c("Total Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
@@ -1217,7 +1200,7 @@ server <- function(input, output, session) {
         theme(legend.title = element_blank()) +
         labs(title = "",
              y = "Percent (%)",
-             x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +
+             x = "") + theme(axis.text.x = element_text(angle = 40)) +
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
@@ -1227,7 +1210,7 @@ server <- function(input, output, session) {
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2018.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
-      generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
+      generalEducationalAttainment$Variable  <- rep(c("Total Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
@@ -1246,7 +1229,7 @@ server <- function(input, output, session) {
         theme(legend.title = element_blank()) +
         labs(title = "",
              y = "Percent (%)",
-             x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +
+             x = "") + theme(axis.text.x = element_text(angle = 40)) +
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
@@ -1256,7 +1239,7 @@ server <- function(input, output, session) {
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2017.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
-      generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
+      generalEducationalAttainment$Variable  <- rep(c("Total Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
@@ -1275,7 +1258,7 @@ server <- function(input, output, session) {
         theme(legend.title = element_blank()) +
         labs(title = "",
              y = "Percent (%)",
-             x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +
+             x = "") + theme(axis.text.x = element_text(angle = 40)) +
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
@@ -1285,7 +1268,7 @@ server <- function(input, output, session) {
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2016.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
-      generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
+      generalEducationalAttainment$Variable  <- rep(c("Total Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
@@ -1304,7 +1287,7 @@ server <- function(input, output, session) {
         theme(legend.title = element_blank()) +
         labs(title = "",
              y = "Percent (%)",
-             x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +
+             x = "") + theme(axis.text.x = element_text(angle = 40)) +
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
@@ -1314,7 +1297,7 @@ server <- function(input, output, session) {
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2015.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
-      generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
+      generalEducationalAttainment$Variable  <- rep(c("Total Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
@@ -1333,7 +1316,7 @@ server <- function(input, output, session) {
         theme(legend.title = element_blank()) +
         labs(title = "",
              y = "Percent (%)",
-             x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +
+             x = "") + theme(axis.text.x = element_text(angle = 40)) +
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
@@ -1343,7 +1326,7 @@ server <- function(input, output, session) {
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2014.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
-      generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
+      generalEducationalAttainment$Variable  <- rep(c("Total Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
@@ -1362,7 +1345,7 @@ server <- function(input, output, session) {
         theme(legend.title = element_blank()) +
         labs(title = "",
              y = "Percent (%)",
-             x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +
+             x = "") + theme(axis.text.x = element_text(angle = 40)) +
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
@@ -1372,7 +1355,7 @@ server <- function(input, output, session) {
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2013.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
-      generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
+      generalEducationalAttainment$Variable  <- rep(c("Total Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
@@ -1391,7 +1374,7 @@ server <- function(input, output, session) {
         theme(legend.title = element_blank()) +
         labs(title = "",
              y = "Percent (%)",
-             x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +
+             x = "") + theme(axis.text.x = element_text(angle = 40)) +
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
@@ -1401,7 +1384,7 @@ server <- function(input, output, session) {
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2012.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
-      generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
+      generalEducationalAttainment$Variable  <- rep(c("Total Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
@@ -1420,7 +1403,7 @@ server <- function(input, output, session) {
         theme(legend.title = element_blank()) +
         labs(title = "",
              y = "Percent (%)",
-             x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +
+             x = "") + theme(axis.text.x = element_text(angle = 40)) +
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
@@ -1430,7 +1413,7 @@ server <- function(input, output, session) {
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2011.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
-      generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
+      generalEducationalAttainment$Variable  <- rep(c("Total Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
@@ -1449,7 +1432,7 @@ server <- function(input, output, session) {
         theme(legend.title = element_blank()) +
         labs(title = "",
              y = "Percent (%)",
-             x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +
+             x = "") + theme(axis.text.x = element_text(angle = 40)) +
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
@@ -1460,7 +1443,7 @@ server <- function(input, output, session) {
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2010.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c("Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
-      generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
+      generalEducationalAttainment$Variable  <- rep(c("Total Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
@@ -1479,7 +1462,7 @@ server <- function(input, output, session) {
         theme(legend.title = element_blank()) +
         labs(title = "",
              y = "Percent (%)",
-             x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +
+             x = "") + theme(axis.text.x = element_text(angle = 40)) +
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
@@ -1501,7 +1484,7 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Black Teachers`, fill = Name)) + geom_col() +
-        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  + 
+        labs(title = "", y = "Percentage (%)", x = "") + theme(axis.text.x = element_text(angle = 40))  + 
         scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) 
@@ -1514,7 +1497,7 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Asian Teachers`, fill = Name)) + geom_col() +
-        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) + scale_fill_viridis_d()
+        labs(title = "", y = "Percentage (%)", x = "") + theme(axis.text.x = element_text(angle = 40)) + scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y")))
     }
@@ -1526,7 +1509,7 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of White Teachers`, fill = Name)) + geom_col() +
-        labs(title = "White Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))   + scale_fill_viridis_d()
+        labs(title = "White Teacher Breakdown", y = "Percentage (%)", x = "") + theme(axis.text.x = element_text(angle = 40))   + scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) 
     }
@@ -1538,7 +1521,7 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Hispanic Teachers`, fill = Name)) + geom_col() +
-        labs(title = "Hispanic Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))   + scale_fill_viridis_d()
+        labs(title = "Hispanic Teacher Breakdown", y = "Percentage (%)", x = "") + theme(axis.text.x = element_text(angle = 40))   + scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) 
     }
@@ -1550,7 +1533,7 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of American Indian Teachers`, fill = Name)) + geom_col() +
-        labs(title = "American Indian Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))   + scale_fill_viridis_d()
+        labs(title = "American Indian Teacher Breakdown", y = "Percentage (%)", x = "") + theme(axis.text.x = element_text(angle = 40))   + scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) 
     }
@@ -1562,7 +1545,7 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Two Or More Races Teachers`, fill = Name)) + geom_col() +
-        labs(title = "Two or More Races Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) + scale_fill_viridis_d()
+        labs(title = "Two or More Races Teacher Breakdown", y = "Percentage (%)", x = "") + theme(axis.text.x = element_text(angle = 40)) + scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) 
       
@@ -1575,7 +1558,7 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Hawaiian Teachers`, fill = Name)) + geom_col() +
-        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))   + scale_fill_viridis_d()
+        labs(title = "", y = "Percentage (%)", x = "") + theme(axis.text.x = element_text(angle = 40))   + scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y")))
     }
@@ -2608,7 +2591,7 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
       sectors2019  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(sectors2019 , tooltip=c("x", "y", "Sector"))) %>% 
         layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
@@ -2627,7 +2610,7 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
       sectors2018  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(sectors2018 , tooltip=c("x", "y", "Sector"))) %>% 
         layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
@@ -2646,7 +2629,7 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
       sectors2017  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(sectors2017 , tooltip=c("x", "y", "Sector"))) %>% 
         layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
@@ -2665,7 +2648,7 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
       sectors2016  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(sectors2016, tooltip=c("x", "y", "Sector"))) %>% 
         layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
@@ -2684,7 +2667,7 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
       sectors2015  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(sectors2015, tooltip=c("x", "y", "Sector"))) %>% 
         layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
@@ -2703,7 +2686,7 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
       sectors2014  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(sectors2014, tooltip=c("x", "y", "Sector"))) %>% 
         layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
@@ -2722,7 +2705,7 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
       sectors2013  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(sectors2013, tooltip=c("x", "y", "Sector"))) %>% 
         layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
@@ -2741,7 +2724,7 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
       sectors2012  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(sectors2012, tooltip=c("x", "y", "Sector"))) %>% 
         layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
@@ -2760,7 +2743,7 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
       sectors2011  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(sectors2011, tooltip=c("x", "y", "Sector"))) %>% 
         layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
@@ -2779,7 +2762,7 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "Hampton Roads") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
       sectors2010 #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(sectors2010, tooltip=c("x", "y", "Sector"))) %>% 
         layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
