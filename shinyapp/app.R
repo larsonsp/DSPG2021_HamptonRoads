@@ -39,30 +39,6 @@ options(spinner.color = prettyblue, spinner.color.background = '#ffffff', spinne
 
 colors <- c("#232d4b","#2c4f6b","#0e879c","#60999a","#d1e0bf","#d9e12b","#e6ce3a","#e6a01d","#e57200","#fdfdfd")
 
-
-#countyAndCities <- c("Chesapeake City Public Schools",
-#                     "Franklin City Public Schools",
-#                     "Hampton City Public Schools",
-#                     "Newport News City Public Schools",
-#                     "Norfolk City Public Schools",
-#                    "Poquoson City Public Schools",
-#                     "Portsmouth City Public Schools",
-#                     "Suffolk City Public Schools",
-#                     "Virginia Beach City Public Schools",
-#                     "Williamsburg-James City County Public Schools",
-#                     "Gloucester County Public Schools",
-#                     "Isle of Wight County Public Schools",
-#                     "Mathews County Public Schools",
-#                     "Southampton County Public Schools",
-#                     "York County Public Schools")
-
-#teacherByRace <- read_excel("teacherByRace.xlsx")
-#teacherByRace <- as.data.frame(teacherByRace) 
-#teacherByRace$Division.Name
-#teacherByRace <- teacherByRace[which(teacherByRace$Division.Name %in% countyAndCities), ]
-#teacherByRace
-
-
 # CODE TO DETECT ORIGIN OF LINK AND CHANGE LOGO ACCORDINGLY
 jscode <- "function getUrlVars() {
                 var vars = {};
