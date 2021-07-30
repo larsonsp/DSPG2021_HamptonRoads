@@ -3884,16 +3884,18 @@ server <- function(input, output, session) {
       b_hm_19 <- read_rds("data/TableS2502FiveYearEstimates/bhmown2019.rds")
       tot_hm_19 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2019.rds")
       all_hm_data <- read_rds("data/TableS2502FiveYearEstimates/allhomedata.rds")
+      colnames(all_hm_data)[2] <- "Demographic"
       
       pick_n <- function(Locality){
         dataFiltered <- filter(all_hm_data, NAME == Locality)
         
-        hm_line <- ggplot(dataFiltered, aes(x = Year, y = Percent, color = variable, group = variable)) +
+        hm_line <- ggplot(dataFiltered, aes(x = Year, y = Percent, color = Demographic, group = Demographic)) +
           geom_line(position = "identity") +
           theme(axis.text.x = element_text(angle = 40)) +
+          scale_fill_discrete(name = "", labels = c("Black Home Owners", "White Home Owners"))+
           scale_fill_manual(values = c("#D55E00", "#0072B2")) +
-          theme(legend.position = "none") +
-          labs(title = Locality) 
+          theme(legend.position = "bottom") +
+          labs(title = Locality)
 
         #ggplotly(hm_line)
       }
