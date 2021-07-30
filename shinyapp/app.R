@@ -547,7 +547,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                               
                                               tabPanel("Poverty Over Time", h1(strong("Poverty Over Time"), align = "center"),
                                                        fluidRow(width=12, height=550,
-                                                                img(src="poverty2.gif", height = "800", width="1200")
+                                                                img(src="poverty.gif", height = "800", width="1200")
                                                                 
                                                        )
                                               )
@@ -2131,6 +2131,7 @@ server <- function(input, output, session) {
               legend.title = element_blank(),
               legend.text = element_text(size=14),
               axis.text=element_text(size=12),
+              axis.title.y = element_text(size=13),
               #axis.text.x = element_text(size=10, face="bold"),
               axis.title=element_text(size=17),
               axis.title.x=element_blank()) +
@@ -2228,11 +2229,13 @@ server <- function(input, output, session) {
         # geom_text(aes(label=paste0(round(`Percentage of Students (%)`, digits=1), "%")), vjust=1.5, color="white",
         #  position = position_dodge(0.9), size=3)+
         theme_minimal() +
+        ylab("Percent (%)")+
         theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'),
               legend.key.height = unit(0.3, 'cm'),
               legend.key.width = unit(0.3, 'cm'),
               legend.title = element_blank(),
               legend.text = element_text(size=14),
+              axis.title.y = element_text(size=13),
               axis.text=element_text(size=12),
               #axis.text.x = element_text(size=10, face="bold"),
               axis.title=element_text(size=17),
@@ -2765,7 +2768,10 @@ server <- function(input, output, session) {
       ggtitle("Virginia") +
       theme(plot.title = element_text(hjust = 0.5),
             axis.title.x = element_blank()) +
-      theme(legend.title = element_blank()) +
+      theme(legend.title = element_blank(),
+            axis.title.y = element_text(size=12),
+            legend.text = element_text(size=12),
+            axis.text = element_text(size=12)) +
       labs(y ="Median Income (US Dollars)") +
       scale_color_manual(values = c("#D55E00", "#0072B2")) +
       ylim(35000, 75000)
@@ -2780,7 +2786,10 @@ server <- function(input, output, session) {
       ggtitle("Hampton Roads")+
       theme(plot.title = element_text(hjust = 0.5),
             axis.title.x=element_blank(),
-            legend.title = element_blank())+
+            axis.title.y = element_text(size=12),
+            legend.title = element_blank(),
+            legend.text = element_text(size =12),
+            axis.text = element_text(size=12))+
       labs(y ="Median Income (US Dollars)") +
       ylim(35000, 75000)
     
