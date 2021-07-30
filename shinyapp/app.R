@@ -488,8 +488,8 @@ ui <- navbarPage(title = "Hampton Roads",
                                        column(4, h1(strong("Homeownership in Hampton Roads"), align = "center")),
                                        column(8,
                                               withSpinner(leafletOutput("homeownership_map")),
-                                              p(tags$small("Data Source: ACS 5 Year Estimates Table S2505")),
-                                              sliderInput("HomeOwnSlider", "", value = 2019, min = 2010, max = 2019, sep = "", width = "100%", animate=animationOptions(interval = 1400))),
+                                              p(tags$small("Data Source: ACS 5 Year Estimates Table S2505"))
+                                        ),
                                      )),
                             
                             
