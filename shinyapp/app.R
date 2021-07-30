@@ -96,7 +96,6 @@ ui <- navbarPage(title = "Hampton Roads",
                                       br(""),
                                       h4("Data Science for the Public Good Program"),
                                       h4("Virginia Tech"),
-                                      h4("Department of Agriculture"),
                                       br()
                                    )
                           ),
@@ -106,13 +105,11 @@ ui <- navbarPage(title = "Hampton Roads",
                                           p(strong("The problem."), "Systematic issues are preferential treatement given to certain groups of inidividuals. They have impeded minorities from being able to progress to share the same level of stature, accomplishment, and acceptance fellow peers with their similar backgrounds have achieved. The Black and African American (AA) community have been no exception to this injustice, resulting in several disadvantages across all facets of life.  This includes, but is certainly not limited to, various sectors of society like: 
                                           public health/healthcare, employment, education, government, and criminal justice. "),
                                           p(),
-                                          p(strong("The setting."), a(href = "https://en.wikipedia.org/wiki/Hampton_Roads", "Hampton Roads", target = "_blank"), "is a an area that comprises of sixteen total cities and counties with a much higher Black percentage, have a per capita income and employment rate below the national and metropolitan statistical area (MSA) average. 
-                                          Additionally, the graduation rate is lower than state average.  As a result, our team wants to investigate the nature of these disadvantages through  indicators for Hampton Roads, Virginia, from 2010 to 2020 according to four key domains: Education, Economic Conditions, Housing, and Healthcare."),
+                                          p(strong("The setting."), a(href = "https://en.wikipedia.org/wiki/Hampton_Roads", "Hampton Roads", target = "_blank"), "area consists of ten cities and six counties in the Southeastern region of Virginia. It is ranked as the 33rd largest MSA in the United States, the 8th largest metro area in the Southeast region, and the 2nd largest between Atlanta and Washington, DC."),
                                           
-                                          p("The Hampton Roads Metropolitan Statistical Area (MSA) consists of ten cities and six counties in the Southeastern region of Virginia.  It is ranked as the 33rd largest MSA in the United States, the 8th largest metro area in the Southeast region, and the 2nd largest between Atlanta and Washington, DC. "),  
-                                          p("The jurisdictions of Hampton Roads are the cities of Chesapeake, Franklin, Hampton, Newport News, Norfolk, Poquoson, Portsmouth, Suffolk, Virginia Beach, and Williamsburg, and the counties of Isle of Wright, James City, Matthews, Southampton, and York. "),
-                                          p("The population of the Hampton Roads MSA has been growing over the last decade with an estimated population of approximately 1.7 million in 2020, a 3% increase from 2010. This region accounts for a large percentage – about 20% - of Virginia’s state population."), 
-                                          p("Each jurisdiction in Hampton Roads has a separate municipal government, unlike some other metro areas. While there are consultations on regional issues, there are more than 20 elected independent municipal governing bodies. As such, it is imperative for our project to examine not only differences with the Virginia population but also within the localities of Hampton Roads."),
+                                          p("The jurisdictions of Hampton Roads are the cities of Chesapeake, Franklin, Hampton, Newport News, Norfolk, Poquoson, Portsmouth, Suffolk, Virginia Beach, and Williamsburg, and the counties of Gloucester, Isle of Wright, James City, Mathews, Southampton, and York."),  
+                                          p("The population of the Hampton Roads MSA has been growing over the last decade with an estimated population of approximately 1.7 million in 2020, a 3% increase from 2010. This region accounts for a large percentage – about 20% - of Virginia’s state population.  "),
+                                          p("Each jurisdiction in Hampton Roads has a separate municipal government, unlike some other metro areas. While there are consultations on regional issues, there are more than 20 elected independent municipal governing bodies. As such, it is imperative for our project to examine not only differences with the Virginia population but also within the localities of Hampton Roads.")
                                    ),
                                    column(4,
                                           h2(strong("Project Goals")),
@@ -132,7 +129,7 @@ ui <- navbarPage(title = "Hampton Roads",
                  
                  
                  #Hampton Roads Overview & Demographics--------------------------------------------------
-                 navbarMenu(title="Hampton Region",
+                 navbarMenu(title="Hampton Roads",
                             tabPanel("Hampton Roads Localities", 
                                      fluidRow(
                                        column(5,
@@ -153,7 +150,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                               p("City of Virginia Beach"),
                                               p("City of Williamsburg"),
                                               p("Gloucester County"),
-                                              p("Isle of Wight COunty"),
+                                              p("Isle of Wight County"),
                                               p("James City County"),
                                               p("Mathews County"),
                                               p("Southampton County"),
@@ -612,10 +609,11 @@ ui <- navbarPage(title = "Hampton Roads",
                                           img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
                                           p(a(href = 'https://www.linkedin.com/in/matthew-burkholder-297b9119a/', 'Matthew Burkholder', target = '_blank'), "(Virginia Tech, Philosophy, Politics, & Economics)"),
                                           img(src = "VictorMukoraHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                                          p("Victor Mukora"),
+                                          p(a(href = "www.linkedin.com/in/victormukora", 'Victor Mukora', target = '_blank'), "(Virginia Tech, Computational Modeling and Data Analytics)"),
                                           img(src = "Christina_Prisbe_Headshot.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
                                           p("Christina Prisbe"),
                                           img(src = "kwabe.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                          
                                           p("Kwabena Boateng")
                                    ),
                                    column(6, align = "center",
