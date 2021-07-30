@@ -501,13 +501,14 @@ ui <- navbarPage(title = "Hampton Roads",
                                               tabsetPanel(
                                                 #Sector Employment
                                                 tabPanel("Industry Employment", 
-                                                         h1(strong("Top Two Highest Industry Sectors"), align = "center"),
+                                                         h1(strong("Top Two Industry Sectors"), align = "center"),
                                                          fluidRow(p(""),
                                                                   selectInput("SectorEmploymentYearDrop", "Select Year:", width = "100%", choices = c(
                                                                     "2019","2018", "2017", "2016", "2015","2014",
                                                                     "2013","2012", "2011", "2010")),
                                                                   withSpinner(plotlyOutput("sector_plot")),
-                                                                  p(tags$small("*Note: Some year to year comparisions had very little variability in enrollement by industry sectors. Certain counties/cities may not have data for specific years."))
+                                                                  p(tags$small("*Note: Data missing for some years. ")),
+                                                                  p(tags$small("Source: ACS 5 Year Estimate Table DP03"))
                                                                   
                                                          )
                                                 ),
@@ -2591,14 +2592,9 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_viridis_d()
       sectors2019  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(sectors2019 , tooltip=c("x", "y", "Sector"))) %>% 
-        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=15, color="black"))
-        )
+      hide_legend(ggplotly(sectors2019 , tooltip=c("x", "y", "Sector"))) 
     }
     
     else if (var_sectorEmployment() == "2018") {
@@ -2610,14 +2606,9 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40))  +  scale_fill_viridis_d()
       sectors2018  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(sectors2018 , tooltip=c("x", "y", "Sector"))) %>% 
-        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=15, color="black"))
-        )
+      hide_legend(ggplotly(sectors2018 , tooltip=c("x", "y", "Sector")))
     }
     
     else if (var_sectorEmployment() == "2017") {
@@ -2629,14 +2620,9 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40)) + scale_fill_viridis_d()
       sectors2017  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(sectors2017 , tooltip=c("x", "y", "Sector"))) %>% 
-        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=15, color="black"))
-        )
+      hide_legend(ggplotly(sectors2017 , tooltip=c("x", "y", "Sector"))) 
     }
     
     else if (var_sectorEmployment() == "2016") {
@@ -2648,14 +2634,9 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40))  +  scale_fill_viridis_d()
       sectors2016  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(sectors2016, tooltip=c("x", "y", "Sector"))) %>% 
-        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=15, color="black"))
-        )
+      hide_legend(ggplotly(sectors2016, tooltip=c("x", "y", "Sector")))
     }
     
     else if (var_sectorEmployment() == "2015") {
@@ -2667,14 +2648,9 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40))  +  scale_fill_viridis_d()
       sectors2015  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(sectors2015, tooltip=c("x", "y", "Sector"))) %>% 
-        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=15, color="black"))
-        )
+      hide_legend(ggplotly(sectors2015, tooltip=c("x", "y", "Sector"))) 
     }
     
     else if (var_sectorEmployment() == "2014") {
@@ -2686,14 +2662,9 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40))  +  scale_fill_viridis_d()
       sectors2014  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(sectors2014, tooltip=c("x", "y", "Sector"))) %>% 
-        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=15, color="black"))
-        )
+      hide_legend(ggplotly(sectors2014, tooltip=c("x", "y", "Sector")))
     }
     
     else if (var_sectorEmployment() == "2013") {
@@ -2705,14 +2676,9 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_viridis_d()
       sectors2013  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(sectors2013, tooltip=c("x", "y", "Sector"))) %>% 
-        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=15, color="black"))
-        )
+      hide_legend(ggplotly(sectors2013, tooltip=c("x", "y", "Sector"))) 
     }
     
     else if (var_sectorEmployment() == "2012") {
@@ -2724,14 +2690,9 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_viridis_d()
       sectors2012  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(sectors2012, tooltip=c("x", "y", "Sector"))) %>% 
-        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=15, color="black"))
-        )
+      hide_legend(ggplotly(sectors2012, tooltip=c("x", "y", "Sector"))) 
     }
     
     else if (var_sectorEmployment() == "2011") {
@@ -2743,14 +2704,9 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40))  +  scale_fill_viridis_d()
       sectors2011  #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(sectors2011, tooltip=c("x", "y", "Sector"))) %>% 
-        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=15, color="black"))
-        )
+      hide_legend(ggplotly(sectors2011, tooltip=c("x", "y", "Sector")))
     }
     
     else if (var_sectorEmployment() == "2010") {
@@ -2762,14 +2718,9 @@ server <- function(input, output, session) {
         ggplot(aes(x = Name, y = `Number of People Employed in Sector`, fill = Sector)) + geom_col()  + 
         theme_minimal() + labs(title = "",
                                y = "Total Number of People Employed",
-                               x = "") +  theme(axis.text.x = element_text(angle = 40)) +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+                               x = "") +  theme(axis.text.x = element_text(angle = 40))  +  scale_fill_viridis_d()
       sectors2010 #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
-      hide_legend(ggplotly(sectors2010, tooltip=c("x", "y", "Sector"))) %>% 
-        layout(annotations = list(x = 1, y = -0.4, text = "Source: ACS 5 Year Estimate Table DP03", 
-                                  showarrow = F, xref='paper', yref='paper', 
-                                  xanchor='right', yanchor='auto', xshift=0, yshift=0,
-                                  font=list(size=15, color="black"))
-        )
+      hide_legend(ggplotly(sectors2010, tooltip=c("x", "y", "Sector")))
     }
   })
   
