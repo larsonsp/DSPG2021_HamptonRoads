@@ -1163,22 +1163,20 @@ server <- function(input, output, session) {
   
   output$genEdAttainmentPlots <- renderPlotly({
     if(var_genEducationalAttainment() == "2019") {
-      generalEducationalAttainment <-  read.csv(paste0(getwd(), "/data/TableS1501FiveYearEstimates/generalEducationalAttainment2019.csv"))
-      #generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2019.csv")
-      generalBlackEducationalAttainment <-  read.csv(paste0(getwd(), "/data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2019.csv"))
-      #read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2019.csv")
+      generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2019.csv")
+      generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2019.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
       generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
+      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
+      generalTotal <- rbind(modifiedGeneralEducationalAttainment, modifiedGeneralBlackEducationalAttainment)
       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
-      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
+      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(generalTotal$`Bachelor or Higher as Highest Attainment %`)
       
-      va_tot_education_bar<- generalTotal %>% 
+      va_tot_education_bar <- generalTotal %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>%
         arrange(desc(Name)) %>% 
@@ -1195,21 +1193,19 @@ server <- function(input, output, session) {
     
     else if(var_genEducationalAttainment() == "2018") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2018.csv")
-      generalBlackEducationalAttainment <- read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2018.csv")
+      generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2018.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
       generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      
-      generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
+      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
+      generalTotal <- rbind(modifiedGeneralEducationalAttainment, modifiedGeneralBlackEducationalAttainment)
       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
-      generalTotal$`Bachelor or Higher as Highest Attainment %`
-      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
+      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(generalTotal$`Bachelor or Higher as Highest Attainment %`)
       
-      va_tot_education_bar<- generalTotal %>% 
+      va_tot_education_bar <- generalTotal %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>%
         arrange(desc(Name)) %>% 
@@ -1223,24 +1219,22 @@ server <- function(input, output, session) {
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
-    
+
     else if(var_genEducationalAttainment() == "2017") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2017.csv")
-      generalBlackEducationalAttainment <- read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2017.csv")
+      generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2017.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
       generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      
-      generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
+      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
+      generalTotal <- rbind(modifiedGeneralEducationalAttainment, modifiedGeneralBlackEducationalAttainment)
+      colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
-      generalTotal$`Bachelor or Higher as Highest Attainment %`
-      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
+      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(generalTotal$`Bachelor or Higher as Highest Attainment %`)
       
-      va_tot_education_bar<- generalTotal %>% 
+      va_tot_education_bar <- generalTotal %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>%
         arrange(desc(Name)) %>% 
@@ -1254,24 +1248,22 @@ server <- function(input, output, session) {
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
-    
+
     else if(var_genEducationalAttainment() == "2016") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2016.csv")
-      generalBlackEducationalAttainment <- read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2016.csv")
+      generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2016.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
       generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      
-      generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
+      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
+      generalTotal <- rbind(modifiedGeneralEducationalAttainment, modifiedGeneralBlackEducationalAttainment)
+      colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
-      generalTotal$`Bachelor or Higher as Highest Attainment %`
-      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
+      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(generalTotal$`Bachelor or Higher as Highest Attainment %`)
       
-      va_tot_education_bar<- generalTotal %>% 
+      va_tot_education_bar <- generalTotal %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>%
         arrange(desc(Name)) %>% 
@@ -1285,24 +1277,22 @@ server <- function(input, output, session) {
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
-    
+
     else if(var_genEducationalAttainment() == "2015") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2015.csv")
-      generalBlackEducationalAttainment <- read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2015.csv")
+      generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2015.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
       generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      
-      generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
+      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
+      generalTotal <- rbind(modifiedGeneralEducationalAttainment, modifiedGeneralBlackEducationalAttainment)
+      colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
-      generalTotal$`Bachelor or Higher as Highest Attainment %`
-      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
+      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(generalTotal$`Bachelor or Higher as Highest Attainment %`)
       
-      va_tot_education_bar<- generalTotal %>% 
+      va_tot_education_bar <- generalTotal %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>%
         arrange(desc(Name)) %>% 
@@ -1316,24 +1306,22 @@ server <- function(input, output, session) {
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
-    
+
     else if(var_genEducationalAttainment() == "2014") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2014.csv")
-      generalBlackEducationalAttainment <- read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2014.csv")
+      generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2014.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
       generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      
-      generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
+      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
+      generalTotal <- rbind(modifiedGeneralEducationalAttainment, modifiedGeneralBlackEducationalAttainment)
+      colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
-      generalTotal$`Bachelor or Higher as Highest Attainment %`
-      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
+      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(generalTotal$`Bachelor or Higher as Highest Attainment %`)
       
-      va_tot_education_bar<- generalTotal %>% 
+      va_tot_education_bar <- generalTotal %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>%
         arrange(desc(Name)) %>% 
@@ -1347,24 +1335,22 @@ server <- function(input, output, session) {
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
-    
+
     else if(var_genEducationalAttainment() == "2013") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2013.csv")
-      generalBlackEducationalAttainment <- read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2013.csv")
+      generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2013.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
       generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      
-      generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
+      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
+      generalTotal <- rbind(modifiedGeneralEducationalAttainment, modifiedGeneralBlackEducationalAttainment)
+      colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
-      generalTotal$`Bachelor or Higher as Highest Attainment %`
-      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
+      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(generalTotal$`Bachelor or Higher as Highest Attainment %`)
       
-      va_tot_education_bar<- generalTotal %>% 
+      va_tot_education_bar <- generalTotal %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>%
         arrange(desc(Name)) %>% 
@@ -1378,24 +1364,22 @@ server <- function(input, output, session) {
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
-    
+
     else if(var_genEducationalAttainment() == "2012") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2012.csv")
-      generalBlackEducationalAttainment <- read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2012.csv")
+      generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2012.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
       generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      
-      generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
+      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
+      generalTotal <- rbind(modifiedGeneralEducationalAttainment, modifiedGeneralBlackEducationalAttainment)
+      colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
-      generalTotal$`Bachelor or Higher as Highest Attainment %`
-      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
+      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(generalTotal$`Bachelor or Higher as Highest Attainment %`)
       
-      va_tot_education_bar<- generalTotal %>% 
+      va_tot_education_bar <- generalTotal %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>%
         arrange(desc(Name)) %>% 
@@ -1409,24 +1393,22 @@ server <- function(input, output, session) {
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
-    
+
     else if(var_genEducationalAttainment() == "2011") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2011.csv")
-      generalBlackEducationalAttainment <- read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2011.csv")
+      generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2011.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
       generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      
-      generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
+      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
+      generalTotal <- rbind(modifiedGeneralEducationalAttainment, modifiedGeneralBlackEducationalAttainment)
+      colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
-      generalTotal$`Bachelor or Higher as Highest Attainment %`
-      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
+      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(generalTotal$`Bachelor or Higher as Highest Attainment %`)
       
-      va_tot_education_bar<- generalTotal %>% 
+      va_tot_education_bar <- generalTotal %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>%
         arrange(desc(Name)) %>% 
@@ -1440,25 +1422,23 @@ server <- function(input, output, session) {
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
-    
-    
+
+
     else if(var_genEducationalAttainment() == "2010") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2010.csv")
-      generalBlackEducationalAttainment <- read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2010.csv")
+      generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2010.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
-      colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
+      colnames(generalBlackEducationalAttainment) <- c("Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
       generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      
-      generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
+      modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
+      generalTotal <- rbind(modifiedGeneralEducationalAttainment, modifiedGeneralBlackEducationalAttainment)
+      colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
-      generalTotal$`Bachelor or Higher as Highest Attainment %`
-      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
+      generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(generalTotal$`Bachelor or Higher as Highest Attainment %`)
       
-      va_tot_education_bar<- generalTotal %>% 
+      va_tot_education_bar <- generalTotal %>% 
         mutate(Name = str_remove(Name, "County, Virginia")) %>% 
         mutate(Name = str_remove(Name, "city, Virginia")) %>%
         arrange(desc(Name)) %>% 
@@ -1490,7 +1470,7 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Black Teachers`, fill = Name)) + geom_col() +
-        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  + scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) 
     }
@@ -1502,7 +1482,7 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Asian Teachers`, fill = Name)) + geom_col() +
-        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))   + scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y")))
     }
@@ -1514,7 +1494,7 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of White Teachers`, fill = Name)) + geom_col() +
-        labs(title = "White Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        labs(title = "White Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))   + scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) 
     }
@@ -1526,7 +1506,7 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Hispanic Teachers`, fill = Name)) + geom_col() +
-        labs(title = "Hispanic Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        labs(title = "Hispanic Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))   + scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) 
     }
@@ -1538,7 +1518,7 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of American Indian Teachers`, fill = Name)) + geom_col() +
-        labs(title = "American Indian Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        labs(title = "American Indian Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))   + scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) 
     }
@@ -1550,7 +1530,7 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Two Or More Races Teachers`, fill = Name)) + geom_col() +
-        labs(title = "Two or More Races Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        labs(title = "Two or More Races Teacher Breakdown", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) + scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y"))) 
       
@@ -1563,7 +1543,7 @@ server <- function(input, output, session) {
       colnames(teacherByRace) <- c("Division Number", "Name", "Total Counts", "American Indian", "Asian", "Black", "Hispanic", "White","Hawaiian", "Two or More Races",  "Not Specified", "% of Black Teachers", "% of Asian Teachers", "% of Hispanic Teachers", "% of White Teachers", "% of American Indian Teachers", "% of Two Or More Races Teachers", "% of Hawaiian Teachers")
       teacherByRace <- teacherByRace  %>% 
         ggplot(aes(x = Name, y = `% of Hawaiian Teachers`, fill = Name)) + geom_col() +
-        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))  +  scale_fill_manual(values = c("#D55E00", "#0072B2"))
+        labs(title = "", y = "Percentage (%)", x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40))   + scale_fill_viridis_d()
       #adding caption from ggplot does not transfer to plotly so have to load in with plotly separately
       hide_legend(ggplotly(teacherByRace, tooltip=c("x", "y")))
     }

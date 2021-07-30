@@ -65,17 +65,17 @@ hampton_black_map <- function(varcode, summary, year){
          caption = "Source: ACS 5 Year Estimate Table C15002") + theme(axis.text.x = element_text(angle = 40))
 }
 
-View(hampton_black_map(c("C15002B_011", "C15002B_006"), "C15002B_001"), 2019)
+#View(hampton_black_map(c("C15002B_011", "C15002B_006"), "C15002B_001"), 2019)
 
 #General Bachelor's or Higher
-hampton_education_map("S1501_C01_015", "S1501_C01_006", 2019)
+#hampton_education_map("S1501_C01_015", "S1501_C01_006", 2019)
 
 #Black Bachelor's or Higher
 #hampton_black_map(c("C15002B_011", "C15002B_006"), "C15002B_001")
 #females
-hampton_black_map(c("C15002B_011"), "C15002B_001", 2019)
+#hampton_black_map(c("C15002B_011"), "C15002B_001", 2019)
 #males 
-hampton_black_map(c("C15002B_006"), "C15002B_001", 2019)
+#hampton_black_map(c("C15002B_006"), "C15002B_001", 2019)
 
 #General HS Education
 
@@ -88,11 +88,11 @@ hampton_black_map(c("C15002B_006"), "C15002B_001", 2019)
 
 #later on, will have this include all years
 
-hamp_general_education_table_2019 <- va_table("S1501", 2019)
-View(hamp_general_education_table_2019)
+#hamp_general_education_table_2019 <- va_table("S1501", 2019)
+#View(hamp_general_education_table_2019)
 
-hamp_general_economic_table_2019 <- va_table("DP03", 2019)
-View(hamp_general_economic_table_2019)
+#hamp_general_economic_table_2019 <- va_table("DP03", 2019)
+#View(hamp_general_economic_table_2019)
 #five year estimates
 years <- c(2019, 2018, 2017, 2016, 2015, 2014)
 
@@ -167,7 +167,7 @@ for (i in 1:length(years)) {
   black_totalFemale <- county_stats3("C15002B_011", years[i])
   black_totalBoth <- county_stats4("C15002B_001", years[i])
   black_total <- cbind(black_totalMale, black_totalFemale, black_totalBoth)
-  black_total$BlackGeneral <- (black_total$Male + black_total$Female)/black_total$Total
+  black_total$BlackGeneral <- ((black_total$Male + black_total$Female)/black_total$Total) * 100
   write_csv(black_total, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
   #black_total <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableC15002BFiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
 }
