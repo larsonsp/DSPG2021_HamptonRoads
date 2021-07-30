@@ -339,8 +339,8 @@ for (i in 1:length(years)) {
   }
   
   #these years just directly had the percentages so no need to sum up the numbers over the estimate
-  if (years[i] == "2010"|| years[i] == "2011" || years[i] == "2012" || years[i] == "2013" || years[i] == "2014")  {
-    va_total2 <-  county_stats1("S1501_C01_015", years[i])
+  else if (years[i] == "2010"|| years[i] == "2011" || years[i] == "2012" || years[i] == "2013" || years[i] == "2014")  {
+    va_total2 =  county_stats1("S1501_C01_015", years[i])
   }
   
   else {
