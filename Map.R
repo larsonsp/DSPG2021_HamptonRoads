@@ -119,7 +119,8 @@ county_stats2 <- function(varcode, year) {
           year = year,
           variables = varcode) %>% 
     mutate(Male = estimate) %>% 
-    select(NAME, variable, Male) 
+    mutate(Year = year)  %>% 
+    select(Year, NAME, variable, Male) 
 }
 
 county_stats3 <- function(varcode, year) { 
@@ -129,7 +130,8 @@ county_stats3 <- function(varcode, year) {
           year = year,
           variables = varcode) %>% 
     mutate(Female = estimate) %>% 
-    select(variable, Female) 
+    mutate(variable2 = variable) %>% 
+    select(variable2, Female) 
 }
 
 county_stats4 <- function(varcode, year) { 
@@ -139,16 +141,21 @@ county_stats4 <- function(varcode, year) {
           year = year,
           variables = varcode) %>% 
     mutate(Total = estimate) %>% 
-    select(variable, Total) 
+    mutate(variable3 = variable) %>% 
+    select(variable3, Total)  
 }
 
 
-black_totalMale <- county_stats2("C15002B_006", years[i])
-black_totalFemale <- county_stats3("C15002B_011", years[i])
-black_totalBoth <- county_stats4("C15002B_001", years[i])
+black_totalMale <- county_stats2("C15002B_006", 2019)
+black_totalFemale <- county_stats3("C15002B_011", 2019)
+
+black_totalFemale
+
+
+black_totalBoth <- county_stats4("C15002B_001", 2019)
 black_total <- cbind(black_totalMale, black_totalFemale, black_totalBoth)
 black_total$BlackGeneral <- (black_total$Male + black_total$Female)/black_total$Total
-black_total$BlackGeneral
+black_total
 
 
 #plots general data for black education
@@ -167,12 +174,20 @@ for (i in 1:length(years)) {
 
 generalEducationalAttainment2010 <- read.csv("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment2010.csv")
 generalBlackEducationalAttainment2010 <- read.csv("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2010.csv")
-generalBlackEducationalAttainment2010 
 colnames(generalEducationalAttainment2010) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
-colnames(generalBlackEducationalAttainment2010) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
-generalTotal <- rbind(generalEducationalAttainment2010, generalBlackEducationalAttainment2010)
-generalTotal
+colnames(generalBlackEducationalAttainment2010) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
+generalEducationalAttainment2010$Variable  <- rep(c("General Population"), 16)
+generalBlackEducationalAttainment2010$Variable  <- rep(c("Black Population"), 16)
+modifiedGeneralBlackEducationalAttainment2010 <- cbind(generalBlackEducationalAttainment2010$Name, generalBlackEducationalAttainment2010$Variable, generalBlackEducationalAttainment2010$`Bachelor or Higher as Highest Attainment %`)
+modifiedGeneralEducationalAttainment2010 <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment2010$Variable, generalEducationalAttainment2010$`Bachelor or Higher as Highest Attainment %`)
 
+modifiedGeneralBlackEducationalAttainment2010
+generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment2010)
+generalTotal
+colnames(generalTotal)  <- c("Name", "Variable","Bachelor or Higher as Highest Attainment %")
+generalTotal <- as.data.frame.matrix(generalTotal) 
+generalTotal$`Bachelor or Higher as Highest Attainment %`
+generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`))
 
 va_tot_education_bar2019 <- generalTotal %>% 
   mutate(Name = str_remove(Name, "County, Virginia")) %>% 
@@ -182,7 +197,7 @@ va_tot_education_bar2019 <- generalTotal %>%
   geom_bar(position = "dodge", stat = "identity") +
   theme_minimal() +
   theme(legend.title = element_blank()) +
-  labs(title = "Bachelor's Degree or Higher as Highest Attainment (2019)",
+  labs(title = "",
        y = "Percent (%)",
        x = "Hampton Roads") + theme(axis.text.x = element_text(angle = 40)) +
   scale_color_viridis_d() +  scale_fill_viridis_d()
