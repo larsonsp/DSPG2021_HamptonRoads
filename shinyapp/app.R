@@ -2162,26 +2162,42 @@ server <- function(input, output, session) {
   
   
   # Dropout Rates -----------------------------------------------------------
+  # 
+  rates <- read_csv("data/on_time_graduation.csv")
   
-  var_dropoutrate <- reactive({
-    input$DropoutDropdown
-  })
+  basemap <- leaflet(width = "100%", height = "400px" ) %>% 
+    addProviderTiles("CartoDB.Positron")
   
-  output$dropout_map <- renderLeaflet({
-    if(var_dropoutrate() == "2020") {
-      dropout_20 <- read.csv("data/dropout2020.csv")
-      mapping <- read.csv("data/dropoutmapdata.csv")
-      colors <- c("#0072B2", "#D55E00")
-      dropout_20_map <- leaflet() %>% 
-        addProviderTiles("CartoDB.Voyager") %>% 
-        addMinicharts(
-          mapping$lon, mapping$lat,
-          chartdata = dropout_20,
-          colorPalette = colors,
-          width = 45, height = 45
-        )
-    }
+  colors <- c("#D55E00", "#0072B2")
+  
+  output$dropout_map <- renderLeaflet({ 
+    grad_map <- basemap %>% 
+    addMinicharts(
+      rates$lon, rates$lat,
+      chartdata = rates[, c("Black Students", "All Students")],
+      time = rates$`Cohort Year`,
+      colorPalette = colors,
+    )
   })
+  # var_dropoutrate <- reactive({
+  #   input$DropoutDropdown
+  # })
+  # 
+  # output$dropout_map <- renderLeaflet({
+  #   if(var_dropoutrate() == "2020") {
+  #     dropout_20 <- read.csv("data/dropout2020.csv")
+  #     mapping <- read.csv("data/dropoutmapdata.csv")
+  #     colors <- c("#0072B2", "#D55E00")
+  #     dropout_20_map <- leaflet() %>% 
+  #       addProviderTiles("CartoDB.Voyager") %>% 
+  #       addMinicharts(
+  #         mapping$lon, mapping$lat,
+  #         chartdata = dropout_20,
+  #         colorPalette = colors,
+  #         width = 45, height = 45
+  #       )
+  #   }
+  # })
   
   # Median Income plots: Working on it --------------------------------
   var_medianIncome <- reactive({
