@@ -1163,15 +1163,16 @@ server <- function(input, output, session) {
   
   output$genEdAttainmentPlots <- renderPlotly({
     if(var_genEducationalAttainment() == "2019") {
-      generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2019.csv")
-      generalBlackEducationalAttainment <- read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2019.csv")
+      generalEducationalAttainment <-  read.csv(paste0(getwd(), "/data/TableS1501FiveYearEstimates/generalEducationalAttainment2019.csv"))
+      #generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2019.csv")
+      generalBlackEducationalAttainment <-  read.csv(paste0(getwd(), "/data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2019.csv"))
+      #read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2019.csv")
       colnames(generalEducationalAttainment) <- c("Name", "Variable", "Bachelor or Higher as Highest Attainment %")
       colnames(generalBlackEducationalAttainment) <- c( "Year", "Name", "Variable", "Male", "variable2", "Female", "variable3", "Total", "Bachelor or Higher as Highest Attainment %")
       generalEducationalAttainment$Variable  <- rep(c("General Population"), 16)
       generalBlackEducationalAttainment$Variable  <- rep(c("Black Population"), 16)
       modifiedGeneralBlackEducationalAttainment <- cbind(generalBlackEducationalAttainment$Name, generalBlackEducationalAttainment$Variable, generalBlackEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
-      
       generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
@@ -1203,7 +1204,7 @@ server <- function(input, output, session) {
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       
       generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-      colnames(generalTotal)  <- c("Name", "Variable","Bachelor or Higher as Highest Attainment %")
+      colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
       generalTotal$`Bachelor or Higher as Highest Attainment %`
       generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
@@ -1234,7 +1235,7 @@ server <- function(input, output, session) {
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       
       generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-      colnames(generalTotal)  <- c("Name", "Variable","Bachelor or Higher as Highest Attainment %")
+       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
       generalTotal$`Bachelor or Higher as Highest Attainment %`
       generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
@@ -1265,7 +1266,7 @@ server <- function(input, output, session) {
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       
       generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-      colnames(generalTotal)  <- c("Name", "Variable","Bachelor or Higher as Highest Attainment %")
+       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
       generalTotal$`Bachelor or Higher as Highest Attainment %`
       generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
@@ -1296,7 +1297,7 @@ server <- function(input, output, session) {
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       
       generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-      colnames(generalTotal)  <- c("Name", "Variable","Bachelor or Higher as Highest Attainment %")
+       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
       generalTotal$`Bachelor or Higher as Highest Attainment %`
       generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
@@ -1327,7 +1328,7 @@ server <- function(input, output, session) {
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       
       generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-      colnames(generalTotal)  <- c("Name", "Variable","Bachelor or Higher as Highest Attainment %")
+       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
       generalTotal$`Bachelor or Higher as Highest Attainment %`
       generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
@@ -1358,7 +1359,7 @@ server <- function(input, output, session) {
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       
       generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-      colnames(generalTotal)  <- c("Name", "Variable","Bachelor or Higher as Highest Attainment %")
+       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
       generalTotal$`Bachelor or Higher as Highest Attainment %`
       generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
@@ -1389,7 +1390,7 @@ server <- function(input, output, session) {
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       
       generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-      colnames(generalTotal)  <- c("Name", "Variable","Bachelor or Higher as Highest Attainment %")
+       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
       generalTotal$`Bachelor or Higher as Highest Attainment %`
       generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
@@ -1420,7 +1421,7 @@ server <- function(input, output, session) {
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       
       generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-      colnames(generalTotal)  <- c("Name", "Variable","Bachelor or Higher as Highest Attainment %")
+       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
       generalTotal$`Bachelor or Higher as Highest Attainment %`
       generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
@@ -1452,7 +1453,7 @@ server <- function(input, output, session) {
       modifiedGeneralEducationalAttainment <- cbind(generalEducationalAttainment2010$Name, generalEducationalAttainment$Variable, generalEducationalAttainment$`Bachelor or Higher as Highest Attainment %`)
       
       generalTotal <- rbind(modifiedGeneralEducationalAttainment2010, modifiedGeneralBlackEducationalAttainment)
-      colnames(generalTotal)  <- c("Name", "Variable","Bachelor or Higher as Highest Attainment %")
+       colnames(generalTotal)  <- c("Name", "Demographic","Bachelor or Higher as Highest Attainment %")
       generalTotal <- as.data.frame.matrix(generalTotal) 
       generalTotal$`Bachelor or Higher as Highest Attainment %`
       generalTotal$`Bachelor or Higher as Highest Attainment %` <-  as.numeric(as.character(generalTotal$`Bachelor or Higher as Highest Attainment %`)) * 100
