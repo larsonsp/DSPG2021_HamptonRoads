@@ -86,7 +86,7 @@ ui <- navbarPage(title = "Hampton Roads",
                  useShinyjs(),
                  
                  # Project Overview -----------------------------------------------------------
-                 tabPanel("Overview", value = "overview",
+                 tabPanel("Overview", #value = "overview",
                           fluidRow(style = "margin: 2px;",
                                    align = "center",
                                    # br("", style = "padding-top:2px;"),
@@ -166,7 +166,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                      h4(strong("Who Makes Up Hampton Roads?")),
                                                      p("We used the American Community Census data (ACS) to better understand the population in Hampton Roads and Virginia.  The ACS is a yearly survey conducted by the U.S. Census Bureau provides detailed demographic information about American household. We collected the 5-year estimates over the period 2010-2019 to compute the percent of Hampton Roads residents in each locality by race and age.  This information is also presented for the state of Virginia."), 
                                                      p("The black population accounts for about 30% of the total population in Hampton Roads. This is significantly greater than Virginia’s which is about 19%."),
-                                                     p("The age composition for the Hampton Roads region appears to be representative of Virginia's population. However, there are variations by localities. For example, there exists a large population of young adults (ages 18 to 29) in Southampton County, whereas Portsmouth has a larger population of seniors - individuals 65 years and older. This data suggests that such ages difference may play a role in the differences in economic or education indicators across localities."), 
+                                                     p("The age composition for the Hampton Roads region appears to be representative of Virginia's population. However, there are variations by localities. For example, there exists a large population of young adults (ages 18 to 29) in Southampton County, whereas Portsmouth has a larger population of seniors - individuals 65 years and older. This data suggests that such ages difference may play a role in the differences in economic or education indicators across localities.")
                                               ),
                                               column(8, 
                                                      tabsetPanel(
@@ -249,7 +249,7 @@ ui <- navbarPage(title = "Hampton Roads",
                  #Data and Methodology ----------------------------------------------------
                  
                  
-                 tabPanel("Data and Methodology", value = "data",
+                 tabPanel("Data and Methodology", #value = "data",
                           fluidRow(style = "margin: 6px;",
                                    h1(strong("Data and Methodology"), align = "center"),
                                    p("", style = "padding-top:10px;"), 
@@ -347,18 +347,15 @@ ui <- navbarPage(title = "Hampton Roads",
                             
 
                             #Drop Out Rate
-                            tabPanel("Dropout Rate",
+                            tabPanel("On-Time Graduation",
                                      column(4,
-                                            h4(strong("Dropout Rate")),
+                                            h4(strong("Graduaton Rate")),
                                      ),
                                      column(8,
                                             fluidRow(
-                                              h1(strong("High School Dropout Rates in Hampton Roads"), align = "center"),
+                                              h1(strong("High School On-Time Graduation Rates in Hampton Roads"), align = "center"),
                                               withSpinner(leafletOutput("dropout_map")),
                                               p(tags$small("Data Source: Virginia Department of Education")),
-                                              box(title = "Select Year", width = 12,
-                                                  selectInput("DropoutDropdown", "Select Year:", width = "100%", choices = c("2020", "2019", "2018", "2017", "2016", "2015",
-                                                                                                                             "2014", "2013", "2012", "2011", "2010"))
 
                                               ))
                                      )
@@ -405,7 +402,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                      )
 
 
-                            ) ),
+                            ),
                  
                  navbarMenu(title="Economics",
                             #Median Income
@@ -447,9 +444,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                      withSpinner(plotOutput("income_plot"))
                                               )
                                               
-                                     )
-                                     
-                                     , 
+                                     ), 
                                      
                                      
                                      fluidRow(style = "margin: 6px", align = "center",
@@ -457,9 +452,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                      h4("Median Income from 2010 to 2019"),
                                                      withSpinner(plotOutput("medianTimeGraph")),
                                                      p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
-                                              )
-                                              
-                                     )
+                                              ))
                             ),
                             
                             
@@ -537,11 +530,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                                h3("Trends: "),
                                                                p("Text")))
                                                          
-                                                )
-                                                
-                                              )
-                                       )
-                                     )
+                                                ))))
                             ), 
                             
                             #Poverty Rate
@@ -604,44 +593,62 @@ ui <- navbarPage(title = "Hampton Roads",
                                             withSpinner(leafletOutput("veteran_map")),
                                             p(tags$small("Data Source: ACS 5 Year Estimates Table S2101")),
                                             sliderInput("VeteranSlider", "Select Year:", value = 2019, min = 2010, max = 2019, sep = "",  width = "100%")),
-                            )
+                            ),
                             
-                 ),
+                            tabPanel("Household Wellbeing",
+                                     column(4, h1(strong("Household Wellbeing"), align = "center"),
+                                            textOutput("description_text")),
+                                     column(8,
+                                            withSpinner(leafletOutput("wellbeing_maps")),
+                                            p(tags$small("Data Source: ACS 5 Year Estimates Table S0901, S2201, S0701, S1002, S1201, S0802, S2802")),
+                                            selectInput("select_wellbeing", "Select Indicator:", choices = c("Female Head of Household", "Foodstamps/SNAP Benefits", "County Migration", 
+                                                                                                   "Grandparent Guardian", "Married", "Private Transportation", "Public Transportation",
+                                                                                                    "Computer and Internet Access", "No Computer Access"))
+                                            
+                                            # column(8,
+                                            #        withSpinner(leafletOutput("wellbeing_maps")),
+                                            #        p(tags$small("Data Source: ACS 5 Year Estimates Table S0901, S2201, S0701, S1002, S1201, S0802, S2802")),
+                                            #        selectInput("select_wellbeing", "Select Indicator:", c("Female Head of Household" = "fml", "Foodstamps/SNAP Benefits" = "foodstmp", "County Migration" = "mobile", 
+                                            #                                                               "Grandparent Guardian" = "grand", "Married" = "married", "Private Transportation" = "priv_trans", "Public Transportation" = "pub_trans",
+                                            #                                                               "Computer and Internet Access" = "compin", "No Computer Access" = "nocomp"))
+                                            )
+                            
+                            
+                 )),
                  
-                 tabPanel("VT DSPG Team", value = "team",
+                 tabPanel("VT DSPG Team", #value = "team",
                           fluidRow(style = "margin-left: 300px; margin-right: 300px;",
                                    h1(strong("Hampton Team"), align = "center"),
                                    br(),
                                    h4(strong("Virginia Tech Data Science for the Public Good")),
-                                   p("The", a(href = 'https://biocomplexity.virginia.edu/social-decision-analytics/dspg-program', 'Data Science for the Public Good (DSPG) Young Scholars program', target = "_blank"), 
-                                     "is a summer immersive program held at the", a(href = 'https://biocomplexity.virginia.edu/social-decision-analytics', 'University of Virginia Biocomplexity Institute’s Social and Decision Analytics division (SDAD).'), 
-                                     "In its seventh year, the program engages students from across the country to work together on projects that address state, federal, and local government challenges around 
-                                          critical social issues relevant in the world today. DSPG young scholars conduct research at the intersection of statistics, computation, and the social sciences 
-                                          to determine how information generated within every community can be leveraged to improve quality of life and inform public policy. For more information on program 
-                                          highlights, how to apply, and our annual symposium, please visit", a(href = 'https://biocomplexity.virginia.edu/social-decision-analytics/dspg-program', 'the official Biocomplexity DSPG website.', target = "_blank")),
+                                   p("The", a(href = 'https://aaec.vt.edu/academics/undergraduate/beyond-classroom/dspg.html', 'Data Science for the Public Good (DSPG) Young Scholars program', target = "_blank"), "is a summer immersive program held at the", a(href = 'https://aaec.vt.edu/', 'Virginia Tech Department of Agriculture and Applied Economics.'),  
+                                     "In its second year, the program engages students from across the country to work together on projects that address state, federal, and local government challenges around critical 
+                                     social issues relevant in the world today. DSPG young scholars conduct research at the intersection of statistics, computation, and the social sciences to determine how information 
+                                     generated within every community can be leveraged to improve quality of life and inform public policy. For more information on program highlights, how to apply, and our annual symposium, 
+                                     please visit", a(href = '', 'the official DSPG website.', target = "_blank")),
                                    p("", style = "padding-top:10px;")
                           ),
                           fluidRow(style = "margin-left: 300px; margin-right: 300px;",
                                    column(6, align = "center",
                                           h4(strong("DSPG Team Members")),
-                                          img(src = "Avi_Seth_Headshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                                          p("Avi Seth"),
-                                          p(a(href = 'https://www.linkedin.com/in/aviseth/', 'Avi seth', target = '_blank'), "(Virginia Tech - )"),
-                                          img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                                          p(a(href = 'https://www.linkedin.com/in/matthew-burkholder-297b9119a/', 'Matthew Burkholder', target = '_blank'), "(Virginia Tech, Philosophy, Politics, & Economics)"),
-                                          img(src = "VictorMukoraHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                                          p(a(href = "www.linkedin.com/in/victormukora", 'Victor Mukora', target = '_blank'), "(Virginia Tech, Computational Modeling and Data Analytics)"),
-                                          img(src = "Christina_Prisbe_Headshot.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                                          p("Christina Prisbe"),
-                                          img(src = "kwabe.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                                          
-                                          p("Kwabena Boateng")
-                                   ),
+                                                          img(src = "Avi_Seth_Headshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                                          img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                                          img(src = "victorMukoraHeadshot.png", style = "display: inline; border: 1px solid #C0C0C0;", width = "150px"),
+                                                          img(src = "Christina_Prisbe_Headshot.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                                          img(src = "Kwabe.png", style = "display: inline; border: 1px solid #C0C0C0;", width = "150px"),
+                                                          p(a(href = 'https://www.linkedin.com/in/aviseth/', 'Avi seth', target = '_blank'), "(Virginia Tech - )",
+                                                           a(href = 'https://www.linkedin.com/in/matthew-burkholder-297b9119a/', 'Matthew Burkholder', target = '_blank'), "(Virginia Tech, Philosophy, Politics, & Economics)",
+                                                           a(href = "www.linkedin.com/in/victormukora", 'Victor Mukora', target = '_blank'), "(Virginia Tech, Computational Modeling and Data Analytics)"),
+                                                          p("Christina Prisbe"),
+                                                          p("Kwabena Boateng"),
+                                                          p("", style = "padding-top:10px;")
+                                                   ),
+                                   
                                    column(6, align = "center",
                                           h4(strong("Virginia Tech Faculty Members")),
                                           img(src = "Dr_Holmes.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", height = "150px", width = "150px"),
-                                          p(a(href = 'https://aaec.vt.edu/people/faculty/holmes-chanita.html', 'Dr. Chanita Holmes', target = '_blank'), "(Virginia Tech - )"),
                                           img(src = "Dr_Bradburn.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", height = "150px", width = "150px"),
+                                          p(a(href = 'https://aaec.vt.edu/people/faculty/holmes-chanita.html', 'Dr. Chanita Holmes', target = '_blank'), "(Virginia Tech - )"),
                                           p(a(href = 'https://liberalarts.vt.edu/departments-and-schools/department-of-human-development-and-family-science/faculty/isabel-bradburn.html', 'Dr. Isabel Bradburn', target = '_blank'), "(Virginia Tech, - )"),
                                    )
                           ),
@@ -3797,7 +3804,232 @@ server <- function(input, output, session) {
                   opacity = 1)
   })
   
+
+# Household Wellbeing -----------------------------------------------------
+  var_well <- reactive({
+    input$select_wellbeing
+  })
   
+  output$wellbeing_maps <- renderLeaflet({
+    if(var_well() == "Female Head of Household") {
+      fml <- read_rds("data/fml.rds")
+      colnames(fml)[4] <- "Percent"
+      fempal <- colorNumeric(palette = "viridis", domain = fml$Percent, reverse = TRUE)
+      
+      fml_map <- fml %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(color = ~ fempal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
+                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+        addLegend("topleft",
+                  pal = fempal,
+                  values = ~ Percent,
+                  title = "Female HOH",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
+    else if(var_well() == "Foodstamps/SNAP Benefits"){
+      
+      foodstmp <- read_rds("data/foodstmp.rds")
+      colnames(foodstmp)[4] <- "Percent"
+      foodpal <- colorNumeric(palette = "viridis", domain = foodstmp$Percent, reverse = TRUE)
+      
+      foodstmp_map <- foodstmp %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(color = ~ foodpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
+                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+        addLegend("topleft",
+                  pal = foodpal,
+                  values = ~ Percent,
+                  title = "Food Stamps",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
+    else if(var_well() == "County Migration"){
+      
+      mobile <- read_rds("data/mobile.rds")
+      colnames(mobile)[4] <- "Percent"
+      mobpal <- colorNumeric(palette = "viridis", domain = mobile$Percent, reverse = TRUE)
+      
+      mobile_map <- mobile %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(color = ~ mobpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
+                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+        addLegend("topleft",
+                  pal = mobpal,
+                  values = ~ Percent,
+                  title = "Mobility",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+      
+    }
+    
+    else if(var_well() == "Grandparent Guardian"){
+      
+      grand <- read_rds("data/grand.rds")
+      colnames(grand)[4] <- "Percent"
+      grandpal <- colorNumeric(palette = "viridis", domain = grand$Percent, reverse = TRUE)
+      
+      grand_map <- grand %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(color = ~ grandpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
+                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+        addLegend("topleft",
+                  pal = grandpal,
+                  values = ~ Percent,
+                  title = "Grandparent Guardian",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
+    else if(var_well() == "Married"){
+      married <- read_rds("data/married.rds")
+      colnames(married)[4] <- "Percent"
+      marriedpal <- colorNumeric(palette = "viridis", domain = married$Percent, reverse = TRUE)
+      
+      married_map <- married %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(color = ~ marriedpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
+                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+        addLegend("topleft",
+                  pal = marriedpal,
+                  values = ~ Percent,
+                  title = "Married",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
+    else if(var_well() == "Private Transportation"){
+      priv_trans <- read_rds("data/priv_trans.rds")
+      colnames(priv_trans)[4] <- "Percent"
+      priv_transpal <- colorNumeric(palette = "viridis", domain = priv_trans$Percent, reverse = TRUE)
+      
+      priv_trans_map <- priv_trans %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(color = ~ priv_transpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
+                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+        addLegend("topleft",
+                  pal = priv_transpal,
+                  values = ~ Percent,
+                  title = "Private Transportation",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
+    else if(var_well() == "Public Transportation"){
+      pub_trans <- read_rds("data/pub_trans.rds")
+      colnames(pub_trans)[4] <- "Percent"
+      pub_transpal <- colorNumeric(palette = "viridis", domain = pub_trans$Percent, reverse = TRUE)
+      
+      pub_trans_map <- pub_trans %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(color = ~ pub_transpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
+                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+        addLegend("topleft",
+                  pal = pub_transpal,
+                  values = ~ Percent,
+                  title = "Public Transportation",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+      
+    }
+    
+    else if(var_well() == "Computer and Internet Access"){
+      compin <- read_rds("data/compin.rds")
+      colnames(compin)[4] <- "Percent"
+      compinpal <- colorNumeric(palette = "viridis", domain = compin$Percent, reverse = TRUE)
+      
+      compin_map <- compin %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(color = ~ compinpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
+                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+        addLegend("topleft",
+                  pal = compinpal,
+                  values = ~ Percent,
+                  title = "Computer with Internet Access",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+    
+    else if(var_well() == "No Computer Access"){
+      nocomp <- read_rds("data/nocomp.rds")
+      colnames(nocomp)[4] <- "Percent"
+      nocomppal <- colorNumeric(palette = "viridis", domain = nocomp$Percent, reverse = TRUE)
+      
+      nocomp_map <- nocomp %>% 
+        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
+        addProviderTiles("CartoDB.PositronNoLabels") %>% 
+        addPolygons(color = ~ nocomppal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
+                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
+                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+        addLegend("topleft",
+                  pal = nocomppal,
+                  values = ~ Percent,
+                  title = "No Computer Access",
+                  labFormat = labelFormat(suffix = "%"),
+                  opacity = 1)
+    }
+  })
+  
+  var_welltext <- reactive({
+    input$select_wellbeing
+  })
+  
+  output$description_text <- renderText({
+  if(var_welltext() == "Female Head of Household"){
+    "Female Head of Household Description"
+  }
+  
+  else if(var_welltext() == "Foodstamps/SNAP Benefits"){
+    "Foodstamps Description"
+  }
+  
+  else if(var_welltext() == "County Migration"){
+    "County Migration Description"
+  }
+  
+  else if(var_welltext() == "Grandparent Guardian"){
+    "Grandparent Guardian Description"
+  }
+  
+  else if(var_welltext() == "Married"){
+    "Married Description"
+  }
+  
+  else if(var_welltext() == "Private Transportation"){
+    "Private Transportation Description"
+  }
+  
+  else if(var_welltext() == "Public Transportation"){
+    "Public Transportation Description"
+  }
+  
+  else if(var_welltext() == "Computer and Internet Access"){
+    "Computer and Internet Access Description"
+  }
+  
+  else if(var_welltext() == "No Computer Access"){
+    "No Computer Access Description"
+  }
+  })
+
   
 }
 
