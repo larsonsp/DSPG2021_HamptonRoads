@@ -315,35 +315,32 @@ ui <- navbarPage(title = "Hampton Roads",
                             ),
 
                             tabPanel("Educational Attainment",
-                                     fluidRow(style = "margin: 6px;",
-                                              p("", style = "padding-top:10px;"),
+                                     fluidRow(
+                                              p("", style = "padding-top:50px;"),
+                                              #h1(strong("Educational Attainment")),
                                               column(4,
-                                                     h4(strong("Why education?")),
-                                                     p("Knowledge is power. Consequently, education is a pivotal sector of society that influences and interwines with many other pillars like economics of health care."),
-                                                     p("Investigating trends in education can allow us to explore the general 'well-being' of an area. In particular, looking at educational patterns over time like those who have reached a
-                                            certain level of educational attainment or high school dropout rates can help us see if systematic issues might be playing a role (if any) to the Hampton Roads region."),
-                                                     p("If Black students are consistently underperforming and or have levels of educational attainment much lower than their contemporaries, we can speculate if issues like discrimination or lack of
-                                            colored representation in education is in any way influencing the trends that we are noticing. Moreoever, comparing both
-                                            the general Hampton region and the Virginia averages to the Black population specifically in Hampton Roads will allow us to see the impact of the Hampton region itself on its
-                                            constitutents as well (to seperate the possibility of sysematic issues from just relative lack of opporturnity or unideal conditions present in Hampton Roads) how that affects the Black community present."),
-                                                     p("In particular, researching those who are 25 years and older who have a Bachelor's degree or higher as their highest educational Attainment will help us investigate the general educational development of the
-                                          Hampton community as most individuals 25 years and older are old enough to have graduated high school and finished some type of college education.")
+                                                     h4(strong("Educational Attainment")),
+                                                     p("A college degree is not only a 'requirement for most jobs', but leads to higher wages, financial security, and improvement in standard of living. In the U.S., there is an increasing trend of college attainment over the last decade. The ACS reports a similar trend for Virginia residents. 
+                                                       In 2010, 33.8% of Virginia residents aged 25 years or older had earned a bachelor’s degree or higher. This rate improved to 38.8% by 2019."),
+                                                     p("There are substantial differences in attainment rate for Black residents across the localities in Hampton Roads.  In 2019, four-year college degree rates ranged from a low of 9.8% (Poquoson) to a high of 34.8% (York).  
+                                                       Additionally, the differential rates between the general population and Black residents vary widely across localities by year and across years. 
+                                                       Some of the largest gaps are found in 2019 in Williamsburg (39.6 percentage point difference) and Poquoson (33 percentage points). The shortest gap at the end of the decade was in Hampton at 1.2 percentage points.")                                                 
                                               ),
                                               column(8,
-                                                           h1(strong("Percentage of Hampton Roads Population 25 years and older with Bachelor's degree or higher"), align = "center"),
-                                                          p("", style = "padding-top:20px;"),
-                                                                selectInput("genEdAttainmentYearDrop", "Select Year:", width = "100%", choices = c(
-                                                                  "2019", "2018", "2017", "2016", "2015", "2014", "2013",
-                                                                  "2012", "2011", "2010"
-                                                                )
-                                                                ),
-                                                                withSpinner(plotlyOutput("genEdAttainmentPlots")),
-                                                                p(tags$small("*Note: Data missing for some years. ")),
-                                                                p(tags$small("Data Source: ACS 5 Year Estimate Tables C15002B (For Black Population), S1501 (For Total Population)"))
-                                                       
+                                                     h1(strong("Percentage of Hampton Roads Population 25 years and older with Bachelor's degree or higher"), align = "center"),
+                                                     p("", style = "padding-top:20px;"),
+                                                     selectInput("genEdAttainmentYearDrop", "Select Year:", width = "100%", choices = c(
+                                                       "2019", "2018", "2017", "2016", "2015", "2014", "2013",
+                                                       "2012", "2011", "2010"
                                                      )
-                                                     )
-                                              ),
+                                                     ),
+                                                     withSpinner(plotlyOutput("genEdAttainmentPlots")),
+                                                     p(tags$small("*Note: Data missing for some years. ")),
+                                                     p(tags$small("Data Source: ACS 5 Year Estimate Tables C15002B (For Black Population), S1501 (For Total Population)"))
+                                                     
+                                              )
+                                     )
+                            ),
                             
 
                             #Drop Out Rate
@@ -362,18 +359,17 @@ ui <- navbarPage(title = "Hampton Roads",
 
                             ,
 
-                            tabPanel("Suspension Rate",
-
+                            tabPanel("Suspension",
+                                     
                                      fluidRow(
-                                       h1(strong("Suspension"), align = "center"),
+                                       p("", style = "padding-top:10px;"),
+                                       h1(strong("Short Term Suspension"), align = "center"),
                                        column(4, h4(strong("Who is Being Punished?")), 
-                                       p("The Virginia Department of Education refers to students being barred from attending school for at most 10 days.  We collected short-term suspension rate by race from Kids COUNT, Annie E. Casey – defined as the total number of offenders of a certain race by the total number of students of that race for each locality. Rates include students from grades K - 12."), 
-                                       p("Across Virginia, from academic years 2014-15 to 2018-19, the Black student suspension rate was consistently more than eight percentage points higher than White and Hispanic student rates. Black students were suspended between a relative low of 12.0 % in 2018-19 and a high of 13.6 % in 2016-17. In contrast, the highest suspension rate for White and Hispanic students was 3.8 % and 3.9 % respectively, both in 2016-17."), 
-                                       p("Black student suspension rates in Hampton Roads were decidedly higher than for White students across all years examined. Averaging rates across years, the lowest rate for Black students was 4.9% for Williamsburg-James City County, followed by 6.8% for York. The highest rate was in Franklin City, at 21.1%, followed by 18.8% in Norfolk. Averaging all Hampton Roads localities together across years, the mean Black student suspension rate was 13.6% for Black students, slightly higher than the state average across years of 12.6%. "), 
-                                       p("Franklin City, at 21.1%, followed by 18.8% in Norfolk. Averaging all Hampton Roads localities together across years, the mean Black student suspension rate was 13.6% for Black students, slightly higher than the state average across years of 12.6%. "), 
-                                       p("These rates for Black students contrast markedly with those for White students. The lowest average for White students was 2.5% in Williamsburg-James City County, followed by 2.8% in Virginia Beach. The highest rate was 7.2% in Portsmouth, followed by 6.5% in Hampton. On average, the White student suspension rate was 4.8%, almost a 9-point difference."), 
-                                       p("To illustrate gaps between Black and White student suspension rates over time, we plot the percentage point difference between Black and White rates for each Hampton Roads locality that reported more than two years of data for students of both races.  Most localities showed a Black-White student suspension gap rate of between 5 and 14 percentage points over this time period."), 
-                                       p("Norfolk consistently showed the greatest racial suspension gap between students, ranging from a relative low of 12.8% in 2016-17, to a high gap of 14.1% in 2018-19.  York showed the smallest gap for three of the five years, followed by Glouchester for two years.")),
+                                              p("The Virginia Department of Education refers to students being barred from attending school for at most 10 days.  We collected short-term suspension rate by race from Kids COUNT, Annie E. Casey which is defined as the total number of offenders of a certain race divided by the total number of students of that race for each locality. Rates include students from grades K - 12."), 
+                                              p("Across Virginia, from academic years 2014-15 to 2018-19, the Black student suspension rate was consistently more than eight percentage points higher than White and Hispanic student rates. Black students were suspended between a relative low of 12.0 % in 2018-19 and a high of 13.6 % in 2016-17. In contrast, the highest suspension rate for White and Hispanic students was 3.8 % and 3.9 % respectively, both in 2016-17."), 
+                                              p("Black student suspension rates in Hampton Roads were decidedly higher than for White students across all years examined. This is consistent even for area with low suspension rate - averaging rate across years, the lowest rate for Black students was 4.9% for Williamsburg-James City County which is contrast for White students which was 2.5%. On average, the White student suspension rate was 4.8%, almost a 9-point difference."), 
+                                              p("To illustrate gaps between Black and White student suspension rates over time, we plot the percentage point difference between Black and White rates for each Hampton Roads locality that reported more than two years of data for students of both races.  Most localities showed a Black-White student suspension gap rate of between 5 and 14 percentage points over this time period. "), 
+                                              p("Norfolk consistently showed the greatest racial suspension gap between students, ranging from a relative low of 12.8% in 2016-17, to a high gap of 14.1% in 2018-19.  York showed the smallest gap for three of the five years, followed by Gloucester for two years.")), 
                                        column(8,
                                               tabsetPanel(
                                                 tabPanel("Suspension Rate", p(""),
@@ -387,103 +383,49 @@ ui <- navbarPage(title = "Hampton Roads",
                                                            "2019", "2018", "2017", "2016", "2015")),
                                                          withSpinner(plotlyOutput("BW_map", height = "700px")),
                                                          p(tags$small("Data Source: KIDS COUNT, Annie E. Casey Foundation")),
-                                                         p(tags$small("*Note: Black student data supressed for Mathews and Poquoson."))
+                                                         p(tags$small("*Note: Black student data supressed for Mathews and Poquoson. Missing data for some years for Franklin for White student rates"))
                                                 ),
                                                 tabPanel("Suspension Gap", p(""),
                                                          h4("Difference Between Black and White Student Short-Term Suspension", align = "center"),
                                                          withSpinner(plotlyOutput("suspensionGap", height = "700px")),
                                                          p(tags$small("Data Source: KIDS COUNT, Annie E. Casey Foundation"))
                                                 )
-
+                                                
                                               )
-
+                                              
                                        )
-
+                                       
                                      )
-
-
+                                     
+                                     
                             )
                  ),
                  
                  navbarMenu(title="Economics",
                             #Median Income
-                            # tabPanel("Median Income",
-                            #          fluidRow(style = "margin: 6px;",
-                            #                   #change this later to formatting that is desired
-                            #                   column(4,
-                            #                           h4(strong("Median Income")),
-                            #                           p("In 2019, the Black community had a median annual income of $52,596, which is less than the median income of $67,387 of Hampton Road’s general population. This is consistent with the state trend.  Notably, the gap has been closing over the last decade as in 2010, it was $37,941 and $55,062, respectively. This suggests that despite the Black household having a lower median annual income in the region, there have been some improvements since 2010.")
-                            #                   ),
-                            #                   h1(strong("Median Income in Virginia and Hampton Roads"), align = "center"),
-                            #                   column(8, 
-                            #                          h4("Median Income from 2010 to 2019"),
-                            #                          withSpinner(plotOutput("medianTimeGraph")),
-                            #                          p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
-                            #                   ), 
-                            #                   
-                            #                   column(8,
-                            #                          selectInput("MedianIncomeYearDrop", "Select Year:", width = "100%", choices = c(
-                            #                            "2019","2018", "2017", "2016", "2015","2014",
-                            #                            "2013","2012", "2011", "2010")),
-                            #                          withSpinner(plotOutput("income_plot")),
-                            #                          p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
-                            #                   )
-                            #          )), 
-                            tabPanel("Median Income",
-                                     fluidRow(
-                                       column(3),
-                                       column(6,
-                                              tags$br(),
-                                              p(style = "text-align: justify;", "In 2019, the Black community had a median annual income of $52,596, which is less than the median income of $67,387 of Hampton Road’s general population. This is consistent with the state trend.  Notably, the gap has been closing over the last decade as in 2010, it was $37,941 and $55,062, respectively. This suggests that despite the Black household having a lower median annual income in the region, there have been some improvements since 2010."))
-                                     ),
-                                     fluidRow(style = "margin: 6px", align = "center",
-                                              column(12, align = "center",
-                                                     h4("Median Income from 2010 to 2019"),
+                            tabPanel("Income",
+                                     fluidRow(style = "margin: 6px;",
+                                              p("", style = "padding-top:30px;"),
+                                              #change this later to formatting that is desired
+                                              column(4, h4(strong("Household's Economic Status in Hampton Roads")), 
+                                                     p("In 2019, the Black community had a median annual income of $52,596, which is less than the median income of $67,387 of Hampton Road’s general population. This gap is consistent with the state trend, although it is larger at the state level, where the Black and general households earn $51,654 and $74,222, respectively."), 
+                                                     p("While there are racial differences in median income, the gap between the Black community and the general population has been closing over the last decade. In 2010, the racial median income gap in Hampton Roads was $17,121, whereas it was $14,791 in 2019. This suggests that despite the lower median income, the Black community's economic status has slightly improved over the last decade.")),
+                                              h1(strong("Median Income in Virginia and Hampton Roads"), align = "center"),
+                                              column(8,
+                                                     withSpinner(plotOutput("medianTimeGraph")),
+                                                     p(tags$small("Data Source: ACS 5 Year Estimates Table S1903")),
+                                                     
                                                      selectInput("MedianIncomeYearDrop", "Select Year:", width = "100%", choices = c(
                                                        "2019","2018", "2017", "2016", "2015","2014",
                                                        "2013","2012", "2011", "2010")),
-                                                     withSpinner(plotOutput("income_plot"))
-                                              )
-                                              
-                                     ), 
-                                     
-                                     
-                                     fluidRow(style = "margin: 6px", align = "center",
-                                              column(12, align = "center",
-                                                     h4("Median Income from 2010 to 2019"),
-                                                     withSpinner(plotOutput("medianTimeGraph")),
+                                                     withSpinner(plotOutput("income_plot")),
                                                      p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
-                                              ))
-                            ),
-                            
-                            
-                            
-                            
-                            # fluidRow(style = "margin: 6px;",
-                            #          #change this later to formatting that is desired
-                            #          column(4,
-                            #                 h4(strong("Median Income")),
-                            #                 p("In 2019, the Black community had a median annual income of $52,596, which is less than the median income of $67,387 of Hampton Road’s general population. This is consistent with the state trend.  Notably, the gap has been closing over the last decade as in 2010, it was $37,941 and $55,062, respectively. This suggests that despite the Black household having a lower median annual income in the region, there have been some improvements since 2010.")
-                            #          ),
-                            #          h1(strong("Median Income in Virginia and Hampton Roads"), align = "center"),
-                            #          column(8, 
-                            #                 h4("Median Income from 2010 to 2019"),
-                            #                 withSpinner(plotOutput("medianTimeGraph")),
-                            #                 p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
-                            #          ), 
-                            #          
-                            #          column(8,
-                            #                 selectInput("MedianIncomeYearDrop", "Select Year:", width = "100%", choices = c(
-                            #                   "2019","2018", "2017", "2016", "2015","2014",
-                            #                   "2013","2012", "2011", "2010")),
-                            #                 withSpinner(plotOutput("income_plot")),
-                            #                 p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
-                            #          )
-                            #)
-                            
+                                              )
+                                     )),
+                           
                             #),
                             #Homeownership Map
-                            tabPanel("Homeownership Map", 
+                            tabPanel("Homeownership", 
                                      fluidPage(
                                        
                                        column(4, h1(strong("Homeownership in Hampton Roads"), align = "center")),
@@ -495,14 +437,29 @@ ui <- navbarPage(title = "Hampton Roads",
                             
                             
                             #Unemployment Rate
-                            tabPanel("Labor Market Characteristics", 
+                            tabPanel("Labor Market", 
                                      fluidRow(
-                                       column(4, h1(strong("Unemployment"), align = "center")),
+                                       p("", style = "padding-top:40px;"),
+                                       column(4, h4(strong("Labor Sector & Unemployment")),
+                                              p("We examine the economic health of the labor market for the Black communities in Hampton Roads. First, we look at the top two industries that explain the highest number of workers in the region. This allows us to understand the employment landscape of the region, which may provide insights into vulnerable areas.  
+                                         We then analyze unemployment to understand the economic hardship that households in the Hampton Region face."),
+                                              p("", style = "padding-top:10px;"),
+                                              h5(strong ("Industries that employ the largest number of workers")),
+                                              p("Majority of the residents in the Hampton region were employed in the Educational Services, health care, and social services sector. Among each locality in Hampton Roads, educational services, health care, and social services was one of the top two industries that employ the highest number of workers. 
+                                         However, for the other top employable industry, there are some slight variations across localities and time. 
+                                         For example, in 2012, eight of the 16 localities top two sector was in retail trade. However, only two areas had retail trade in the top two industries indicating more economic diversity among the localities over time."),
+                                              h5(strong ("Are there differences in the unemployment rate across localities?")),
+                                              p("The unemployment rate for the Black population in Hampton Roads tends to be greater than the average rate in Virginia, regardless of time period. For example, in 2019, Franklin-which had the highest unemployment 
+                                         rate in the region- the unemployment rate for the black community was 14.9 % compared with Virginia’s average of 4.6%.  Moreover, regardless of localities, the Black community is more likely to be unemployed than the other residents.  In 2019, the Black population had a higher unemployment rate than their counterparts in very county and city in the Hampton Roads region, even in areas that were below the state’s average (Gloucester)."),
+                                              p("While for some counties there has been a decline in unemployment rates across the decade (2010-2019) for Black households, there still exists some significant disparity for most counties/cities. One such example is Williamsburg County that in 2010 had a similar unemployment rate for both Blacks and the region residents, 6.0% and 6.1%, respectively. But by 2019, that gap widen significantly by 4.6 percentage points (the Black unemployment rate was 10.4% and the total population 5.8%)"),
+                                              
+                                              
+                                       ),
                                        column(8,
                                               tabsetPanel(
                                                 #Sector Employment
                                                 tabPanel("Industry Employment", 
-                                                         h1(strong("Top Two Industry Sectors"), align = "center"),
+                                                         h4(strong("Top Two Industry Sectors"), align = "center"),
                                                          fluidRow(p(""),
                                                                   selectInput("SectorEmploymentYearDrop", "Select Year:", width = "100%", choices = c(
                                                                     "2019","2018", "2017", "2016", "2015","2014",
@@ -522,25 +479,31 @@ ui <- navbarPage(title = "Hampton Roads",
                                                                      animate=animationOptions(interval = 1400)),
                                                 ),
                                                 tabPanel("Unemployment Over Time",
-                                                         fluidRow(
-                                                           box(width = 8, height = 800,
-                                                               img(src="unemployment_plot.gif", height='750', width='700'))),
+                                                         # fluidRow(
+                                                         #   box(width = 8, height = 800,
+                                                         #       img(src="unemployment_plot.gif", height='700', width='1200')
+                                                         #       )),
                                                          
-                                                         fluidRow(
-                                                           box(width =12, height = 300,
-                                                               h3("Trends: "),
-                                                               p("Text")))
-                                                         
+                                                         fluidRow(width=12, height=550,
+                                                                  img(src="unemployment_plot.gif", height = "800", width="1200")
+                                                                  
+                                                         )
                                                 ))))
                             ), 
                             
                             #Poverty Rate
-                            tabPanel("Poverty Rates",
-                                     column(4, h1(strong("Poverty Rates"), align = "center")),
+                            tabPanel("Poverty",
+                                     p("", style = "padding-top:50px;"),
+                                     column(4, h2(strong ("How does poverty rate in Hampton Roads compare to all of Virginia?")), 
+                                            p("", style = "padding-top:10px;"),
+                                            p("It is clear that regardless of location the Black population has borne a higher rate of poverty than other races by about 7-8 percentage points between 2012-2019. Still, Hampton Roads has endured somewhat higher rates over the years. In 2019, 11.3% of people in Hampton Roads were in poverty, 0.7 percentage points higher than in Virginia overall. And among the Black population, the gap (1.2 percentage points) was even wider. In 2012, the gaps were smaller, but since then has gotten wider, indicating a deterioration in economic circumstances, especially for the Black population."),
+                                            h5(strong ("Is poverty more prevalent in some counties or cities in Hampton Roads than others?")),
+                                            p("It appears that, even at the county or city level, the Black population is always more likely to be in poverty than other residents. The disparity has been pronounced and persistent for most counties/cities. Most notably, Mathews has experienced a poverty gap that has grown from about 6 percentage points in 2012 to 30 percentage points in 2019. On the other hand, some counties/cities have enjoyed a significant decline in poverty rates and gaps over time, notably Franklin City. The city had a poverty rate of roughly 36% among Blacks compared to 23% in its entire population in 2012. But by 2019, the rate decreased markedly for both groups to 22% and 15% respectively, – cutting the poverty gap by half over the 8-year period."),
+                                            
+                                     ),
                                      column(8,
                                             tabsetPanel(
                                               tabPanel("Poverty Rates in Hampton and Virginia",
-                                                       h4(strong("Poverty Rates in Virginia and Hampton Roads")),
                                                        selectInput("PovertyYearDrop", "Select Year:", width = "100%", choices = c(
                                                          "2019","2018", "2017", "2016", "2015","2014",
                                                          "2013","2012")),
@@ -548,7 +511,6 @@ ui <- navbarPage(title = "Hampton Roads",
                                                        p(tags$small("Data Source: ACS 5 Year Estimates Table S1701"))
                                               ),
                                               tabPanel("Poverty Rates in Hampton Roads Counties and Cities",
-                                                       h1(strong("Poverty Rates in Hampton Roads Counties and Cities"), align = "center"), 
                                                        selectInput("PovertyCountYearDrop", "Select Year:", width = "100%", choices = c(
                                                          "2019","2018", "2017", "2016", "2015","2014",
                                                          "2013","2012")),
@@ -588,7 +550,7 @@ ui <- navbarPage(title = "Hampton Roads",
                             
                             #Veteran Status
                             
-                            tabPanel("Veteran Status", 
+                            tabPanel("Veteran", 
                                      column(4, h1(strong("Veteran Status"), align = "center")),
                                      column(8,
                                             withSpinner(leafletOutput("veteran_map")),
@@ -619,52 +581,52 @@ ui <- navbarPage(title = "Hampton Roads",
                  
                  ),
                  
-                 tabPanel("VT DSPG Team", #value = "team",
-                          fluidRow(style = "margin-left: 300px; margin-right: 300px;",
-                                   h1(strong("Hampton Team"), align = "center"),
-                                   br(),
-                                   h4(strong("Virginia Tech Data Science for the Public Good")),
-                                   p("The", a(href = 'https://aaec.vt.edu/academics/undergraduate/beyond-classroom/dspg.html', 'Data Science for the Public Good (DSPG) Young Scholars program', target = "_blank"), "is a summer immersive program held at the", a(href = 'https://aaec.vt.edu/', 'Virginia Tech Department of Agriculture and Applied Economics.'),  
-                                     "In its second year, the program engages students from across the country to work together on projects that address state, federal, and local government challenges around critical 
-                                     social issues relevant in the world today. DSPG young scholars conduct research at the intersection of statistics, computation, and the social sciences to determine how information 
-                                     generated within every community can be leveraged to improve quality of life and inform public policy. For more information on program highlights, how to apply, and our annual symposium, 
-                                     please visit", a(href = '', 'the official DSPG website.', target = "_blank")),
-                                   p("", style = "padding-top:10px;")
-                          ),
-                          fluidRow(style = "margin-left: 300px; margin-right: 300px;",
-                                   column(6, align = "center",
-                                          h4(strong("DSPG Team Members")),
-                                                          img(src = "Avi_Seth_Headshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                                                          img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                                                          img(src = "victorMukoraHeadshot.png", style = "display: inline; border: 1px solid #C0C0C0;", width = "150px"),
-                                                          img(src = "Christina_Prisbe_Headshot.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                                                          img(src = "Kwabe.png", style = "display: inline; border: 1px solid #C0C0C0;", width = "150px"),
-                                                          p(a(href = 'https://www.linkedin.com/in/aviseth/', 'Avi seth', target = '_blank'), "(Virginia Tech - )",
-                                                           a(href = 'https://www.linkedin.com/in/matthew-burkholder-297b9119a/', 'Matthew Burkholder', target = '_blank'), "(Virginia Tech, Philosophy, Politics, & Economics)",
-                                                           a(href = "www.linkedin.com/in/victormukora", 'Victor Mukora', target = '_blank'), "(Virginia Tech, Computational Modeling and Data Analytics)"),
-                                                          p("Christina Prisbe"),
-                                                          p("Kwabena Boateng"),
-                                                          p("", style = "padding-top:10px;")
-                                                   ),
-                                   
-                                   column(6, align = "center",
-                                          h4(strong("Virginia Tech Faculty Members")),
-                                          img(src = "Dr_Holmes.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", height = "150px", width = "150px"),
-                                          img(src = "Dr_Bradburn.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", height = "150px", width = "150px"),
-                                          p(a(href = 'https://aaec.vt.edu/people/faculty/holmes-chanita.html', 'Dr. Chanita Holmes', target = '_blank'), "(Virginia Tech - )"),
-                                          p(a(href = 'https://liberalarts.vt.edu/departments-and-schools/department-of-human-development-and-family-science/faculty/isabel-bradburn.html', 'Dr. Isabel Bradburn', target = '_blank'), "(Virginia Tech, - )"),
+                 tabPanel("Hampton Team", value = "team",
+                         fluidRow(column(3),
+                                            column(6,
+                                                   h2(strong("Virginia Tech Data Science for the Public Good") , align = "center"),
+                                                   p("The", a(href = 'https://aaec.vt.edu/academics/undergraduate/beyond-classroom/dspg.html', 'Data Science for the Public Good (DSPG) Young Scholars program', target = "_blank"), 
+                                                     "is a summer immersive program held at the", a(href = 'https://aaec.vt.edu/s', 'Virginia Tech Department of Agricultural and Applied Economics.'), 
+                                                     "In its second year, the program engages students from across the country to work together on projects that address state, federal, and local government challenges around critical social issues relevant in the world today. DSPG young scholars conduct research at the intersection of statistics, computation, and the social sciences to determine how information generated within every community can be leveraged to improve quality of life and inform public policy. For more information on program highlights, how to apply, and our annual symposium, please visit", a(href = 'https://aaec.vt.edu/academics/undergraduate/beyond-classroom/dspg.html', 'the official VT DSPG website.', target = "_blank")),
+                                                   #p("", style = "padding-top:10px;")
+                                            )
+                                            
+                                   ),
+                                   fluidRow(
+                                     column(2),
+                                     column(2, align = "center",
+                                            h4(strong("Graduate Fellow")), tags$br(),
+                                            tags$br(), img(src = "Avi_Seth_Headshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width="75%"),
+                                            tags$br(), p(a(href = 'https://www.linkedin.com/in/aviseth/', 'Avi Seth', target = '_blank'), "(Virginia Tech, Computer Science)")
+                                     ),
+                                     column(2, align = "center",
+                                            h4(strong("Faculty Advisors")), tags$br(),
+                                            img(src = "Dr_Holmes.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", height = "150px", width = "150px"),  tags$br(),
+                                            p(a(href = 'https://aaec.vt.edu/people/faculty/holmes-chanita.html', 'Dr. Chanita Holmes', target = '_blank'), "(Virginia Tech, Department of Agricultural and Applied Economics)"),  tags$br(),
+                                            img(src = "Dr_Bradburn.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", height = "150px", width = "150px"),  tags$br(),
+                                            p(a(href = 'https://liberalarts.vt.edu/departments-and-schools/department-of-human-development-and-family-science/faculty/isabel-bradburn.html', 'Dr. Isabel Bradburn', target = '_blank'), "(Virginia Tech, Department of Human Development and Family Science)"),  tags$br()
+                                     ),
+                                     column(2, align = "center",
+                                            h4(strong("Undergraduate Interns")), tags$br(),
+                                            img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                            p(a(href = 'https://www.linkedin.com/in/matthew-burkholder-297b9119a/', 'Matthew Burkholder', target = '_blank'), "Virginia Tech, Philosophy, Politics, & Economics"), tags$br(),
+                                            img(src = "VictorMukoraHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
+                                            p(a(href = "www.linkedin.com/in/victormukora", 'Victor Mukora', target = '_blank'), "Virginia Tech, Department of Computational Modeling and Data Analytics"), tags$br(),
+                                            img(src = "Christina_Prisbe_Headshot.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
+                                            p(a(href = "https://www.linkedin.com/in/christina-prisbe-60966b218/?midToken=AQGZJw6kSGscnQ&midSig=0iRgRUj5PNWpQ1&trk=eml-email_m2m_invite_single_01-hero-4-prof%7Ecta&trkEmail=eml-email_m2m_invite_single_01-hero-4-prof%7Ecta-null-ec0b8k%7Ekrp4eqqv%7E3v-null-neptune%2Fprofile%7Evanity%2Eview", 'Christina Prisbe', target = '_blank'), "Virginia Tech, Department of Computational Modeling and Data Analytics"), tags$br(),
+                                            img(src = "kwabe.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
+                                            p(a(href = "https://www.linkedin.com/in/kb1999/", 'Kwabe Boateng', target = '_blank'), "Virginia State University, College of Engineering and Technology"),
+                                            
+                                     ),
+                                     
+                                     column(2, align = "center",
+                                            h4(strong("Stakeholders")), tags$br(),
+                                            p(a(href = 'https://www.linkedin.com/in/mallory-taylor-tuttle/', 'Mallory Tuttle', target = '_blank'), "(Associate Director Virginia Tech Hampton Roads Centers)"), tags$br(),
+                                            img(src = "MalloryTuttle.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px")
+                                     )
+                                     
                                    )
                           ),
-                          fluidRow(h4(strong("Project Stakeholders"), align = "center"),
-                                   p(""),
-                                   p("")
-                                   # p(a(href = 'https://www.linkedin.com/in/nancy-bell-aa293810/', 'Nancy Bell', target = '_blank'), "(Virginia Department of Health);",
-                                   #   a(href = 'https://www.linkedin.com/in/terri-alt-3138b4101/', 'Terri Alt', target = '_blank'), "(Virginia Cooperative Extension, Patrick County at Virginia Tech)."),
-                                   # p("", style = "padding-top:10px;"),
-                                   # h4(strong("Acknowledgments")),
-                                   # p("We would like to thank Healthy Patrick County, an association of concerned Patrick County residents, and Brandon Kramer for their input to this project.")
-                          )
-                 ),
 inverse = T)
 
 # server -----------------------------------------------------------
