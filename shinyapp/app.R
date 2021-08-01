@@ -325,7 +325,7 @@ ui <- navbarPage(title = "Hampton Roads",
            In 2020/21, 13 percent of public-school educators identified as Black, compared to a state rate of 19.9% Black population in 2019, a difference of almost seven percentage points [2]. "), 
                                               p("In 2019, 31% percent of the Hampton Roads population identified as Black.  Seven of the 16 localities (44%) reported rates of public school Black educator representation at or above the regional average, while another 7 reported rates less than 12%.  
 						Black educator representation ranged from high rates of 62.3% in Portsmouth and 55.8% in Franklin City to very low rates of 3.5% in Poquoson.  These percentages are reversed for White educators, with highs of 92.6% representation in Poquoson and lows of 34.6% and 40% respectively in Portsmouth and Franklin City."),   
-                                              p("Hampton Roads localities vary considerably in their racial and ethnic profiles, making it difficult to ascertain from these data alone how well educator representation matches specific communities.A future project might be to map local demographic profiles to school division educator representation to determine 
+                                              p("Hampton Roads localities vary considerably in their racial and ethnic profiles, making it difficult to ascertain from these data alone how well educator representation matches specific communities. A future project might be to map local demographic profiles to school division educator representation to determine 
 						how well Black educators are matched to local Black population representation."),
                                               p("", style = "padding-top:20px;"),
                                               p(tags$small("[1] Taie,S. and Golding, R. (2020). Characterisitcs of Public and Private Elementary and Secondary School Teachers
@@ -349,7 +349,12 @@ ui <- navbarPage(title = "Hampton Roads",
                                      fluidRow(
                                        p("", style = "padding-top:40px;"),
                                        column(4,
-                                              h4(strong("Graduating High School")),
+                                              h4(strong("Graduating High School On-Time")),
+                                              p("Virginia Department of Education defines on-time graduation as the percentage of students who earned a Board of Education-approved diploma within four years of entering high school for the first time. On-time graduation rates have been steadily climbing in Virginia from 2009 thru the 2020 school year moving from 85.5% in 2010 to 92.5% in 2020. Black students have made even greater gains across this period, from 80.4% in 2011 to 91.4% graduating within four years in 2020."),
+                                              p("Across Hampton Roads, the same upward state trend is evident across the decade. The regional average on-time graduation rate increased steadily from 82% in 2010 to 92.6% in 2020. Black students mirrored the trend, from a regional average of 79.7% in 2010 to 92.4% in 2020, effectively matching the total regional and state population average."),
+                                              p("Due to the large variation between localities, we examine local differences.  For Black students, gains ranged from 7.8 to approximately 24 percentage points, with an average improvement of 17 percentage points.  Portsmouth and Southampton made the most dramatic gains, both showing upward trends from lows in 2010 of 66.1% and 72.9% respectively, to highs of 89.6% and 95% in 2020, a similar pattern to Hampton, which also showed very impressive steady gains (from 78% in 2010 to 96% in 2020)."),
+                                              p("While every locality showed improvement over time, two locality rates remained notably lower to the state average. Norfolk and Suffolk remained more than 6.8 and 7.2 percentage points lower than the state average in 2020. Future research could help better understand whether on-time graduation rates reflect students leaving school, obtaining alternate certification, or moving out of state without transfer notice (Suffolk in particular borders North Carolina)."),
+                                              
                                               h4(strong("College Degree")),
                                               p("A college degree is not only a 'requirement for most jobs', but leads to higher wages, financial security, and improvement in standard of living. In the U.S., there is an increasing trend of college attainment over the last decade. The ACS reports a similar trend for Virginia residents. 
                                                        In 2010, 33.8% of Virginia residents aged 25 years or older had earned a bachelor's degree or higher. This rate improved to 38.8% by 2019."),
@@ -608,7 +613,8 @@ ui <- navbarPage(title = "Hampton Roads",
                                                 withSpinner(plotlyOutput("uninsured_plot")),
                                                 sliderInput("UninsuredPctSlider", "Select Year", value = 2019, min = 2012, max = 2019, sep = "", width = "100%",
                                                             animate=animationOptions(interval = 1400)),
-                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S2701"))),
+                                                p(tags$small("*Note: Data missing for Black population in Poquoson.")),
+                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S2701")))
                                        )
                                        
                                      )
@@ -690,7 +696,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                      column(2),
                                      column(2, align = "center",
                                             h4(strong("Graduate Fellow")), tags$br(),
-                                            tags$br(), img(src = "Avi_Seth_Headshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width="75%", height="45%"),
+                                            tags$br(), img(src = "fellow-seth.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width="45%", height="45%"),
                                             tags$br(), p(a(href = 'https://www.linkedin.com/in/aviseth/', 'Avi Seth', target = '_blank'), "(Virginia Tech, Computer Science)")
                                      ),
                                      column(2, align = "center",
