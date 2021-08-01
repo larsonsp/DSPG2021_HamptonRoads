@@ -680,29 +680,29 @@ ui <- navbarPage(title = "Hampton Roads",
                                             tags$br(), p(a(href = 'https://www.linkedin.com/in/aviseth/', 'Avi Seth', target = '_blank'), "(Virginia Tech, Computer Science)")
                                      ),
                                      column(2, align = "center",
+                                            h4(strong("Undergraduate Interns")), tags$br(),
+                                            img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                            p(a(href = 'https://www.linkedin.com/in/matthew-burkholder-297b9119a/', 'Matthew Burkholder', target = '_blank'), "(Virginia Tech, Philosophy, Politics, & Economics)"), tags$br(),
+                                            img(src = "VictorMukoraHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
+                                            p(a(href = "www.linkedin.com/in/victormukora", 'Victor Mukora', target = '_blank'), "(Virginia Tech, Department of Computational Modeling and Data Analytics)"), tags$br(),
+                                            img(src = "Christina_Prisbe_Headshot.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
+                                            p(a(href = "https://www.linkedin.com/in/christina-prisbe-60966b218/?midToken=AQGZJw6kSGscnQ&midSig=0iRgRUj5PNWpQ1&trk=eml-email_m2m_invite_single_01-hero-4-prof%7Ecta&trkEmail=eml-email_m2m_invite_single_01-hero-4-prof%7Ecta-null-ec0b8k%7Ekrp4eqqv%7E3v-null-neptune%2Fprofile%7Evanity%2Eview", 'Christina Prisbe', target = '_blank'), "(Virginia Tech, Department of Computational Modeling and Data Analytics)"), tags$br(),
+                                            img(src = "kwabe.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
+                                            p(a(href = "https://www.linkedin.com/in/kb1999/", 'Kwabe Boateng', target = '_blank'), "(Virginia State University, College of Engineering and Technology)"),
+                                            
+                                     ),
+                                     column(2, align = "center",
                                             h4(strong("Faculty Advisors")), tags$br(),
                                             img(src = "Dr_Holmes.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", height = "150px", width = "150px"),  tags$br(),
                                             p(a(href = 'https://aaec.vt.edu/people/faculty/holmes-chanita.html', 'Dr. Chanita Holmes', target = '_blank'), "(Virginia Tech, Department of Agricultural and Applied Economics)"),  tags$br(),
                                             img(src = "Dr_Bradburn.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", height = "150px", width = "150px"),  tags$br(),
                                             p(a(href = 'https://liberalarts.vt.edu/departments-and-schools/department-of-human-development-and-family-science/faculty/isabel-bradburn.html', 'Dr. Isabel Bradburn', target = '_blank'), "(Virginia Tech, Department of Human Development and Family Science)"),  tags$br()
                                      ),
-                                     column(2, align = "center",
-                                            h4(strong("Undergraduate Interns")), tags$br(),
-                                            img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                                            p(a(href = 'https://www.linkedin.com/in/matthew-burkholder-297b9119a/', 'Matthew Burkholder', target = '_blank'), "Virginia Tech, Philosophy, Politics, & Economics"), tags$br(),
-                                            img(src = "VictorMukoraHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
-                                            p(a(href = "www.linkedin.com/in/victormukora", 'Victor Mukora', target = '_blank'), "Virginia Tech, Department of Computational Modeling and Data Analytics"), tags$br(),
-                                            img(src = "Christina_Prisbe_Headshot.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
-                                            p(a(href = "https://www.linkedin.com/in/christina-prisbe-60966b218/?midToken=AQGZJw6kSGscnQ&midSig=0iRgRUj5PNWpQ1&trk=eml-email_m2m_invite_single_01-hero-4-prof%7Ecta&trkEmail=eml-email_m2m_invite_single_01-hero-4-prof%7Ecta-null-ec0b8k%7Ekrp4eqqv%7E3v-null-neptune%2Fprofile%7Evanity%2Eview", 'Christina Prisbe', target = '_blank'), "Virginia Tech, Department of Computational Modeling and Data Analytics"), tags$br(),
-                                            img(src = "kwabe.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
-                                            p(a(href = "https://www.linkedin.com/in/kb1999/", 'Kwabe Boateng', target = '_blank'), "Virginia State University, College of Engineering and Technology"),
-                                            
-                                     ),
                                      
                                      column(2, align = "center",
                                             h4(strong("Stakeholders")), tags$br(),
-                                            p(a(href = 'https://www.linkedin.com/in/mallory-taylor-tuttle/', 'Mallory Tuttle', target = '_blank'), "(Associate Director Virginia Tech Hampton Roads Centers)"), tags$br(),
-                                            img(src = "MalloryTuttle.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px")
+                                            img(src = "MalloryTuttle.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                            p(a(href = 'https://www.linkedin.com/in/mallory-taylor-tuttle/', 'Mallory Tuttle', target = '_blank'), "(Associate Director Virginia Tech Hampton Roads Centers)"), tags$br()
                                      )
                                      
                                    )
