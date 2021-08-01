@@ -66,18 +66,17 @@ jscode <- "function getUrlVars() {
             }
            var x = document.getElementsByClassName('navbar-brand');
            if (mytype != 'economic') {
-             x[0].innerHTML = '<div style=\"margin-top:-14px\"><a href=\"https://aaec.vt.edu/academics/undergraduate/beyond-classroom/dspg.html\">' +
-                              '<img src=\"VTDSPG Logo.png\", alt=\"DSPG 2021 Symposium Proceedings\", style=\"height:42px;\">' +
+             x[0].innerHTML = '<div style=\"margin-top:-14px\"><a href=\"https://datascienceforthepublicgood.org/events/symposium2020/poster-sessions\">' +
+                              '<img src=\"DSPG_black-01.png\", alt=\"DSPG 2020 Symposium Proceedings\", style=\"height:42px;\">' +
                               '</a></div>';
              //changeLinks('dspg');
            } else {
              x[0].innerHTML = '<div style=\"margin-top:-14px\"><a href=\"https://datascienceforthepublicgood.org/economic-mobility/community-insights/case-studies\">' +
                               '<img src=\"AEMLogoGatesColorsBlack-11.png\", alt=\"Gates Economic Mobility Case Studies\", style=\"height:42px;\">' +
                               '</a></div>';
-             //changeLinks('economic');
+             //changeLinks('economic'); 
            }
            "
-
 # user -------------------------------------------------------------
 ui <- navbarPage(title = "Hampton Roads",
                  selected = "overview",
@@ -101,25 +100,25 @@ ui <- navbarPage(title = "Hampton Roads",
                           ),
                           fluidRow(style = "margin: 6px;",
                                    column(4,
-                                          h2(strong("Project Background")),
-                                          p(strong("The problem."), "Systematic issues are preferential treatement given to certain groups of inidividuals. They have impeded minorities from being able to progress to share the same level of stature, accomplishment, and acceptance fellow peers with their similar backgrounds have achieved. The Black community have been no exception to this injustice, resulting in several disadvantages across all facets of life.  This includes, but is certainly not limited to, various sectors of society like: 
-                                          public health/healthcare, employment, education, government, and criminal justice. "),
-                                          p(),
-                                          p(strong("The setting."), a(href = "https://en.wikipedia.org/wiki/Hampton_Roads", "Hampton Roads", target = "_blank"), "area consists of ten cities and six counties in the Southeastern region of Virginia. It is ranked as the 33rd largest MSA in the United States, the 8th largest metro area in the Southeast region, and the 2nd largest between Atlanta and Washington, DC."),
+                                          h2(strong("The Setting")),
+                                          p(a(href = "https://en.wikipedia.org/wiki/Hampton_Roads", "Hampton Roads", target = "_blank"), "area consists of ten cities and six counties in the Southeastern region of Virginia. It is ranked as the 33rd largest MSA in the United States, the 8th largest metro area in the Southeast region, and the 2nd largest between Atlanta and Washington, DC."),
                                           
                                           p("The jurisdictions of Hampton Roads are the cities of Chesapeake, Franklin, Hampton, Newport News, Norfolk, Poquoson, Portsmouth, Suffolk, Virginia Beach, and Williamsburg, and the counties of Gloucester, Isle of Wright, James City, Mathews, Southampton, and York."),  
                                           p("The population of the Hampton Roads MSA has been growing over the last decade with an estimated population of approximately 1.7 million in 2020, a 3% increase from 2010. This region accounts for a large percentage – about 20% - of Virginia’s state population.  "),
-                                          p("Each jurisdiction in Hampton Roads has a separate municipal government, unlike some other metro areas. While there are consultations on regional issues, there are more than 20 elected independent municipal governing bodies. As such, it is imperative for our project to examine not only differences with the Virginia population but also within the localities of Hampton Roads.")
+                                          p("Each jurisdiction in Hampton Roads has a separate municipal government, unlike some other metro areas. While there are consultations on regional issues, there are more than 20 elected independent municipal governing bodies. As such, it is imperative for our project to examine not only differences with the Virginia population but also within the localities of Hampton Roads."),
+                                          p("Given its location, Hampton Roads has one of the world’s greatest natural harbors, with the ability to accommodate the largest cargo ships on the planet.  It is also known for its large military presence, shipping piers, and miles of waterfront property and beaches. Moreover, due to the diversity of the localities, Hampton Roads have a diverse set of natural resources assets ranging from 26 miles of Atlantic Ocean and Chesapeake Bay beaches, numerous state parks, wildlife refuges, Lake Drummond, and various rivers and waterways.")
+                                   ),
+                                   column(4,
+                                          h2(strong("Project Background")),
+                                          p("The Black Business Research Analytics Networking and Development (Black BRAND) is a non-profit organization operating in the Hampton Roads region. One goal of Black Brand, which was established in 2016, is to improve the values of the Black families and community within the region."),
+                                          p("Despite the overall economic growth in the United States, there is a significant Black-white wealth gap. In 2019, the median white household held $188,200 in wealth",  em("– 7.8 times"), "that of the typical Black household ($24,100). As such, Black BRAND wants to investigate the economic well-being of the Black community in Hampton Roads.  Moreover, given the recent increase in support for black businesses, it is important to determine whether this has resulted in any economic improvement for the Black community."),
+                                          p("Guided by our meetings with the Black BRAND stakeholders and Claud Anderson's PowerNomics model, there are five main pillars to measure the overall economic and social progress of the Black community in Hampton Roads."),
+                                          img(src = "Flowchart.png", style = "display:inline;margin-left: auto; margin-right: auto;", width="80%"),
+                                          p(), 
+                                          p("The focus of our project is on the first two pillars: ", strong("Education and Economics."))
                                    ),
                                    column(4,
                                           h2(strong("Project Goals")),
-                                          p("The primary goal of this project was to identify key economic and education indicators that collectively will produce an overview of the challenges facing the Black community in Hampton Roads.  
-                                            Identifying emerging patterns in these key areas will allow our stakeholders to plan strategic policies and initiatives to improve the economic wellbeing of the Black community.  "),
-                                          p(),
-                                          p("This dashboard compiles our findings and allows extension professionals, stakeholders, and other users to explore the information interactively.")
-                                   ),
-                                   column(4,
-                                          h2(strong("Our approach")),
                                           p("Guided by our meetings with the Black BRAND stakeholders and Claud Anderson’s PowerNomics model, our reach team identify two main pillars – education and economics – to measure the overall economic and social progress of the Black community in Hampton Roads")
                                    )
                           ),
@@ -316,54 +315,56 @@ ui <- navbarPage(title = "Hampton Roads",
 
                             tabPanel("Educational Attainment",
                                      fluidRow(
-                                              p("", style = "padding-top:50px;"),
-                                              #h1(strong("Educational Attainment")),
-                                              column(4,
-                                                     h4(strong("Educational Attainment")),
-                                                     p("A college degree is not only a 'requirement for most jobs', but leads to higher wages, financial security, and improvement in standard of living. In the U.S., there is an increasing trend of college attainment over the last decade. The ACS reports a similar trend for Virginia residents. 
-                                                       In 2010, 33.8% of Virginia residents aged 25 years or older had earned a bachelor’s degree or higher. This rate improved to 38.8% by 2019."),
-                                                     p("There are substantial differences in attainment rate for Black residents across the localities in Hampton Roads.  In 2019, four-year college degree rates ranged from a low of 9.8% (Poquoson) to a high of 34.8% (York).  
+                                       p("", style = "padding-top:40px;"),
+                                       column(4,
+                                              h4(strong("Graduating High School")),
+                                              h4(strong("College Degree")),
+                                              p("A college degree is not only a 'requirement for most jobs', but leads to higher wages, financial security, and improvement in standard of living. In the U.S., there is an increasing trend of college attainment over the last decade. The ACS reports a similar trend for Virginia residents. 
+                                                       In 2010, 33.8% of Virginia residents aged 25 years or older had earned a bachelor's degree or higher. This rate improved to 38.8% by 2019."),
+                                              p("There are substantial differences in attainment rate for Black residents across the localities in Hampton Roads.  In 2019, four-year college degree rates ranged from a low of 9.8% (Poquoson) to a high of 34.8% (York).  
                                                        Additionally, the differential rates between the general population and Black residents vary widely across localities by year and across years. 
                                                        Some of the largest gaps are found in 2019 in Williamsburg (39.6 percentage point difference) and Poquoson (33 percentage points). The shortest gap at the end of the decade was in Hampton at 1.2 percentage points.")                                                 
-                                              ),
-                                              column(8,
-                                                     h1(strong("Percentage of Hampton Roads Population 25 years and older with Bachelor's degree or higher"), align = "center"),
-                                                     p("", style = "padding-top:20px;"),
-                                                     selectInput("genEdAttainmentYearDrop", "Select Year:", width = "100%", choices = c(
-                                                       "2019", "2018", "2017", "2016", "2015", "2014", "2013",
-                                                       "2012", "2011", "2010"
-                                                     )
-                                                     ),
-                                                     withSpinner(plotlyOutput("genEdAttainmentPlots")),
-                                                     p(tags$small("*Note: Data missing for some years. ")),
-                                                     p(tags$small("Data Source: ACS 5 Year Estimate Tables C15002B (For Black Population), S1501 (For Total Population)"))
-                                                     
+                                       ),
+                                       column(8,
+                                              h1(strong("Educational Attainment"), align = "center"),
+                                              tabsetPanel(
+                                                #On-time Graduation Rate
+                                                tabPanel("High School Graduation",
+                                                         
+                                                         column(12,
+                                                                fluidRow(
+                                                                  p("", style = "padding-top:10px;"),
+                                                                  h4(strong("High School On-Time Graduation Rates in Hampton Roads"), align = "center"),
+                                                                  withSpinner(leafletOutput("dropout_map", width = "1000px")),
+                                                                  p(tags$small("Data Source: Virginia Department of Education")),
+                                                                  
+                                                                ))
+                                                ),
+                                                
+                                                tabPanel("Bachelor's Degree", p(""),
+                                                         fluidRow(
+                                                           p("", style = "padding-top:40x;"),
+                                                           h4(strong("Percentage of Hampton Roads Population 25 years and older with Bachelor's degree or higher"), align = "center"),
+                                                           selectInput("genEdAttainmentYearDrop", "Select Year:", width = "100%", choices = c(
+                                                             "2019", "2018", "2017", "2016", "2015", "2014", "2013",
+                                                             "2012", "2011", "2010"
+                                                           )
+                                                           ),
+                                                           withSpinner(plotlyOutput("genEdAttainmentPlots")),
+                                                           p(tags$small("*Note: Data missing for some years. ")),
+                                                           p(tags$small("Data Source: ACS 5 Year Estimate Tables C15002B (For Black Population), S1501 (For Total Population)"))
+                                                           
+                                                         ))
+                                                
                                               )
+                                       )
                                      )
                             ),
-                            
-
-                            #Drop Out Rate
-                            tabPanel("On-Time Graduation",
-                                     column(4,
-                                            h4(strong("Graduaton Rate")),
-                                     ),
-                                     column(8,
-                                            fluidRow(
-                                              h1(strong("High School On-Time Graduation Rates in Hampton Roads"), align = "center"),
-                                              withSpinner(leafletOutput("dropout_map")),
-                                              p(tags$small("Data Source: Virginia Department of Education")),
-
-                                              ))
-                                     )
-
-                            ,
 
                             tabPanel("Suspension",
                                      
                                      fluidRow(
-                                       p("", style = "padding-top:10px;"),
-                                       h1(strong("Short Term Suspension"), align = "center"),
+                                       p("", style = "padding-top:40px;"),
                                        column(4, h4(strong("Who is Being Punished?")), 
                                               p("The Virginia Department of Education refers to students being barred from attending school for at most 10 days.  We collected short-term suspension rate by race from Kids COUNT, Annie E. Casey which is defined as the total number of offenders of a certain race divided by the total number of students of that race for each locality. Rates include students from grades K - 12."), 
                                               p("Across Virginia, from academic years 2014-15 to 2018-19, the Black student suspension rate was consistently more than eight percentage points higher than White and Hispanic student rates. Black students were suspended between a relative low of 12.0 % in 2018-19 and a high of 13.6 % in 2016-17. In contrast, the highest suspension rate for White and Hispanic students was 3.8 % and 3.9 % respectively, both in 2016-17."), 
@@ -371,14 +372,17 @@ ui <- navbarPage(title = "Hampton Roads",
                                               p("To illustrate gaps between Black and White student suspension rates over time, we plot the percentage point difference between Black and White rates for each Hampton Roads locality that reported more than two years of data for students of both races.  Most localities showed a Black-White student suspension gap rate of between 5 and 14 percentage points over this time period. "), 
                                               p("Norfolk consistently showed the greatest racial suspension gap between students, ranging from a relative low of 12.8% in 2016-17, to a high gap of 14.1% in 2018-19.  York showed the smallest gap for three of the five years, followed by Gloucester for two years.")), 
                                        column(8,
+                                              h1(strong("Short Term Suspension"), align = "center"),
                                               tabsetPanel(
                                                 tabPanel("Suspension Rate", p(""),
-                                                         h4("Percent of Students Suspended Short-Term in Virginia", align = "center"),
+                                                         p("", style = "padding-top:10px;"),
+                                                         h4(strong("Percent of Students Suspended Short-Term in Virginia"), align = "center"),
                                                          withSpinner(plotlyOutput("suspension_line_graph")),
                                                          p(tags$small("Data Source: KIDS COUNT, Annie E. Casey Foundation"))
                                                 ),
                                                 tabPanel("Suspension Rate by Race", p(""),
-                                                         h4("Percent of Students Suspended Short-Term in Hampton Roads by Race", align = "center"),
+                                                         p("", style = "padding-top:10px;"),
+                                                         h4(strong("Percent of Students Suspended Short-Term in Hampton Roads by Race"), align = "center"),
                                                          selectInput("BWsuspensionYearDrop", "Select Year:", width = "100%", choices = c(
                                                            "2019", "2018", "2017", "2016", "2015")),
                                                          withSpinner(plotlyOutput("BW_map", height = "700px")),
@@ -386,7 +390,8 @@ ui <- navbarPage(title = "Hampton Roads",
                                                          p(tags$small("*Note: Black student data supressed for Mathews and Poquoson. Missing data for some years for Franklin for White student rates"))
                                                 ),
                                                 tabPanel("Suspension Gap", p(""),
-                                                         h4("Difference Between Black and White Student Short-Term Suspension", align = "center"),
+                                                         p("", style = "padding-top:10px;"),
+                                                         h4(strong("Difference Between Black and White Student Short-Term Suspension"), align = "center"),
                                                          withSpinner(plotlyOutput("suspensionGap", height = "700px")),
                                                          p(tags$small("Data Source: KIDS COUNT, Annie E. Casey Foundation"))
                                                 )
@@ -399,8 +404,8 @@ ui <- navbarPage(title = "Hampton Roads",
                                      
                                      
                             )
-                 ),
-                 
+                      ),
+                
                  navbarMenu(title="Economics",
                             #Median Income
                             tabPanel("Income",
@@ -426,13 +431,23 @@ ui <- navbarPage(title = "Hampton Roads",
                             #),
                             #Homeownership Map
                             tabPanel("Homeownership", 
-                                     fluidPage(
-                                       
-                                       column(4, h1(strong("Homeownership in Hampton Roads"), align = "center")),
+                                     fluidRow(
+                                       p("", style = "padding-top:20px;"),
+                                       column(4, h4(strong("Home Owners")),
+                                              p("We report homeownership rates in Hampton Roads. The interactive map includes both the percentage of homeowners defined as total homeowners/ total population and the percentage of black homeowners calculated as the total black homeowners/total Black population. 
+                                         The radio buttons at the top right of the map allow the user to view the percentage of Black homeowners across the localities in Hampton Roads."),
+                                              p("Homeownership improves individuals' long-term wealth. It also improves civic and political engagement, children's educational outcomes, and health behaviors. 
+                                          As such, we examine the rate of homeownership for the Black community in Hampton Roads."),
+                                              p("Regardless of locality, the Black population has a lower rate of homeownership than the general population. The disparity
+                                         is persistent for most counties/cities. In James City, there is a 23 percentage points difference between the general population and 
+                                         the Black population, with a 76% and 53.1% homeownership rate, respectively. For the other localities, differences range from 5 to 28 percentage points.
+                                         Poquoson was the only locality where the Black population had a greater homeownership rate than the general population.")
+                                       ),
                                        column(8,
+                                              h1(strong("Home Ownership in Hampton Roads"), align="center"),
                                               withSpinner(leafletOutput("homeownership_map")),
                                               p(tags$small("Data Source: ACS 5 Year Estimates Table S2505"))
-                                        ),
+                                       ),
                                      )),
                             
                             
@@ -450,15 +465,17 @@ ui <- navbarPage(title = "Hampton Roads",
                                          For example, in 2012, eight of the 16 localities top two sector was in retail trade. However, only two areas had retail trade in the top two industries indicating more economic diversity among the localities over time."),
                                               h5(strong ("Are there differences in the unemployment rate across localities?")),
                                               p("The unemployment rate for the Black population in Hampton Roads tends to be greater than the average rate in Virginia, regardless of time period. For example, in 2019, Franklin-which had the highest unemployment 
-                                         rate in the region- the unemployment rate for the black community was 14.9 % compared with Virginia’s average of 4.6%.  Moreover, regardless of localities, the Black community is more likely to be unemployed than the other residents.  In 2019, the Black population had a higher unemployment rate than their counterparts in very county and city in the Hampton Roads region, even in areas that were below the state’s average (Gloucester)."),
+                                         rate in the region- the unemployment rate for the black community was 14.9 % compared with Virginia's average of 4.6%.  Moreover, regardless of localities, the Black community is more likely to be unemployed than the other residents.  In 2019, the Black population had a higher unemployment rate than their counterparts in very county and city in the Hampton Roads region, even in areas that were below the state's average (Gloucester)."),
                                               p("While for some counties there has been a decline in unemployment rates across the decade (2010-2019) for Black households, there still exists some significant disparity for most counties/cities. One such example is Williamsburg County that in 2010 had a similar unemployment rate for both Blacks and the region residents, 6.0% and 6.1%, respectively. But by 2019, that gap widen significantly by 4.6 percentage points (the Black unemployment rate was 10.4% and the total population 5.8%)"),
                                               
                                               
                                        ),
                                        column(8,
+                                              h1(strong("Labor Market Characteristics"), align = "center"),
                                               tabsetPanel(
                                                 #Sector Employment
                                                 tabPanel("Industry Employment", 
+                                                         p("", style = "padding-top:10px;"),
                                                          h4(strong("Top Two Industry Sectors"), align = "center"),
                                                          fluidRow(p(""),
                                                                   selectInput("SectorEmploymentYearDrop", "Select Year:", width = "100%", choices = c(
@@ -472,77 +489,96 @@ ui <- navbarPage(title = "Hampton Roads",
                                                 ),
                                                 
                                                 tabPanel("Unemployment Rate",
-                                                         h1(strong("Unemployment Rate in Hampton Roads"), align = "center"),
+                                                         p("", style = "padding-top:10px;"),
+                                                         h4(strong("Unemployment Rate in Hampton Roads"), align = "center"),
                                                          withSpinner(plotlyOutput("unemployment_plot")),
+                                                         p(tags$small("*Note: Red dotted line represents Virgina's unemployment rate. Missing data for the Black population in Mathews and Poquoson")),
                                                          p(tags$small("Data Source: ACS 5 Year Estimates Table S2301")),
                                                          sliderInput("UnemploymentRateSlider", "Select Year", value = 2019, min = 2010, max = 2019, sep = "", width = "100%",
                                                                      animate=animationOptions(interval = 1400)),
                                                 ),
-                                                tabPanel("Unemployment Over Time",
-                                                         # fluidRow(
-                                                         #   box(width = 8, height = 800,
-                                                         #       img(src="unemployment_plot.gif", height='700', width='1200')
-                                                         #       )),
-                                                         
+                                                tabPanel("Unemployment Rate Trends",
                                                          fluidRow(width=12, height=550,
-                                                                  img(src="unemployment_plot.gif", height = "800", width="1200")
+                                                                  img(src="unemployment_plot.gif", height = "800", width="1100")
                                                                   
                                                          )
                                                 ))))
-                            ), 
+                            ),  
                             
                             #Poverty Rate
                             tabPanel("Poverty",
-                                     p("", style = "padding-top:50px;"),
-                                     column(4, h2(strong ("How does poverty rate in Hampton Roads compare to all of Virginia?")), 
-                                            p("", style = "padding-top:10px;"),
-                                            p("It is clear that regardless of location the Black population has borne a higher rate of poverty than other races by about 7-8 percentage points between 2012-2019. Still, Hampton Roads has endured somewhat higher rates over the years. In 2019, 11.3% of people in Hampton Roads were in poverty, 0.7 percentage points higher than in Virginia overall. And among the Black population, the gap (1.2 percentage points) was even wider. In 2012, the gaps were smaller, but since then has gotten wider, indicating a deterioration in economic circumstances, especially for the Black population."),
-                                            h5(strong ("Is poverty more prevalent in some counties or cities in Hampton Roads than others?")),
-                                            p("It appears that, even at the county or city level, the Black population is always more likely to be in poverty than other residents. The disparity has been pronounced and persistent for most counties/cities. Most notably, Mathews has experienced a poverty gap that has grown from about 6 percentage points in 2012 to 30 percentage points in 2019. On the other hand, some counties/cities have enjoyed a significant decline in poverty rates and gaps over time, notably Franklin City. The city had a poverty rate of roughly 36% among Blacks compared to 23% in its entire population in 2012. But by 2019, the rate decreased markedly for both groups to 22% and 15% respectively, – cutting the poverty gap by half over the 8-year period."),
-                                            
-                                     ),
-                                     column(8,
-                                            tabsetPanel(
-                                              tabPanel("Poverty Rates in Hampton and Virginia",
-                                                       selectInput("PovertyYearDrop", "Select Year:", width = "100%", choices = c(
-                                                         "2019","2018", "2017", "2016", "2015","2014",
-                                                         "2013","2012")),
-                                                       withSpinner(plotOutput("pov_plot")),
-                                                       p(tags$small("Data Source: ACS 5 Year Estimates Table S1701"))
-                                              ),
-                                              tabPanel("Poverty Rates in Hampton Roads Counties and Cities",
-                                                       selectInput("PovertyCountYearDrop", "Select Year:", width = "100%", choices = c(
-                                                         "2019","2018", "2017", "2016", "2015","2014",
-                                                         "2013","2012")),
-                                                       withSpinner(plotlyOutput("counties_pov")),
-                                                       p(tags$small("Data Source: ACS 5 Year Estimates Table S1701"))
-                                              ), 
+                                     fluidRow(
+                                       p("", style = "padding-top:50px;"),
+                                       column(4, h4(strong ("How does poverty rate in Hampton Roads compare to all of Virginia?")), 
+                                              p("", style = "padding-top:10px;"),
+                                              p("It is clear that regardless of location the Black population has borne a higher rate of poverty than other races by about 7-8 percentage points between 2012-2019. Still, Hampton Roads has endured somewhat higher rates over the years. In 2019, 11.3% of people in Hampton Roads were in poverty, 0.7 percentage points higher than in Virginia overall. And among the Black population, the gap (1.2 percentage points) was even wider. In 2012, the gaps were smaller, but since then has gotten wider, indicating a deterioration in economic circumstances, especially for the Black population."),
+                                              p("", style = "padding-top:10px;"),
+                                              h5(strong ("Is poverty more prevalent in some counties or cities in Hampton Roads than others?")),
+                                              p("It appears that, even at the county or city level, the Black population is always more likely to be in poverty than other residents. The disparity has been pronounced and persistent for most counties/cities. Most notably, Mathews has experienced a poverty gap that has grown from about 6 percentage points in 2012 to 30 percentage points in 2019. On the other hand, some counties/cities have enjoyed a significant decline in poverty rates and gaps over time, notably Franklin City. The city had a poverty rate of roughly 36% among Blacks compared to 23% in its entire population in 2012. But by 2019, the rate decreased markedly for both groups to 22% and 15% respectively, cutting the poverty gap by half over the 8-year period."),
                                               
-                                              tabPanel("Poverty Over Time", h1(strong("Poverty Over Time"), align = "center"),
-                                                       fluidRow(width=12, height=550,
-                                                                img(src="poverty.gif", height = "800", width="1200")
-                                                                
-                                                       )
+                                       ),
+                                       column(8,
+                                              h1(strong("Poverty Rates in Hampton Roads"), align = "center"),
+                                              tabsetPanel(
+                                                tabPanel("Poverty Rates",
+                                                         p("", style = "padding-top:10px;"),
+                                                         h4(strong("Poverty Rates across Hampton Roads and Virginia"), align = "center"),
+                                                         selectInput("PovertyYearDrop", "Select Year:", width = "100%", choices = c(
+                                                           "2019","2018", "2017", "2016", "2015","2014",
+                                                           "2013","2012")),
+                                                         withSpinner(plotOutput("pov_plot")),
+                                                         p(tags$small("Data Source: ACS 5 Year Estimates Table S1701"))
+                                                ),
+                                                tabPanel("Poverty Rates across Localities",
+                                                         p("", style = "padding-top:10px;"),
+                                                         h4(strong("Poverty Rates across Hampton Roads' Cities and Counties"), align = "center"),
+                                                         selectInput("PovertyCountYearDrop", "Select Year:", width = "100%", choices = c(
+                                                           "2019","2018", "2017", "2016", "2015","2014",
+                                                           "2013","2012")),
+                                                         withSpinner(plotlyOutput("counties_pov")),
+                                                         p(tags$small("Data Source: ACS 5 Year Estimates Table S1701"))
+                                                ), 
+                                                
+                                                tabPanel("Poverty Trends", 
+                                                         p("", style = "padding-top:10px;"),
+                                                         fluidRow(width=12, height=550,
+                                                                  img(src="poverty.gif", height = "800", width="1200")
+                                                                  
+                                                         )
+                                                )
+                                                
+                                                
                                               )
                                               
-                                              
-                                            )
-                                            
-                                     )       
-                                     
+                                       )       
+                                     )    
                                      
                             ), 
                             
                             #Uninsured Rates
-                            tabPanel("Uninsured Rates", 
-                                     column(4, h1(strong("Uninsured Rates"), align = "center")),
-                                     column(8,
-                                            fluidPage(
-                                              h1(strong("Health Insurance in Hampton Roads"), align = "center"),
-                                              withSpinner(plotlyOutput("uninsured_plot")),
-                                              p(tags$small("Data Source: ACS 5 Year Estimates Table S2701")),
-                                              sliderInput("UninsuredPctSlider", "Select Year", value = 2019, min = 2012, max = 2019, sep = "", width = "100%",
-                                                          animate=animationOptions(interval = 1400))),
+                            tabPanel("Health", 
+                                     fluidRow(
+                                       p("", style = "padding-top:50px;"),
+                                       column(4, h4(strong("Insurance Status In Hampton Roads")),
+                                              p("Health insurance is critical for preventative and emergency care and is considered a key component of financial security.  Since the Patient Protection and Affordable Care Act (ACA) passed in 2010, uninsured rates have fallen across the country. Similarly, the percentage rate for Virginias dropped from 12.3% in 2010 to 8.6% in 2019. 
+                                              The rates for Black Virginians were higher - in 2012, 15.4% were uninsured, whereas, in 2019, it was 10.1%. "),
+                                              p("The Black population of Hampton Roads showed similar trajectories to the national and state trends, with most localities showing a fairly linear falling trend.  The most dramatic change occurred in the later years, particularly in 2018 and 2019, when several localities almost or more than halved their Black uninsured rate.  
+                                              Most dramatically, in Franklin City, more than a quarter of the Black population (25.8%) was uninsured in 2012. By 2019, 7.3% were uninsured, a difference of 18.5 percentage points. "),
+                                              p("While almost all localities showed declines, many rates remained higher than the state average. 
+                                              Norfolk consistently remained above the state average (20.7% uninsured in 2012 to 13.8% in 2019) despite a decreasing trend. On the other hand, Chesapeake and Virginia Beach consistently had lower rates than state averages. York had by far the lowest rates over time for an area with proportional Black representation."),
+                                              p("Several exceptions to the general pattern also emerged. Mathews showed an increasing trend of Black residents uninsured, ranging from a relative low of 18.7% in 2013 to the highest level in 2019 at 32.4%. In stark contrast, all Black residents of Poquoson were consistently insured across the decade. Such differences may be due to the areas' small Black population. "),
+                                              p("Several important policy changes, as well as economic improvement following the Great Recession, may explain some of the patterns.  Full implementation of the ACA started in 2014, and in 2018 Virginia expanded Medicaid under the ACA.  Thus, there may be further improvements in future data.")
+                                              
+                                       ),
+                                       column(8,
+                                              fluidPage(
+                                                h1(strong("Health Uninsured Rates"), align = "center"),
+                                                withSpinner(plotlyOutput("uninsured_plot")),
+                                                sliderInput("UninsuredPctSlider", "Select Year", value = 2019, min = 2012, max = 2019, sep = "", width = "100%",
+                                                            animate=animationOptions(interval = 1400)),
+                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S2701"))),
+                                       )
+                                       
                                      )
                                      
                             ),
@@ -550,41 +586,67 @@ ui <- navbarPage(title = "Hampton Roads",
                             
                             #Veteran Status
                             
-                            tabPanel("Veteran", 
-                                     column(4, h1(strong("Veteran Status"), align = "center")),
-                                     column(8,
-                                            withSpinner(leafletOutput("veteran_map")),
-                                            p(tags$small("Data Source: ACS 5 Year Estimates Table S2101")),
-                                            sliderInput("VeteranSlider", "Select Year:", value = 2019, min = 2010, max = 2019, sep = "",  width = "100%")),
+                            tabPanel("Veterans",
+                                     fluidRow(
+                                       p("", style = "padding-top:50px;"),
+                                       column(4, h4(strong("Who has served in Hampton Roads?")),
+                                              p("Hampton Roads is rich in military bases and establishments. All branches of the U.S. military have bases or substantial presence, with Naval Station Norfolk being the largest naval station in the United States, if not the world [1].  Starting in the 1960s, Black Americans have been overrepresented in the United States Armed Services relative to their proportion of the population [2]. 
+                                       Among other benefits, many view the military as an economically cost-effective means to gain training and educational advancement.   "),
+                                              p("We report rates of Black veteran status as a percentage of the total Black population by locality. Percentages were calculated by dividing the Black veteran population by the total Black population for each locality.  
+                                       The radio buttons at the top right of the map allow the user to view military bases across Hampton Roads. "),
+                                              p("We report rates of Black veteran status as a percentage of the total Black population by locality. Percentages were calculated by dividing the Black veteran population by the total Black population for each locality.  The radio buttons at the top right of the map allow the user to view military bases across Hampton Roads."),
+                                              p("", style = "padding-top:40px;"),
+                                              p(tags$small("[1]  Hampton Roads Chamber of Commerce, 2021. Retrieved from:", a(href = "https://www.hrchamber.com/page/our-military/", "https://www.hrchamber.com/page/our-military/", target = "_blank"))),
+                                              p(tags$small("[2]. Ferguson, P. (2021).  U.S. Army. Retrieved from:", a(href = "https://www.army.mil/article/243604/african_american_service_and_racial_integration_in_the_u_s_military", "army.mil/article/243604/african_american_service_and_racial_integration_in_the_u_s_military", target = "_blank"))
+                                              ),
+                                              
+                                       ),
+                                       column(8,
+                                              fluidPage(
+                                                h1(strong("Veteran Status in Hampton Roads"), align = "center"),
+                                                withSpinner(leafletOutput("veteran_map")),
+                                                p(tags$small("Data Source: ACS 5 Year Estimates Table S2101")),
+                                                sliderInput("VeteranSlider", "Select Year:", value = 2019, min = 2010, max = 2019, sep = "",  width = "100%",
+                                                            animate=animationOptions(interval = 1200))),
+                                       )
+                                     )
                             ),
                             
                             tabPanel("Household Wellbeing",
-                                     column(4, h1(strong("Household Wellbeing"), align = "center"),
-                                            textOutput("description_text")),
-                                     column(8,
-                                            withSpinner(leafletOutput("wellbeing_maps")),
-                                            p(tags$small("Data Source: ACS 5 Year Estimates Table S0901, S2201, S0701, S1002, S1201, S0802, S2802")),
-                                            selectInput("select_wellbeing", "Select Indicator:", choices = c("Female Head of Household", "Foodstamps/SNAP Benefits", "County Migration", 
-                                                                                                   "Grandparent Guardian", "Married", "Private Transportation", "Public Transportation",
-                                                                                                    "Computer and Internet Access", "No Computer Access"))
-                                            
-                                            # column(8,
-                                            #        withSpinner(leafletOutput("wellbeing_maps")),
-                                            #        p(tags$small("Data Source: ACS 5 Year Estimates Table S0901, S2201, S0701, S1002, S1201, S0802, S2802")),
-                                            #        selectInput("select_wellbeing", "Select Indicator:", c("Female Head of Household" = "fml", "Foodstamps/SNAP Benefits" = "foodstmp", "County Migration" = "mobile", 
-                                            #                                                               "Grandparent Guardian" = "grand", "Married" = "married", "Private Transportation" = "priv_trans", "Public Transportation" = "pub_trans",
-                                            #                                                               "Computer and Internet Access" = "compin", "No Computer Access" = "nocomp"))
-                                            )
+                                     fluidRow(
+                                       p("", style = "padding-top:20px;"),
+                                       column(4, 
+                                              h4(strong("Household Well-being Characteristics")),
+                                              p("", style = "padding-top:10px;"),
+                                              p("We retrived several indicators using the 2019 5-year ACS estimates to examine the well-being of Black households in Hampton Roads. These characteristics
+                                               are presented using interactive maps. Clicking on the tabs and selecting a variable populates the map. Hovering over the map displays the percentage of Black residents living
+                                                in a specific city/county with the selected characteristics. "),
+                                              p("", style = "padding-top:20px;"),
+                                              tags$ul(
+                                                tags$li(("The interactive map shows:")),
+                                                p("", style = "padding-top:20px;"),
+                                                textOutput("description_text"))
+                                       ),
+                                       column(8,
+                                              fluidPage(
+                                                h1(strong("Household Characteristics"), align = "center"),
+                                                selectInput("select_wellbeing", "Select Indicator:", width = "100%", choices = c("Percent of Black Households Receiving Foodstamps/SNAP Benefits", "Percent of Black Children under 18 in Female Head of Household", "Percent of Married Black Population 15 years and over", "Percent of Black Grandparents who are Guardians",
+                                                                                                                                 "Percent of Black County Migration","Percent of Black Population that uses car/truck/van to get to work", "Percent of Black Population that uses public transportation to get to work",
+                                                                                                                                 "Percent of Black Households with a computer with broadband internet", "Percent of Black Households without a computer")),
+                                                withSpinner(leafletOutput("wellbeing_maps")),
+                                                p(tags$small("Data Source: ACS 5 Year Estimates Tables: S0901, S2201, S0701, S1002, S1201, S0802, S2802")),
+                                                
+                                              )
+                                       )
+                                     )
+                            )
                             
-                            
-                 )
-                 
                  ),
                  
                  tabPanel("Hampton Team", value = "team",
                          fluidRow(column(3),
                                             column(6,
-                                                   h2(strong("Virginia Tech Data Science for the Public Good") , align = "center"),
+                                                   h4(strong("Virginia Tech Data Science for the Public Good") , align = "center"),
                                                    p("The", a(href = 'https://aaec.vt.edu/academics/undergraduate/beyond-classroom/dspg.html', 'Data Science for the Public Good (DSPG) Young Scholars program', target = "_blank"), 
                                                      "is a summer immersive program held at the", a(href = 'https://aaec.vt.edu/s', 'Virginia Tech Department of Agricultural and Applied Economics.'), 
                                                      "In its second year, the program engages students from across the country to work together on projects that address state, federal, and local government challenges around critical social issues relevant in the world today. DSPG young scholars conduct research at the intersection of statistics, computation, and the social sciences to determine how information generated within every community can be leveraged to improve quality of life and inform public policy. For more information on program highlights, how to apply, and our annual symposium, please visit", a(href = 'https://aaec.vt.edu/academics/undergraduate/beyond-classroom/dspg.html', 'the official VT DSPG website.', target = "_blank")),
@@ -3770,13 +3832,13 @@ server <- function(input, output, session) {
   })
   
 
-# Household Wellbeing -----------------------------------------------------
+  # Household Wellbeing -----------------------------------------------------
   var_well <- reactive({
     input$select_wellbeing
   })
   
   output$wellbeing_maps <- renderLeaflet({
-    if(var_well() == "Female Head of Household") {
+    if(var_well() == "Percent of Black Children under 18 in Female Head of Household") {
       fml <- read_rds("data/fml.rds")
       colnames(fml)[4] <- "Percent"
       fempal <- colorNumeric(palette = "viridis", domain = fml$Percent, reverse = TRUE)
@@ -3786,7 +3848,7 @@ server <- function(input, output, session) {
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(color = ~ fempal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
-                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+                    label = ~paste0(NAME, " - ", variable, ": ", Percent, "%")) %>% 
         addLegend("topleft",
                   pal = fempal,
                   values = ~ Percent,
@@ -3795,7 +3857,7 @@ server <- function(input, output, session) {
                   opacity = 1)
     }
     
-    else if(var_well() == "Foodstamps/SNAP Benefits"){
+    else if(var_well() == "Percent of Black Households Receiving Foodstamps/SNAP Benefits"){
       
       foodstmp <- read_rds("data/foodstmp.rds")
       colnames(foodstmp)[4] <- "Percent"
@@ -3806,7 +3868,7 @@ server <- function(input, output, session) {
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(color = ~ foodpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
-                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+                    label = ~paste0(NAME, " - ", variable, ": ", Percent, "%")) %>% 
         addLegend("topleft",
                   pal = foodpal,
                   values = ~ Percent,
@@ -3815,7 +3877,7 @@ server <- function(input, output, session) {
                   opacity = 1)
     }
     
-    else if(var_well() == "County Migration"){
+    else if(var_well() == "Percent of Black County Migration"){
       
       mobile <- read_rds("data/mobile.rds")
       colnames(mobile)[4] <- "Percent"
@@ -3826,7 +3888,7 @@ server <- function(input, output, session) {
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(color = ~ mobpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
-                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+                    label = ~paste0(NAME, "", variable, ": ", Percent, "%")) %>% 
         addLegend("topleft",
                   pal = mobpal,
                   values = ~ Percent,
@@ -3836,7 +3898,7 @@ server <- function(input, output, session) {
       
     }
     
-    else if(var_well() == "Grandparent Guardian"){
+    else if(var_well() == "Percent of Black Grandparents who are Guardians"){
       
       grand <- read_rds("data/grand.rds")
       colnames(grand)[4] <- "Percent"
@@ -3847,7 +3909,7 @@ server <- function(input, output, session) {
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(color = ~ grandpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
-                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+                    label = ~paste0(NAME, " - ", variable, ": ", Percent, "%")) %>% 
         addLegend("topleft",
                   pal = grandpal,
                   values = ~ Percent,
@@ -3856,7 +3918,7 @@ server <- function(input, output, session) {
                   opacity = 1)
     }
     
-    else if(var_well() == "Married"){
+    else if(var_well() == "Percent of Married Black Population 15 years and over"){
       married <- read_rds("data/married.rds")
       colnames(married)[4] <- "Percent"
       marriedpal <- colorNumeric(palette = "viridis", domain = married$Percent, reverse = TRUE)
@@ -3866,7 +3928,7 @@ server <- function(input, output, session) {
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(color = ~ marriedpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
-                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+                    label = ~paste0(NAME, " - ", variable, ": ", Percent, "%")) %>% 
         addLegend("topleft",
                   pal = marriedpal,
                   values = ~ Percent,
@@ -3875,7 +3937,7 @@ server <- function(input, output, session) {
                   opacity = 1)
     }
     
-    else if(var_well() == "Private Transportation"){
+    else if(var_well() == "Percent of Black Population that uses car/truck/van to get to work"){
       priv_trans <- read_rds("data/priv_trans.rds")
       colnames(priv_trans)[4] <- "Percent"
       priv_transpal <- colorNumeric(palette = "viridis", domain = priv_trans$Percent, reverse = TRUE)
@@ -3885,7 +3947,7 @@ server <- function(input, output, session) {
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(color = ~ priv_transpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
-                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+                    label = ~paste0(NAME, " - ", variable, ": ", Percent, "%")) %>% 
         addLegend("topleft",
                   pal = priv_transpal,
                   values = ~ Percent,
@@ -3894,7 +3956,7 @@ server <- function(input, output, session) {
                   opacity = 1)
     }
     
-    else if(var_well() == "Public Transportation"){
+    else if(var_well() == "Percent of Black Population that uses public transportation to get to work"){
       pub_trans <- read_rds("data/pub_trans.rds")
       colnames(pub_trans)[4] <- "Percent"
       pub_transpal <- colorNumeric(palette = "viridis", domain = pub_trans$Percent, reverse = TRUE)
@@ -3904,7 +3966,7 @@ server <- function(input, output, session) {
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(color = ~ pub_transpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
-                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+                    label = ~paste0(NAME, " - ", variable, ": ", Percent, "%")) %>% 
         addLegend("topleft",
                   pal = pub_transpal,
                   values = ~ Percent,
@@ -3914,7 +3976,7 @@ server <- function(input, output, session) {
       
     }
     
-    else if(var_well() == "Computer and Internet Access"){
+    else if(var_well() == "Percent of Black Households with a computer with broadband internet"){
       compin <- read_rds("data/compin.rds")
       colnames(compin)[4] <- "Percent"
       compinpal <- colorNumeric(palette = "viridis", domain = compin$Percent, reverse = TRUE)
@@ -3924,7 +3986,7 @@ server <- function(input, output, session) {
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(color = ~ compinpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
-                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+                    label = ~paste0(NAME, " - ", variable, ": ", Percent, "%")) %>% 
         addLegend("topleft",
                   pal = compinpal,
                   values = ~ Percent,
@@ -3933,7 +3995,7 @@ server <- function(input, output, session) {
                   opacity = 1)
     }
     
-    else if(var_well() == "No Computer Access"){
+    else if(var_well() == "Percent of Black Households without a computer"){
       nocomp <- read_rds("data/nocomp.rds")
       colnames(nocomp)[4] <- "Percent"
       nocomppal <- colorNumeric(palette = "viridis", domain = nocomp$Percent, reverse = TRUE)
@@ -3943,7 +4005,7 @@ server <- function(input, output, session) {
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(color = ~ nocomppal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
-                    label = ~paste0(NAME, "</br>", variable, ": ", Percent, "%")) %>% 
+                    label = ~paste0(NAME, " - ", variable, ": ", Percent, "%")) %>% 
         addLegend("topleft",
                   pal = nocomppal,
                   values = ~ Percent,
@@ -3958,44 +4020,72 @@ server <- function(input, output, session) {
   })
   
   output$description_text <- renderText({
-  if(var_welltext() == "Female Head of Household"){
-    "Female Head of Household Description"
-  }
-  
-  else if(var_welltext() == "Foodstamps/SNAP Benefits"){
-    "Foodstamps Description"
-  }
-  
-  else if(var_welltext() == "County Migration"){
-    "County Migration Description"
-  }
-  
-  else if(var_welltext() == "Grandparent Guardian"){
-    "Grandparent Guardian Description"
-  }
-  
-  else if(var_welltext() == "Married"){
-    "Married Description"
-  }
-  
-  else if(var_welltext() == "Private Transportation"){
-    "Private Transportation Description"
-  }
-  
-  else if(var_welltext() == "Public Transportation"){
-    "Public Transportation Description"
-  }
-  
-  else if(var_welltext() == "Computer and Internet Access"){
-    "Computer and Internet Access Description"
-  }
-  
-  else if(var_welltext() == "No Computer Access"){
-    "No Computer Access Description"
-  }
+    if(var_welltext() == "Percent of Black Children under 18 in Female Head of Household"){
+      "Percentage of Black Children under the age of 18 that live in a female-headed household. We included this indicator as research has shown that female-headed households have
+    a greater risk of poverty and are more likely to be food-insecure. In Hampton Roads, regardless of location, majority of Black households with children under 18 have a female as the head.  For 7 of the 11 areas, over 50% of Black households 
+    for which data is available, is led by a female. This may suggest some family instability for half of the black children in the Hampton Roads region."
+    }
+    
+    else if(var_welltext() == "Percent of Black Households Receiving Foodstamps/SNAP Benefits"){
+      "The percentage of Black Households receiving Food stamps or SNAP Benefits across the localities of Hampton Roads.
+     More than half (54.3%) of the total Black population in Hampton Roads receive one of these welfare programs. There are also considerable 
+    variabilities across localities - in Franklin, approximately 92% received food stamps/SNAP benefits, in contrast to 12% in Gloucester 
+    (the lowest number of recipients in Hampton Roads). "
+    }
+    
+    else if(var_welltext() == "Percent of Black County Migration"){
+      "Percent of Black population that moved within state but from a different county. There seems to be low mobility across counties and cities in the Hampton Roads region.
+    Migration rates ranged from as low as 0.4% to a high of 14.7%. "
+    }
+    
+    else if(var_welltext() == "Percent of Black Grandparents who are Guardians"){
+      "Percent distribution of Black grandparents who live with grandchildren who are responsible for said grandchildren.
+    Grandparents becoming principal guardians for their grandchildren suggest economic distress for families, as such, we included this indicator in our analysis.
+    There are some differences in this distribution across the cities and counties in Hampton Roads.  For example, of those Black grandparents who live 
+    with their own grandchildren, 80% of them are responsible for their grandchildren in Franklin, whereas in Gloucester, the rate is a low 4.8%."   
+      
+    }
+    
+    else if(var_welltext() == "Percent of Married Black Population 15 years and over"){
+      "The percentage of the Black population 15 years and over who are married. The literature shows that married households tend to be less impoverished and are more 
+    economically stable and stable. Except for York, Gloucester, Chesapeake (about 50%), there is a low marriage rate among the Black population. Marriage rates range from as low as 
+    20% (Norfolk) to 51% (Chesapeake), with the average rate being around 35%. "
+      
+    }
+    
+    else if(var_welltext() == "Percent of Black Population that uses car/truck/van to get to work"){
+      "Percent distribution of the Black population that uses a car/truck/van to get to work. We included this indicator as reliable transportation
+     can improve economic efficiency (due to access to more jobs, childcare facilities, etc.) and even access to healthcare (e.g., appointments, emergency care). 
+     Approximately 50% of the Black population uses private transportation to get to work  in Portsmouth. This is relatively high compared to Gloucester,
+    where only 8.4% uses similar transportation for work. " 
+    }
+    
+    else if(var_welltext() == "Percent of Black Population that uses public transportation to get to work"){
+      "Percent distribution of the Black population that uses public transportation to work. We included this indicator as public transportation at times may be unreliable,
+    increasing economic inequality. Majority of the Black population in Hampton Roads uses public transportation in order to get work. However, there are some differences
+    across localities - a high of 94% in Southampton to a low of 14% in Gloucester."
+    }
+    
+    else if(var_welltext() == "Percent of Black Households with a computer with broadband internet"){
+      "Percent of the Black population with a computer that has a broadband internet subscription. The internet and digital devices have become an
+   essential component of everyday life. Such access can exacerbate educational and economic inequality, 
+   thus it is important to understand how the Black community in Hampton Roads engages in these technologies. Despite the rapid usage of technology, 
+    there are some significant disparities with the Hampton Roads region. 
+    For instance, over 90% of Black households had a computer with a broadband internet subscription in York compared to a low of 66% in James City."
+    }
+    
+    else if(var_welltext() == "Percent of Black Households without a computer"){
+      "Percent of the Black population without a computer. The internet and digital devices have become an
+   essential component of everyday life. Such access can exacerbate educational and economic inequality, 
+   thus it is important to understand how the Black community in Hampton Roads engages in these technologies. While the percent of Black households in Hampton Roads 
+   without a computer is low, the percentage is surprising given the rapid usage of technology. In 2019, the average White household without a computer was 6%, however, for 
+   the same period 11 of the 16 localities had a greater percentage of Black households without access - with a high of 76%, 39%, and 16% in Poquoson, Mathews, and 
+   Franklin, respectively."
+    }
   })
-
+  
   
 }
+
 
 shinyApp(ui = ui, server = server)
