@@ -119,7 +119,25 @@ ui <- navbarPage(title = "Hampton Roads",
                                    ),
                                    column(4,
                                           h2(strong("Project Goals")),
-                                          p("Guided by our meetings with the Black BRAND stakeholders and Claud Anderson’s PowerNomics model, our reach team identify two main pillars – education and economics – to measure the overall economic and social progress of the Black community in Hampton Roads")
+                                          p("Our team aims to create a dashboard that shows the state of the Black community in the Hampton Roads region.  This will enable stakeholders to understand the myriad of past and current factors that affect the economic and social progress of Black households in Hampton. As such, data-driven recommendations can be made to improve the well-being of residents of the region."),
+                                          p("We identified, acquired, and used publicly available data to provide our stakeholders, Black BRAND, with a dashboard that shows a combined view of multiple indicators for the two pillars: Education and Economics."), 
+                                          p("For the Education pillar, we utilized indicators across three main areas: "),
+                                          tags$ul(
+                                            tags$li("Educators"),
+                                            tags$li("Educational Attainment"),
+                                            tags$li("Suspension")
+                                          ),
+                                        p(),
+                                        p("Under the Economics pillar, we collected indicators for four distinct issues:"),
+                                        tags$ul(
+                                          tags$li("Income/Wealth"),
+                                          tags$li("Labor Market"),
+                                          tags$li("Homeownership"),
+                                          tags$li("Health"), 
+                                          tags$li("Household Wellbeing")
+                                        ),
+                                        p("We conducted a cross-comparison analysis with our indicators across the counties and cities in Hampton Roads.  Our project also compares the Black population against general population in Hampton Roads to determine whether racial differences exist within each locality. Moreover, we also present information for the general population in Virginia."),
+                                        p("The dashboard compiles our findings and allows our stakeholders, and other interested users to explore the information dynamically.")
                                    )
                           ),
                           fluidRow(align = "center",
