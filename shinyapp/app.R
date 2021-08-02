@@ -127,17 +127,17 @@ ui <- navbarPage(title = "Hampton Roads",
                                             tags$li("Educational Attainment"),
                                             tags$li("Suspension")
                                           ),
-                                        p(),
-                                        p("Under the Economics pillar, we collected indicators for four distinct issues:"),
-                                        tags$ul(
-                                          tags$li("Income/Wealth"),
-                                          tags$li("Labor Market"),
-                                          tags$li("Homeownership"),
-                                          tags$li("Health"), 
-                                          tags$li("Household Wellbeing")
-                                        ),
-                                        p("We conducted a cross-comparison analysis with our indicators across the counties and cities in Hampton Roads.  Our project also compares the Black population against general population in Hampton Roads to determine whether racial differences exist within each locality. Moreover, we also present information for the general population in Virginia."),
-                                        p("The dashboard compiles our findings and allows our stakeholders, and other interested users to explore the information dynamically.")
+                                          p(),
+                                          p("Under the Economics pillar, we collected indicators for four distinct issues:"),
+                                          tags$ul(
+                                            tags$li("Income/Wealth"),
+                                            tags$li("Labor Market"),
+                                            tags$li("Homeownership"),
+                                            tags$li("Health"), 
+                                            tags$li("Household Wellbeing")
+                                          ),
+                                          p("We conducted a cross-comparison analysis with our indicators across the counties and cities in Hampton Roads.  Our project also compares the Black population against general population in Hampton Roads to determine whether racial differences exist within each locality. Moreover, we also present information for the general population in Virginia."),
+                                          p("The dashboard compiles our findings and allows our stakeholders, and other interested users to explore the information dynamically.")
                                    )
                           ),
                           fluidRow(align = "center",
@@ -171,28 +171,28 @@ ui <- navbarPage(title = "Hampton Roads",
                                                 tags$li("York County"),
                                               ),
                                        ),
-                                     #          p("City of Chesapeake"),
-                                     #          p("City of Franklin"),
-                                     #          p("City of Hampton"),
-                                     #          p("City of Newport News"),
-                                     #          p("City of Norfolk"),
-                                     #          p("City of Poquoson"),
-                                     #          p("City of Portsmouth"),
-                                     #          p("City of Suffolk"),
-                                     #          p("City of Virginia Beach"),
-                                     #          p("City of Williamsburg"),
-                                     #          p("Gloucester County"),
-                                     #          p("Isle of Wight County"),
-                                     #          p("James City County"),
-                                     #          p("Mathews County"),
-                                     #          p("Southampton County"),
-                                     #          p("York County") )
-                                     # ),
+                                       #          p("City of Chesapeake"),
+                                       #          p("City of Franklin"),
+                                       #          p("City of Hampton"),
+                                       #          p("City of Newport News"),
+                                       #          p("City of Norfolk"),
+                                       #          p("City of Poquoson"),
+                                       #          p("City of Portsmouth"),
+                                       #          p("City of Suffolk"),
+                                       #          p("City of Virginia Beach"),
+                                       #          p("City of Williamsburg"),
+                                       #          p("Gloucester County"),
+                                       #          p("Isle of Wight County"),
+                                       #          p("James City County"),
+                                       #          p("Mathews County"),
+                                       #          p("Southampton County"),
+                                       #          p("York County") )
+                                       # ),
                                        column(7,
                                               h3(strong("Localities of Hampton Roads"), align = "center"),
                                               withSpinner((plotOutput("hampton_counties_map", width ="100%", height = "600px")))
                                        ),
-                            )),
+                                     )),
                             
                             tabPanel("Sociodemographics",
                                      fluidRow(style = "margin: 6px;",
@@ -310,26 +310,26 @@ ui <- navbarPage(title = "Hampton Roads",
                                           p("We explore two main pillars to examine the economic and social well-being of the Black community in Hampton Roads."),
                                           p(strong("Education:"), "We examine the disparities education by examining data surrounding educational attainment (high-school and college), educators by racial group, and suspension rate."),
                                           img(src = 'education.png', style = "display: inline; float: left;"),
-                                  ),
-                                  
-                                  column(4,  
-                                         p(),
-                                         p(),
-                                         p(),
-                                         p(strong("Economics:"), "We examine the wealth/income gap including homeownership, labor market characteristics, health behavior and the well-being of households (including number of female-headed household and the number of welfare recipients)."),
-                                         p(),
-                                         p(),
-                                         img(src = 'economic.png', style = "display: inline; float: left;", height = "300px"),
-                                  )
-                                          
+                                   ),
+                                   
+                                   column(4,  
+                                          p(),
+                                          p(),
+                                          p(),
+                                          p(strong("Economics:"), "We examine the wealth/income gap including homeownership, labor market characteristics, health behavior and the well-being of households (including number of female-headed household and the number of welfare recipients)."),
+                                          p(),
+                                          p(),
+                                          img(src = 'economic.png', style = "display: inline; float: left;", height = "300px"),
+                                   )
+                                   
                           )
                           
                  ),
-
-
+                 
+                 
                  # Education Indicators ----------------------------------------------------
-
-
+                 
+                 
                  navbarMenu(title="Education",
                             #Educator Demographics
                             tabPanel("Educators",
@@ -353,18 +353,18 @@ ui <- navbarPage(title = "Hampton Roads",
                                               p(tags$small("[2].  Virginia Department of Education, Virginia Educator Ethnicity and Race Data, https://doe.virginia.gov/teaching/workforce_data/index.shtml; U.S Census QuickFacts, https://www.census.gov/quickfacts/fact/table/VA,US/PST045219.")),
                                        ),
                                        column(8,
-                                                         h1(strong("Educator by Racial and Ethnic Groups"), align = "center"),
-                                                         p("", style = "padding-top:20px;"),
-                                                         selectInput("teacherRaceBreakdown", "Select Race:", width = "100%", choices = c(
-                                                           "Black", "White", "American Indian", "Asian", "Hawaiian", "Two or More Races", "Hispanic"
-                                                         )),
-                                                         withSpinner(plotlyOutput("teacherRacePlots")),
-                                                         p(tags$small("*Note: Missing bar reflects 0 teachers for that locality's racial/ethnic group. Williamsburg and James City educator data were combined from the source dataset. ")),
-                                                         p(tags$small("Source: Virginia DOE, Virginia 2020-2021 Teacher Race Report"))
-                                                ))
+                                              h1(strong("Educator by Racial and Ethnic Groups"), align = "center"),
+                                              p("", style = "padding-top:20px;"),
+                                              selectInput("teacherRaceBreakdown", "Select Race:", width = "100%", choices = c(
+                                                "Black", "White", "American Indian", "Asian", "Hawaiian", "Two or More Races", "Hispanic"
+                                              )),
+                                              withSpinner(plotlyOutput("teacherRacePlots")),
+                                              p(tags$small("*Note: Missing bar reflects 0 teachers for that locality's racial/ethnic group. Williamsburg and James City educator data were combined from the source dataset. ")),
+                                              p(tags$small("Source: Virginia DOE, Virginia 2020-2021 Teacher Race Report"))
+                                       ))
                                      
                             ),
-
+                            
                             tabPanel("Educational Attainment",
                                      fluidRow(
                                        p("", style = "padding-top:40px;"),
@@ -417,7 +417,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                        )
                                      )
                             ),
-
+                            
                             tabPanel("Suspension",
                                      
                                      fluidRow(
@@ -461,8 +461,8 @@ ui <- navbarPage(title = "Hampton Roads",
                                      
                                      
                             )
-                      ),
-                
+                 ),
+                 
                  navbarMenu(title="Economics",
                             #Median Income
                             tabPanel("Income",
@@ -484,7 +484,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                      p(tags$small("Data Source: ACS 5 Year Estimates Table S1903"))
                                               )
                                      )),
-                           
+                            
                             #),
                             #Homeownership Map
                             tabPanel("Homeownership", 
@@ -705,75 +705,71 @@ ui <- navbarPage(title = "Hampton Roads",
                           fluidRow(
                             p("", style = "padding-top:20px;"),
                             column(4, 
-                                   h4(strong("Recommendations")),
+                                   h2(strong("Recommendations")),
                                    p("", style = "padding-top:10px;"),
-                                   p("General Blurb"),
-                                   p("", style = "padding-top:20px;"),
-                                   tags$ul(
-                                     tags$li(("Hampton Roads Rankings Reveal:")),
-                                     p("", style = "padding-top:20px;"),
-                                     withSpinner(textOutput("ranked_text")))
-                          ),
-                          column(8,
-                                 fluidPage(
-                                   h1(strong("Hampton Roads Rankings"), align = "center"),
-                                   selectInput("select_rank", "Select Indicator:", width = "100%", choices = c("Median Income", "Poverty Rate", "Unemployment Rate", "Health Uninsured",
-                                                                                                                    "Home Ownership","Suspension", "Bachelors Degree",
-                                                                                                                    "Percentage of Black Children under 18 in Female Headed Household", 
-                                                                                                                    "Percent of Black Households without a computer", "Percentage of Black Population that uses car/truck/van for work")),
-                                   withSpinner(plotlyOutput("ranked_chart")),
-                                   p(tags$small("Data Source: ACS 5 Year Estimates Tables: ")),
+                                   p("General Blurb")
                                    
-                                 )
-                          ))),
-                 
-                 tabPanel("Hampton Team", value = "team",
-                         fluidRow(column(3),
-                                            column(6,
-                                                   h4(strong("Virginia Tech Data Science for the Public Good") , align = "center"),
-                                                   p("The", a(href = 'https://aaec.vt.edu/academics/undergraduate/beyond-classroom/dspg.html', 'Data Science for the Public Good (DSPG) Young Scholars program', target = "_blank"), 
-                                                     "is a summer immersive program held at the", a(href = 'https://aaec.vt.edu/s', 'Virginia Tech Department of Agricultural and Applied Economics.'), 
-                                                     "In its second year, the program engages students from across the country to work together on projects that address state, federal, and local government challenges around critical social issues relevant in the world today. DSPG young scholars conduct research at the intersection of statistics, computation, and the social sciences to determine how information generated within every community can be leveraged to improve quality of life and inform public policy. For more information on program highlights, how to apply, and our annual symposium, please visit", a(href = 'https://aaec.vt.edu/academics/undergraduate/beyond-classroom/dspg.html', 'the official VT DSPG website.', target = "_blank")),
-                                                   #p("", style = "padding-top:10px;")
-                                            )
-                                            
-                                   ),
-                                   fluidRow(
-                                     column(2),
-                                     column(2, align = "center",
-                                            h4(strong("Graduate Fellow")), tags$br(),
-                                            tags$br(), img(src = "fellow-seth.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width="45%", height="45%"),
-                                            tags$br(), p(a(href = 'https://www.linkedin.com/in/aviseth/', 'Avi Seth', target = '_blank'), "(Virginia Tech, Computer Science)")
-                                     ),
-                                     column(2, align = "center",
-                                            h4(strong("Undergraduate Interns")), tags$br(),
-                                            img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                                            p(a(href = 'https://www.linkedin.com/in/matthew-burkholder-297b9119a/', 'Matthew Burkholder', target = '_blank'), "(Virginia Tech, Philosophy, Politics, & Economics)"), tags$br(),
-                                            img(src = "VictorMukoraHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
-                                            p(a(href = "www.linkedin.com/in/victormukora", 'Victor Mukora', target = '_blank'), "(Virginia Tech, Department of Computational Modeling and Data Analytics)"), tags$br(),
-                                            img(src = "Christina_Prisbe_Headshot.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
-                                            p(a(href = "https://www.linkedin.com/in/christina-prisbe-60966b218/?midToken=AQGZJw6kSGscnQ&midSig=0iRgRUj5PNWpQ1&trk=eml-email_m2m_invite_single_01-hero-4-prof%7Ecta&trkEmail=eml-email_m2m_invite_single_01-hero-4-prof%7Ecta-null-ec0b8k%7Ekrp4eqqv%7E3v-null-neptune%2Fprofile%7Evanity%2Eview", 'Christina Prisbe', target = '_blank'), "(Virginia Tech, Department of Computational Modeling and Data Analytics)"), tags$br(),
-                                            img(src = "kwabe.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
-                                            p(a(href = "https://www.linkedin.com/in/kb1999/", 'Kwabe Boateng', target = '_blank'), "(Virginia State University, College of Engineering and Technology)"),
-                                            
-                                     ),
-                                     column(2, align = "center",
-                                            h4(strong("Faculty Advisors")), tags$br(),
-                                            img(src = "Dr_Holmes.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", height = "150px", width = "150px"),  tags$br(),
-                                            p(a(href = 'https://aaec.vt.edu/people/faculty/holmes-chanita.html', 'Dr. Chanita Holmes', target = '_blank'), "(Virginia Tech, Department of Agricultural and Applied Economics)"),  tags$br(),
-                                            img(src = "Dr_Bradburn.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", height = "150px", width = "150px"),  tags$br(),
-                                            p(a(href = 'https://liberalarts.vt.edu/departments-and-schools/department-of-human-development-and-family-science/faculty/isabel-bradburn.html', 'Dr. Isabel Bradburn', target = '_blank'), "(Virginia Tech, Department of Human Development and Family Science)"),  tags$br()
-                                     ),
-                                     
-                                     column(2, align = "center",
-                                            h4(strong("Stakeholders")), tags$br(),
-                                            img(src = "MalloryTuttle.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
-                                            p(a(href = 'https://www.linkedin.com/in/mallory-taylor-tuttle/', 'Mallory Tuttle', target = '_blank'), "(Associate Director Virginia Tech Hampton Roads Centers)"), tags$br()
-                                     )
+                            ),
+                            column(8,
+                                   fluidPage(
+                                     h1(strong("Hampton Roads Rankings"), align = "center"),
+                                     selectInput("select_rank", "Select Indicator:", width = "100%", choices = c("Median Income", "Poverty Rate", "Unemployment Rate", "Health Uninsured",
+                                                                                                                 "Home Ownership","Suspension", "Bachelors Degree",
+                                                                                                                 "Percentage of Black Children under 18 in Female Headed Household", 
+                                                                                                                 "Percent of Black Households without a computer", "Percentage of Black Population that uses car/truck/van for work")),
+                                     withSpinner(plotlyOutput("ranked_chart")),
+                                     p(tags$small("Data Source: ACS 5 Year Estimates Tables: ")),
                                      
                                    )
+                            ))),
+                 
+                 tabPanel("Hampton Team", value = "team",
+                          fluidRow(column(3),
+                                   column(6,
+                                          h4(strong("Virginia Tech Data Science for the Public Good") , align = "center"),
+                                          p("The", a(href = 'https://aaec.vt.edu/academics/undergraduate/beyond-classroom/dspg.html', 'Data Science for the Public Good (DSPG) Young Scholars program', target = "_blank"), 
+                                            "is a summer immersive program held at the", a(href = 'https://aaec.vt.edu/s', 'Virginia Tech Department of Agricultural and Applied Economics.'), 
+                                            "In its second year, the program engages students from across the country to work together on projects that address state, federal, and local government challenges around critical social issues relevant in the world today. DSPG young scholars conduct research at the intersection of statistics, computation, and the social sciences to determine how information generated within every community can be leveraged to improve quality of life and inform public policy. For more information on program highlights, how to apply, and our annual symposium, please visit", a(href = 'https://aaec.vt.edu/academics/undergraduate/beyond-classroom/dspg.html', 'the official VT DSPG website.', target = "_blank")),
+                                          #p("", style = "padding-top:10px;")
+                                   )
+                                   
                           ),
-inverse = T)
+                          fluidRow(
+                            column(2),
+                            column(2, align = "center",
+                                   h4(strong("Graduate Fellow")), tags$br(),
+                                   tags$br(), img(src = "fellow-seth.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width="45%", height="45%"),
+                                   tags$br(), p(a(href = 'https://www.linkedin.com/in/aviseth/', 'Avi Seth', target = '_blank'), "(Virginia Tech, Computer Science)")
+                            ),
+                            column(2, align = "center",
+                                   h4(strong("Undergraduate Interns")), tags$br(),
+                                   img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                   p(a(href = 'https://www.linkedin.com/in/matthew-burkholder-297b9119a/', 'Matthew Burkholder', target = '_blank'), "(Virginia Tech, Philosophy, Politics, & Economics)"), tags$br(),
+                                   img(src = "VictorMukoraHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
+                                   p(a(href = "www.linkedin.com/in/victormukora", 'Victor Mukora', target = '_blank'), "(Virginia Tech, Department of Computational Modeling and Data Analytics)"), tags$br(),
+                                   img(src = "Christina_Prisbe_Headshot.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
+                                   p(a(href = "https://www.linkedin.com/in/christina-prisbe-60966b218/?midToken=AQGZJw6kSGscnQ&midSig=0iRgRUj5PNWpQ1&trk=eml-email_m2m_invite_single_01-hero-4-prof%7Ecta&trkEmail=eml-email_m2m_invite_single_01-hero-4-prof%7Ecta-null-ec0b8k%7Ekrp4eqqv%7E3v-null-neptune%2Fprofile%7Evanity%2Eview", 'Christina Prisbe', target = '_blank'), "(Virginia Tech, Department of Computational Modeling and Data Analytics)"), tags$br(),
+                                   img(src = "kwabe.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
+                                   p(a(href = "https://www.linkedin.com/in/kb1999/", 'Kwabe Boateng', target = '_blank'), "(Virginia State University, College of Engineering and Technology)"),
+                                   
+                            ),
+                            column(2, align = "center",
+                                   h4(strong("Faculty Advisors")), tags$br(),
+                                   img(src = "Dr_Holmes.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", height = "150px", width = "150px"),  tags$br(),
+                                   p(a(href = 'https://aaec.vt.edu/people/faculty/holmes-chanita.html', 'Dr. Chanita Holmes', target = '_blank'), "(Virginia Tech, Department of Agricultural and Applied Economics)"),  tags$br(),
+                                   img(src = "Dr_Bradburn.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", height = "150px", width = "150px"),  tags$br(),
+                                   p(a(href = 'https://liberalarts.vt.edu/departments-and-schools/department-of-human-development-and-family-science/faculty/isabel-bradburn.html', 'Dr. Isabel Bradburn', target = '_blank'), "(Virginia Tech, Department of Human Development and Family Science)"),  tags$br()
+                            ),
+                            
+                            column(2, align = "center",
+                                   h4(strong("Stakeholders")), tags$br(),
+                                   img(src = "MalloryTuttle.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
+                                   p(a(href = 'https://www.linkedin.com/in/mallory-taylor-tuttle/', 'Mallory Tuttle', target = '_blank'), "(Associate Director Virginia Tech Hampton Roads Centers)"), tags$br()
+                            )
+                            
+                          )
+                 ),
+                 inverse = T)
 
 # server -----------------------------------------------------------
 server <- function(input, output, session) {
@@ -1359,7 +1355,7 @@ server <- function(input, output, session) {
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
-
+    
     else if(var_genEducationalAttainment() == "2017") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2017.csv")
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2017.csv")
@@ -1388,7 +1384,7 @@ server <- function(input, output, session) {
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
-
+    
     else if(var_genEducationalAttainment() == "2016") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2016.csv")
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2016.csv")
@@ -1417,7 +1413,7 @@ server <- function(input, output, session) {
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
-
+    
     else if(var_genEducationalAttainment() == "2015") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2015.csv")
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2015.csv")
@@ -1446,7 +1442,7 @@ server <- function(input, output, session) {
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
-
+    
     else if(var_genEducationalAttainment() == "2014") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2014.csv")
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2014.csv")
@@ -1475,7 +1471,7 @@ server <- function(input, output, session) {
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
-
+    
     else if(var_genEducationalAttainment() == "2013") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2013.csv")
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2013.csv")
@@ -1504,7 +1500,7 @@ server <- function(input, output, session) {
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
-
+    
     else if(var_genEducationalAttainment() == "2012") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2012.csv")
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2012.csv")
@@ -1533,7 +1529,7 @@ server <- function(input, output, session) {
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
-
+    
     else if(var_genEducationalAttainment() == "2011") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2011.csv")
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2011.csv")
@@ -1562,8 +1558,8 @@ server <- function(input, output, session) {
         scale_fill_manual(values = c("#D55E00", "#0072B2"))
       ggplotly(va_tot_education_bar)
     }
-
-
+    
+    
     else if(var_genEducationalAttainment() == "2010") {
       generalEducationalAttainment <- read.csv("data/TableS1501FiveYearEstimates/generalEducationalAttainment2010.csv")
       generalBlackEducationalAttainment <-  read.csv("data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment2010.csv")
@@ -2180,12 +2176,12 @@ server <- function(input, output, session) {
   
   output$dropout_map <- renderLeaflet({ 
     grad_map <- basemap %>% 
-    addMinicharts(
-      rates$lon, rates$lat,
-      chartdata = rates[, c("Black Students", "All Students")],
-      time = rates$`Cohort Year`,
-      colorPalette = colors,
-    )
+      addMinicharts(
+        rates$lon, rates$lat,
+        chartdata = rates[, c("Black Students", "All Students")],
+        time = rates$`Cohort Year`,
+        colorPalette = colors,
+      )
   })
   # var_dropoutrate <- reactive({
   #   input$DropoutDropdown
@@ -3609,7 +3605,7 @@ server <- function(input, output, session) {
       
       ggplotly(uninsured_2012)
     }
-
+    
   })
   
   
@@ -3869,55 +3865,55 @@ server <- function(input, output, session) {
   
   
   output$homeownership_map <- renderLeaflet({
-      b_hm_19 <- read_rds("data/TableS2502FiveYearEstimates/bhmown2019.rds")
-      tot_hm_19 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2019.rds")
-      all_hm_data <- read_rds("data/TableS2502FiveYearEstimates/allhomedata.rds")
-      colnames(all_hm_data)[2] <- "Demographic"
+    b_hm_19 <- read_rds("data/TableS2502FiveYearEstimates/bhmown2019.rds")
+    tot_hm_19 <- read_rds("data/TableS2502FiveYearEstimates/tothmown2019.rds")
+    all_hm_data <- read_rds("data/TableS2502FiveYearEstimates/allhomedata.rds")
+    colnames(all_hm_data)[2] <- "Demographic"
+    
+    pick_n <- function(Locality){
+      dataFiltered <- filter(all_hm_data, NAME == Locality)
       
-      pick_n <- function(Locality){
-        dataFiltered <- filter(all_hm_data, NAME == Locality)
-        
-        hm_line <- ggplot(dataFiltered, aes(x = Year, y = Percent, color = Demographic, group = Demographic)) +
-          geom_line(position = "identity") +
-          theme(axis.text.x = element_text(angle = 40)) +
-          scale_fill_discrete(name = "", labels = c("Black Home Owners", "White Home Owners"))+
-          scale_fill_manual(values = c("#D55E00", "#0072B2")) +
-          theme(legend.position = "bottom") +
-          labs(title = Locality)
-
-        #ggplotly(hm_line)
-      }
+      hm_line <- ggplot(dataFiltered, aes(x = Year, y = Percent, color = Demographic, group = Demographic)) +
+        geom_line(position = "identity") +
+        theme(axis.text.x = element_text(angle = 40)) +
+        scale_fill_discrete(name = "", labels = c("Black Home Owners", "White Home Owners"))+
+        scale_fill_manual(values = c("#D55E00", "#0072B2")) +
+        theme(legend.position = "bottom") +
+        labs(title = Locality)
       
-      r <- lapply(1:length(unique(b_hm_19$NAME)), function(i){
-        pick_n(b_hm_19$NAME[i])
-      })
-      
-      pal <- colorNumeric(palette = "viridis", domain = b_hm_19$Percent, reverse = TRUE)
-      b_hmown_leaf_19 <- b_hm_19 %>%
-        leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
-        addProviderTiles("CartoDB.PositronNoLabels") %>% 
-        addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
-                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
-                    label = ~paste0(NAME,  " Black Homeowners: ", Percent, "%"), group = "Black Home Owners",
-                    popup = popupGraph(r)) %>% 
-        addPolygons(data = tot_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
-                    highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
-                    label = ~paste0(NAME,  " Total Homeowners: ", Percent, "%"), group = "Total Home Owners",
-                    popup = popupGraph(r)) %>% 
-        addLayersControl(
-          baseGroups = c("Total Home Owners"),
-          overlayGroups = c("Black Home Owners"),
-          options = layersControlOptions(collapsed = FALSE)) %>% 
-        hideGroup("Black Home Owners") %>% 
-        addLegend("topleft",
-                  pal = pal,
-                  values = ~ Percent,
-                  title = "Home Owners",
-                  labFormat = labelFormat(suffix = "%"),
-                  opacity = 1)
+      #ggplotly(hm_line)
+    }
+    
+    r <- lapply(1:length(unique(b_hm_19$NAME)), function(i){
+      pick_n(b_hm_19$NAME[i])
+    })
+    
+    pal <- colorNumeric(palette = "viridis", domain = b_hm_19$Percent, reverse = TRUE)
+    b_hmown_leaf_19 <- b_hm_19 %>%
+      leaflet(options = leafletOptions(minZoom = 5, maxZoom = 15, drag = FALSE)) %>% 
+      addProviderTiles("CartoDB.PositronNoLabels") %>% 
+      addPolygons(data = b_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                  highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                  label = ~paste0(NAME,  " Black Homeowners: ", Percent, "%"), group = "Black Home Owners",
+                  popup = popupGraph(r)) %>% 
+      addPolygons(data = tot_hm_19, color = ~ pal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0, 
+                  highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3), 
+                  label = ~paste0(NAME,  " Total Homeowners: ", Percent, "%"), group = "Total Home Owners",
+                  popup = popupGraph(r)) %>% 
+      addLayersControl(
+        baseGroups = c("Total Home Owners"),
+        overlayGroups = c("Black Home Owners"),
+        options = layersControlOptions(collapsed = FALSE)) %>% 
+      hideGroup("Black Home Owners") %>% 
+      addLegend("topleft",
+                pal = pal,
+                values = ~ Percent,
+                title = "Home Owners",
+                labFormat = labelFormat(suffix = "%"),
+                opacity = 1)
   })
   
-
+  
   # Household Wellbeing -----------------------------------------------------
   var_well <- reactive({
     input$select_wellbeing
@@ -4182,17 +4178,17 @@ server <- function(input, output, session) {
     }
   })
   
-
-# Ranked Graphs -----------------------------------------------------------
-
-dat <- read_csv("data/Dataset.csv")  
+  
+  # Ranked Graphs -----------------------------------------------------------
+  
+  dat <- read_csv("data/countyrankings.csv")  
   
   var_rank <- reactive({
     input$select_rank
   })
   
   output$ranked_chart <- renderPlotly({
-    if(input$select_rank() == "Median Income") {
+    if(var_rank() == "Median Income") {
       ranked_median <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, med.income),
                              y = med.income, fill = Counties)) + 
@@ -4206,7 +4202,7 @@ dat <- read_csv("data/Dataset.csv")
       ggplotly(ranked_median)
     }
     
-    else if(input$select_rank() == "Poverty Rate") {
+    else if(var_rank() == "Poverty Rate") {
       ranked_pov <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, 
                                          desc(pov.rate)),
@@ -4221,7 +4217,7 @@ dat <- read_csv("data/Dataset.csv")
       ggplotly(ranked_pov)
     }
     
-    else if(input$select_rank() == "Unemployment Rate"){
+    else if(var_rank() == "Unemployment Rate"){
       ranked_unemp <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, 
                                          desc(unemp)),
@@ -4236,7 +4232,7 @@ dat <- read_csv("data/Dataset.csv")
       ggplotly(ranked_unemp)
     }
     
-    else if(input$select_rank() == "Health Uninsured"){
+    else if(var_rank() == "Health Uninsured"){
       ranked_unins <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, 
                                          desc(uninsured)),
@@ -4251,7 +4247,7 @@ dat <- read_csv("data/Dataset.csv")
       ggplotly(ranked_unins)
     }
     
-    else if(input$select_rank() == "Home Ownership") {
+    else if(var_rank() == "Home Ownership") {
       ranked_hmown <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, 
                                          desc(homeownership)),
@@ -4266,7 +4262,7 @@ dat <- read_csv("data/Dataset.csv")
       ggplotly(ranked_hmown)
     }
     
-    else if(input$select_rank() == "Suspension") {
+    else if(var_rank() == "Suspension") {
       ranked_sus <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, 
                                          desc(suspension)),
@@ -4281,7 +4277,7 @@ dat <- read_csv("data/Dataset.csv")
       ggplotly(ranked_sus)
     }
     
-    else if(input$select_rank() == "Bachelors Degree") {
+    else if(var_rank() == "Bachelors Degree") {
       ranked_bach <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, 
                                          (bachelor)),
@@ -4296,7 +4292,7 @@ dat <- read_csv("data/Dataset.csv")
       ggplotly(ranked_bach)
     }
     
-    else if(input$select_rank() == "Percentage of Black Children under 18 in Female Headed Household") {
+    else if(var_rank() == "Percentage of Black Children under 18 in Female Headed Household") {
       ranked_fhoh <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, 
                                          desc(femalehead)),
@@ -4311,14 +4307,14 @@ dat <- read_csv("data/Dataset.csv")
       ggplotly(ranked_fhoh)
     }
     
-    else if(input$select_rank() == "Percent of Black Households without a computer") {
+    else if(var_rank() == "Percent of Black Households without a computer") {
       ranked_comp <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, 
                                          desc(nocomp)),
                              y = nocomp, fill = Counties)) + 
         geom_bar(stat = "identity", width = 0.7,
                  show.legend = FALSE) +
-        labs(title = "Percentage of Black Household without a computer",
+        labs(title = "Percentage of Black Households without a computer",
              x= "", y = "%") + 
         coord_flip() +
         theme_bw()
@@ -4326,7 +4322,7 @@ dat <- read_csv("data/Dataset.csv")
       ggplotly(ranked_comp)
     }
     
-    else if(input$select_rank() == "Percentage of Black Population that uses car/truck/van for work") {
+    else if(var_rank() == "Percentage of Black Population that uses car/truck/van for work") {
       ranked_car <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, 
                                          (car)),
@@ -4342,52 +4338,52 @@ dat <- read_csv("data/Dataset.csv")
     }
   })
   
-  var_rank_text <- reactive({
-    input$select_rank
-  })
+  # var_rank_text <- reactive({
+  #   input$select_rank
+  # })
+  # 
+  # output$ranked_text <- renderText ({
+  #   if(var_rank_text() == "Median Income") {
+  #     "Median Income Text"
+  #   }
+  #   
+  #   else if(var_rank_text() == "Poverty Rate") {
+  #     "Poverty Rate Text"
+  #   }
+  #   
+  #   else if(var_rank_text() == "Unemployment Rate") {
+  #     "Unemployment Rate Text"
+  #   }
+  #   
+  #   else if(var_rank_text() == "Health Uninsured") {
+  #     "Health Uninsured Text"
+  #   }
+  #   
+  #   else if(var_rank_text() == "Home Ownership") {
+  #     "Home Ownership Text"
+  #   }
+  #   
+  #   else if(var_rank_text() == "Suspension") {
+  #     "Suspension Text"
+  #   }
+  #   
+  #   else if(var_rank_text() == "Bachelors Degree") {
+  #     "Bachelors Degree"
+  #   }
+  #   
+  #   else if(var_rank_text() == "Percentage of Black Children under 18 in Female Headed Household") {
+  #     "Percentage of Black Children under 18 in Female Headed Household"
+  #   }
+  #   
+  #   else if(var_rank_text() == "Percent of Black Households without a computer") {
+  #     "Percent of Black Households without a computer"
+  #   }
+  #   
+  #   else if(var_rank_text() == "Percentage of Black Population that uses car/truck/van for work") {
+  #     "Percentage of Black Population that uses car/truck/van for work"
+  #   }
+  # })
   
-  output$ranked_text <- renderText ({
-    if(var_rank_text() == "Median Income") {
-      "Median Income Text"
-    }
-    
-    else if(var_rank_text() == "Poverty Rate") {
-      "Poverty Rate Text"
-    }
-    
-    else if(var_rank_text() == "Unemployment Rate") {
-      "Unemployment Rate Text"
-    }
-    
-    else if(var_rank_text() == "Health Uninsured") {
-      "Health Uninsured Text"
-    }
-    
-    else if(var_rank_text() == "Home Ownership") {
-      "Home Ownership Text"
-    }
-    
-    else if(var_rank_text() == "Suspension") {
-      "Suspension Text"
-    }
-    
-    else if(var_rank_text() == "Bachelors Degree") {
-      "Bachelors Degree"
-    }
-    
-    else if(var_rank_text() == "Percentage of Black Children under 18 in Female Headed Household") {
-      "Percentage of Black Children under 18 in Female Headed Household"
-    }
-    
-    else if(var_rank_text() == "Percent of Black Households without a computer") {
-      "Percent of Black Households without a computer"
-    }
-    
-    else if(var_rank_text() == "Percentage of Black Population that uses car/truck/van for work") {
-      "Percentage of Black Population that uses car/truck/van for work"
-    }
-  })
-
 }
 
 
