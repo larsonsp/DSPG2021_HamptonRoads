@@ -4,8 +4,8 @@ library(dplyr)
 
 #median income data------------------------------------------------------------
 #To get for 2020 change the year of the function and the year in the file name
-#to update bar graph in app.R add another if else statement for 2020 (set hamp_yr and va_yr to the two new 2020 files)
-#to update line graph copy and paste a section divided by hash tags and replace the year with 2020 and add median_income19 to income_years
+#to update bar graph in app.R add another if else statement for 2020 (set hamp_yr and va_yr to the two new 2020 files) (also add "2020" to the list of years in the drop down menu in the ui)
+#to update line graph copy and paste a section divided by hash tags and replace the year with 2020 and add median_income19 to income_years (update drop down menu)
 
 #VA data
 va_table <- function(varcode, year){
