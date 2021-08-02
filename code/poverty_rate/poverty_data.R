@@ -2,8 +2,9 @@ library(tidycensus)
 library(tidyverse)
 library(dplyr)
 
-#To update for 2020 just change the year in the function and file name
-#to update va and Hampton bar graph create a new hamp_poverty2020 file then in app.R add another if else statement and assign hamp_pov do the same for va_pov
+#To update for 2020 just change the year in the function and file name (make a va_poverty2020 and a hamp_poverty2020)
+#to update va and Hampton bar graph use the newly created hamp_poverty2020 in app.R add another if else statement and assign hamp_pov do the same for va_pov (va_pov and hamp_pov should
+#be assigned to va_poverty2020 and hamp_poverty2020 inside the if else statement)
 #to update county bar graph create a new hamp_poverty2020 file then in app.R add another if else statement and assign hamp_pov
 #note: need to update drop down menu by going to ui and finding the set up for poverty and then adding "2020" to the list of years in the drop down menu
 #to see how to update the gif got to poverty_gif.R
