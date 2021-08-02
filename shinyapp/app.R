@@ -567,8 +567,9 @@ ui <- navbarPage(title = "Hampton Roads",
                                                                      animate=animationOptions(interval = 1400)),
                                                 ),
                                                 tabPanel("Unemployment Rate Trends",
+                                                         p("", style = "padding-top:10px;"),
                                                          fluidRow(width=12, height=550,
-                                                                  img(src="unemployment_plot.gif", height = "800", width="1100")
+                                                                  img(src="updated_unemployment_plot.gif", height = "800", width="1100")
                                                                   
                                                          )
                                                 ))))
@@ -579,7 +580,7 @@ ui <- navbarPage(title = "Hampton Roads",
                             tabPanel("Poverty",
                                      fluidRow(
                                        p("", style = "padding-top:50px;"),
-                                       column(4, h4(strong ("How does poverty rate in Hampton Roads compare to all of Virginia?")), 
+                                       column(4, h4(strong ("How does the poverty rate in Hampton Roads compare to all of Virginia?")), 
                                               p("", style = "padding-top:10px;"),
                                               p("It is clear that regardless of location the Black population has borne a higher rate of poverty than other races by about 7-8 percentage points between 2012-2019. Still, Hampton Roads has endured somewhat higher rates over the years. In 2019, 11.3% of people in Hampton Roads were in poverty, 0.7 percentage points higher than in Virginia overall. And among the Black population, the gap (1.2 percentage points) was even wider. In 2012, the gaps were smaller, but since then has gotten wider, indicating a deterioration in economic circumstances, especially for the Black population."),
                                               p("", style = "padding-top:10px;"),
@@ -769,7 +770,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                    h4(strong("Undergraduate Interns")), tags$br(),
                                    img(src = "BurkholderHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"),
                                    p(a(href = 'https://www.linkedin.com/in/matthew-burkholder-297b9119a/', 'Matthew Burkholder', target = '_blank'), "(Virginia Tech, Philosophy, Politics, & Economics)"), tags$br(),
-                                   img(src = "VictorMukoraHeadshot.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
+                                   img(src = "teamMukorat.png", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
                                    p(a(href = "www.linkedin.com/in/victormukora", 'Victor Mukora', target = '_blank'), "(Virginia Tech, Department of Computational Modeling and Data Analytics)"), tags$br(),
                                    img(src = "Christina_Prisbe_Headshot.jpg", style = "display: inline; margin-right: 5px; border: 1px solid #C0C0C0;", width = "150px"), tags$br(),
                                    p(a(href = "https://www.linkedin.com/in/christina-prisbe-60966b218/?midToken=AQGZJw6kSGscnQ&midSig=0iRgRUj5PNWpQ1&trk=eml-email_m2m_invite_single_01-hero-4-prof%7Ecta&trkEmail=eml-email_m2m_invite_single_01-hero-4-prof%7Ecta-null-ec0b8k%7Ekrp4eqqv%7E3v-null-neptune%2Fprofile%7Evanity%2Eview", 'Christina Prisbe', target = '_blank'), "(Virginia Tech, Department of Computational Modeling and Data Analytics)"), tags$br(),
