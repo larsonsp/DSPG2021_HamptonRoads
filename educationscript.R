@@ -24,8 +24,9 @@ library(plotly)
 
 setwd("~/GitPractice/DSPG2021_HamptonRoads")
 
-#setting up the census key to retrieve ACS data
-census_api_key("5dff03cc06392730a33b6cc8b5f354730915dd20")
+#setting up the census key to retrieve ACS data (here you would use your own)
+#installing it as well so you don't have to keep reloading the key when you run the whole file
+census_api_key("5dff03cc06392730a33b6cc8b5f354730915dd20", install = TRUE)
 
 #code for getting tables
 #we used this table function to get the variable names in our function calls;
@@ -36,7 +37,7 @@ va_table <- function(varcode, year) {
                      table = varcode, year = year)) %>% drop_na()
 }
 
-#example of calling a table and seeing the rows/values and extracting variable names
+#example of calling a table (this is our economics table for the different sectors seen below) and seeing the rows/values and extracting variable names
 va_total2 = va_table("S1501", 2017)
 View(va_total2)
 
@@ -141,8 +142,9 @@ for (i in 1:length(years)) {
   black_total$BlackGeneral <- ((black_total$Male + black_total$Female)/black_total$Total) * 100
   
   #we write this to a csv for all the years
+  #this is automated for all the years so we only have to call it once and loop over all the years
+  #replace my directory with yours but keep the /shinyapp/data/... part the same, it is moving it to the actual shiny app data folder
   write_csv(black_total, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableC15002BFiveYearEstimates/generalBlackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
-  #black_total <- read.csv(paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableC15002BFiveYearEstimates/blackEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
 }
 
 #we didn't end up using these datasets in the www folder but these are just the male/female contrasts (not the total black population) for the same table
@@ -176,7 +178,6 @@ for (i in 1:length(years)) {
   
   write_csv(va_total2, file = paste("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/TableS1501FiveYearEstimates/generalEducationalAttainment", toString((years[i])),  ".csv", sep = ""))
 }
-
 
 
 
@@ -215,10 +216,12 @@ countyAndCities <- c("Chesapeake City Public Schools",
               "Southampton County Public Schools",
               "York County Public Schools")
 
+#reading in the original teacher racial breakdown sheet VDOE provided for us and filtering off of that to make our own dataset
 teacherByRace <- read_excel("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/teacherByRace.xlsx")
 teacherByRace <- as.data.frame(teacherByRace) 
 #filer only the school districts that correspond to those in Hampton Roads
 teacherByRace <- teacherByRace[which(teacherByRace$`Division Name` %in% countyAndCities), ]
+
 #if you'd like to see the data frame
 View(teacherByRace)
 
