@@ -301,25 +301,37 @@ ui <- navbarPage(title = "Hampton Roads",
                                             This allowed us to report demographic information for educators across the Hampton Roads region along with on-time graduation rate "), 
                                           br(), 
                                           img(src = 'kidscount.png', style = "display: inline; float: left;", width = "150px"),
-                                          p(strong("Kids Count"), "is a project of the", strong("Annie E. Casey foundation"), "produces an annual report that assess child well-being in the United States. 
+                                          p(strong("Kids Count"), "is a project of the", strong("Annie E. Casey Foundation"), "produces an annual report that assesses child well-being in the United States. 
                                             We use this data source to present information on short-term suspension by race for the counties and cities in the Hampton Roads region. ")) ,
                                    
                                    
                                    column(4,  
                                           h5(strong("Methodology")),
                                           p("We explore two main pillars to examine the economic and social well-being of the Black community in Hampton Roads."),
-                                          p(strong("Education:"), "We examine the disparities education by examining data surrounding educational attainment (high-school and college), educators by racial group, and suspension rate."),
-                                          img(src = 'education.png', style = "display: inline; float: left;"),
+                                          p(strong("Education:"), "Educational attainment is a major contributor to improving an individual’s economic well-being and standard of living. As such, we examine the disparities in educational attainment to determine the economic progress of the Black community.  
+                                          Specifically, we collected data on on-time high school graduation rates and bachelor’s degree attainment. We also include the racial/ethnic representation of educators. Research indicates some distinct, albeit small, advantages when black students are paired with a Black teacher [1]. Suspension rate was also included in our analysis as some students are more likely to be disciplined than others even for the same transgression (KIDS Count). 
+                                          Moreover, a higher suspension rate will limit educational attainment, given the negative effect on achievement [2].
+                                            "),
+                                          img(src = 'education.png',align="center", height = "300px", width="400px"),
+                                          p(tags$small("[1] Anna J. Egalitea, A.J. , Kisida B., & Winters, M.A. (2015), Economics of Education Review, 45, 44-52.")),
+                                          p(tags$small("[2] Noltemeyer, A. L., Ward, R. M., & Mcloughlin, C. (2015). Relationship between school suspension and student outcomes: A meta-analysis. School Psychology Review, 44(2), 224-240.")),
                                    ),
+                                   
                                    
                                    column(4,  
                                           p(),
                                           p(),
                                           p(),
-                                          p(strong("Economics:"), "We examine the wealth/income gap including homeownership, labor market characteristics, health behavior and the well-being of households (including number of female-headed household and the number of welfare recipients)."),
+                                          p(strong("Economics:"), "A major driver of economic growth and mobility is growth in labor, income, health, and wealth accumulation (homeownership). Thus, we examine median income, poverty rates, industry employment and unemployment rates, health insurance status, and homeownership rate for the Black and general population across the counties and cities in Hampton Roads [1]."),
+                                          p("To further assess economic progress, we included several characteristics to measure Black household’s well-being.  We included welfare measures (Food Stamps or SNAP recipients); family stability (female-headed household, marital rates, grandparents’ guardianship, and migration); transportation access (private and public transportation); and technology access (computer and internet access)."),
+                                          p(),
+                                          img(src = 'economic.png', align="center", height = "300px", width="400px"),
                                           p(),
                                           p(),
-                                          img(src = 'economic.png', style = "display: inline; float: left;", height = "300px"),
+                                          p("Lastly, we rank counties/cities based on several of our indicators. The idea is to determine whether the Black community was consistently underperforming in some localities in the Hampton Road region."),
+                                          p(),
+                                          p(tags$small("[1] Butler, S. M., Beach, W. W., & Winfree, P. L. (2008). Pathways to economic mobility: Key indicators. Economic mobility project.")),
+                                          
                                    )
                                    
                           )
@@ -339,9 +351,9 @@ ui <- navbarPage(title = "Hampton Roads",
                                               h4(strong("Who are the Educators in Hampton Roads?")),
                                               p("", style = "padding-top:10px;"),  
                                               p("The Black population overwhelmingly attends public schools, yet in most parts of the U.S., teachers are overwhelmingly White. The National Center for Education 
-						Statistics reports that about 79 percent of all U.S. public school teachers were non-hispanic White [1]. This trend is also reflected in the State of Virginia.   
+						Statistics reports that about 79 percent of all U.S. public school teachers were non-Hispanic White [1]. This trend is also reflected in the State of Virginia.   
             For the 2020-2021 academic year, the Virginia Department of Education released racial and ethnic breakdown for educators-administrators, teachers, and other pupil personnel- by school division.
-						These data enables examination of racial and ethnic representation to be matched within local school divisions. 
+						These data enable examination of racial and ethnic representation to be matched within local school divisions. 
            In 2020/21, 13 percent of public-school educators identified as Black, compared to a state rate of 19.9% Black population in 2019, a difference of almost seven percentage points [2]. "), 
                                               p("In 2019, 31% percent of the Hampton Roads population identified as Black.  Seven of the 16 localities (44%) reported rates of public school Black educator representation at or above the regional average, while another 7 reported rates less than 12%.  
 						Black educator representation ranged from high rates of 62.3% in Portsmouth and 55.8% in Franklin City to very low rates of 3.5% in Poquoson.  These percentages are reversed for White educators, with highs of 92.6% representation in Poquoson and lows of 34.6% and 40% respectively in Portsmouth and Franklin City."),   
@@ -364,7 +376,6 @@ ui <- navbarPage(title = "Hampton Roads",
                                        ))
                                      
                             ),
-                            
                             tabPanel("Educational Attainment",
                                      fluidRow(
                                        p("", style = "padding-top:40px;"),
@@ -421,13 +432,13 @@ ui <- navbarPage(title = "Hampton Roads",
                             tabPanel("Suspension",
                                      
                                      fluidRow(
-                                       p("", style = "padding-top:40px;"),
+                                       p("", style = "padding-top:60px;"),
                                        column(4, h4(strong("Who is Being Punished?")), 
                                               p("The Virginia Department of Education refers to students being barred from attending school for at most 10 days.  We collected short-term suspension rate by race from Kids COUNT, Annie E. Casey which is defined as the total number of offenders of a certain race divided by the total number of students of that race for each locality. Rates include students from grades K - 12."), 
                                               p("Across Virginia, from academic years 2014-15 to 2018-19, the Black student suspension rate was consistently more than eight percentage points higher than White and Hispanic student rates. Black students were suspended between a relative low of 12.0 % in 2018-19 and a high of 13.6 % in 2016-17. In contrast, the highest suspension rate for White and Hispanic students was 3.8 % and 3.9 % respectively, both in 2016-17."), 
-                                              p("Black student suspension rates in Hampton Roads were decidedly higher than for White students across all years examined. This is consistent even for area with low suspension rate - averaging rate across years, the lowest rate for Black students was 4.9% for Williamsburg-James City County which is contrast for White students which was 2.5%. On average, the White student suspension rate was 4.8%, almost a 9-point difference."), 
+                                              p("Black student suspension rates in Hampton Roads were decidedly higher than for White students across all years examined. This is consistent even for areas with low suspension rates - averaging rate across years, the lowest rate for Black students was 4.9% for Williamsburg-James City County which is in contrast to White students which was 2.5%. On average, the White student suspension rate was 4.8%, almost a 9-point difference."), 
                                               p("To illustrate gaps between Black and White student suspension rates over time, we plot the percentage point difference between Black and White rates for each Hampton Roads locality that reported more than two years of data for students of both races.  Most localities showed a Black-White student suspension gap rate of between 5 and 14 percentage points over this time period. "), 
-                                              p("Norfolk consistently showed the greatest racial suspension gap between students, ranging from a relative low of 12.8% in 2016-17, to a high gap of 14.1% in 2018-19.  York showed the smallest gap for three of the five years, followed by Gloucester for two years.")), 
+                                              p("Norfolk consistently showed the greatest racial suspension gap between students, ranging from a relative low of 12.8% in 2016-17 to a high gap of 14.1% in 2018-19.  York showed the smallest gap for three of the five years, followed by Gloucester for two years.")), 
                                        column(8,
                                               h1(strong("Short Term Suspension"), align = "center"),
                                               tabsetPanel(
@@ -462,6 +473,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                      
                             )
                  ),
+                 
                  
                  navbarMenu(title="Economics",
                             #Median Income
@@ -521,8 +533,8 @@ ui <- navbarPage(title = "Hampton Roads",
                                          However, for the other top employable industry, there are some slight variations across localities and time. 
                                          For example, in 2012, eight of the 16 localities top two sector was in retail trade. However, only two areas had retail trade in the top two industries indicating more economic diversity among the localities over time."),
                                               h5(strong ("Are there differences in the unemployment rate across localities?")),
-                                              p("The unemployment rate for the Black population in Hampton Roads tends to be greater than the average rate in Virginia, regardless of time period. For example, in 2019, Franklin-which had the highest unemployment 
-                                         rate in the region- the unemployment rate for the black community was 14.9 % compared with Virginia's average of 4.6%.  Moreover, regardless of localities, the Black community is more likely to be unemployed than the other residents.  In 2019, the Black population had a higher unemployment rate than their counterparts in very county and city in the Hampton Roads region, even in areas that were below the state's average (Gloucester)."),
+                                              p("The unemployment rate for the Black population in Hampton Roads tends to be greater than the average rate in Virginia, regardless of the time period. For example, in 2019, Franklin-which had the highest unemployment 
+                                         rate in the region- the unemployment rate for the black community was 14.9 % compared with Virginia's average of 4.6%.  Moreover, regardless of localities, the Black community is more likely to be unemployed than the other residents.  In 2019, the Black population had a higher unemployment rate than their counterparts in every county and city in the Hampton Roads region, even in areas that were below the state's average (Gloucester)."),
                                               p("While for some counties there has been a decline in unemployment rates across the decade (2010-2019) for Black households, there still exists some significant disparity for most counties/cities. One such example is Williamsburg County that in 2010 had a similar unemployment rate for both Blacks and the region residents, 6.0% and 6.1%, respectively. But by 2019, that gap widen significantly by 4.6 percentage points (the Black unemployment rate was 10.4% and the total population 5.8%)"),
                                               
                                               
@@ -561,6 +573,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                          )
                                                 ))))
                             ),  
+                            
                             
                             #Poverty Rate
                             tabPanel("Poverty",
@@ -701,24 +714,35 @@ ui <- navbarPage(title = "Hampton Roads",
                             
                  ),
                  
-                 tabPanel("Recommendations",
+                 
+                 tabPanel("Future Steps",
                           fluidRow(
                             p("", style = "padding-top:20px;"),
                             column(4, 
-                                   h2(strong("Recommendations")),
                                    p("", style = "padding-top:10px;"),
-                                   p("General Blurb")
+                                   h4(strong("Future Steps")),
+                                   p("", style = "padding-top:5px;"),
+                                   p("We provided graphs that rank selected education and economic indicators for each locality in Hampton Roads. We use the 2019 ACS 5-year estimates data to create these rankings. Users can select different indicators that present a bar graph that ranks each locality according to the specific indicator.  
+                                     We provided this information to determine whether there were some localities in the Hampton Roads region that the Black community was consistently underperforming.  Caution should be noted for the rankings for Poquoson and Mathews County due to the small area size and Black population for both localities. 
+                                     This has resulted in some outliers and unavailability of data for these two areas for majority of the indicators."), 
+                                   p("The rankings show that there are considerable variations across each county and city in the Hampton region. For instance, Black households seem to be less vulnerable in areas in technology access, welfare assistance, poverty, access to health insurance, and suspension rates in York County. However, they are extremely vulnerable in educational attainment and income/wealth accumulation (that is median income and homeownership).  
+                                     This trend is similar for all localities. In Chesapeake, there seems to be less vulnerability in areas of health insurance, transportation, technology access, unemployment, and poverty rate. On the other hand, there is a high vulnerability for income/wealth accumulation, welfare assistance, and educational attainment. Given that each jurisdiction in Hampton Roads has a separate municipality, it may be more insightful to analyze the rankings of the indicators within localities rather than making comparisons across localities to inform policymaking.  "),
+                                   p("The indicators that we have presented in our dashboard, along with the rankings, provide evidence that there are some areas that the Black community needs assistance with to improve economic and social well-being. Data-driven assistance programs in employment, obtaining health insurance, education, homeownership, and improving household stability can foster economic mobility in the Hampton Regions."),
+                                   p("For this project, we have provided a dashboard that shows a combined view of multiple indicators in two major areas: Education and Economics that collectively addresses the challenges facing the Black communities in the Hampton Region. However, given the substantial variations across localities, a future project would be to consider using the indicators provided to develop an economic and social vulnerability 
+                                     index specific for the Black community in the Hampton region. This future project could also include the other three pillars: Media, Art, and Entertainment, People and Values, and Politics and Justice to provide a robust and comprehensive index and dashboard for Black BRAND.")
                                    
                             ),
                             column(8,
                                    fluidPage(
                                      h1(strong("Hampton Roads Rankings"), align = "center"),
-                                     selectInput("select_rank", "Select Indicator:", width = "100%", choices = c("Median Income", "Poverty Rate", "Unemployment Rate", "Health Uninsured",
-                                                                                                                 "Home Ownership","Suspension", "Bachelors Degree",
+                                     selectInput("select_rank", "Select Indicator:", width = "100%", choices = c("Percentage of Black Students 25 yrs and over that have Bachelor's Degree or Higher",
+                                                                                                                 "Percentage of Black Students Suspended","Black Median Income", "Percentage of Black HomeOwners", 
+                                                                                                                 "Black Unemployment rate","Black Poverty rate", "Percent of Uninsured (Health) Black population", 
                                                                                                                  "Percentage of Black Children under 18 in Female Headed Household", 
-                                                                                                                 "Percent of Black Households without a computer", "Percentage of Black Population that uses car/truck/van for work")),
+                                                                                                                 "Percentage of Black Population that uses car/truck/van for work","Percent of Black Households without a computer")),
                                      withSpinner(plotlyOutput("ranked_chart")),
-                                     p(tags$small("Data Source: ACS 5 Year Estimates Tables: ")),
+                                     p(tags$small("*Note: Data missing for some localities ")),
+                                     p(tags$small("Data Source: 2019 ACS 5 Year Estimates Tables: C15002B, KIDS Count, S1903, S2505, S2301, S1701, S2701, S0901, S0802, S2802")),
                                      
                                    )
                             ))),
@@ -4188,28 +4212,28 @@ server <- function(input, output, session) {
   })
   
   output$ranked_chart <- renderPlotly({
-    if(var_rank() == "Median Income") {
+    if(var_rank() == "Black Median Income") {
       ranked_median <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, med.income),
                              y = med.income, fill = Counties)) + 
         geom_bar(stat = "identity", width = 0.7,
                  show.legend = FALSE) +
         coord_flip() + 
-        labs(title = "Black Median Income by County",
+        labs(title = "Black Median Income",
              x= "", y = "Median Income") + 
         theme_bw()
       
       ggplotly(ranked_median)
     }
     
-    else if(var_rank() == "Poverty Rate") {
+    else if(var_rank() == "Black Poverty rate") {
       ranked_pov <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, 
                                          desc(pov.rate)),
                              y = pov.rate, fill = Counties)) + 
         geom_bar(stat = "identity", width = 0.7,
                  show.legend = FALSE) +
-        labs(title = "Black Poverty rate by County",
+        labs(title = "Black Poverty rate",
              x= "", y = "%") + 
         coord_flip() + 
         theme_bw()
@@ -4217,14 +4241,14 @@ server <- function(input, output, session) {
       ggplotly(ranked_pov)
     }
     
-    else if(var_rank() == "Unemployment Rate"){
+    else if(var_rank() == "Black Unemployment rate"){
       ranked_unemp <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, 
                                          desc(unemp)),
                              y = unemp, fill = Counties)) + 
         geom_bar(stat = "identity", width = 0.7,
                  show.legend = FALSE) +
-        labs(title = "Black Unemployment rate by County",
+        labs(title = "Black Unemployment rate",
              x= "", y = "%") + 
         coord_flip() + 
         theme_bw()
@@ -4232,7 +4256,7 @@ server <- function(input, output, session) {
       ggplotly(ranked_unemp)
     }
     
-    else if(var_rank() == "Health Uninsured"){
+    else if(var_rank() == "Percent of Uninsured (Health) Black population"){
       ranked_unins <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, 
                                          desc(uninsured)),
@@ -4247,14 +4271,14 @@ server <- function(input, output, session) {
       ggplotly(ranked_unins)
     }
     
-    else if(var_rank() == "Home Ownership") {
+    else if(var_rank() == "Percentage of Black HomeOwners") {
       ranked_hmown <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, 
-                                         desc(homeownership)),
+                                         (homeownership)),
                              y = homeownership, fill = Counties)) + 
         geom_bar(stat = "identity", width = 0.7,
                  show.legend = FALSE) +
-        labs(title = "Percentage of Black Home Owners",
+        labs(title = "Percentage of Black HomeOwners",
              x= "", y = "%") + 
         coord_flip() +
         theme_bw()
@@ -4262,7 +4286,7 @@ server <- function(input, output, session) {
       ggplotly(ranked_hmown)
     }
     
-    else if(var_rank() == "Suspension") {
+    else if(var_rank() == "Percentage of Black Students Suspended") {
       ranked_sus <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, 
                                          desc(suspension)),
@@ -4277,7 +4301,7 @@ server <- function(input, output, session) {
       ggplotly(ranked_sus)
     }
     
-    else if(var_rank() == "Bachelors Degree") {
+    else if(var_rank() == "Percentage of Black Students 25 yrs and over that have Bachelor's Degree or Higher") {
       ranked_bach <- dat %>% 
         ggplot(data = ., aes(x = reorder(Counties, 
                                          (bachelor)),
@@ -4338,51 +4362,6 @@ server <- function(input, output, session) {
     }
   })
   
-  # var_rank_text <- reactive({
-  #   input$select_rank
-  # })
-  # 
-  # output$ranked_text <- renderText ({
-  #   if(var_rank_text() == "Median Income") {
-  #     "Median Income Text"
-  #   }
-  #   
-  #   else if(var_rank_text() == "Poverty Rate") {
-  #     "Poverty Rate Text"
-  #   }
-  #   
-  #   else if(var_rank_text() == "Unemployment Rate") {
-  #     "Unemployment Rate Text"
-  #   }
-  #   
-  #   else if(var_rank_text() == "Health Uninsured") {
-  #     "Health Uninsured Text"
-  #   }
-  #   
-  #   else if(var_rank_text() == "Home Ownership") {
-  #     "Home Ownership Text"
-  #   }
-  #   
-  #   else if(var_rank_text() == "Suspension") {
-  #     "Suspension Text"
-  #   }
-  #   
-  #   else if(var_rank_text() == "Bachelors Degree") {
-  #     "Bachelors Degree"
-  #   }
-  #   
-  #   else if(var_rank_text() == "Percentage of Black Children under 18 in Female Headed Household") {
-  #     "Percentage of Black Children under 18 in Female Headed Household"
-  #   }
-  #   
-  #   else if(var_rank_text() == "Percent of Black Households without a computer") {
-  #     "Percent of Black Households without a computer"
-  #   }
-  #   
-  #   else if(var_rank_text() == "Percentage of Black Population that uses car/truck/van for work") {
-  #     "Percentage of Black Population that uses car/truck/van for work"
-  #   }
-  # })
   
 }
 
