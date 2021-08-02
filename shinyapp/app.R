@@ -392,7 +392,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                                                 fluidRow(
                                                                   p("", style = "padding-top:10px;"),
                                                                   h4(strong("High School On-Time Graduation Rates in Hampton Roads"), align = "center"),
-                                                                  withSpinner(leafletOutput("dropout_map", width = "1000px")),
+                                                                  withSpinner(leafletOutput("dropout_map", width = "850px")),
                                                                   p(tags$small("Data Source: Virginia Department of Education")),
                                                                   
                                                                 ))
@@ -700,6 +700,31 @@ ui <- navbarPage(title = "Hampton Roads",
                             )
                             
                  ),
+                 
+                 tabPanel("Recommendations",
+                          fluidRow(
+                            p("", style = "padding-top:20px;"),
+                            column(4, 
+                                   h4(strong("Recommendations")),
+                                   p("", style = "padding-top:10px;"),
+                                   p("General Blurb"),
+                                   p("", style = "padding-top:20px;"),
+                                   tags$ul(
+                                     tags$li(("Hampton Roads Rankings Reveal:")),
+                                     p("", style = "padding-top:20px;"),
+                                     withSpinner(textOutput("ranked_text")))
+                          ),
+                          column(8,
+                                 fluidPage(
+                                   h1(strong("Hampton Roads Rankings"), align = "center"),
+                                   selectInput("select_rank", "Select Indicator:", width = "100%", choices = c("Median Income", "Poverty Rate", "Unemployment Rate", "Health Uninsured",
+                                                                                                                    "Home Ownership","Suspension", "Bachelors Degree",
+                                                                                                                    "Percentage of Black Children under 18 in Female Headed Household", "Percent of Black Households without a computer")),
+                                   withSpinner(plotlyOutput("ranked_chart")),
+                                   p(tags$small("Data Source: ACS 5 Year Estimates Tables: ")),
+                                   
+                                 )
+                          ))),
                  
                  tabPanel("Hampton Team", value = "team",
                          fluidRow(column(3),
@@ -2141,9 +2166,11 @@ server <- function(input, output, session) {
   })
   
   
-  # Dropout Rates -----------------------------------------------------------
+  # On Time Graduation Rates -----------------------------------------------------------
   # 
   rates <- read_csv("data/on_time_graduation.csv")
+  rates <- rates %>% 
+    na.omit(rates)
   
   basemap <- leaflet(width = "100%", height = "400px" ) %>% 
     addProviderTiles("CartoDB.Positron")
@@ -4154,6 +4181,30 @@ server <- function(input, output, session) {
     }
   })
   
+
+# Ranked Graphs -----------------------------------------------------------
+
+dat <- read_csv("data/Dataset.csv")  
+  
+  var_rank <- reactive({
+    input$select_rank
+  })
+  
+  output$ranked_chart <- renderPlotly({
+    if(input$select_rank() == "Median Income") {
+      ranked_median <- dat %>% 
+        ggplot(data = ., aes(x = reorder(Counties, med.income),
+                             y = med.income, fill = Counties)) + 
+        geom_bar(stat = "identity", width = 0.7,
+                 show.legend = FALSE) +
+        coord_flip() + 
+        labs(title = "Black Median Income by County",
+             x= "", y = "Median Income") + 
+        theme_bw()
+      
+      ggplotly(ranked_median)
+    }
+  })
   
 }
 
