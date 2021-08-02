@@ -683,7 +683,7 @@ ui <- navbarPage(title = "Hampton Roads",
                                               tags$ul(
                                                 tags$li(("The interactive map shows:")),
                                                 p("", style = "padding-top:20px;"),
-                                                textOutput("description_text"))
+                                                withSpinner(textOutput("description_text")))
                                        ),
                                        column(8,
                                               fluidPage(
@@ -3898,6 +3898,8 @@ server <- function(input, output, session) {
   output$wellbeing_maps <- renderLeaflet({
     if(var_well() == "Percent of Black Children under 18 in Female Head of Household") {
       fml <- read_rds("data/fml.rds")
+      fml <- fml %>% 
+        na.omit(fml)
       colnames(fml)[4] <- "Percent"
       fempal <- colorNumeric(palette = "viridis", domain = fml$Percent, reverse = TRUE)
       
@@ -3939,6 +3941,7 @@ server <- function(input, output, session) {
       
       mobile <- read_rds("data/mobile.rds")
       colnames(mobile)[4] <- "Percent"
+      colnames(mobile)[3] <- "Intra-County Migration"
       mobpal <- colorNumeric(palette = "viridis", domain = mobile$Percent, reverse = TRUE)
       
       mobile_map <- mobile %>% 
@@ -3946,11 +3949,11 @@ server <- function(input, output, session) {
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(color = ~ mobpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
-                    label = ~paste0(NAME, "", variable, ": ", Percent, "%")) %>% 
+                    label = ~paste0(NAME, "", "Intra-County Migration: ", Percent, "%")) %>% 
         addLegend("topleft",
                   pal = mobpal,
                   values = ~ Percent,
-                  title = "Mobility",
+                  title = "County Migration",
                   labFormat = labelFormat(suffix = "%"),
                   opacity = 1)
       
@@ -3960,6 +3963,7 @@ server <- function(input, output, session) {
       
       grand <- read_rds("data/grand.rds")
       colnames(grand)[4] <- "Percent"
+      colnames(grand)[3] <- "Grandparent Guardian"
       grandpal <- colorNumeric(palette = "viridis", domain = grand$Percent, reverse = TRUE)
       
       grand_map <- grand %>% 
@@ -3967,7 +3971,7 @@ server <- function(input, output, session) {
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(color = ~ grandpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
-                    label = ~paste0(NAME, " - ", variable, ": ", Percent, "%")) %>% 
+                    label = ~paste0(NAME, " - ", "Grandparent Guardian: ", Percent, "%")) %>% 
         addLegend("topleft",
                   pal = grandpal,
                   values = ~ Percent,
@@ -3986,7 +3990,7 @@ server <- function(input, output, session) {
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(color = ~ marriedpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
-                    label = ~paste0(NAME, " - ", variable, ": ", Percent, "%")) %>% 
+                    label = ~paste0(NAME, " - ", "Married: ", Percent, "%")) %>% 
         addLegend("topleft",
                   pal = marriedpal,
                   values = ~ Percent,
@@ -3997,7 +4001,10 @@ server <- function(input, output, session) {
     
     else if(var_well() == "Percent of Black Population that uses car/truck/van to get to work"){
       priv_trans <- read_rds("data/priv_trans.rds")
+      priv_trans <- priv_trans %>% 
+        na.omit(priv_trans)
       colnames(priv_trans)[4] <- "Percent"
+      colnames(priv_trans)[3] <- "Private Transport"
       priv_transpal <- colorNumeric(palette = "viridis", domain = priv_trans$Percent, reverse = TRUE)
       
       priv_trans_map <- priv_trans %>% 
@@ -4005,7 +4012,7 @@ server <- function(input, output, session) {
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(color = ~ priv_transpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
-                    label = ~paste0(NAME, " - ", variable, ": ", Percent, "%")) %>% 
+                    label = ~paste0(NAME, " - ", "Private Transport: ", Percent, "%")) %>% 
         addLegend("topleft",
                   pal = priv_transpal,
                   values = ~ Percent,
@@ -4016,7 +4023,10 @@ server <- function(input, output, session) {
     
     else if(var_well() == "Percent of Black Population that uses public transportation to get to work"){
       pub_trans <- read_rds("data/pub_trans.rds")
+      pub_trans <- pub_trans %>% 
+        na.omit(pub_trans)
       colnames(pub_trans)[4] <- "Percent"
+      colnames(pub_trans)[3] <- "Public Transport"
       pub_transpal <- colorNumeric(palette = "viridis", domain = pub_trans$Percent, reverse = TRUE)
       
       pub_trans_map <- pub_trans %>% 
@@ -4024,7 +4034,7 @@ server <- function(input, output, session) {
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(color = ~ pub_transpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
-                    label = ~paste0(NAME, " - ", variable, ": ", Percent, "%")) %>% 
+                    label = ~paste0(NAME, " - ", "Public Transport: ", Percent, "%")) %>% 
         addLegend("topleft",
                   pal = pub_transpal,
                   values = ~ Percent,
@@ -4037,6 +4047,7 @@ server <- function(input, output, session) {
     else if(var_well() == "Percent of Black Households with a computer with broadband internet"){
       compin <- read_rds("data/compin.rds")
       colnames(compin)[4] <- "Percent"
+      colnames(compin)[3] <- "Computer and Internet"
       compinpal <- colorNumeric(palette = "viridis", domain = compin$Percent, reverse = TRUE)
       
       compin_map <- compin %>% 
@@ -4044,7 +4055,7 @@ server <- function(input, output, session) {
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(color = ~ compinpal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
-                    label = ~paste0(NAME, " - ", variable, ": ", Percent, "%")) %>% 
+                    label = ~paste0(NAME, " - ", "Computer and Internet: ", Percent, "%")) %>% 
         addLegend("topleft",
                   pal = compinpal,
                   values = ~ Percent,
@@ -4056,6 +4067,7 @@ server <- function(input, output, session) {
     else if(var_well() == "Percent of Black Households without a computer"){
       nocomp <- read_rds("data/nocomp.rds")
       colnames(nocomp)[4] <- "Percent"
+      colnames(nocomp)[3] <- "No Computer"
       nocomppal <- colorNumeric(palette = "viridis", domain = nocomp$Percent, reverse = TRUE)
       
       nocomp_map <- nocomp %>% 
@@ -4063,7 +4075,7 @@ server <- function(input, output, session) {
         addProviderTiles("CartoDB.PositronNoLabels") %>% 
         addPolygons(color = ~ nocomppal(Percent), weight = 0.5, fillOpacity = 0.7, smoothFactor = 0,
                     highlightOptions = highlightOptions(bringToFront = TRUE, opacity = 1.5, weight = 3),
-                    label = ~paste0(NAME, " - ", variable, ": ", Percent, "%")) %>% 
+                    label = ~paste0(NAME, " - ", "No Computer: ", Percent, "%")) %>% 
         addLegend("topleft",
                   pal = nocomppal,
                   values = ~ Percent,
