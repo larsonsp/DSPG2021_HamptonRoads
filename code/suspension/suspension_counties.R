@@ -8,6 +8,10 @@ library(gridExtra)
 library(grid)
 library(extrafont)
 library(tidycensus)
+#to update make sure the new kids count data is loaded in the suspension file under the file name shortTermSuspension.xlsx 
+#in app.R add another section (between the hash tags with 2019 format) and replace "2018-2019" to the new name of the column (probably either AY 2019-2020 or just 2019-2020) 
+#make sure you add an if else statement and set year to 2019-2020 or AY 2019-2020. Also make sure to add "2020" to the list of years in the drop down menu in the ui
+
 
 #2018-2019 format
 year <- "2018-2019"
@@ -66,8 +70,6 @@ sus <- mutate(sus, Race = c(rep("Black",num), rep("White", num)))
 suspension_counties_plot <-
   ggplot(sus , aes(Location, y=`Percent (%)`, fill=Race)) +
   geom_bar(stat="identity", position=position_dodge())+
-  # geom_text(aes(label=paste0(round(`Percent (%)`, digits=1), "%")), vjust=1.5, color="white",
-  # position = position_dodge(0.9), size=3)+
   theme_minimal() +
   theme(plot.title = element_text(hjust = 0.5, size=25), legend.key.size = unit(1, 'cm'),
         legend.key.height = unit(0.3, 'cm'),
@@ -76,7 +78,6 @@ suspension_counties_plot <-
         legend.text = element_text(size=14),
         axis.text=element_text(size=12),
         axis.title.y = element_text(size=13),
-        #axis.text.x = element_text(size=10, face="bold"),
         axis.title=element_text(size=17),
         axis.title.x=element_blank()) +
   theme(axis.text.x = element_text(angle = 40, vjust = 0.95, hjust=1))+
@@ -98,6 +99,9 @@ table_plot <- tableGrob(display_table_final, rows = NULL)
 BW_map <- suspension_counties_plot
 ggplotly(BW_map)
 
+
+
+#use the section above when getting 2020 (it's the updated format)
 #the rest of the years format (just change the year variable to get a different year. It's in a loop in app.R)
 year <- "AY 2014-2015"
 suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
@@ -148,6 +152,7 @@ suspension_pct2$pct <- na_if(suspension_pct2$pct,0.00000)
 as.numeric(suspension_pct2$pct, na.rm = TRUE)
 pct_blck <-suspension_pct2[,c(2,7)]
 colnames(pct_blck) <- c("Location", "Percentage of Students (%)")
+
 sus <- rbind(pct_blck,pct_white3)
 num <- nrow(sus)/2
 sus <- mutate(sus, Race = c(rep("Black",num), rep("White", num)))
@@ -186,3 +191,6 @@ suspension_counties_plot <-
 #plot together
 BW_map <- suspension_counties_plot
 ggplotly(BW_map)
+
+#to see the tables
+#grid.arrange(suspensio_counties_plot, display_table)
