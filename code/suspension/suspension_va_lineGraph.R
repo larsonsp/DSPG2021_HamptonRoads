@@ -11,7 +11,7 @@ library(tidycensus)
 #to update make sure the new kids count data is loaded in the suspension file under the file name shortTermSuspension.xlsx and then add another section (between the hash tags with 2019 format)
 #and replace "2018-2019" to the new name of the column (probably either AY 2019-2020 or just 2019-2020) make sure to change 2019 to 2020 within the code
 #then add va_suspension_race20 to suspension_line 
-#do this in app.R also remeber to adjust the drop down menu in the ui by adding "2020" to the list of years
+#do this in app.R also remember to adjust the drop down menu in the ui by adding "2020" to the list of years
 
 #using the excel from the KIDS COUNT website for short term suspension
 year <- "2018-2019"
