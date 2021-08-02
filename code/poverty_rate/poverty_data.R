@@ -1,0 +1,34 @@
+library(tidycensus)
+library(tidyverse)
+library(dplyr)
+
+#To update for 2020 just change the year in the function and file name
+#to update va and Hampton bar graph create a new hamp_poverty2020 file then in app.R add another if else statement and assign hamp_pov do the same for va_pov
+#to update county bar graph create a new hamp_poverty2020 file then in app.R add another if else statement and assign hamp_pov
+
+#VA data
+va_table <- function(varcode, year){
+  data.frame(get_acs(geography = "state", state = 51,
+                     table = varcode,
+                     year = year))}
+
+va_pov <- va_table("S1701", 2019)
+write.csv(va_pov, file = "shinyapp/data/TableS1701FiveYearEstimates/va_poverty2019.csv")
+
+#Hampton data
+county_fips <- c(550, 620, 650, 700, 710, 735, 740, 800, 810,
+                 830, 073, 093, 095, 115, 175, 199)
+
+hamp_pov <- get_acs(geography = "county", state = 51,
+                    county = county_fips[1],
+                    table = "S1701",
+                    year = 2019)
+
+for(i in 2:length(county_fips)) {
+  tmp <- get_acs(geography = "county", state = 51,
+                 county = county_fips[i],
+                 table = "S1701",
+                 year = 2019)
+  hamp_pov <- rbind(hamp_pov, tmp)
+}
+write.csv(hamp_pov, file = "shiny/data/TableS1701FiveYearEstimates/hamp_poverty2019.csv")

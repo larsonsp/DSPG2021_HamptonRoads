@@ -2,6 +2,7 @@ library(tidycensus)
 library(tidyverse)
 library(dplyr)
 library(ggplot2)
+
 #hampton roads data change the year in the function and filename to get the other years
 county_fips <- c(550, 620, 650, 700, 710, 735, 740, 800, 810,
                  830, 073, 093, 095, 115, 175, 199)
