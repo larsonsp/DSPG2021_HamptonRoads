@@ -227,7 +227,7 @@ View(teacherByRace)
 
 
 
-#here we do all of our calculations for each race specified by that race's count over the total population of teachers for the corresponding city/county
+#here we do all of our calculations for each race specified by that race's count over the total population of teachers for the corresponding city/county and create new columns in the dataframe for it
 teacherByRace$BlackProportions <- (teacherByRace$Black/teacherByRace$`Total Counts`) * 100
 teacherByRace$AsianProportions <- (teacherByRace$Asian/teacherByRace$`Total Counts`) * 100
 teacherByRace$HispanicProportions <- (teacherByRace$Hispanic/teacherByRace$`Total Counts`) * 100
@@ -237,4 +237,7 @@ teacherByRace$TwoOrMoreRacesProportions <- (teacherByRace$`Two or More Races`/te
 teacherByRace$HawaiianProportions <- teacherByRace$`Hawaiian`/teacherByRace$`Total Counts`
 #remove city, county pubic schools label to keep graphs consistent
 teacherByRace <- teacherByRace %>% mutate(`Division Name` = str_remove(`Division Name`, "County Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City Public Schools")) %>% mutate(`Division Name` = str_remove(`Division Name`, "City"))
+
+#for whatever reason, York is duplicated in the final dataset we load into shiny so removing that last duplicate row for York (which is the last row) so we don't mess up the plotly graphs; could just as easily removed the last row but wanted to show why with this to make it more clear
+teacherByRace <- teacherByRace[!duplicated(teacherByRace), ]
 write_csv(teacherByRace, file = ("C:/Users/victo/OneDrive/Documents/GitPractice/DSPG2021_HamptonRoads/shinyapp/data/teacherByRacesBreakdown.csv"))
