@@ -719,7 +719,8 @@ ui <- navbarPage(title = "Hampton Roads",
                                    h1(strong("Hampton Roads Rankings"), align = "center"),
                                    selectInput("select_rank", "Select Indicator:", width = "100%", choices = c("Median Income", "Poverty Rate", "Unemployment Rate", "Health Uninsured",
                                                                                                                     "Home Ownership","Suspension", "Bachelors Degree",
-                                                                                                                    "Percentage of Black Children under 18 in Female Headed Household", "Percent of Black Households without a computer")),
+                                                                                                                    "Percentage of Black Children under 18 in Female Headed Household", 
+                                                                                                                    "Percent of Black Households without a computer", "Percentage of Black Population that uses car/truck/van for work")),
                                    withSpinner(plotlyOutput("ranked_chart")),
                                    p(tags$small("Data Source: ACS 5 Year Estimates Tables: ")),
                                    
@@ -4204,8 +4205,189 @@ dat <- read_csv("data/Dataset.csv")
       
       ggplotly(ranked_median)
     }
+    
+    else if(input$select_rank() == "Poverty Rate") {
+      ranked_pov <- dat %>% 
+        ggplot(data = ., aes(x = reorder(Counties, 
+                                         desc(pov.rate)),
+                             y = pov.rate, fill = Counties)) + 
+        geom_bar(stat = "identity", width = 0.7,
+                 show.legend = FALSE) +
+        labs(title = "Black Poverty rate by County",
+             x= "", y = "%") + 
+        coord_flip() + 
+        theme_bw()
+      
+      ggplotly(ranked_pov)
+    }
+    
+    else if(input$select_rank() == "Unemployment Rate"){
+      ranked_unemp <- dat %>% 
+        ggplot(data = ., aes(x = reorder(Counties, 
+                                         desc(unemp)),
+                             y = unemp, fill = Counties)) + 
+        geom_bar(stat = "identity", width = 0.7,
+                 show.legend = FALSE) +
+        labs(title = "Black Unemployment rate by County",
+             x= "", y = "%") + 
+        coord_flip() + 
+        theme_bw()
+      
+      ggplotly(ranked_unemp)
+    }
+    
+    else if(input$select_rank() == "Health Uninsured"){
+      ranked_unins <- dat %>% 
+        ggplot(data = ., aes(x = reorder(Counties, 
+                                         desc(uninsured)),
+                             y = uninsured, fill = Counties)) + 
+        geom_bar(stat = "identity", width = 0.7,
+                 show.legend = FALSE) +
+        labs(title = "Percent of Uninsured (Health) Black population",
+             x= "", y = "%") + 
+        coord_flip() +
+        theme_bw()
+      
+      ggplotly(ranked_unins)
+    }
+    
+    else if(input$select_rank() == "Home Ownership") {
+      ranked_hmown <- dat %>% 
+        ggplot(data = ., aes(x = reorder(Counties, 
+                                         desc(homeownership)),
+                             y = homeownership, fill = Counties)) + 
+        geom_bar(stat = "identity", width = 0.7,
+                 show.legend = FALSE) +
+        labs(title = "Percentage of Black Home Owners",
+             x= "", y = "%") + 
+        coord_flip() +
+        theme_bw()
+      
+      ggplotly(ranked_hmown)
+    }
+    
+    else if(input$select_rank() == "Suspension") {
+      ranked_sus <- dat %>% 
+        ggplot(data = ., aes(x = reorder(Counties, 
+                                         desc(suspension)),
+                             y = suspension, fill = Counties)) + 
+        geom_bar(stat = "identity", width = 0.7,
+                 show.legend = FALSE) +
+        labs(title = "Percentage of Black Students Suspended",
+             x= "", y = "%") + 
+        coord_flip() +
+        theme_bw()
+      
+      ggplotly(ranked_sus)
+    }
+    
+    else if(input$select_rank() == "Bachelors Degree") {
+      ranked_bach <- dat %>% 
+        ggplot(data = ., aes(x = reorder(Counties, 
+                                         (bachelor)),
+                             y = bachelor, fill = Counties)) + 
+        geom_bar(stat = "identity", width = 0.7,
+                 show.legend = FALSE) +
+        labs(title = "Percentage of Black Students 25 yrs and over that have Bachelor's Degree or Higher",
+             x= "", y = "%") + 
+        coord_flip() +
+        theme_bw()
+      
+      ggplotly(ranked_bach)
+    }
+    
+    else if(input$select_rank() == "Percentage of Black Children under 18 in Female Headed Household") {
+      ranked_fhoh <- dat %>% 
+        ggplot(data = ., aes(x = reorder(Counties, 
+                                         desc(femalehead)),
+                             y = femalehead, fill = Counties)) + 
+        geom_bar(stat = "identity", width = 0.7,
+                 show.legend = FALSE) +
+        labs(title = "Percentage of Black Children under 18 in Female Headed Household",
+             x= "", y = "%") + 
+        coord_flip() +
+        theme_bw()
+      
+      ggplotly(ranked_fhoh)
+    }
+    
+    else if(input$select_rank() == "Percent of Black Households without a computer") {
+      ranked_comp <- dat %>% 
+        ggplot(data = ., aes(x = reorder(Counties, 
+                                         desc(nocomp)),
+                             y = nocomp, fill = Counties)) + 
+        geom_bar(stat = "identity", width = 0.7,
+                 show.legend = FALSE) +
+        labs(title = "Percentage of Black Household without a computer",
+             x= "", y = "%") + 
+        coord_flip() +
+        theme_bw()
+      
+      ggplotly(ranked_comp)
+    }
+    
+    else if(input$select_rank() == "Percentage of Black Population that uses car/truck/van for work") {
+      ranked_car <- dat %>% 
+        ggplot(data = ., aes(x = reorder(Counties, 
+                                         (car)),
+                             y = car, fill = Counties)) + 
+        geom_bar(stat = "identity", width = 0.7,
+                 show.legend = FALSE) +
+        labs(title = "Percentage of Black Population that uses car/truck/van for work",
+             x= "", y = "%") + 
+        coord_flip() +
+        theme_bw()
+      
+      ggplotly(ranked_car)
+    }
   })
   
+  var_rank_text <- reactive({
+    input$select_rank
+  })
+  
+  output$ranked_text <- renderText ({
+    if(var_rank_text() == "Median Income") {
+      "Median Income Text"
+    }
+    
+    else if(var_rank_text() == "Poverty Rate") {
+      "Poverty Rate Text"
+    }
+    
+    else if(var_rank_text() == "Unemployment Rate") {
+      "Unemployment Rate Text"
+    }
+    
+    else if(var_rank_text() == "Health Uninsured") {
+      "Health Uninsured Text"
+    }
+    
+    else if(var_rank_text() == "Home Ownership") {
+      "Home Ownership Text"
+    }
+    
+    else if(var_rank_text() == "Suspension") {
+      "Suspension Text"
+    }
+    
+    else if(var_rank_text() == "Bachelors Degree") {
+      "Bachelors Degree"
+    }
+    
+    else if(var_rank_text() == "Percentage of Black Children under 18 in Female Headed Household") {
+      "Percentage of Black Children under 18 in Female Headed Household"
+    }
+    
+    else if(var_rank_text() == "Percent of Black Households without a computer") {
+      "Percent of Black Households without a computer"
+    }
+    
+    else if(var_rank_text() == "Percentage of Black Population that uses car/truck/van for work") {
+      "Percentage of Black Population that uses car/truck/van for work"
+    }
+  })
+
 }
 
 
