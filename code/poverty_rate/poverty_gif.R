@@ -1,8 +1,9 @@
 library(dplyr)
 library(ggplot2)
 library(gganimate)
+#to update the gif add a section (code between the hash tags from a year between 2015-2019) and change the year to 2020 then add pov20 to poverty_counties
 
-#getting hampton data from 2012-2019 (change the year in the functioin and in the filename)
+#getting hampton data from 2012-2019 (change the year in the function and in the file name)
 county_fips <- c(550, 620, 650, 700, 710, 735, 740, 800, 810,
                  830, 073, 093, 095, 115, 175, 199)
 
@@ -207,9 +208,10 @@ colnames(hamp_comb) <- c("Percentage (%)", "Location", "Demographic")
 pov12 <- mutate(hamp_comb, year = "2012")
 ######################################################################combining
 poverty_counties <- rbind(pov12, pov13, pov14, pov15, pov16, pov17, pov18)
-
 #makes a csv with all the years' data
 write.csv(poverty_counties, file = "data/TableS1701FiveYearEstimates/hamp_povertyGif.csv")
+
+
 #read in csv
 poverty_counties <- read.csv("data/TableS1701FiveYearEstimates/hamp_povertyGif.csv")
 poverty_counties$Location[poverty_counties$Location == "Franklin"] <- "Franklin City"

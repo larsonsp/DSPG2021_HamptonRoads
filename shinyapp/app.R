@@ -1834,9 +1834,6 @@ server <- function(input, output, session) {
   })
   
   
-  
-  
-  
   # Suspension for black and white (counties) ---------------------------------
   var_BWsuspension <- reactive({
     input$BWsuspensionYearDrop
