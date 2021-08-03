@@ -83,7 +83,13 @@ suspension_counties_plot <-
   theme(axis.text.x = element_text(angle = 40, vjust = 0.95, hjust=1))+
   scale_fill_manual(values=c("#D55E00","#0072B2")) +
   labs(x = "Location")
-#combining the tables (not use but can be used via grid.arrange to see the counties with NA, S, etc)
+
+#plot
+BW_map <- suspension_counties_plot
+ggplotly(BW_map)
+
+
+#combining the tables (not used but can be used via grid.arrange to see the counties with NA, S, etc)
 display_table <- rbind(display_tbl_white2, display_tbl_black2)
 na_rows <- display_table %>% filter(Data == "NA")
 supr_rows <- display_table %>% filter(Data == "S")
@@ -95,13 +101,11 @@ less_rows <- mutate(less_rows, Data = "less than 10")
 display_table_final <- rbind(na_rows, supr_rows, less_rows, other_rows)
 table_plot <- tableGrob(display_table_final, rows = NULL)
 
-#plot
-BW_map <- suspension_counties_plot
-ggplotly(BW_map)
+#to see the tables
+#grid.arrange(suspension_counties_plot, display_table)
 
 
-
-#use the section above when getting 2020 (it's the updated format)
+#use the section above when getting 2020 (it's the updated format)-------------------------------------------
 #the rest of the years format (just change the year variable to get a different year. It's in a loop in app.R)
 year <- "AY 2014-2015"
 suspension_data <- read_excel("data/suspension/kidsCountSuspension.xlsx")
@@ -193,4 +197,4 @@ BW_map <- suspension_counties_plot
 ggplotly(BW_map)
 
 #to see the tables
-#grid.arrange(suspensio_counties_plot, display_table)
+#grid.arrange(suspension_counties_plot, display_table)
