@@ -10,6 +10,7 @@ library(extrafont)
 library(tidycensus)
 #to update make sure the new kids count data is loaded in the suspension file under the file name shortTermSuspension.xlsx and then add another section (between the hash tags with 2019 format)
 #and replace "2018-2019" to the new name of the column (probably either AY 2019-2020 or just 2019-2020) then add sus20 to gap_data and then copy the form at under "Changing the strings" comment for 2020
+#do all of this in app.R. the code below just gives the set up of the code, so you can see how the graph would look before putting it in the app
 
 
 #reading in the excel from KIDS Count
