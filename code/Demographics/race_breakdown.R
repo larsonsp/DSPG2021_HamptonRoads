@@ -8,6 +8,8 @@ library(gridExtra)
 library(grid)
 library(Rcpp)
 library(forcats)
+#to update change the year in the two functions (va_table and the hamp_data loop)
+
 ##Race for VA
 va_table <- function(varcode, year){
   data.frame(get_acs(geography = "state", state = 51,
