@@ -786,7 +786,7 @@ server <- function(input, output, session) {
   
   #hampton roads map of counties -------------------------------------------
   output$hampton_counties_map <- renderPlot({
-    coord_data <- read_rds("data/TableB01001FiveYearEstimates/coordinates.rds")
+    coord_data <- read_rds("data/age/coordinates.rds")
     coord_data <- st_transform(coord_data)
     coordinates1 <- coord_data %>% group_by(NAME) %>% slice(1)
     coordinates2 <- coordinates1[,6]
@@ -969,34 +969,34 @@ server <- function(input, output, session) {
     #pal
     vir_pal <- c("#33638DFF", "#1F968BFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
     if(var_hampAge() == 2019){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2019.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2019.csv")
     }
     if(var_hampAge() == 2018){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2018.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2018.csv")
     }
     if(var_hampAge() == 2017){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2017.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2017.csv")
     }
     if(var_hampAge() == 2016){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2016.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2016.csv")
     }
     if(var_hampAge() == 2015){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2015.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2015.csv")
     }
     if(var_hampAge() == 2014){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2014.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2014.csv")
     }
     if(var_hampAge() == 2013){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2013.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2013.csv")
     }
     if(var_hampAge() == 2012){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2012.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2012.csv")
     }
     if(var_hampAge() == 2011){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2011.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2011.csv")
     }
     if(var_hampAge() == 2010){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2010.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2010.csv")
     }
     hamp_ages <- hamp_ages[,2:6]
     #total population in hampton Roads (1713267)
@@ -1071,34 +1071,34 @@ server <- function(input, output, session) {
     #pal
     vir_pal <- c("#33638DFF", "#1F968BFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
     if(var_VaAge() == 2019){
-      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2019.csv")
+      age1  <- read.csv("data/age/va_age2019.csv")
     }
     if(var_VaAge() == 2018){
-      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2018.csv")
+      age1  <- read.csv("data/age/va_age2018.csv")
     }
     if(var_VaAge() == 2017){
-      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2017.csv")
+      age1  <- read.csv("data/age/va_age2017.csv")
     }
     if(var_VaAge() == 2016){
-      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2016.csv")
+      age1  <- read.csv("data/age/va_age2016.csv")
     }
     if(var_VaAge() == 2015){
-      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2015.csv")
+      age1  <- read.csv("data/age/va_age2015.csv")
     }
     if(var_VaAge() == 2014){
-      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2014.csv")
+      age1  <- read.csv("data/age/va_age2014.csv")
     }
     if(var_VaAge() == 2013){
-      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2013.csv")
+      age1  <- read.csv("data/age/va_age2013.csv")
     }
     if(var_VaAge() == 2012){
-      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2012.csv")
+      age1  <- read.csv("data/age/va_age2012.csv")
     }
     if(var_VaAge() == 2011){
-      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2011.csv")
+      age1  <- read.csv("data/age/va_age2011.csv")
     }
     if(var_VaAge() == 2010){
-      age1  <- read.csv("data/TableB01001FiveYearEstimates/va_age2010.csv")
+      age1  <- read.csv("data/age/va_age2010.csv")
     }
     age1 <- age1[,2:6]
     va_total_pop<- age1[1,4]
@@ -1160,34 +1160,34 @@ server <- function(input, output, session) {
   
   output$age_map <- renderPlot({
     if(var_hampCountiesAge() == 2019){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2019.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2019.csv")
     }
     if(var_hampCountiesAge() == 2018){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2018.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2018.csv")
     }
     if(var_hampCountiesAge() == 2017){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2017.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2017.csv")
     }
     if(var_hampCountiesAge() == 2016){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2016.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2016.csv")
     }
     if(var_hampCountiesAge() == 2015){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2015.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2015.csv")
     }
     if(var_hampCountiesAge() == 2014){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2014.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2014.csv")
     }
     if(var_hampCountiesAge() == 2013){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2013.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2013.csv")
     }
     if(var_hampCountiesAge() == 2012){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2012.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2012.csv")
     }
     if(var_hampCountiesAge() == 2011){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2011.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2011.csv")
     }
     if(var_hampCountiesAge() == 2010){
-      hamp_ages  <- read.csv("data/TableB01001FiveYearEstimates/hamp_age2010.csv")
+      hamp_ages  <- read.csv("data/age/hamp_age2010.csv")
     }
     hamp_ages <- hamp_ages[,2:6]
     county_pop <- hamp_ages %>% group_by(NAME) %>%
@@ -1266,7 +1266,7 @@ server <- function(input, output, session) {
     general_county_alt2 <- cbind(general_county_alt2, lon, lat)
     colnames(general_county_alt2) <- c("A", "B","C","D", "E", "county", "lon", "lat")
     #Getting map data for counties in Hampton roads
-    coord_data <- read_rds("data/TableB01001FiveYearEstimates/coordinates.rds")
+    coord_data <- read_rds("data/age/coordinates.rds")
     coord_data <- st_transform(coord_data)
     coordinates1 <- coord_data %>% group_by(NAME) %>% slice(1)
     coordinates2 <- coordinates1[,6]
