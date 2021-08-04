@@ -824,34 +824,34 @@ server <- function(input, output, session) {
     vir_pal <- c("#33638DFF", "#1F968BFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
     
     if(var_hampRace() == 2019){
-      hamp_data <- read.csv("data/TableB02001FiveYearEstimates/hamp_race2019.csv")
+      hamp_data <- read.csv("data/race/hamp_race2019.csv")
     }
     if(var_hampRace() == 2018){
-      hamp_data <- read.csv("data/TableB02001FiveYearEstimates/hamp_race2018.csv")
+      hamp_data <- read.csv("data/race/hamp_race2018.csv")
     }
     if(var_hampRace() == 2017){
-      hamp_data <- read.csv("data/TableB02001FiveYearEstimates/hamp_race2017.csv")
+      hamp_data <- read.csv("data/race/hamp_race2017.csv")
     }
     if(var_hampRace() == 2016){
-      hamp_data <- read.csv("data/TableB02001FiveYearEstimates/hamp_race2016.csv")
+      hamp_data <- read.csv("data/race/hamp_race2016.csv")
     }
     if(var_hampRace() == 2015){
-      hamp_data <- read.csv("data/TableB02001FiveYearEstimates/hamp_race2015.csv")
+      hamp_data <- read.csv("data/race/hamp_race2015.csv")
     }
     if(var_hampRace() == 2014){
-      hamp_data <- read.csv("data/TableB02001FiveYearEstimates/hamp_race2014.csv")
+      hamp_data <- read.csv("data/race/hamp_race2014.csv")
     }
     if(var_hampRace() == 2013){
-      hamp_data <- read.csv("data/TableB02001FiveYearEstimates/hamp_race2013.csv")
+      hamp_data <- read.csv("data/race/hamp_race2013.csv")
     }
     if(var_hampRace() == 2012){
-      hamp_data <- read.csv("data/TableB02001FiveYearEstimates/hamp_race2012.csv")
+      hamp_data <- read.csv("data/race/hamp_race2012.csv")
     }
     if(var_hampRace() == 2011){
-      hamp_data <- read.csv("data/TableB02001FiveYearEstimates/hamp_race2011.csv")
+      hamp_data <- read.csv("data/race/hamp_race2011.csv")
     }
     if(var_hampRace() == 2010){
-      hamp_data <- read.csv("data/TableB02001FiveYearEstimates/hamp_race2010.csv")
+      hamp_data <- read.csv("data/race/hamp_race2010.csv")
     }
     hamp_data <- hamp_data[,2:6]
     #combining data from counties
@@ -901,34 +901,34 @@ server <- function(input, output, session) {
     #pal
     vir_pal <- c("#33638DFF", "#1F968BFF", "#29AF7FFF", "#73D055FF", "#FDE725FF")
     if(var_VaRace() == 2019){
-      races <- read.csv("data/TableB02001FiveYearEstimates/va_race2019.csv")
+      races <- read.csv("data/race/va_race2019.csv")
     }
     if(var_VaRace() == 2018){
-      races <- read.csv("data/TableB02001FiveYearEstimates/va_race2018.csv")
+      races <- read.csv("data/race/va_race2018.csv")
     }
     if(var_VaRace() == 2017){
-      races <- read.csv("data/TableB02001FiveYearEstimates/va_race2017.csv")
+      races <- read.csv("data/race/va_race2017.csv")
     }
     if(var_VaRace() == 2016){
-      races <- read.csv("data/TableB02001FiveYearEstimates/va_race2016.csv")
+      races <- read.csv("data/race/va_race2016.csv")
     }
     if(var_VaRace() == 2015){
-      races <- read.csv("data/TableB02001FiveYearEstimates/va_race2015.csv")
+      races <- read.csv("data/race/va_race2015.csv")
     }
     if(var_VaRace() == 2014){
-      races <- read.csv("data/TableB02001FiveYearEstimates/va_race2014.csv")
+      races <- read.csv("data/race/va_race2014.csv")
     }
     if(var_VaRace() == 2013){
-      races <- read.csv("data/TableB02001FiveYearEstimates/va_race2013.csv")
+      races <- read.csv("data/race/va_race2013.csv")
     }
     if(var_VaRace() == 2012){
-      races <- read.csv("data/TableB02001FiveYearEstimates/va_race2012.csv")
+      races <- read.csv("data/race/va_race2012.csv")
     }
     if(var_VaRace() == 2011){
-      races <- read.csv("data/TableB02001FiveYearEstimates/va_race2011.csv")
+      races <- read.csv("data/race/va_race2011.csv")
     }
     if(var_VaRace() == 2010){
-      races <- read.csv("data/TableB02001FiveYearEstimates/va_race2010.csv")
+      races <- read.csv("data/race/va_race2010.csv")
     }
     races <- races[,2:6]
     total <- races[1,4]
