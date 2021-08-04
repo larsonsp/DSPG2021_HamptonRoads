@@ -2973,24 +2973,24 @@ server <- function(input, output, session) {
   output$pov_plot <- renderPlot({
     if(var_poverty() %in% c("2019", "2018", "2017", "2016", "2015")){
       if(var_poverty() == "2019") { 
-        va_pov <- read.csv("data/TableS1701FiveYearEstimates/va_poverty2019.csv")
-        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2019.csv")
+        va_pov <- read.csv("data/poverty/va_poverty2019.csv")
+        hamp_pov <- read.csv("data/poverty/hamp_poverty2019.csv")
       }
       else if(var_poverty() == "2018") { 
-        va_pov <- read.csv("data/TableS1701FiveYearEstimates/va_poverty2018.csv")
-        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2018.csv")
+        va_pov <- read.csv("data/poverty/va_poverty2018.csv")
+        hamp_pov <- read.csv("data/poverty/hamp_poverty2018.csv")
       }
       else if(var_poverty() == "2017") { 
-        va_pov <- read.csv("data/TableS1701FiveYearEstimates/va_poverty2017.csv")
-        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2017.csv")
+        va_pov <- read.csv("data/poverty/va_poverty2017.csv")
+        hamp_pov <- read.csv("data/poverty/hamp_poverty2017.csv")
       }
       else if(var_poverty() == "2016") { 
-        va_pov <- read.csv("data/TableS1701FiveYearEstimates/va_poverty2016.csv")
-        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2016.csv")
+        va_pov <- read.csv("data/poverty/va_poverty2016.csv")
+        hamp_pov <- read.csv("data/poverty/hamp_poverty2016.csv")
       }
       else if(var_poverty() == "2015") { 
-        va_pov <- read.csv("data/TableS1701FiveYearEstimates/va_poverty2015.csv")
-        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2015.csv")
+        va_pov <- read.csv("data/poverty/va_poverty2015.csv")
+        hamp_pov <- read.csv("data/poverty/hamp_poverty2015.csv")
       }
       va_pov <- va_pov[,2:6]
       va_pct_pov <- va_pov[123,4]
@@ -3048,16 +3048,16 @@ server <- function(input, output, session) {
     #when table changes
     else if (var_poverty() %in% c("2014", "2013", "2012")){
       if(var_poverty() == "2014") { 
-        va_pov <- read.csv("data/TableS1701FiveYearEstimates/va_poverty2014.csv")
-        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2014.csv")
+        va_pov <- read.csv("data/poverty/va_poverty2014.csv")
+        hamp_pov <- read.csv("data/poverty/hamp_poverty2014.csv")
       }
       else if(var_poverty() == "2013") { 
-        va_pov <- read.csv("data/TableS1701FiveYearEstimates/va_poverty2013.csv")
-        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2013.csv")
+        va_pov <- read.csv("data/poverty/va_poverty2013.csv")
+        hamp_pov <- read.csv("data/poverty/hamp_poverty2013.csv")
       }
       else if(var_poverty() == "2012") { 
-        va_pov <- read.csv("data/TableS1701FiveYearEstimates/va_poverty2012.csv")
-        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2012.csv")
+        va_pov <- read.csv("data/poverty/va_poverty2012.csv")
+        hamp_pov <- read.csv("data/poverty/hamp_poverty2012.csv")
       }
       va_pov <- va_pov[,2:6]
       #General
@@ -3126,19 +3126,19 @@ server <- function(input, output, session) {
   output$counties_pov <- renderPlotly({
     if( var_povertyCount() %in% c("2019", "2018", "2017", "2016", "2015")){
       if( var_povertyCount() == "2019") { 
-        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2019.csv")
+        hamp_pov <- read.csv("data/poverty/hamp_poverty2019.csv")
       }
       else if( var_povertyCount() == "2018") { 
-        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2018.csv")
+        hamp_pov <- read.csv("data/poverty/hamp_poverty2018.csv")
       }
       else if( var_povertyCount() == "2017") { 
-        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2017.csv")
+        hamp_pov <- read.csv("data/poverty/hamp_poverty2017.csv")
       }
       else if( var_povertyCount() == "2016") { 
-        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2016.csv")
+        hamp_pov <- read.csv("data/poverty/hamp_poverty2016.csv")
       }
       else if( var_povertyCount() == "2015") { 
-        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2015.csv")
+        hamp_pov <- read.csv("data/poverty/hamp_poverty2015.csv")
       }
       hamp_pov <- hamp_pov[,2:6]
       hamp_pov_tbl <- hamp_pov %>%
@@ -3184,13 +3184,13 @@ server <- function(input, output, session) {
     #when table changes
     else if (var_povertyCount() %in% c("2014", "2013", "2012")){
       if( var_povertyCount() == "2014") { 
-        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2014.csv")
+        hamp_pov <- read.csv("data/poverty/hamp_poverty2014.csv")
       }
       else if( var_povertyCount() == "2013") { 
-        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2013.csv")
+        hamp_pov <- read.csv("data/poverty/hamp_poverty2013.csv")
       }
       else if( var_povertyCount() == "2012") { 
-        hamp_pov <- read.csv("data/TableS1701FiveYearEstimates/hamp_poverty2012.csv")
+        hamp_pov <- read.csv("data/poverty/hamp_poverty2012.csv")
       }
       hamp_pov <- hamp_pov[,2:6]
       hamp_pov_tbl <- hamp_pov %>%
