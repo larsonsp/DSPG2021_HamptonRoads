@@ -2053,16 +2053,16 @@ server <- function(input, output, session) {
   output$income_plot <- renderPlot({
     if(var_medianIncome() %in% c("2019", "2018", "2017")){
       if(var_medianIncome() == "2019") { 
-        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2019.csv")
-        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2019.csv")
+        va_yr <- read.csv("data/income/va_income2019.csv")
+        hamp_yr <- read.csv("data/income/hampton_income2019.csv")
       }
       else if(var_medianIncome() == "2018") { 
-        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2018.csv")
-        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2018.csv")
+        va_yr <- read.csv("data/income/va_income2018.csv")
+        hamp_yr <- read.csv("data/income/hampton_income2018.csv")
       }
       else if(var_medianIncome() == "2017") { 
-        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2017.csv")
-        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2017.csv")
+        va_yr <- read.csv("data/income/va_income2017.csv")
+        hamp_yr <- read.csv("data/income/hampton_income2017.csv")
       }
       va_yr <- va_yr[2:6]
       race_names <- c("Total", "Black")
@@ -2114,35 +2114,35 @@ server <- function(input, output, session) {
     else if (var_medianIncome() %in% c("2016", "2015", "2014", "2013", "2012", "2011", "2010")){
       
       if(var_medianIncome() == "2016") { 
-        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2016.csv")
-        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2016.csv")
+        va_yr <- read.csv("data/income/va_income2016.csv")
+        hamp_yr <- read.csv("data/income/hampton_income2016.csv")
       }
       else if(var_medianIncome() == "2015") { 
-        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2015.csv")
-        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2015.csv")
+        va_yr <- read.csv("data/income/va_income2015.csv")
+        hamp_yr <- read.csv("data/income/hampton_income2015.csv")
       }
       else if(var_medianIncome() == "2014") { 
-        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2014.csv")
-        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2014.csv")
+        va_yr <- read.csv("data/income/va_income2014.csv")
+        hamp_yr <- read.csv("data/income/hampton_income2014.csv")
       }
       else if(var_medianIncome() == "2013") { 
-        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2013.csv")
-        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2013.csv")
+        va_yr <- read.csv("data/income/va_income2013.csv")
+        hamp_yr <- read.csv("data/income/hampton_income2013.csv")
       }
       else if(var_medianIncome() == "2012") { 
-        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2012.csv")
-        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2012.csv")
+        va_yr <- read.csv("data/income/va_income2012.csv")
+        hamp_yr <- read.csv("data/income/hampton_income2012.csv")
       }
       else if(var_medianIncome() == "2011") { 
-        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2011.csv")
-        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2011.csv")
+        va_yr <- read.csv("data/income/va_income2011.csv")
+        hamp_yr <- read.csv("data/income/hampton_income2011.csv")
       }
       else if(var_medianIncome() == "2010") { 
-        va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2010.csv")
-        hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2010.csv")
+        va_yr <- read.csv("data/income/va_income2010.csv")
+        hamp_yr <- read.csv("data/income/hampton_income2010.csv")
       }
       
-      va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2016.csv")
+      va_yr <- read.csv("data/income/va_income2016.csv")
       va_yr <- va_yr[,2:6]
       #income by Race
       race_names <- c("Total", "Black")
@@ -2196,7 +2196,7 @@ server <- function(input, output, session) {
   # Median Income line plots -------------------------------------------------
   
   output$medianTimeGraph <- renderPlot ({
-    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2019.csv")
+    va_yr <- read.csv("data/income/va_income2019.csv")
     va_yr <- va_yr[2:6]
     race_names <- c("Total", "Black")
     #median income
@@ -2204,7 +2204,7 @@ server <- function(input, output, session) {
     va_race_income <- data.frame(cbind(race_names, va_race_income_median))
     colnames(va_race_income) <- c("Race", "Median Income")
     #Hampton Income
-    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2019.csv")
+    hamp_yr <- read.csv("data/income/hampton_income2019.csv")
     hamp_yr <- hamp_yr[2:6]
     #getting the name, variable and estimate
     hamp_income2 <- hamp_yr[,2:4]
@@ -2228,7 +2228,7 @@ server <- function(input, output, session) {
     colnames(median_income19) <- c("Median Income (US Dollars)", "Location", "Demographic")
     median_income19 <- mutate(median_income19, Year = "2019")
     ############################################################################2018
-    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2018.csv")
+    va_yr <- read.csv("data/income/va_income2018.csv")
     va_yr <- va_yr[2:6]
     race_names <- c("Total", "Black")
     #median income
@@ -2236,7 +2236,7 @@ server <- function(input, output, session) {
     va_race_income <- data.frame(cbind(race_names, va_race_income_median))
     colnames(va_race_income) <- c("Race", "Median Income")
     #Hampton Income
-    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2018.csv")
+    hamp_yr <- read.csv("data/income/hampton_income2018.csv")
     hamp_yr <- hamp_yr[2:6]
     #getting the name, variable and estimate
     hamp_income2 <- hamp_yr[,2:4]
@@ -2260,7 +2260,7 @@ server <- function(input, output, session) {
     colnames(median_income18) <- c("Median Income (US Dollars)", "Location", "Demographic")
     median_income18 <- mutate(median_income18, Year = "2018")
     ############################################################################2017
-    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2017.csv")
+    va_yr <- read.csv("data/income/va_income2017.csv")
     va_yr <- va_yr[2:6]
     race_names <- c("Total", "Black")
     #median income
@@ -2268,7 +2268,7 @@ server <- function(input, output, session) {
     va_race_income <- data.frame(cbind(race_names, va_race_income_median))
     colnames(va_race_income) <- c("Race", "Median Income")
     #Hampton Income
-    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2017.csv")
+    hamp_yr <- read.csv("data/income/hampton_income2017.csv")
     hamp_yr <- hamp_yr[2:6]
     #getting the name, variable and estimate
     hamp_income2 <- hamp_yr[,2:4]
@@ -2292,14 +2292,14 @@ server <- function(input, output, session) {
     colnames(median_income17) <- c("Median Income (US Dollars)", "Location", "Demographic")
     median_income17 <- mutate(median_income17, Year = "2017")
     ###########################################################################2016
-    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2016.csv")
+    va_yr <- read.csv("data/income/va_income2016.csv")
     va_yr <- va_yr[,2:6]
     race_names <- c("Total", "Black")
     va_race_income_median <- data.frame(va_yr[c(31,33), 4])
     va_race_income <- data.frame(cbind(race_names, va_race_income_median))
     colnames(va_race_income) <- c("Race", "Median Income")
     #Hampton Income
-    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2016.csv")
+    hamp_yr <- read.csv("data/income/hampton_income2016.csv")
     hamp_yr <- hamp_yr[,2:6]
     #getting the name, variable and estimate
     hamp_income2 <- hamp_yr[,2:4]
@@ -2322,14 +2322,14 @@ server <- function(input, output, session) {
     colnames(median_income16) <- c("Median Income (US Dollars)", "Location", "Demographic")
     median_income16 <- mutate(median_income16, Year = "2016")
     ###########################################################################2016
-    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2015.csv")
+    va_yr <- read.csv("data/income/va_income2015.csv")
     va_yr <- va_yr[,2:6]
     race_names <- c("Total", "Black")
     va_race_income_median <- data.frame(va_yr[c(31,33), 4])
     va_race_income <- data.frame(cbind(race_names, va_race_income_median))
     colnames(va_race_income) <- c("Race", "Median Income")
     #Hampton Income
-    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2015.csv")
+    hamp_yr <- read.csv("data/income/hampton_income2015.csv")
     hamp_yr <- hamp_yr[,2:6]
     #getting the name, variable and estimate
     hamp_income2 <- hamp_yr[,2:4]
@@ -2352,14 +2352,14 @@ server <- function(input, output, session) {
     colnames(median_income15) <- c("Median Income (US Dollars)", "Location", "Demographic")
     median_income15 <- mutate(median_income15, Year = "2015")
     ###########################################################################2014
-    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2014.csv")
+    va_yr <- read.csv("data/income/va_income2014.csv")
     va_yr <- va_yr[,2:6]
     race_names <- c("Total", "Black")
     va_race_income_median <- data.frame(va_yr[c(31,33), 4])
     va_race_income <- data.frame(cbind(race_names, va_race_income_median))
     colnames(va_race_income) <- c("Race", "Median Income")
     #Hampton Income
-    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2014.csv")
+    hamp_yr <- read.csv("data/income/hampton_income2014.csv")
     hamp_yr <- hamp_yr[,2:6]
     #getting the name, variable and estimate
     hamp_income2 <- hamp_yr[,2:4]
@@ -2382,14 +2382,14 @@ server <- function(input, output, session) {
     colnames(median_income14) <- c("Median Income (US Dollars)", "Location", "Demographic")
     median_income14 <- mutate(median_income14, Year = "2014")
     ###########################################################################2013
-    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2013.csv")
+    va_yr <- read.csv("data/income/va_income2013.csv")
     va_yr <- va_yr[,2:6]
     race_names <- c("Total", "Black")
     va_race_income_median <- data.frame(va_yr[c(31,33), 4])
     va_race_income <- data.frame(cbind(race_names, va_race_income_median))
     colnames(va_race_income) <- c("Race", "Median Income")
     #Hampton Income
-    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2013.csv")
+    hamp_yr <- read.csv("data/income/hampton_income2013.csv")
     hamp_yr <- hamp_yr[,2:6]
     #getting the name, variable and estimate
     hamp_income2 <- hamp_yr[,2:4]
@@ -2412,14 +2412,14 @@ server <- function(input, output, session) {
     colnames(median_income13) <- c("Median Income (US Dollars)", "Location", "Demographic")
     median_income13 <- mutate(median_income13, Year = "2013")
     ############################################################################2012
-    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2012.csv")
+    va_yr <- read.csv("data/income/va_income2012.csv")
     va_yr <- va_yr[,2:6]
     race_names <- c("Total", "Black")
     va_race_income_median <- data.frame(va_yr[c(31,33), 4])
     va_race_income <- data.frame(cbind(race_names, va_race_income_median))
     colnames(va_race_income) <- c("Race", "Median Income")
     #Hampton Income
-    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2012.csv")
+    hamp_yr <- read.csv("data/income/hampton_income2012.csv")
     hamp_yr <- hamp_yr[,2:6]
     #getting the name, variable and estimate
     hamp_income2 <- hamp_yr[,2:4]
@@ -2442,14 +2442,14 @@ server <- function(input, output, session) {
     colnames(median_income12) <- c("Median Income (US Dollars)", "Location", "Demographic")
     median_income12 <- mutate(median_income12, Year = "2012")
     ###########################################################################2011
-    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2011.csv")
+    va_yr <- read.csv("data/income/va_income2011.csv")
     va_yr <- va_yr[,2:6]
     race_names <- c("Total", "Black")
     va_race_income_median <- data.frame(va_yr[c(31,33), 4])
     va_race_income <- data.frame(cbind(race_names, va_race_income_median))
     colnames(va_race_income) <- c("Race", "Median Income")
     #Hampton Income
-    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2011.csv")
+    hamp_yr <- read.csv("data/income/hampton_income2011.csv")
     hamp_yr <- hamp_yr[,2:6]
     #getting the name, variable and estimate
     hamp_income2 <- hamp_yr[,2:4]
@@ -2472,14 +2472,14 @@ server <- function(input, output, session) {
     colnames(median_income11) <- c("Median Income (US Dollars)", "Location", "Demographic")
     median_income11 <- mutate(median_income11, Year = "2011")
     ###########################################################################2010
-    va_yr <- read.csv("data/TableS1903FiveYearEstimates/va_income2010.csv")
+    va_yr <- read.csv("data/income/va_income2010.csv")
     va_yr <- va_yr[,2:6]
     race_names <- c("Total", "Black")
     va_race_income_median <- data.frame(va_yr[c(31,33), 4])
     va_race_income <- data.frame(cbind(race_names, va_race_income_median))
     colnames(va_race_income) <- c("Race", "Median Income")
     #Hampton Income
-    hamp_yr <- read.csv("data/TableS1903FiveYearEstimates/hampton_income2010.csv")
+    hamp_yr <- read.csv("data/income/hampton_income2010.csv")
     hamp_yr <- hamp_yr[,2:6]
     #getting the name, variable and estimate
     hamp_income2 <- hamp_yr[,2:4]
